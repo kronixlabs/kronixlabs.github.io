@@ -1,225 +1,752 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kronix EAA Framework™ | Arquitectura Empresarial en IA | KRONIX Labs</title>
-<meta name="description" content="Metodología propietaria de KRONIX Labs para diseñar e implementar arquitectura empresarial con inteligencia artificial de forma estructurada y escalable.">
+<!-- ✅ SEO Primario -->
+<title>Kronix EAA Framework™ | Metodología de Arquitectura Empresarial con IA | KRONIX Labs</title>
+<meta name="description" content="Metodología propietaria de KRONIX Labs para diseñar e implementar arquitectura empresarial con IA. 5 capas estructuradas: estrategia, procesos, sistemas IA, gobernanza y escalabilidad.">
+<meta name="keywords" content="Kronix EAA Framework, metodología arquitectura IA, framework automatización empresarial, sistema inteligente estructurado, consultoría IA LATAM, KRONIX Labs framework">
+<meta name="author" content="KRONIX Labs by jurion">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1FA2FF">
 
+<!-- ✅ Canonical + Hreflang -->
 <link rel="canonical" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html">
 <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html">
 
-<link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
+<!-- ✅ Favicon -->
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../favicon.svg">
 
+<!-- ✅ Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:title" content="Kronix EAA Framework™ | Metodología de Arquitectura Empresarial con IA">
+<meta property="og:description" content="La metodología propietaria de KRONIX Labs para implementar IA empresarial de forma estructurada. 5 capas que convierten automatización en ventaja competitiva real.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kronix EAA Framework™ — KRONIX Labs">
+<meta property="og:url" content="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html">
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kronix EAA Framework™ | Arquitectura Empresarial con IA">
+<meta name="twitter:description" content="Metodología propietaria de 5 capas para implementar IA empresarial estructurada. KRONIX Labs, Medellín.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta name="twitter:image:alt" content="Kronix EAA Framework™ — KRONIX Labs">
+
+<!-- ✅ Performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
-theme: {
-extend: {
-colors: {
-kronixBlue: '#1FA2FF',
-kronixDark: '#0B0F2B',
-kronixGray: '#C7C9D3'
-}
-}
-}
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixDeep: '#070A1E',
+        kronixGray: '#C7C9D3'
+      }
+    }
+  }
 }
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- ✅ Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', {
+    page_title: 'Framework EAA ES',
+    page_location: window.location.href
+  });
+
+  let scrollMilestones = {25: false, 50: false, 75: false, 90: false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    for (let m in scrollMilestones) {
+      if (pct >= m && !scrollMilestones[m]) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { event_category: 'Engagement', event_label: m + '%', value: parseInt(m) });
+      }
+    }
+  }, { passive: true });
+
+  let startTime = Date.now();
+  window.addEventListener('beforeunload', function() {
+    gtag('event', 'time_on_page', { event_category: 'Engagement', value: Math.round((Date.now() - startTime) / 1000) });
+  });
+</script>
+
+<!-- ✅ Schema JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html#service",
+      "name": "Kronix EAA Framework™",
+      "alternateName": "Enterprise AI Architecture Framework",
+      "description": "Metodología propietaria de KRONIX Labs para diseñar e implementar arquitectura empresarial con inteligencia artificial de forma estructurada, escalable y gobernada.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://kronixlabs.github.io/#organization",
+        "name": "KRONIX Labs"
+      },
+      "serviceType": "Metodología de Arquitectura IA Empresarial"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://kronixlabs.github.io/es/" },
+        { "@type": "ListItem", "position": 2, "name": "Framework", "item": "https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html" }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- ✅ Critical CSS -->
+<style>
+  body { background-color: #0B0F2B; color: #fff; font-family: 'Montserrat', sans-serif; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,162,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(31,162,255,0.35); }
+    50%       { box-shadow: 0 0 0 12px rgba(31,162,255,0); }
+  }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .d1 { animation-delay: 0.10s; }
+  .d2 { animation-delay: 0.25s; }
+  .d3 { animation-delay: 0.40s; }
+  .d4 { animation-delay: 0.55s; }
+  .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
+
+  /* Capa card */
+  .layer-card {
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 2rem;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    overflow: hidden;
+  }
+  .layer-card:hover {
+    border-color: rgba(31,162,255,0.4);
+    transform: translateY(-4px);
+    background: rgba(31,162,255,0.04);
+  }
+  .layer-number {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(31,162,255,0.08);
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Connector line between layers */
+  .connector {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  .connector-line {
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(180deg, #1FA2FF 0%, rgba(31,162,255,0.2) 100%);
+    border-radius: 2px;
+  }
+
+  /* Principio card */
+  .principio-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.25s;
+  }
+  .principio-card:hover { border-color: rgba(31,162,255,0.3); }
+
+  .nav-link { color: rgba(255,255,255,0.75); font-size: 0.875rem; transition: color 0.2s; }
+  .nav-link:hover { color: #1FA2FF; }
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: flex; }
+</style>
 
 </head>
+<body style="font-family:'Montserrat',sans-serif;">
 
-<body class="bg-kronixDark text-white font-[Montserrat]">
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-<!-- HEADER INSTITUCIONAL INTERNO -->
-<header class="fixed w-full bg-kronixDark/90 backdrop-blur-lg border-b border-white/5 z-50">
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/es/" aria-label="KRONIX Labs — Inicio">
+      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+    </a>
 
-<a href="/es/">
-<img src="../../Kronix-Labs.svg" class="h-10">
-</a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
+      <a href="/es/" class="nav-link">Inicio</a>
+      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a>
+      <a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link" style="color:#1FA2FF;" aria-current="page">Framework</a>
+      <a href="/es/industries/distribucion.html" class="nav-link">Industrias</a>
+      <a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Firma</a>
+      <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Nav_Contacto_ES'});"
+         class="bg-[#1FA2FF] text-white text-sm font-semibold px-5 py-2 rounded-lg hover:opacity-90 transition">
+        Contacto
+      </a>
+    </nav>
 
-<nav class="hidden md:flex gap-8 text-sm text-white/80">
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+          ES
+        </span>
+        <a href="/en/framework/enterprise-ai-architecture-framework.html"
+           hreflang="en" rel="alternate"
+           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN_framework'});"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
+            <rect width="19" height="10" fill="#B22234"/>
+            <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
+            <rect width="8" height="5" fill="#3C3B6E"/>
+          </svg>
+          EN
+        </a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
 
-<a href="/es/" class="hover:text-kronixBlue transition">Inicio</a>
+  </div>
 
-<a href="/es/consultoria/arquitectura-ia-empresarial.html"
-class="hover:text-kronixBlue transition">
-Arquitectura IA
-</a>
-
-<a href="/es/framework/arquitectura-empresarial-ia.html"
-class="text-kronixBlue font-semibold">
-Framework
-</a>
-
-<a href="/es/firm/consultora-estrategica-ia.html"
-class="hover:text-kronixBlue transition">
-Firma
-</a>
-
-<a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
-class="text-kronixBlue font-semibold">
-Contacto
-</a>
-
-</nav>
-
-<div class="flex gap-3">
-
-<div class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-2">
-<svg width="18" height="12" viewBox="0 0 3 2">
-<rect width="3" height="2" fill="#C60B1E"/>
-<rect y="0.5" width="3" height="1" fill="#FFC400"/>
-</svg>
-ES
-</div>
-
-<a href="/en/framework/enterprise-ai-architecture-framework.html"
-class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-2">
-<svg width="18" height="12" viewBox="0 0 19 10">
-<rect width="19" height="10" fill="#B22234"/>
-<g fill="#fff">
-<rect y="1" width="19" height="1"/>
-<rect y="3" width="19" height="1"/>
-<rect y="5" width="19" height="1"/>
-<rect y="7" width="19" height="1"/>
-<rect y="9" width="19" height="1"/>
-</g>
-<rect width="8" height="5" fill="#3C3B6E"/>
-</svg>
-EN
-</a>
-
-</div>
-
-</div>
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5">
+    <a href="/es/" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Inicio</a>
+    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Arquitectura IA</a>
+    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2 text-sm text-[#1FA2FF] font-semibold">Framework</a>
+    <a href="/es/industries/distribucion.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Industrias</a>
+    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Firma</a>
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+       target="_blank" rel="noopener noreferrer"
+       class="block py-2 text-sm text-[#1FA2FF] font-semibold">Contacto →</a>
+  </nav>
 </header>
 
-<!-- HERO -->
-<section class="pt-40 pb-28 px-6 text-center bg-gradient-to-b from-kronixDark to-black">
-<div class="max-w-4xl mx-auto">
 
-<h1 class="text-4xl md:text-6xl font-semibold mb-8">
-Kronix EAA Framework™
-</h1>
-
-<p class="text-kronixGray text-lg leading-relaxed">
-Nuestra metodología propietaria para diseñar arquitectura empresarial con IA de forma estructurada, escalable y gobernada.
-</p>
-
+<!-- ============================================================
+     BREADCRUMB
+     ============================================================ -->
+<div class="pt-24 bg-[#070A1E]">
+  <div class="max-w-7xl mx-auto px-6 py-3">
+    <nav aria-label="Breadcrumb" class="text-xs text-white/40 flex items-center gap-2">
+      <a href="/es/" class="hover:text-[#1FA2FF] transition">Inicio</a>
+      <span>/</span>
+      <span class="text-white/60">Kronix EAA Framework™</span>
+    </nav>
+  </div>
 </div>
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="relative pt-12 pb-28 px-6 text-center grid-bg overflow-hidden"
+         style="background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(31,162,255,0.16) 0%, transparent 70%), linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);"
+         aria-label="Kronix EAA Framework — Propuesta">
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl opacity-[0.06] pointer-events-none" style="background:#1FA2FF;"></div>
+
+  <div class="relative max-w-4xl mx-auto">
+
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] animate-pulse inline-block"></span>
+      Metodología Propietaria · Registrada por KRONIX Labs
+    </div>
+
+    <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight fade-up d2">
+      Kronix EAA Framework™
+    </h1>
+
+    <p class="text-[#1FA2FF] text-base font-semibold mb-6 tracking-wide fade-up d2">
+      Enterprise AI Architecture Framework
+    </p>
+
+    <p class="text-[#C7C9D3] text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed fade-up d3">
+      La metodología propietaria de KRONIX Labs para diseñar e implementar arquitectura empresarial con IA de forma estructurada, escalable y gobernada. Cinco capas que convierten automatización en ventaja competitiva real.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d4">
+      <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20conocer%20cómo%20aplica%20el%20EAA%20Framework%20en%20mi%20empresa."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Hero_Framework_ES'});"
+         class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-lg font-semibold hover:opacity-90 transition">
+        Aplicar el Framework a mi empresa
+      </a>
+      <a href="/es/case-study/sistema-inteligente-multisede.html"
+         onclick="gtag('event','click_case_study',{event_category:'Navigation',event_label:'Framework_CaseStudy'});"
+         class="border border-white/25 px-10 py-4 rounded-lg font-semibold hover:border-[#1FA2FF]/60 hover:text-[#1FA2FF] transition">
+        Ver en acción →
+      </a>
+    </div>
+
+  </div>
 </section>
 
-<!-- CAPAS DEL FRAMEWORK -->
-<section class="py-24 px-6">
-<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
 
-<div>
-<h3 class="text-xl font-semibold mb-4">1. Capa de Inteligencia Estratégica</h3>
-<p class="text-kronixGray">
-Definición de objetivos, mapa de valor y alineación con visión empresarial.
-</p>
-</div>
+<!-- ============================================================
+     QUÉ ES EL FRAMEWORK
+     ============================================================ -->
+<section class="py-20 bg-black px-6" aria-labelledby="que-es-titulo">
+  <div class="max-w-5xl mx-auto">
 
-<div>
-<h3 class="text-xl font-semibold mb-4">2. Capa de Arquitectura de Procesos</h3>
-<p class="text-kronixGray">
-Rediseño estructural de procesos antes de automatizar.
-</p>
-</div>
+    <div class="grid md:grid-cols-2 gap-16 items-center">
 
-<div>
-<h3 class="text-xl font-semibold mb-4">3. Capa de Sistemas IA</h3>
-<p class="text-kronixGray">
-Diseño multi-agente, automatización inteligente e integración sistémica.
-</p>
-</div>
+      <div>
+        <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">¿Qué es?</p>
+        <h2 id="que-es-titulo" class="text-3xl md:text-4xl font-bold mb-6 leading-snug">
+          Un sistema para diseñar <span class="text-[#1FA2FF]">sistemas</span>
+        </h2>
+        <p class="text-[#C7C9D3] leading-relaxed mb-6">
+          El Kronix EAA Framework™ no es una lista de herramientas. Es una metodología de diseño arquitectural que ordena cómo una empresa debe pensar, estructurar e implementar IA antes de escribir una sola línea de código.
+        </p>
+        <p class="text-[#C7C9D3] leading-relaxed">
+          La diferencia entre automatización improvisada y arquitectura inteligente está en el orden de las decisiones. El EAA Framework define ese orden — capa por capa.
+        </p>
+      </div>
 
-<div>
-<h3 class="text-xl font-semibold mb-4">4. Capa de Control y Gobernanza</h3>
-<p class="text-kronixGray">
-Validación humana, dashboards ejecutivos y métricas estratégicas.
-</p>
-</div>
+      <div class="space-y-4">
+        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2">
+          <span class="text-[#1FA2FF] font-bold text-lg w-8 flex-shrink-0">✓</span>
+          <p class="text-white text-sm">Pensamos en arquitectura antes de automatizar</p>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2">
+          <span class="text-[#1FA2FF] font-bold text-lg w-8 flex-shrink-0">✓</span>
+          <p class="text-white text-sm">Integramos IA + negocio + control desde el diseño</p>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2">
+          <span class="text-[#1FA2FF] font-bold text-lg w-8 flex-shrink-0">✓</span>
+          <p class="text-white text-sm">Diseñamos para escalar sin rediseño futuro</p>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2">
+          <span class="text-[#1FA2FF] font-bold text-lg w-8 flex-shrink-0">✓</span>
+          <p class="text-white text-sm">Documentamos y estructuramos cada decisión</p>
+        </div>
+        <div class="flex items-center gap-4 p-4 rounded-xl border border-white/8 bg-white/2">
+          <span class="text-[#1FA2FF] font-bold text-lg w-8 flex-shrink-0">✓</span>
+          <p class="text-white text-sm">Creamos sistemas replicables entre sedes</p>
+        </div>
+      </div>
 
-<div>
-<h3 class="text-xl font-semibold mb-4">5. Capa de Escalabilidad</h3>
-<p class="text-kronixGray">
-Infraestructura preparada para expansión multisede y crecimiento continuo.
-</p>
-</div>
-
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- MENSAJE ESTRATÉGICO -->
-<section class="py-24 bg-black text-center px-6">
-<div class="max-w-4xl mx-auto">
 
-<h2 class="text-3xl font-semibold mb-8">
-La IA sin arquitectura es improvisación.
-</h2>
+<!-- ============================================================
+     LAS 5 CAPAS
+     ============================================================ -->
+<section class="py-24 px-6 grid-bg" style="background-color:#0B0F2B;" aria-labelledby="capas-titulo">
+  <div class="max-w-4xl mx-auto">
 
-<p class="text-kronixGray text-lg leading-relaxed">
-El Kronix EAA Framework™ convierte automatización en estructura empresarial sostenible y medible.
-</p>
+    <div class="text-center mb-16">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">La metodología</p>
+      <h2 id="capas-titulo" class="text-3xl md:text-4xl font-bold mb-4">
+        Las <span class="text-[#1FA2FF]">5 Capas</span> del EAA Framework™
+      </h2>
+      <p class="text-[#C7C9D3] max-w-2xl mx-auto">
+        Cada capa es un nivel de decisión. No se puede construir la siguiente sin tener la anterior sólida. Este orden no es arbitrario — es la diferencia entre un sistema que escala y uno que colapsa.
+      </p>
+    </div>
 
-</div>
+    <!-- Capa 1 -->
+    <div class="layer-card mb-2">
+      <span class="layer-number">1</span>
+      <div class="flex items-start gap-5 relative z-10">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-[#1FA2FF] font-bold">01</div>
+        <div>
+          <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Fundamento</p>
+          <h3 class="text-white font-bold text-xl mb-3">Capa de Inteligencia Estratégica</h3>
+          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
+            Antes de diseñar cualquier sistema, definimos con precisión qué problema de negocio estamos resolviendo. Esta capa establece el mapa de valor, los objetivos medibles y la alineación con la visión ejecutiva de la organización.
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Diagnóstico operativo profundo</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Mapa de valor empresarial</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Definición de KPIs estratégicos</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Alineación con visión ejecutiva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"><div class="connector-line"></div></div>
+
+    <!-- Capa 2 -->
+    <div class="layer-card mb-2">
+      <span class="layer-number">2</span>
+      <div class="flex items-start gap-5 relative z-10">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-[#1FA2FF] font-bold">02</div>
+        <div>
+          <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Estructura</p>
+          <h3 class="text-white font-bold text-xl mb-3">Capa de Arquitectura de Procesos</h3>
+          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
+            La IA no mejora procesos rotos — los automatiza de forma más rápida. Por eso rediseñamos los procesos antes de automatizarlos. Esta capa define flujos optimizados, puntos de decisión y los roles que cada componente debe cumplir en el sistema.
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Mapeo y rediseño de procesos</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Identificación de cuellos de botella</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Diseño de flujos inteligentes</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Puntos de validación humana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"><div class="connector-line"></div></div>
+
+    <!-- Capa 3 -->
+    <div class="layer-card mb-2" style="border-color: rgba(31,162,255,0.2); background: rgba(31,162,255,0.04);">
+      <span class="layer-number">3</span>
+      <div class="flex items-start gap-5 relative z-10">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1FA2FF]/20 border border-[#1FA2FF]/60 flex items-center justify-center text-[#1FA2FF] font-bold">03</div>
+        <div>
+          <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Núcleo</p>
+          <h3 class="text-white font-bold text-xl mb-3">Capa de Sistemas IA</h3>
+          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
+            El corazón técnico del framework. Aquí diseñamos la arquitectura multi-agente, los modelos de IA, las integraciones sistémicas y los flujos de automatización. Cada componente está documentado, medido y alineado con las capas anteriores.
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Diseño multi-agente IA</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatización inteligente</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Integración sistémica</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Stack tecnológico documentado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"><div class="connector-line"></div></div>
+
+    <!-- Capa 4 -->
+    <div class="layer-card mb-2">
+      <span class="layer-number">4</span>
+      <div class="flex items-start gap-5 relative z-10">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-[#1FA2FF] font-bold">04</div>
+        <div>
+          <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Control</p>
+          <h3 class="text-white font-bold text-xl mb-3">Capa de Gobernanza y Control Ejecutivo</h3>
+          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
+            IA sin gobierno es riesgo. Esta capa define los marcos de control, los dashboards ejecutivos, las métricas de rendimiento y los puntos de auditoría. La gerencia mantiene visibilidad y control total sobre el sistema — desde el agente hasta el reporte ejecutivo.
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Dashboards ejecutivos en tiempo real</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Métricas y KPIs operativos</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Auditoría y trazabilidad</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Alertas y validación humana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector"><div class="connector-line"></div></div>
+
+    <!-- Capa 5 -->
+    <div class="layer-card">
+      <span class="layer-number">5</span>
+      <div class="flex items-start gap-5 relative z-10">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-[#1FA2FF] font-bold">05</div>
+        <div>
+          <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Expansión</p>
+          <h3 class="text-white font-bold text-xl mb-3">Capa de Escalabilidad</h3>
+          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
+            El sistema se diseña desde el inicio para crecer. Esta capa define la infraestructura replicable, los estándares de expansión multisede y los protocolos para incorporar nuevas unidades de negocio sin rediseño total. Construimos una vez, escalamos muchas veces.
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Infraestructura replicable</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Protocolos de expansión multisede</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Documentación de estándares</span>
+            <span class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Arquitectura modular adaptable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<footer class="border-t border-white/5 bg-black py-16 text-sm text-kronixGray">
 
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+<!-- ============================================================
+     PRINCIPIOS DEL FRAMEWORK
+     ============================================================ -->
+<section class="py-24 bg-black px-6" aria-labelledby="principios-titulo">
+  <div class="max-w-6xl mx-auto">
 
-<!-- Marca -->
-<div>
-<h3 class="text-white font-semibold mb-4">KRONIX Labs</h3>
-<p class="leading-relaxed">
-Firma estratégica especializada en Arquitectura Empresarial con IA, diseño de sistemas inteligentes y automatización estructurada.
-</p>
-</div>
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Fundamentos</p>
+      <h2 id="principios-titulo" class="text-3xl md:text-4xl font-bold mb-4">
+        Principios que <span class="text-[#1FA2FF]">guían cada proyecto</span>
+      </h2>
+    </div>
 
-<!-- Servicios -->
-<div>
-<h4 class="text-white font-semibold mb-4">Servicios</h4>
-<ul class="space-y-2">
-<li><a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:text-kronixBlue transition">Arquitectura Empresarial en IA</a></li>
-<li><a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:text-kronixBlue transition">Kronix EAA Framework™</a></li>
-<li><a href="/es/industries/distribucion.html" class="hover:text-kronixBlue transition">Soluciones para Distribución</a></li>
-<li><a href="/es/case-study/sistema-inteligente-multisede.html" class="hover:text-kronixBlue transition">Case Study Multisede</a></li>
-</ul>
-</div>
+    <div class="grid md:grid-cols-3 gap-5">
 
-<!-- Firma -->
-<div>
-<h4 class="text-white font-semibold mb-4">Firma</h4>
-<ul class="space-y-2">
-<li><a href="/es/firm/consultora-estrategica-ia.html" class="hover:text-kronixBlue transition">Nuestra Firma</a></li>
-<li><a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico." target="_blank" class="hover:text-kronixBlue transition">Agendar Diagnóstico</a></li>
-</ul>
-</div>
+      <div class="principio-card">
+        <div class="text-2xl mb-4">🏗️</div>
+        <h3 class="text-white font-semibold mb-2">Arquitectura primero</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">No se automatiza lo que no está estructurado. Diseñamos el sistema antes de elegir cualquier herramienta o tecnología.</p>
+      </div>
 
-<!-- Contacto -->
-<div>
-<h4 class="text-white font-semibold mb-4">Contacto</h4>
-<p>Medellín, Colombia</p>
-<p class="mt-2">
-<a href="https://wa.me/573107397053" target="_blank" class="hover:text-kronixBlue transition">
-WhatsApp: +57 310 739 7053
-</a>
-</p>
-</div>
+      <div class="principio-card">
+        <div class="text-2xl mb-4">🔗</div>
+        <h3 class="text-white font-semibold mb-2">Integración total</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">IA, negocio y control deben ser una sola arquitectura. Los silos tecnológicos son el enemigo de la escalabilidad real.</p>
+      </div>
 
-</div>
+      <div class="principio-card">
+        <div class="text-2xl mb-4">📏</div>
+        <h3 class="text-white font-semibold mb-2">Medición desde el inicio</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">Cada capa tiene métricas de éxito definidas antes de implementar. Si no se puede medir, no se debe construir.</p>
+      </div>
 
-<div class="border-t border-white/5 mt-12 pt-8 text-center text-xs text-white/40">
-© 2026 KRONIX Labs by jurion — Arquitectura Empresarial en IA
-</div>
+      <div class="principio-card">
+        <div class="text-2xl mb-4">👤</div>
+        <h3 class="text-white font-semibold mb-2">Validación humana estratégica</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">La IA ejecuta, los humanos deciden en los puntos críticos. El framework define exactamente dónde está cada punto de control.</p>
+      </div>
 
+      <div class="principio-card">
+        <div class="text-2xl mb-4">📄</div>
+        <h3 class="text-white font-semibold mb-2">Documentación estructurada</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">Cada decisión arquitectónica queda documentada. El sistema no depende de quién lo diseñó — depende de su estructura.</p>
+      </div>
+
+      <div class="principio-card">
+        <div class="text-2xl mb-4">🔄</div>
+        <h3 class="text-white font-semibold mb-2">Diseño para replicar</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">Lo que funciona en una sede debe poder replicarse en otra. Construimos sistemas, no soluciones únicas e irrepetibles.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     DIFERENCIACIÓN — EAA vs Implementación estándar
+     ============================================================ -->
+<section class="py-20 px-6" style="background:#070A1E;" aria-labelledby="diferencia-titulo">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Comparación</p>
+      <h2 id="diferencia-titulo" class="text-3xl font-bold">
+        EAA Framework™ vs Implementación <span class="text-[#1FA2FF]">estándar de IA</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="border border-white/8 rounded-2xl p-8 bg-white/2">
+        <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-6">Implementación estándar</p>
+        <ul class="space-y-4 text-[#C7C9D3] text-sm">
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> Se elige la herramienta antes de entender el problema</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> Automatización de procesos que ya eran ineficientes</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> Sin gobernanza ni control ejecutivo definido</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> Documentación escasa o inexistente</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> Difícil de replicar o escalar sin rediseño total</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0">✗</span> El proveedor desaparece al entregar el producto</li>
+        </ul>
+      </div>
+
+      <div class="border border-[#1FA2FF]/30 rounded-2xl p-8 bg-[#1FA2FF]/5">
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-6">Kronix EAA Framework™</p>
+        <ul class="space-y-4 text-white text-sm">
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Diagnóstico estratégico antes de cualquier decisión técnica</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Rediseño de procesos antes de automatizarlos</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Gobernanza y control ejecutivo integrados desde el diseño</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Documentación estructurada de cada capa y decisión</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Infraestructura replicable para expansión multisede</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0">✓</span> Acompañamiento continuo en implementación y escalado</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     QUOTE MANIFIESTO
+     ============================================================ -->
+<section class="py-20 px-6 bg-black text-center" aria-label="Principio del framework">
+  <div class="max-w-3xl mx-auto">
+    <blockquote class="text-2xl md:text-3xl font-semibold leading-relaxed text-white/90 mb-6">
+      "La IA sin arquitectura es <span class="text-[#1FA2FF]">improvisación</span>.<br>
+      El EAA Framework convierte automatización<br>en estructura empresarial sostenible."
+    </blockquote>
+    <p class="text-[#C7C9D3]/50 text-sm">— KRONIX Labs by jurion</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LINK A CASE STUDY
+     ============================================================ -->
+<section class="py-16 px-6" style="background:#070A1E;" aria-label="El framework en acción">
+  <div class="max-w-5xl mx-auto">
+    <div class="border border-[#1FA2FF]/20 rounded-2xl p-10 bg-[#1FA2FF]/5 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">El EAA Framework en acción</p>
+        <h3 class="text-white text-xl font-bold mb-2">Case Study: Sistema Inteligente Multisede</h3>
+        <p class="text-[#C7C9D3] text-sm max-w-md">
+          Aplicación real del EAA Framework en empresa de distribución multisede. Las 5 capas implementadas, resultados medibles y arquitectura en producción.
+        </p>
+      </div>
+      <a href="/es/case-study/sistema-inteligente-multisede.html"
+         onclick="gtag('event','click_case_study',{event_category:'Navigation',event_label:'Framework_CaseStudy_Bottom'});"
+         class="flex-shrink-0 bg-[#1FA2FF] text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition whitespace-nowrap">
+        Ver caso completo →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA FINAL
+     ============================================================ -->
+<section class="py-24 px-6 grid-bg" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);" aria-label="Llamado a la acción">
+  <div class="max-w-3xl mx-auto text-center">
+
+    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Siguiente paso</p>
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+      Apliquemos el EAA Framework™<br>
+      <span class="text-[#1FA2FF]">a su empresa</span>
+    </h2>
+    <p class="text-[#C7C9D3] text-lg mb-10 leading-relaxed">
+      En 45 minutos realizamos un diagnóstico estratégico y determinamos qué capas del framework son prioritarias para su organización.
+    </p>
+
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20conocer%20cómo%20aplica%20el%20EAA%20Framework%20en%20mi%20empresa."
+       target="_blank" rel="noopener noreferrer"
+       onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Bottom_Framework_ES'});"
+       class="btn-glow inline-block bg-[#1FA2FF] text-white px-12 py-5 rounded-lg font-semibold text-lg hover:opacity-90 transition">
+      Iniciar Diagnóstico Estratégico →
+    </a>
+
+    <p class="text-[#C7C9D3]/50 text-xs mt-5">Respondemos en menos de 2 horas · Lunes a Viernes</p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="border-t border-white/5 bg-black py-16 text-sm text-[#C7C9D3]" aria-label="Pie de página">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+    <div>
+      <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
+      <p class="leading-relaxed text-[#C7C9D3]/80 mb-4">
+        Firma estratégica especializada en Arquitectura Empresarial con IA, diseño de sistemas inteligentes y automatización estructurada.
+      </p>
+      <p class="text-[#C7C9D3]/40 text-xs">Engineering Intelligent Growth</p>
+    </div>
+
+    <div>
+      <h4 class="text-white font-semibold mb-5">Servicios</h4>
+      <ul class="space-y-3">
+        <li><a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:text-[#1FA2FF] transition">Arquitectura Empresarial en IA</a></li>
+        <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="text-[#1FA2FF]">Kronix EAA Framework™</a></li>
+        <li><a href="/es/industries/distribucion.html" class="hover:text-[#1FA2FF] transition">Soluciones para Distribución</a></li>
+        <li><a href="/es/case-study/sistema-inteligente-multisede.html" class="hover:text-[#1FA2FF] transition">Case Study Multisede</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-white font-semibold mb-5">Firma</h4>
+      <ul class="space-y-3">
+        <li><a href="/es/firm/consultora-estrategica-ia.html" class="hover:text-[#1FA2FF] transition">Nuestra Firma</a></li>
+        <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="text-[#1FA2FF]">Metodología</a></li>
+        <li>
+          <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+             target="_blank" rel="noopener noreferrer"
+             onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_ES'});"
+             class="hover:text-[#1FA2FF] transition">Agendar Diagnóstico</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-white font-semibold mb-5">Contacto</h4>
+      <p class="mb-3">Medellín, Antioquia<br>Colombia — LATAM</p>
+      <a href="https://wa.me/573107397053"
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_WA_ES'});"
+         class="hover:text-[#1FA2FF] transition block mb-2">WhatsApp: +57 310 739 7053</a>
+      <div class="mt-4">
+        <a href="/en/framework/enterprise-ai-architecture-framework.html" hreflang="en" rel="alternate" class="text-xs text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition">English version →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-white/5 mt-12 pt-8 max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/30">
+    <span>© 2026 KRONIX Labs by jurion — Arquitectura Empresarial en IA</span>
+    <span>Laboratorio de Sistemas Inteligentes · Medellín, Colombia</span>
+  </div>
 </footer>
+
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+</script>
 
 </body>
 </html>
