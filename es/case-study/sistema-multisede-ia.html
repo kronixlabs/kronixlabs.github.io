@@ -6,22 +6,25 @@
 
 <title>Case Study | Sistema Inteligente Multisede con IA | KRONIX Labs</title>
 
-<meta name="description" content="Caso real de arquitectura de Sistema Inteligente Multisede con IA aplicada para automatización de pedidos, cartera y control gerencial.">
+<meta name="description" content="Caso real de arquitectura de Sistema Inteligente Multisede con IA aplicada para automatización de pedidos, cartera y control gerencial en empresa de distribución.">
+
+<link rel="canonical" href="https://kronixlabs.github.io/es/case-study/sistema-inteligente-multisede.html">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
 
 <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
-theme: {
-extend: {
-colors: {
-kronixBlue: '#1FA2FF',
-kronixDark: '#0B0F2B',
-kronixGray: '#C7C9D3'
-}
-}
-}
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixGray: '#C7C9D3'
+      }
+    }
+  }
 }
 </script>
 
@@ -30,15 +33,73 @@ kronixGray: '#C7C9D3'
 
 <body class="bg-kronixDark text-white font-[Montserrat]">
 
-<header class="w-full bg-kronixDark/90 border-b border-white/5">
+<!-- HEADER INSTITUCIONAL INTERNO -->
+<header class="fixed w-full bg-kronixDark/90 backdrop-blur-lg border-b border-white/5 z-50">
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-<a href="/es/"><img src="../../Kronix-Labs.svg" class="h-12"></a>
-<a href="/en/case-study/multi-site-ai-system.html" class="text-sm text-white/70 hover:text-kronixBlue">EN</a>
+
+<a href="/es/">
+<img src="../../Kronix-Labs.svg" class="h-10">
+</a>
+
+<nav class="hidden md:flex gap-8 text-sm text-white/80">
+
+<a href="/es/" class="hover:text-kronixBlue transition">Inicio</a>
+
+<a href="/es/consultoria/arquitectura-ia-empresarial.html"
+class="hover:text-kronixBlue transition">
+Arquitectura IA
+</a>
+
+<a href="/es/framework/arquitectura-empresarial-ia.html"
+class="hover:text-kronixBlue transition">
+Framework
+</a>
+
+<a href="/es/firm/consultora-estrategica-ia.html"
+class="hover:text-kronixBlue transition">
+Firma
+</a>
+
+<a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+class="text-kronixBlue font-semibold">
+Contacto
+</a>
+
+</nav>
+
+<div class="flex gap-3">
+
+<div class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-2">
+<svg width="18" height="12" viewBox="0 0 3 2">
+<rect width="3" height="2" fill="#C60B1E"/>
+<rect y="0.5" width="3" height="1" fill="#FFC400"/>
+</svg>
+ES
+</div>
+
+<a href="/en/case-study/multi-site-ai-system.html"
+class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-2">
+<svg width="18" height="12" viewBox="0 0 19 10">
+<rect width="19" height="10" fill="#B22234"/>
+<g fill="#fff">
+<rect y="1" width="19" height="1"/>
+<rect y="3" width="19" height="1"/>
+<rect y="5" width="19" height="1"/>
+<rect y="7" width="19" height="1"/>
+<rect y="9" width="19" height="1"/>
+</g>
+<rect width="8" height="5" fill="#3C3B6E"/>
+</svg>
+EN
+</a>
+
+</div>
+
 </div>
 </header>
 
 <!-- HERO -->
-<section class="py-24 bg-gradient-to-b from-kronixDark to-black text-center">
+<section class="pt-40 pb-24 bg-gradient-to-b from-kronixDark to-black text-center">
 <div class="max-w-4xl mx-auto px-6">
 
 <h1 class="text-4xl md:text-5xl font-semibold mb-6">
@@ -46,7 +107,7 @@ Sistema Inteligente <span class="text-kronixBlue">Multisede con IA</span>
 </h1>
 
 <p class="text-kronixGray text-lg">
-Arquitectura completa de automatización empresarial para empresa de producción y distribución.
+Arquitectura completa de automatización empresarial diseñada para empresa de producción y distribución con múltiples sedes.
 </p>
 
 </div>
@@ -59,14 +120,14 @@ Arquitectura completa de automatización empresarial para empresa de producción
 <h2 class="text-3xl font-semibold mb-8">El Desafío</h2>
 
 <p class="text-kronixGray mb-6">
-Empresa con múltiples sedes, más de 80 pedidos diarios, control manual de cartera y falta de reportería en tiempo real.
+Empresa con múltiples sedes, más de 80 pedidos diarios, control manual de cartera y ausencia de reportería estratégica en tiempo real.
 </p>
 
 <ul class="text-kronixGray space-y-3">
 <li>• Pedidos por WhatsApp sin estructura</li>
 <li>• Procesos manuales repetitivos</li>
 <li>• Baja visibilidad gerencial</li>
-<li>• Riesgo de errores operativos</li>
+<li>• Riesgo elevado de errores operativos</li>
 </ul>
 
 </div>
@@ -83,12 +144,10 @@ KRONIX Labs diseñó un Sistema Integral de Agentes IA compuesto por:
 </p>
 
 <div class="grid md:grid-cols-2 gap-10 text-kronixGray">
-
-<div>✔ Agente de Pedidos Automatizado</div>
-<div>✔ Agente de Cartera Inteligente</div>
-<div>✔ Agente Comercial de Clientes Nuevos</div>
-<div>✔ Dashboard Gerencial en Tiempo Real</div>
-
+<div>✔ Agente Automatizado de Gestión de Pedidos</div>
+<div>✔ Agente Inteligente de Cartera</div>
+<div>✔ Agente Comercial para Nuevos Clientes</div>
+<div>✔ Dashboard Gerencial con reportería en tiempo real</div>
 </div>
 
 </div>
@@ -98,7 +157,7 @@ KRONIX Labs diseñó un Sistema Integral de Agentes IA compuesto por:
 <section class="py-20 bg-black">
 <div class="max-w-5xl mx-auto px-6 text-center">
 
-<h2 class="text-3xl font-semibold mb-10">Resultados</h2>
+<h2 class="text-3xl font-semibold mb-10">Resultados Estratégicos</h2>
 
 <div class="grid md:grid-cols-3 gap-10 text-kronixGray">
 
@@ -109,7 +168,7 @@ Pedidos automatizados por día
 
 <div>
 <p class="text-4xl font-bold text-kronixBlue">-40%</p>
-Reducción en tiempo operativo
+Reducción del tiempo operativo
 </div>
 
 <div>
@@ -132,7 +191,7 @@ Diseñemos tu Arquitectura Inteligente
 
 <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20una%20arquitectura%20similar%20al%20caso%20multisede."
 target="_blank"
-class="bg-kronixBlue px-10 py-4 rounded-lg">
+class="bg-kronixBlue px-10 py-4 rounded-lg font-medium hover:opacity-90 transition">
 Solicitar Evaluación Estratégica
 </a>
 
@@ -140,7 +199,7 @@ Solicitar Evaluación Estratégica
 </section>
 
 <footer class="border-t border-white/5 py-10 text-center text-kronixGray text-sm">
-KRONIX Labs — Case Study Enterprise
+KRONIX Labs — Case Study Enterprise Architecture
 </footer>
 
 </body>
