@@ -5,22 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Arquitectura Empresarial en IA | KRONIX Labs</title>
-<meta name="description" content="Diseño de arquitectura empresarial con IA para organizaciones que buscan escalar operaciones con control estructural y ejecución técnica avanzada.">
+<meta name="description" content="Diseño de arquitectura empresarial con IA para organizaciones que buscan escalar operaciones con control estructural, gobernanza y ejecución técnica avanzada.">
+
+<link rel="canonical" href="https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html">
 
 <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
-theme: {
-extend: {
-colors: {
-kronixBlue: '#1FA2FF',
-kronixDark: '#0B0F2B',
-kronixGray: '#C7C9D3'
-}
-}
-}
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixGray: '#C7C9D3'
+      }
+    }
+  }
 }
 </script>
 
@@ -29,7 +32,73 @@ kronixGray: '#C7C9D3'
 
 <body class="bg-kronixDark text-white font-[Montserrat]">
 
-<section class="py-32 px-6 text-center bg-gradient-to-b from-kronixDark to-black">
+<!-- HEADER INSTITUCIONAL INTERNO -->
+<header class="fixed w-full bg-kronixDark/90 backdrop-blur-lg border-b border-white/5 z-50">
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+<a href="/es/">
+<img src="../../Kronix-Labs.svg" class="h-10">
+</a>
+
+<nav class="hidden md:flex gap-8 text-sm text-white/80">
+
+<a href="/es/" class="hover:text-kronixBlue transition">Inicio</a>
+
+<a href="/es/consultoria/arquitectura-ia-empresarial.html"
+class="text-kronixBlue font-semibold">
+Arquitectura IA
+</a>
+
+<a href="/es/framework/arquitectura-empresarial-ia.html"
+class="hover:text-kronixBlue transition">
+Framework
+</a>
+
+<a href="/es/firm/consultora-estrategica-ia.html"
+class="hover:text-kronixBlue transition">
+Firma
+</a>
+
+<a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+class="text-kronixBlue font-semibold">
+Contacto
+</a>
+
+</nav>
+
+<div class="flex gap-3">
+
+<div class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-2">
+<svg width="18" height="12" viewBox="0 0 3 2">
+<rect width="3" height="2" fill="#C60B1E"/>
+<rect y="0.5" width="3" height="1" fill="#FFC400"/>
+</svg>
+ES
+</div>
+
+<a href="/en/consulting/enterprise-ai-architecture.html"
+class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-2">
+<svg width="18" height="12" viewBox="0 0 19 10">
+<rect width="19" height="10" fill="#B22234"/>
+<g fill="#fff">
+<rect y="1" width="19" height="1"/>
+<rect y="3" width="19" height="1"/>
+<rect y="5" width="19" height="1"/>
+<rect y="7" width="19" height="1"/>
+<rect y="9" width="19" height="1"/>
+</g>
+<rect width="8" height="5" fill="#3C3B6E"/>
+</svg>
+EN
+</a>
+
+</div>
+
+</div>
+</header>
+
+<!-- HERO -->
+<section class="pt-40 pb-28 px-6 text-center bg-gradient-to-b from-kronixDark to-black">
 <div class="max-w-4xl mx-auto">
 
 <h1 class="text-4xl md:text-6xl font-semibold mb-8">
@@ -41,6 +110,7 @@ Diseñamos la estructura estratégica que permite a tu empresa integrar IA sin p
 </p>
 
 <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20evaluar%20nuestra%20arquitectura%20empresarial%20con%20IA."
+target="_blank"
 class="bg-kronixBlue px-10 py-4 rounded-lg font-medium hover:opacity-90 transition">
 Solicitar Diagnóstico Ejecutivo
 </a>
@@ -48,6 +118,7 @@ Solicitar Diagnóstico Ejecutivo
 </div>
 </section>
 
+<!-- CONTENIDO -->
 <section class="py-24 px-6">
 <div class="max-w-5xl mx-auto text-center">
 
