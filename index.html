@@ -1,15 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<script>
-const userLang = navigator.language || navigator.userLanguage;
-if (userLang.startsWith('es')) {
-  window.location.href = "/es/";
-} else {
-  window.location.href = "/en/";
-}
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO básico para el dominio raíz -->
+  <title>KRONIX Labs — Enterprise AI Architecture</title>
+  <meta name="description" content="Strategic firm specialized in enterprise AI architecture and intelligent automation systems. Medellín, Colombia — LATAM.">
+  <meta name="keywords" content="enterprise AI architecture, AI consulting LATAM, intelligent systems, KRONIX Labs">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical y hreflang (muy importante para SEO multilingüe) -->
+  <link rel="canonical" href="https://kronixlabs.github.io/">
+  <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/">
+  <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/">
+  <link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/en/">
+  
+  <!-- Favicon y tema -->
+  <link rel="icon" type="image/svg+xml" href="/Kronix-Labs.svg">
+  <meta name="theme-color" content="#1FA2FF">
+  
+  <!-- Evitar indexación duplicada -->
+  <meta name="googlebot" content="index, follow">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0B0F2B;
+      color: white;
+      font-family: system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .loader-container {
+      max-width: 420px;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #1FA2FF;
+    }
+    p {
+      color: #C7C9D3;
+      margin-bottom: 1.5rem;
+    }
+    .lang-buttons {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .lang-btn {
+      background: rgba(31, 162, 255, 0.15);
+      color: #1FA2FF;
+      border: 1px solid rgba(31, 162, 255, 0.4);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover {
+      background: rgba(31, 162, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #1FA2FF30;
+      border-top: 5px solid #1FA2FF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+
+  <div class="loader-container">
+    <div class="spinner"></div>
+    <h1>KRONIX Labs</h1>
+    <p>Detecting your preferred language...</p>
+    
+    <div class="lang-buttons" id="langButtons" style="display:none;">
+      <a href="/es/" class="lang-btn">Español (ES)</a>
+      <a href="/en/" class="lang-btn">English (EN)</a>
+    </div>
+  </div>
+
+  <script>
+    // Redirección automática por idioma del navegador
+    const userLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    
+    // Mostrar botones manuales después de 3 segundos por si falla la redirección automática
+    setTimeout(() => {
+      document.getElementById('langButtons').style.display = 'flex';
+    }, 3000);
+
+    // Redirección principal
+    if (userLang.startsWith('es')) {
+      window.location.replace("/es/");
+    } else {
+      window.location.replace("/en/");
+    }
+  </script>
+
+  <noscript>
+    <!-- Fallback para usuarios sin JavaScript o crawlers -->
+    <meta http-equiv="refresh" content="0; url=/en/">
+    <p style="color:#fff; margin-top:3rem;">
+      JavaScript is disabled.<br>
+      Redirecting to <a href="/en/" style="color:#1FA2FF;">English version</a> or 
+      <a href="/es/" style="color:#1FA2FF;">Versión en español</a>.
+    </p>
+  </noscript>
+
+</body>
 </html>
