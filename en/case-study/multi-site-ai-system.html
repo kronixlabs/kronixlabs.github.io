@@ -6,22 +6,25 @@
 
 <title>Case Study | Multi-Site Enterprise AI System | KRONIX Labs</title>
 
-<meta name="description" content="Enterprise case study: Multi-site AI automation system architecture for production and distribution company. Intelligent agents, automation and executive dashboards.">
+<meta name="description" content="Enterprise case study: Multi-site AI automation system architecture for production and distribution company. Intelligent agents, automation workflows and executive dashboards.">
+
+<link rel="canonical" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-inteligente-multisede.html">
 
 <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
-theme: {
-extend: {
-colors: {
-kronixBlue: '#1FA2FF',
-kronixDark: '#0B0F2B',
-kronixGray: '#C7C9D3'
-}
-}
-}
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixGray: '#C7C9D3'
+      }
+    }
+  }
 }
 </script>
 
@@ -30,15 +33,77 @@ kronixGray: '#C7C9D3'
 
 <body class="bg-kronixDark text-white font-[Montserrat]">
 
-<header class="w-full bg-kronixDark/90 border-b border-white/5">
+<!-- INSTITUTIONAL INTERNAL HEADER -->
+<header class="fixed w-full bg-kronixDark/90 backdrop-blur-lg border-b border-white/5 z-50">
 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-<a href="/en/"><img src="../../Kronix-Labs.svg" class="h-12"></a>
-<a href="/es/case-study/sistema-multisede-ia.html" class="text-sm text-white/70 hover:text-kronixBlue">ES</a>
+
+<a href="/en/">
+<img src="../../Kronix-Labs.svg" class="h-10">
+</a>
+
+<nav class="hidden md:flex gap-8 text-sm text-white/80">
+
+<a href="/en/" class="hover:text-kronixBlue transition">Home</a>
+
+<a href="/en/consulting/enterprise-ai-architecture.html"
+class="hover:text-kronixBlue transition">
+AI Architecture
+</a>
+
+<a href="/en/framework/enterprise-ai-architecture-framework.html"
+class="hover:text-kronixBlue transition">
+Framework
+</a>
+
+<a href="/en/firm/strategic-ai-consultancy.html"
+class="hover:text-kronixBlue transition">
+Firm
+</a>
+
+<a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnostic."
+class="text-kronixBlue font-semibold">
+Contact
+</a>
+
+</nav>
+
+<div class="flex gap-3">
+
+<a href="/es/case-study/sistema-inteligente-multisede.html"
+class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-2">
+
+<svg width="18" height="12" viewBox="0 0 3 2">
+<rect width="3" height="2" fill="#C60B1E"/>
+<rect y="0.5" width="3" height="1" fill="#FFC400"/>
+</svg>
+
+ES
+</a>
+
+<div class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-2">
+
+<svg width="18" height="12" viewBox="0 0 19 10">
+<rect width="19" height="10" fill="#B22234"/>
+<g fill="#fff">
+<rect y="1" width="19" height="1"/>
+<rect y="3" width="19" height="1"/>
+<rect y="5" width="19" height="1"/>
+<rect y="7" width="19" height="1"/>
+<rect y="9" width="19" height="1"/>
+</g>
+<rect width="8" height="5" fill="#3C3B6E"/>
+</svg>
+
+EN
+</div>
+
+</div>
+
 </div>
 </header>
 
 <!-- HERO -->
-<section class="py-24 bg-gradient-to-b from-kronixDark to-black text-center">
+<section class="pt-40 pb-24 bg-gradient-to-b from-kronixDark to-black text-center">
 <div class="max-w-4xl mx-auto px-6">
 
 <h1 class="text-4xl md:text-5xl font-semibold mb-6">
@@ -46,7 +111,7 @@ Multi-Site <span class="text-kronixBlue">Enterprise AI System</span>
 </h1>
 
 <p class="text-kronixGray text-lg">
-Full-scale intelligent automation architecture for production and distribution operations.
+Full-scale intelligent automation architecture engineered for production and distribution enterprises operating across multiple locations.
 </p>
 
 </div>
@@ -59,14 +124,14 @@ Full-scale intelligent automation architecture for production and distribution o
 <h2 class="text-3xl font-semibold mb-8">The Challenge</h2>
 
 <p class="text-kronixGray mb-6">
-A multi-location production and distribution company managing over 80 daily orders with manual workflows and limited real-time visibility.
+A multi-location production and distribution company managing over 80 daily orders with manual workflows, fragmented coordination and limited real-time executive visibility.
 </p>
 
 <ul class="text-kronixGray space-y-3">
 <li>• WhatsApp-based unstructured order intake</li>
 <li>• Manual repetitive processes</li>
 <li>• Limited executive visibility</li>
-<li>• Operational inefficiencies</li>
+<li>• High operational inefficiencies</li>
 </ul>
 
 </div>
@@ -79,16 +144,14 @@ A multi-location production and distribution company managing over 80 daily orde
 <h2 class="text-3xl font-semibold mb-8">System Architecture Designed</h2>
 
 <p class="text-kronixGray mb-6">
-KRONIX Labs engineered a modular AI system composed of:
+KRONIX Labs engineered a modular enterprise AI system composed of:
 </p>
 
 <div class="grid md:grid-cols-2 gap-10 text-kronixGray">
-
 <div>✔ Automated Order Processing Agent</div>
 <div>✔ Intelligent Accounts Receivable Agent</div>
 <div>✔ Commercial Lead Qualification Agent</div>
-<div>✔ Executive Real-Time Dashboard</div>
-
+<div>✔ Executive Real-Time Control Dashboard</div>
 </div>
 
 </div>
@@ -98,7 +161,7 @@ KRONIX Labs engineered a modular AI system composed of:
 <section class="py-20 bg-black">
 <div class="max-w-5xl mx-auto px-6 text-center">
 
-<h2 class="text-3xl font-semibold mb-10">Results</h2>
+<h2 class="text-3xl font-semibold mb-10">Strategic Results</h2>
 
 <div class="grid md:grid-cols-3 gap-10 text-kronixGray">
 
@@ -108,7 +171,7 @@ Orders automated per day
 </div>
 
 <div>
-<p class="text-4xl font-bold text-kronixBlue">40%</p>
+<p class="text-4xl font-bold text-kronixBlue">-40%</p>
 Operational time reduction
 </div>
 
@@ -132,7 +195,7 @@ Engineer Your Enterprise AI Architecture
 
 <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20want%20to%20discuss%20a%20multi-site%20enterprise%20AI%20system."
 target="_blank"
-class="bg-kronixBlue px-10 py-4 rounded-lg">
+class="bg-kronixBlue px-10 py-4 rounded-lg font-medium hover:opacity-90 transition">
 Request Strategic Evaluation
 </a>
 
