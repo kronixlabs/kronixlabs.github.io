@@ -3,16 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Case Study | Multi-Site Enterprise AI System | KRONIX Labs</title>
-
-<meta name="description" content="Enterprise case study: Multi-site AI automation system architecture for production and distribution company. Intelligent agents, automation workflows and executive dashboards.">
-
+<!-- Primary SEO -->
+<title>Case Study: Multi-Site Intelligent AI System | KRONIX Labs</title>
+<meta name="description" content="Real implementation of enterprise AI architecture for a multi-site distribution company. Order automation, receivables management, and real-time executive control. 40% operational time reduction.">
+<meta name="keywords" content="enterprise AI case study, multi-site intelligent system, AI distribution automation, order AI agents, enterprise AI architecture Colombia, KRONIX Labs real case">
+<meta name="author" content="KRONIX Labs by jurion">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1FA2FF">
+<!-- Canonical + Hreflang -->
 <link rel="canonical" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
 <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-inteligente-multisede.html">
-
-<link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../favicon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_CO">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:title" content="Case Study: Multi-Site Intelligent AI System | KRONIX Labs">
+<meta property="og:description" content="Real AI architecture for multi-site distribution company. 80+ automated orders/day, -40% operational time, 100% real-time executive visibility.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KRONIX Labs — Multi-Site Intelligent System Case Study">
+<meta property="og:url" content="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case Study: Multi-Site Intelligent AI System | KRONIX Labs">
+<meta name="twitter:description" content="Real AI architecture for distribution company. -40% operational time, 80+ automated orders/day.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta name="twitter:image:alt" content="KRONIX Labs — Multi-Site Case Study">
+<!-- Performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = {
@@ -21,237 +51,734 @@ tailwind.config = {
       colors: {
         kronixBlue: '#1FA2FF',
         kronixDark: '#0B0F2B',
+        kronixDeep: '#070A1E',
         kronixGray: '#C7C9D3'
       }
     }
   }
 }
 </script>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', {
+    page_title: 'Case Study Multi-Site EN',
+    page_location: window.location.href
+  });
+  let scrollMilestones = {25: false, 50: false, 75: false, 90: false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    for (let m in scrollMilestones) {
+      if (pct >= m && !scrollMilestones[m]) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { event_category: 'Engagement', event_label: m + '%', value: parseInt(m) });
+      }
+    }
+  }, { passive: true });
+  let startTime = Date.now();
+  window.addEventListener('beforeunload', function() {
+    gtag('event', 'time_on_page', { event_category: 'Engagement', value: Math.round((Date.now() - startTime) / 1000) });
+  });
+</script>
+<!-- Schema JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html#article",
+      "headline": "Case Study: Multi-Site Intelligent AI System",
+      "description": "Real implementation of AI architecture for a multi-site distribution company. Order automation, receivables, and real-time executive control with measurable results.",
+      "author": {
+        "@type": "Organization",
+        "@id": "https://kronixlabs.github.io/#organization",
+        "name": "KRONIX Labs"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://kronixlabs.github.io/#organization",
+        "name": "KRONIX Labs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://kronixlabs.github.io/Kronix-Labs.svg"
+        }
+      },
+      "url": "https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html",
+      "inLanguage": "en",
+      "about": {
+        "@type": "Service",
+        "name": "Multi-Site Intelligent AI System Architecture",
+        "serviceType": "Enterprise AI Architecture"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kronixlabs.github.io/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://kronixlabs.github.io/en/case-study/" },
+        { "@type": "ListItem", "position": 3, "name": "Multi-Site Intelligent System", "item": "https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html" }
+      ]
+    }
+  ]
+}
+</script>
+<!-- Critical CSS -->
+<style>
+  body { background-color: #0B0F2B; color: #fff; font-family: 'Montserrat', sans-serif; }
+  .grid-bg {
+    background-image: linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(31,162,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(31,162,255,0.35); } 50% { box-shadow: 0 0 0 12px rgba(31,162,255,0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .d1 { animation-delay: 0.10s; } .d2 { animation-delay: 0.25s; } .d3 { animation-delay: 0.40s; } .d4 { animation-delay: 0.55s; }
+  .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
+  .problema-card {
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1.5rem;
+    background: rgba(255,255,255,0.02); border-left: 3px solid rgba(239,68,68,0.5);
+  }
+  .agente-card {
+    border: 1px solid rgba(31,162,255,0.2); border-radius: 14px; padding: 1.75rem;
+    background: rgba(31,162,255,0.04); transition: border-color 0.25s, transform 0.25s;
+  }
+  .agente-card:hover { border-color: rgba(31,162,255,0.45); transform: translateY(-4px); background: rgba(31,162,255,0.08); }
+  .capa-row {
+    display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.25rem 1.5rem;
+    border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s;
+  }
+  .capa-row:hover { border-color: rgba(31,162,255,0.25); }
+  .stat-card {
+    border-radius: 20px; padding: 2.5rem; text-align: center; transition: transform 0.25s;
+  }
+  .stat-card:hover { transform: translateY(-4px); }
+  .nav-link { color: rgba(255,255,255,0.75); font-size: 0.875rem; transition: color 0.2s; }
+  .nav-link:hover { color: #1FA2FF; }
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: flex; }
+</style>
 </head>
+<body style="font-family:'Montserrat',sans-serif;">
 
-<body class="bg-kronixDark text-white font-[Montserrat]">
-
-<!-- INSTITUTIONAL INTERNAL HEADER -->
-<header class="fixed w-full bg-kronixDark/90 backdrop-blur-lg border-b border-white/5 z-50">
-<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-<a href="/en/">
-<img src="../../Kronix-Labs.svg" class="h-10">
-</a>
-
-<nav class="hidden md:flex gap-8 text-sm text-white/80">
-
-<a href="/en/" class="hover:text-kronixBlue transition">Home</a>
-
-<a href="/en/consulting/enterprise-ai-architecture.html"
-class="hover:text-kronixBlue transition">
-AI Architecture
-</a>
-
-<a href="/en/framework/enterprise-ai-architecture-framework.html"
-class="hover:text-kronixBlue transition">
-Framework
-</a>
-
-<a href="/en/firm/strategic-ai-consultancy.html"
-class="hover:text-kronixBlue transition">
-Firm
-</a>
-
-<a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnostic."
-class="text-kronixBlue font-semibold">
-Contact
-</a>
-
-</nav>
-
-<div class="flex gap-3">
-
-<a href="/es/case-study/sistema-inteligente-multisede.html"
-class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-2">
-
-<svg width="18" height="12" viewBox="0 0 3 2">
-<rect width="3" height="2" fill="#C60B1E"/>
-<rect y="0.5" width="3" height="1" fill="#FFC400"/>
-</svg>
-
-ES
-</a>
-
-<div class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-2">
-
-<svg width="18" height="12" viewBox="0 0 19 10">
-<rect width="19" height="10" fill="#B22234"/>
-<g fill="#fff">
-<rect y="1" width="19" height="1"/>
-<rect y="3" width="19" height="1"/>
-<rect y="5" width="19" height="1"/>
-<rect y="7" width="19" height="1"/>
-<rect y="9" width="19" height="1"/>
-</g>
-<rect width="8" height="5" fill="#3C3B6E"/>
-</svg>
-
-EN
-</div>
-
-</div>
-
-</div>
+<!-- HEADER -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/en/" aria-label="KRONIX Labs — Home">
+      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+    </a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+      <a href="/en/" class="nav-link">Home</a>
+      <a href="/en/consulting/enterprise-ai-architecture.html" class="nav-link">AI Architecture</a>
+      <a href="/en/framework/enterprise-ai-architecture-framework.html" class="nav-link">Framework</a>
+      <a href="/en/industries/distribution.html" class="nav-link">Industries</a>
+      <a href="/en/firm/strategic-ai-consultancy.html" class="nav-link">Firm</a>
+      <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Nav_Contact_EN'});"
+         class="bg-[#1FA2FF] text-white text-sm font-semibold px-5 py-2 rounded-lg hover:opacity-90 transition">
+        Contact
+      </a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <a href="/es/case-study/sistema-inteligente-multisede.html"
+           hreflang="es" rel="alternate"
+           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'ES_casestudy'});"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+          ES
+        </a>
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
+            <rect width="19" height="10" fill="#B22234"/>
+            <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
+            <rect width="8" height="5" fill="#3C3B6E"/>
+          </svg>
+          EN
+        </span>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Open menu" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5">
+    <a href="/en/" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Home</a>
+    <a href="/en/consulting/enterprise-ai-architecture.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">AI Architecture</a>
+    <a href="/en/framework/enterprise-ai-architecture-framework.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Framework</a>
+    <a href="/en/industries/distribution.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Industries</a>
+    <a href="/en/firm/strategic-ai-consultancy.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Firm</a>
+    <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis."
+       class="block py-2 text-sm text-[#1FA2FF] font-semibold">Contact →</a>
+  </nav>
 </header>
 
+<!-- BREADCRUMB -->
+<div class="pt-24 bg-[#070A1E]">
+  <div class="max-w-7xl mx-auto px-6 py-3">
+    <nav aria-label="Breadcrumb" class="text-xs text-white/40 flex items-center gap-2">
+      <a href="/en/" class="hover:text-[#1FA2FF] transition">Home</a>
+      <span>/</span>
+      <a href="/en/case-study/" class="hover:text-[#1FA2FF] transition">Case Studies</a>
+      <span>/</span>
+      <span class="text-white/60">Multi-Site Intelligent System</span>
+    </nav>
+  </div>
+</div>
+
 <!-- HERO -->
-<section class="pt-40 pb-24 bg-gradient-to-b from-kronixDark to-black text-center">
-<div class="max-w-4xl mx-auto px-6">
-
-<h1 class="text-4xl md:text-5xl font-semibold mb-6">
-Multi-Site <span class="text-kronixBlue">Enterprise AI System</span>
-</h1>
-
-<p class="text-kronixGray text-lg">
-Full-scale intelligent automation architecture engineered for production and distribution enterprises operating across multiple locations.
-</p>
-
-</div>
+<section class="relative pt-12 pb-24 px-6 text-center grid-bg overflow-hidden"
+         style="background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(31,162,255,0.15) 0%, transparent 70%), linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);"
+         aria-label="Case Study — Multi-Site Intelligent System">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl opacity-[0.06] pointer-events-none" style="background:#1FA2FF;"></div>
+  <div class="relative max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] animate-pulse inline-block"></span>
+      Case Study · Multi-Site Distribution · Applied AI
+    </div>
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight tracking-tight fade-up d2">
+      Multi-Site <span class="text-[#1FA2FF]">Intelligent</span> System with AI
+    </h1>
+    <p class="text-[#C7C9D3] text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed fade-up d3">
+      Complete enterprise automation architecture designed and implemented for a multi-site production and distribution company. The EAA Framework™ in action.
+    </p>
+    <!-- Metrics in hero -->
+    <div class="flex flex-wrap justify-center gap-6 mb-10 fade-up d4">
+      <div class="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#1FA2FF]/25 bg-[#1FA2FF]/8">
+        <span class="text-[#1FA2FF] font-bold text-xl">80+</span>
+        <span class="text-[#C7C9D3] text-sm">orders/day automated</span>
+      </div>
+      <div class="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#1FA2FF]/25 bg-[#1FA2FF]/8">
+        <span class="text-[#1FA2FF] font-bold text-xl">−40%</span>
+        <span class="text-[#C7C9D3] text-sm">operational time</span>
+      </div>
+      <div class="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#1FA2FF]/25 bg-[#1FA2FF]/8">
+        <span class="text-[#1FA2FF] font-bold text-xl">100%</span>
+        <span class="text-[#C7C9D3] text-sm">real-time executive visibility</span>
+      </div>
+    </div>
+    <div class="fade-up d4">
+      <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20an%20architecture%20similar%20to%20the%20multi-site%20case%20for%20my%20company."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Hero_CaseStudy_EN'});"
+         class="btn-glow inline-block bg-[#1FA2FF] text-white px-10 py-4 rounded-lg font-semibold hover:opacity-90 transition">
+        I want a similar architecture →
+      </a>
+    </div>
+  </div>
 </section>
 
-<!-- CHALLENGE -->
-<section class="py-20 bg-black">
-<div class="max-w-5xl mx-auto px-6">
-
-<h2 class="text-3xl font-semibold mb-8">The Challenge</h2>
-
-<p class="text-kronixGray mb-6">
-A multi-location production and distribution company managing over 80 daily orders with manual workflows, fragmented coordination and limited real-time executive visibility.
-</p>
-
-<ul class="text-kronixGray space-y-3">
-<li>• WhatsApp-based unstructured order intake</li>
-<li>• Manual repetitive processes</li>
-<li>• Limited executive visibility</li>
-<li>• High operational inefficiencies</li>
-</ul>
-
-</div>
+<!-- PROJECT FACT SHEET -->
+<section class="py-12 bg-black px-6" aria-label="Project fact sheet">
+  <div class="max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden text-center">
+      <div class="bg-black p-6">
+        <p class="text-[#C7C9D3]/50 text-xs uppercase tracking-widest mb-2">Industry</p>
+        <p class="text-white font-semibold text-sm">Production & Distribution</p>
+      </div>
+      <div class="bg-[#070A1E] p-6 border-x border-white/5">
+        <p class="text-[#C7C9D3]/50 text-xs uppercase tracking-widest mb-2">Scope</p>
+        <p class="text-white font-semibold text-sm">Multi-site — LATAM</p>
+      </div>
+      <div class="bg-black p-6 border-r border-white/5">
+        <p class="text-[#C7C9D3]/50 text-xs uppercase tracking-widest mb-2">Methodology</p>
+        <p class="text-[#1FA2FF] font-semibold text-sm">Kronix EAA Framework™</p>
+      </div>
+      <div class="bg-[#070A1E] p-6">
+        <p class="text-[#C7C9D3]/50 text-xs uppercase tracking-widest mb-2">Status</p>
+        <p class="text-white font-semibold text-sm flex items-center justify-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+          In production
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- SOLUTION -->
-<section class="py-20 bg-kronixDark">
-<div class="max-w-5xl mx-auto px-6">
+<!-- THE CHALLENGE -->
+<section class="py-24 bg-black px-6" aria-labelledby="challenge-title">
+  <div class="max-w-5xl mx-auto">
+    <div class="mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">01 — Starting point</p>
+      <h2 id="challenge-title" class="text-3xl md:text-4xl font-bold mb-6">
+        The challenge: an operation that <span class="text-[#1FA2FF]">could not scale</span>
+      </h2>
+      <p class="text-[#C7C9D3] text-lg leading-relaxed max-w-3xl">
+        A production and distribution company with multiple sites faced a structural problem: its operation relied entirely on manual processes that could not scale without hiring more people and assuming more error risk.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">+80 daily orders via WhatsApp without structure</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Customers sent orders via text message. No system, no automatic validation, no structured confirmation. Every order required human intervention from the first step.</p>
+          </div>
+        </div>
+      </div>
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">Repetitive manual processes across the chain</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Registration, confirmation, dispatch, invoicing, and tracking — all manual. The operational team spent most of their time on administrative tasks that added no strategic value.</p>
+          </div>
+        </div>
+      </div>
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">Receivables managed with spreadsheets</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Collections tracking depended on one person. No automatic alerts, no reminder system, no real-time overdue visibility. High turnover undetected in time.</p>
+          </div>
+        </div>
+      </div>
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">Low executive visibility — delayed decisions</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Management received manually prepared reports days late. Impossible to react timely to operational issues, demand peaks, or high-risk clients.</p>
+          </div>
+        </div>
+      </div>
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">Lack of coordination between sites</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Each site operated with its own standards, without unified data or shared protocols. Expansion required replicating people, not systems.</p>
+          </div>
+        </div>
+      </div>
+      <div class="problema-card">
+        <div class="flex items-start gap-3">
+          <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>
+          <div>
+            <p class="text-white font-semibold text-sm mb-1">High risk of operational errors</p>
+            <p class="text-[#C7C9D3] text-xs leading-relaxed">Lost orders, duplicate confirmations, incorrect dispatches, and missed collections were frequent. Business growth amplified errors, not reduced them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 p-6 rounded-2xl border border-white/8 bg-white/2">
+      <p class="text-white font-semibold text-center">
+        The diagnosis was clear: <span class="text-[#1FA2FF]">the problem was not lack of effort — it was lack of architecture.</span>
+      </p>
+    </div>
+  </div>
+</section>
 
-<h2 class="text-3xl font-semibold mb-8">System Architecture Designed</h2>
+<!-- DESIGNED ARCHITECTURE -->
+<section class="py-24 px-6 grid-bg" style="background-color:#0B0F2B;" aria-labelledby="architecture-title">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">02 — The solution</p>
+      <h2 id="architecture-title" class="text-3xl md:text-4xl font-bold mb-4">
+        Integrated <span class="text-[#1FA2FF]">AI Agents</span> System
+      </h2>
+      <p class="text-[#C7C9D3] max-w-2xl mx-auto">
+        KRONIX Labs designed and implemented a 4 interconnected AI agent architecture, each responsible for a critical operational layer — orchestrated under the EAA Framework™.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="agente-card">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-xl">📦</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Agent 1</p>
+            <h3 class="text-white font-bold text-lg mb-2">Automated Order Management</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed mb-3">
+              Receives orders via WhatsApp, structures them automatically, validates availability, generates customer confirmation, and registers in the system — without human intervention in the standard flow.
+            </p>
+            <ul class="space-y-1">
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Reception and parsing of unstructured orders</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatic inventory validation</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Confirmation and customer tracking</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Human escalation in exception cases</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="agente-card">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-xl">💳</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Agent 2</p>
+            <h3 class="text-white font-bold text-lg mb-2">Intelligent Receivables Agent</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed mb-3">
+              Monitors receivables in real time, detects upcoming due dates, sends tiered automatic reminders, and alerts management about high-risk clients.
+            </p>
+            <ul class="space-y-1">
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatic due date monitoring</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Tiered reminders by risk level</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatic executive alerts</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Real-time receivables reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="agente-card">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-xl">🎯</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Agent 3</p>
+            <h3 class="text-white font-bold text-lg mb-2">Commercial Agent for New Clients</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed mb-3">
+              Qualifies incoming leads, responds to inquiries, collects necessary information, and schedules meetings with the sales team — accelerating the pipeline without overwhelming sales staff.
+            </p>
+            <ul class="space-y-1">
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatic lead qualification</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>24/7 immediate inquiry response</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Intelligent handoff to sales team</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Automatic CRM registration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="agente-card">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-xl">🖥️</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Layer 4</p>
+            <h3 class="text-white font-bold text-lg mb-2">Real-Time Executive Dashboard</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed mb-3">
+              Unified executive panel consolidating data from all agents: daily orders, receivables status, commercial pipeline, and operational KPIs — accessible from any device.
+            </p>
+            <ul class="space-y-1">
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Real-time operational KPIs</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Multi-site consolidation in one view</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>Critical automatic alerts to CEO</li>
+              <li class="text-xs text-[#C7C9D3]/70 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#1FA2FF]/60 inline-block"></span>No-manual-intervention reporting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<p class="text-kronixGray mb-6">
-KRONIX Labs engineered a modular enterprise AI system composed of:
-</p>
-
-<div class="grid md:grid-cols-2 gap-10 text-kronixGray">
-<div>✔ Automated Order Processing Agent</div>
-<div>✔ Intelligent Accounts Receivable Agent</div>
-<div>✔ Commercial Lead Qualification Agent</div>
-<div>✔ Executive Real-Time Control Dashboard</div>
-</div>
-
-</div>
+<!-- EAA FRAMEWORK APPLIED -->
+<section class="py-20 bg-[#070A1E] px-6" aria-labelledby="framework-applied-title">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">The methodology behind</p>
+      <h2 id="framework-applied-title" class="text-3xl font-bold">
+        EAA Framework™ applied <span class="text-[#1FA2FF]">layer by layer</span>
+      </h2>
+    </div>
+    <div class="space-y-4">
+      <div class="capa-row">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/12 border border-[#1FA2FF]/35 flex items-center justify-center text-[#1FA2FF] font-bold text-xs">01</div>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Strategic Intelligence — Diagnosis and value map</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">We identified orders, receivables, and executive visibility as the three highest-leverage points. Commercial was secondary but a multiplier. KPIs were defined before designing any agent.</p>
+        </div>
+      </div>
+      <div class="capa-row">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/12 border border-[#1FA2FF]/35 flex items-center justify-center text-[#1FA2FF] font-bold text-xs">02</div>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Process Architecture — Redesign before automation</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">We redesigned the order flow, receivables protocol, and commercial onboarding before building agents. Optimized processes were fully documented.</p>
+        </div>
+      </div>
+      <div class="capa-row" style="border-color: rgba(31,162,255,0.2); background: rgba(31,162,255,0.04);">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/50 flex items-center justify-center text-[#1FA2FF] font-bold text-xs">03</div>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">AI Systems — Integrated multi-agent architecture</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">Design and implementation of 4 interconnected agents with communication flows, exception handling, and human escalation when the system detects out-of-standard situations.</p>
+        </div>
+      </div>
+      <div class="capa-row">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/12 border border-[#1FA2FF]/35 flex items-center justify-center text-[#1FA2FF] font-bold text-xs">04</div>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Governance & Control — Executive dashboard and alerts</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">Management panel with real-time KPIs, automatic critical alerts, and human validation points in key decisions. CEO has full control without manual reports.</p>
+        </div>
+      </div>
+      <div class="capa-row">
+        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/12 border border-[#1FA2FF]/35 flex items-center justify-center text-[#1FA2FF] font-bold text-xs">05</div>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Scalability — Multi-site replicable model</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">The entire architecture was documented with replication standards. Each new site can join the system without full redesign — following defined expansion protocols.</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <a href="/en/framework/enterprise-ai-architecture-framework.html"
+         class="text-[#1FA2FF] text-sm font-semibold hover:underline">
+        Learn the full EAA Framework™ →
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- RESULTS -->
-<section class="py-20 bg-black">
-<div class="max-w-5xl mx-auto px-6 text-center">
+<section class="py-24 bg-black px-6" aria-labelledby="results-title">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">03 — The results</p>
+      <h2 id="results-title" class="text-3xl md:text-4xl font-bold mb-4">
+        Measurable <span class="text-[#1FA2FF]">impact</span> from the first month
+      </h2>
+      <p class="text-[#C7C9D3] max-w-2xl mx-auto">
+        Results were measured against KPIs defined in Layer 1 of the EAA Framework. Every number has a documented baseline.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="stat-card border border-[#1FA2FF]/30 bg-[#1FA2FF]/5">
+        <p class="text-6xl font-bold text-[#1FA2FF] mb-3">80+</p>
+        <p class="text-white font-semibold text-lg mb-2">Orders/day automated</p>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">From 100% manual process to fully automated system. The operational team no longer manages standard order flow.</p>
+      </div>
+      <div class="stat-card border border-white/8 bg-white/2">
+        <p class="text-6xl font-bold text-[#1FA2FF] mb-3">−40%</p>
+        <p class="text-white font-semibold text-lg mb-2">Operational time reduction</p>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">Time spent on repetitive administrative tasks was significantly reduced, freeing the team for higher-value work.</p>
+      </div>
+      <div class="stat-card border border-[#1FA2FF]/30 bg-[#1FA2FF]/5">
+        <p class="text-6xl font-bold text-[#1FA2FF] mb-3">100%</p>
+        <p class="text-white font-semibold text-lg mb-2">Real-time executive visibility</p>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">From days-late manual reports to real-time executive panel accessible from any device.</p>
+      </div>
+    </div>
+    <!-- Additional results -->
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="flex items-start gap-4 p-5 rounded-xl border border-white/8 bg-white/2">
+        <span class="text-[#1FA2FF] font-bold text-lg flex-shrink-0">✓</span>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Reduced overdue receivables</p>
+          <p class="text-[#C7C9D3] text-xs">Tiered automatic reminders from the Receivables Agent reduced overdue receivables in the first weeks of operation.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 rounded-xl border border-white/8 bg-white/2">
+        <span class="text-[#1FA2FF] font-bold text-lg flex-shrink-0">✓</span>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Zero lost orders</p>
+          <p class="text-[#C7C9D3] text-xs">The automated order management system eliminated losses due to human error that occurred regularly in the manual process.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 rounded-xl border border-white/8 bg-white/2">
+        <span class="text-[#1FA2FF] font-bold text-lg flex-shrink-0">✓</span>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Replicable architecture for new sites</p>
+          <p class="text-[#C7C9D3] text-xs">The documented model allows new sites to join the system without full redesign, following scalability protocols.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 rounded-xl border border-white/8 bg-white/2">
+        <span class="text-[#1FA2FF] font-bold text-lg flex-shrink-0">✓</span>
+        <div>
+          <p class="text-white font-semibold text-sm mb-1">Team freed for strategic work</p>
+          <p class="text-[#C7C9D3] text-xs">Time recovered from repetitive operational tasks was redirected to higher-impact activities: key client relationships and new market development.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2 class="text-3xl font-semibold mb-10">Strategic Results</h2>
-
-<div class="grid md:grid-cols-3 gap-10 text-kronixGray">
-
-<div>
-<p class="text-4xl font-bold text-kronixBlue">80+</p>
-Orders automated per day
-</div>
-
-<div>
-<p class="text-4xl font-bold text-kronixBlue">-40%</p>
-Operational time reduction
-</div>
-
-<div>
-<p class="text-4xl font-bold text-kronixBlue">100%</p>
-Real-time executive visibility
-</div>
-
-</div>
-
-</div>
+<!-- KEY LESSON -->
+<section class="py-20 px-6 grid-bg" style="background-color:#0B0F2B;" aria-label="Case lesson">
+  <div class="max-w-4xl mx-auto">
+    <div class="border border-[#1FA2FF]/20 rounded-2xl p-10 bg-[#1FA2FF]/5 text-center">
+      <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-6">The lesson from this case</p>
+      <blockquote class="text-xl md:text-2xl font-semibold text-white leading-relaxed mb-6">
+        "This project was not a technology problem.<br>
+        It was an <span class="text-[#1FA2FF]">architecture</span> problem.<br>
+        The tools existed — what was missing<br>
+        was the system to organize them."
+      </blockquote>
+      <p class="text-[#C7C9D3]/60 text-sm">— KRONIX Labs, post-implementation analysis</p>
+    </div>
+  </div>
 </section>
 
 <!-- CTA -->
-<section class="py-24 bg-gradient-to-b from-black to-kronixDark text-center">
-<div class="max-w-3xl mx-auto px-6">
-
-<h2 class="text-3xl font-semibold mb-6">
-Engineer Your Enterprise AI Architecture
-</h2>
-
-<a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20want%20to%20discuss%20a%20multi-site%20enterprise%20AI%20system."
-target="_blank"
-class="bg-kronixBlue px-10 py-4 rounded-lg font-medium hover:opacity-90 transition">
-Request Strategic Evaluation
-</a>
-
-</div>
+<section class="py-24 px-6" style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);" aria-label="Call to action">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Does your company have a similar challenge?</p>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Let's design your <span class="text-[#1FA2FF]">intelligent architecture</span>
+      </h2>
+      <p class="text-[#C7C9D3] text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+        Every company has its own operational complexity. In 45 minutes we analyze yours and identify which architecture has the most impact in your specific case.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20an%20architecture%20similar%20to%20the%20multi-site%20case%20for%20my%20company."
+           target="_blank" rel="noopener noreferrer"
+           onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Bottom_CaseStudy_EN'});"
+           class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-lg font-semibold hover:opacity-90 transition">
+          Request Strategic Evaluation →
+        </a>
+        <a href="/en/consulting/enterprise-ai-architecture.html"
+           class="border border-white/25 px-10 py-4 rounded-lg font-semibold hover:border-[#1FA2FF]/60 hover:text-[#1FA2FF] transition">
+          View full service
+        </a>
+      </div>
+      <p class="text-[#C7C9D3]/50 text-xs mt-5">We reply in under 2 hours · Monday to Friday</p>
+    </div>
+    <!-- Related resources -->
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="border border-white/8 rounded-xl p-6 bg-white/2">
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">The methodology</p>
+        <h3 class="text-white font-semibold mb-2">Kronix EAA Framework™</h3>
+        <p class="text-[#C7C9D3] text-xs mb-4">The 5 layers that structured this project.</p>
+        <a href="/en/framework/enterprise-ai-architecture-framework.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">View Framework →</a>
+      </div>
+      <div class="border border-white/8 rounded-xl p-6 bg-white/2">
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-2">Your industry</p>
+        <h3 class="text-white font-semibold mb-2">Distribution Solutions</h3>
+        <p class="text-[#C7C9D3] text-xs mb-4">AI architecture specific to the sector.</p>
+        <a href="/en/industries/distribution.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">View industry →</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer class="border-t border-white/5 bg-black py-16 text-sm text-kronixGray">
-
-<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
-
-<!-- Brand -->
-<div>
-<h3 class="text-white font-semibold mb-4">KRONIX Labs</h3>
-<p class="leading-relaxed">
-Strategic firm specialized in Enterprise AI Architecture, intelligent systems design and structured automation engineering.
-</p>
-</div>
-
-<!-- Services -->
-<div>
-<h4 class="text-white font-semibold mb-4">Services</h4>
-<ul class="space-y-2">
-<li><a href="/en/consulting/enterprise-ai-architecture.html" class="hover:text-kronixBlue transition">Enterprise AI Architecture</a></li>
-<li><a href="/en/framework/enterprise-ai-architecture-framework.html" class="hover:text-kronixBlue transition">Kronix EAA Framework™</a></li>
-<li><a href="/en/industries/distribution.html" class="hover:text-kronixBlue transition">Distribution Solutions</a></li>
-<li><a href="/en/case-study/multi-site-ai-system.html" class="hover:text-kronixBlue transition">Multi-Site Case Study</a></li>
-</ul>
-</div>
-
-<!-- Firm -->
-<div>
-<h4 class="text-white font-semibold mb-4">Firm</h4>
-<ul class="space-y-2">
-<li><a href="/en/firm/strategic-ai-consultancy.html" class="hover:text-kronixBlue transition">About the Firm</a></li>
-<li><a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnostic." target="_blank" class="hover:text-kronixBlue transition">Schedule Diagnostic</a></li>
-</ul>
-</div>
-
-<!-- Contact -->
-<div>
-<h4 class="text-white font-semibold mb-4">Contact</h4>
-<p>Medellín, Colombia</p>
-<p class="mt-2">
-<a href="https://wa.me/573107397053" target="_blank" class="hover:text-kronixBlue transition">
-WhatsApp: +57 310 739 7053
-</a>
-</p>
-</div>
-
-</div>
-
-<div class="border-t border-white/5 mt-12 pt-8 text-center text-xs text-white/40">
-© 2026 KRONIX Labs by jurion — Enterprise AI Architecture
-</div>
-
+<!-- FOOTER -->
+<footer class="border-t border-white/5 bg-black py-16 text-sm text-[#C7C9D3]" aria-label="Footer">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+    <div>
+      <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
+      <p class="leading-relaxed text-[#C7C9D3]/80 mb-4">
+        Strategic firm specialized in Enterprise AI Architecture, intelligent systems design, and structured automation.
+      </p>
+      <p class="text-[#C7C9D3]/40 text-xs">Engineering Intelligent Growth</p>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-5">Services</h4>
+      <ul class="space-y-3">
+        <li><a href="/en/consulting/enterprise-ai-architecture.html" class="hover:text-[#1FA2FF] transition">Enterprise AI Architecture</a></li>
+        <li><a href="/en/framework/enterprise-ai-architecture-framework.html" class="hover:text-[#1FA2FF] transition">Kronix EAA Framework™</a></li>
+        <li><a href="/en/industries/distribution.html" class="hover:text-[#1FA2FF] transition">Distribution Solutions</a></li>
+        <li><a href="/en/case-study/multi-site-ai-system.html" class="hover:text-[#1FA2FF] transition">Multi-Site Case Study</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-5">Firm</h4>
+      <ul class="space-y-3">
+        <li><a href="/en/firm/strategic-ai-consultancy.html" class="hover:text-[#1FA2FF] transition">Our Firm</a></li>
+        <li><a href="/en/framework/enterprise-ai-architecture-framework.html" class="hover:text-[#1FA2FF] transition">Methodology</a></li>
+        <li>
+          <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis."
+             target="_blank" rel="noopener noreferrer"
+             onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_EN'});"
+             class="hover:text-[#1FA2FF] transition">Schedule Diagnosis</a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-5">Contact</h4>
+      <p class="mb-3">Medellín, Antioquia<br>Colombia — LATAM</p>
+      <a href="https://wa.me/573107397053"
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_WA_EN'});"
+         class="hover:text-[#1FA2FF] transition block mb-2">
+        WhatsApp: +57 310 739 7053
+      </a>
+      <div class="flex gap-2 mt-4">
+        <a href="/es/case-study/sistema-inteligente-multisede.html" hreflang="es" rel="alternate" class="text-xs text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition">Versión en español →</a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/5 mt-12 pt-8 max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/30">
+    <span>© 2026 KRONIX Labs by jurion — Enterprise AI Architecture</span>
+    <span>Intelligent Systems Laboratory · Medellín, Colombia</span>
+  </div>
 </footer>
+
+<!-- Mobile menu toggle -->
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+<!-- WhatsApp Floating Panel -->
+<style>
+.kx-wa-btn { position: fixed; bottom: 28px; right: 28px; z-index: 9999; background: #1FA2FF; color: #fff; padding: 14px 20px; border-radius: 14px; font-weight: 600; font-size: 14px; box-shadow: 0 10px 40px rgba(31,162,255,0.45); display: flex; align-items: center; gap: 8px; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; isolation: isolate; }
+.kx-wa-btn.show { opacity: 1; transform: translateY(0); }
+.kx-wa-panel { position: fixed; bottom: 95px; right: 28px; width: 340px; background: #070A1E; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; z-index: 10000; display: none; box-shadow: 0 15px 60px rgba(0,0,0,0.55); }
+.kx-wa-panel h4 { color: #fff; font-size: 15px; margin-bottom: 14px; }
+.kx-wa-panel select, .kx-wa-panel button { width: 100%; margin-bottom: 12px; padding: 11px; border-radius: 8px; font-size: 13px; }
+.kx-wa-panel select { background: #0B0F2B; color: #C7C9D3; border: 1px solid rgba(255,255,255,0.1); }
+.kx-wa-panel button { background: #1FA2FF; color: white; font-weight: 600; border: none; cursor: pointer; }
+</style>
+<div id="kx-wa-btn" class="kx-wa-btn"><span id="kx-wa-text"></span></div>
+<div id="kx-wa-panel" class="kx-wa-panel">
+  <h4 id="kx-wa-title"></h4>
+  <select id="kx-sector"></select>
+  <select id="kx-size"></select>
+  <button id="kx-submit"></button>
+</div>
+<script>
+(function(){
+  const phone = "573107397053";
+  const isEN = window.location.pathname.includes("/en/");
+  const btn = document.getElementById("kx-wa-btn");
+  const panel = document.getElementById("kx-wa-panel");
+  const submit = document.getElementById("kx-submit");
+  const sector = document.getElementById("kx-sector");
+  const size = document.getElementById("kx-size");
+  const text = document.getElementById("kx-wa-text");
+  const title = document.getElementById("kx-wa-title");
+
+  const content = isEN ? {
+    button: "Schedule Diagnosis",
+    title: "Before we connect…",
+    sectorPlaceholder: "Select industry",
+    sizePlaceholder: "Company size",
+    sectors: ["Distribution","Manufacturing","Financial Services","Technology","Healthcare","Other"],
+    sizes: ["1–10 employees","11–50 employees","51–200 employees","200+ employees"],
+    submit: "Continue to WhatsApp",
+    alert: "Please select industry and company size.",
+    message: (s,z)=>`Hello KRONIX, I am interested in a multi-site AI architecture similar to your case study.\nIndustry: ${s}\nCompany Size: ${z}\nI would like to schedule a strategic diagnosis.`
+  } : {
+    button: "Agendar Diagnóstico",
+    title: "Antes de conectarnos…",
+    sectorPlaceholder: "Selecciona sector",
+    sizePlaceholder: "Tamaño de empresa",
+    sectors: ["Distribución","Manufactura","Servicios Financieros","Tecnología","Salud","Otro"],
+    sizes: ["1–10 empleados","11–50 empleados","51–200 empleados","Más de 200 empleados"],
+    submit: "Continuar a WhatsApp",
+    alert: "Selecciona sector y tamaño de empresa.",
+    message: (s,z)=>`Hola KRONIX, estoy interesado en una arquitectura IA multisede similar al caso de estudio.\nSector: ${s}\nTamaño Empresa: ${z}\nMe gustaría agendar un diagnóstico estratégico.`
+  };
+
+  text.innerText = content.button;
+  title.innerText = content.title;
+  submit.innerText = content.submit;
+
+  sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>` + content.sectors.map(s => `<option>${s}</option>`).join('');
+  size.innerHTML = `<option value="">${content.sizePlaceholder}</option>` + content.sizes.map(s => `<option>${s}</option>`).join('');
+
+  setTimeout(() => btn.classList.add("show"), 1500);
+
+  btn.addEventListener("click", () => { panel.style.display = panel.style.display === "block" ? "none" : "block"; });
+
+  submit.addEventListener("click", () => {
+    if (!sector.value || !size.value) { alert(content.alert); return; }
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(content.message(sector.value, size.value));
+    if (typeof gtag !== "undefined") {
+      gtag("event", "click_whatsapp_prequalified", { event_category: "CTA", event_label: isEN ? "PreQualified_EN" : "PreQualified_ES" });
+    }
+    window.open(url, "_blank");
+    panel.style.display = "none";
+  });
+})();
+</script>
 
 </body>
 </html>
