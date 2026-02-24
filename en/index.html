@@ -232,6 +232,192 @@ WhatsApp: +57 310 739 7053
 </div>
 
 </footer>
+<!-- =========================================
+     KRONIX ENTERPRISE WHATSAPP SYSTEM v2
+     ========================================= -->
 
+<style>
+.kx-wa-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  background: #1FA2FF;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 10px 40px rgba(31,162,255,0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  isolation: isolate;
+}
+
+.kx-wa-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kx-wa-panel {
+  position: fixed;
+  bottom: 95px;
+  right: 28px;
+  width: 340px;
+  background: #070A1E;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  z-index: 10000;
+  display: none;
+  box-shadow: 0 15px 60px rgba(0,0,0,0.55);
+}
+
+.kx-wa-panel h4 {
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.kx-wa-panel select,
+.kx-wa-panel button {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.kx-wa-panel select {
+  background: #0B0F2B;
+  color: #C7C9D3;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.kx-wa-panel button {
+  background: #1FA2FF;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+<div id="kx-wa-btn" class="kx-wa-btn">
+  <span id="kx-wa-text"></span>
+</div>
+
+<div id="kx-wa-panel" class="kx-wa-panel">
+  <h4 id="kx-wa-title"></h4>
+
+  <select id="kx-sector"></select>
+  <select id="kx-size"></select>
+
+  <button id="kx-submit"></button>
+</div>
+
+<script>
+(function(){
+
+const phone = "573107397053";
+const path = window.location.pathname;
+const isEN = path.includes("/en/");
+
+const btn = document.getElementById("kx-wa-btn");
+const panel = document.getElementById("kx-wa-panel");
+const submit = document.getElementById("kx-submit");
+const sector = document.getElementById("kx-sector");
+const size = document.getElementById("kx-size");
+const text = document.getElementById("kx-wa-text");
+const title = document.getElementById("kx-wa-title");
+
+/* CONTENIDO DINÁMICO POR IDIOMA */
+const content = isEN ? {
+  button: "Schedule Diagnosis",
+  title: "Before we connect…",
+  sectorPlaceholder: "Select sector",
+  sizePlaceholder: "Company size",
+  sectors: ["Distribution","Manufacturing","Financial Services","Technology","Healthcare","Other"],
+  sizes: ["1–10 employees","11–50 employees","51–200 employees","200+ employees"],
+  submit: "Continue to WhatsApp",
+  alert: "Please select sector and company size.",
+  message: (s,z)=>`Hello KRONIX, I am interested in Enterprise AI Architecture.
+
+Sector: ${s}
+Company Size: ${z}
+
+I would like to schedule a strategic diagnosis.`
+}
+:
+{
+  button: "Agendar Diagnóstico",
+  title: "Antes de conectarnos…",
+  sectorPlaceholder: "Selecciona sector",
+  sizePlaceholder: "Tamaño de empresa",
+  sectors: ["Distribución","Manufactura","Servicios Financieros","Tecnología","Salud","Otro"],
+  sizes: ["1–10 empleados","11–50 empleados","51–200 empleados","Más de 200 empleados"],
+  submit: "Continuar a WhatsApp",
+  alert: "Selecciona sector y tamaño de empresa.",
+  message: (s,z)=>`Hola KRONIX, estoy interesado en Arquitectura Empresarial con IA.
+
+Sector: ${s}
+Tamaño Empresa: ${z}
+
+Me gustaría agendar un diagnóstico estratégico.`
+};
+
+/* Inyectar texto */
+text.innerText = content.button;
+title.innerText = content.title;
+submit.innerText = content.submit;
+
+/* Cargar selects */
+sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>`;
+content.sectors.forEach(s=>{
+  sector.innerHTML += `<option>${s}</option>`;
+});
+
+size.innerHTML = `<option value="">${content.sizePlaceholder}</option>`;
+content.sizes.forEach(s=>{
+  size.innerHTML += `<option>${s}</option>`;
+});
+
+/* Mostrar botón */
+setTimeout(()=>btn.classList.add("show"),1500);
+
+/* Toggle panel */
+btn.addEventListener("click",()=> {
+  panel.style.display = panel.style.display==="block"?"none":"block";
+});
+
+/* Enviar */
+submit.addEventListener("click",()=>{
+  if(!sector.value || !size.value){
+    alert(content.alert);
+    return;
+  }
+
+  const url = "https://wa.me/"+phone+"?text="+
+              encodeURIComponent(content.message(sector.value,size.value));
+
+  if(typeof gtag!=="undefined"){
+    gtag("event","click_whatsapp_prequalified",{
+      event_category:"CTA",
+      event_label:isEN?"PreQualified_EN":"PreQualified_ES"
+    });
+  }
+
+  window.open(url,"_blank");
+  panel.style.display="none";
+});
+
+})();
+</script>
+  
 </body>
 </html>
