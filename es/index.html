@@ -1108,11 +1108,8 @@ tailwind.config = {
   });
 </script>
 
-<!-- ============================================================
-     JS:BOTON WHATSAPP
-     ============================================================ -->
 <!-- =========================================
-     KRONIX Enterprise WhatsApp Pre-Qualifier
+     KRONIX ENTERPRISE WHATSAPP SYSTEM v2
      ========================================= -->
 
 <style>
@@ -1120,14 +1117,14 @@ tailwind.config = {
   position: fixed;
   bottom: 28px;
   right: 28px;
-  z-index: 999;
+  z-index: 9999;
   background: #1FA2FF;
   color: #fff;
-  padding: 14px 18px;
+  padding: 14px 20px;
   border-radius: 14px;
   font-weight: 600;
   font-size: 14px;
-  box-shadow: 0 8px 30px rgba(31,162,255,0.35);
+  box-shadow: 0 10px 40px rgba(31,162,255,0.45);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1135,6 +1132,7 @@ tailwind.config = {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease;
+  isolation: isolate;
 }
 
 .kx-wa-btn.show {
@@ -1144,16 +1142,16 @@ tailwind.config = {
 
 .kx-wa-panel {
   position: fixed;
-  bottom: 90px;
+  bottom: 95px;
   right: 28px;
-  width: 320px;
+  width: 340px;
   background: #070A1E;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 16px;
-  padding: 22px;
-  z-index: 1000;
+  padding: 24px;
+  z-index: 10000;
   display: none;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  box-shadow: 0 15px 60px rgba(0,0,0,0.55);
 }
 
 .kx-wa-panel h4 {
@@ -1166,9 +1164,8 @@ tailwind.config = {
 .kx-wa-panel button {
   width: 100%;
   margin-bottom: 12px;
-  padding: 10px;
+  padding: 11px;
   border-radius: 8px;
-  border: none;
   font-size: 13px;
 }
 
@@ -1182,40 +1179,22 @@ tailwind.config = {
   background: #1FA2FF;
   color: white;
   font-weight: 600;
+  border: none;
   cursor: pointer;
-}
-
-.kx-wa-panel button:hover {
-  opacity: 0.9;
 }
 </style>
 
 <div id="kx-wa-btn" class="kx-wa-btn">
-  <span id="kx-wa-text">Strategic Consultation</span>
+  <span id="kx-wa-text"></span>
 </div>
 
 <div id="kx-wa-panel" class="kx-wa-panel">
-  <h4 id="kx-wa-title">Before we connect…</h4>
+  <h4 id="kx-wa-title"></h4>
 
-  <select id="kx-sector">
-    <option value="">Select sector</option>
-    <option>Distribution</option>
-    <option>Manufacturing</option>
-    <option>Financial Services</option>
-    <option>Technology</option>
-    <option>Healthcare</option>
-    <option>Other</option>
-  </select>
+  <select id="kx-sector"></select>
+  <select id="kx-size"></select>
 
-  <select id="kx-size">
-    <option value="">Company size</option>
-    <option>1–10 employees</option>
-    <option>11–50 employees</option>
-    <option>51–200 employees</option>
-    <option>200+ employees</option>
-  </select>
-
-  <button id="kx-submit">Continue to WhatsApp</button>
+  <button id="kx-submit"></button>
 </div>
 
 <script>
@@ -1230,55 +1209,87 @@ const panel = document.getElementById("kx-wa-panel");
 const submit = document.getElementById("kx-submit");
 const sector = document.getElementById("kx-sector");
 const size = document.getElementById("kx-size");
+const text = document.getElementById("kx-wa-text");
+const title = document.getElementById("kx-wa-title");
 
-document.getElementById("kx-wa-text").innerText =
-  isEN ? "Strategic AI Consultation" : "Consulta Estratégica IA";
+/* CONTENIDO DINÁMICO POR IDIOMA */
+const content = isEN ? {
+  button: "Schedule Diagnosis",
+  title: "Before we connect…",
+  sectorPlaceholder: "Select sector",
+  sizePlaceholder: "Company size",
+  sectors: ["Distribution","Manufacturing","Financial Services","Technology","Healthcare","Other"],
+  sizes: ["1–10 employees","11–50 employees","51–200 employees","200+ employees"],
+  submit: "Continue to WhatsApp",
+  alert: "Please select sector and company size.",
+  message: (s,z)=>`Hello KRONIX, I am interested in Enterprise AI Architecture.
 
-document.getElementById("kx-wa-title").innerText =
-  isEN ? "Before we connect…" : "Antes de conectarnos…";
+Sector: ${s}
+Company Size: ${z}
 
-submit.innerText =
-  isEN ? "Continue to WhatsApp" : "Continuar a WhatsApp";
+I would like to schedule a strategic diagnosis.`
+}
+:
+{
+  button: "Agendar Diagnóstico",
+  title: "Antes de conectarnos…",
+  sectorPlaceholder: "Selecciona sector",
+  sizePlaceholder: "Tamaño de empresa",
+  sectors: ["Distribución","Manufactura","Servicios Financieros","Tecnología","Salud","Otro"],
+  sizes: ["1–10 empleados","11–50 empleados","51–200 empleados","Más de 200 empleados"],
+  submit: "Continuar a WhatsApp",
+  alert: "Selecciona sector y tamaño de empresa.",
+  message: (s,z)=>`Hola KRONIX, estoy interesado en Arquitectura Empresarial con IA.
 
-sector.options[0].text = isEN ? "Select sector" : "Selecciona sector";
-size.options[0].text = isEN ? "Company size" : "Tamaño de empresa";
+Sector: ${s}
+Tamaño Empresa: ${z}
 
-/* Show button after 40% scroll */
-window.addEventListener("scroll", function(){
-  let scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  if(scrolled > 40){
-    btn.classList.add("show");
-  }
+Me gustaría agendar un diagnóstico estratégico.`
+};
+
+/* Inyectar texto */
+text.innerText = content.button;
+title.innerText = content.title;
+submit.innerText = content.submit;
+
+/* Cargar selects */
+sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>`;
+content.sectors.forEach(s=>{
+  sector.innerHTML += `<option>${s}</option>`;
 });
+
+size.innerHTML = `<option value="">${content.sizePlaceholder}</option>`;
+content.sizes.forEach(s=>{
+  size.innerHTML += `<option>${s}</option>`;
+});
+
+/* Mostrar botón */
+setTimeout(()=>btn.classList.add("show"),1500);
 
 /* Toggle panel */
-btn.addEventListener("click", function(){
-  panel.style.display = panel.style.display === "block" ? "none" : "block";
+btn.addEventListener("click",()=> {
+  panel.style.display = panel.style.display==="block"?"none":"block";
 });
 
-/* Submit */
-submit.addEventListener("click", function(){
-
+/* Enviar */
+submit.addEventListener("click",()=>{
   if(!sector.value || !size.value){
-    alert(isEN ? "Please select sector and company size." : "Selecciona sector y tamaño de empresa.");
+    alert(content.alert);
     return;
   }
 
-  const message = isEN
-  ? `Hello KRONIX, I am interested in Enterprise AI Architecture.\n\nSector: ${sector.value}\nCompany Size: ${size.value}\n\nI would like to schedule a strategic diagnosis.`
-  : `Hola KRONIX, estoy interesado en Arquitectura Empresarial con IA.\n\nSector: ${sector.value}\nTamaño Empresa: ${size.value}\n\nMe gustaría agendar un diagnóstico estratégico.`;
+  const url = "https://wa.me/"+phone+"?text="+
+              encodeURIComponent(content.message(sector.value,size.value));
 
-  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
-
-  if(typeof gtag !== "undefined"){
+  if(typeof gtag!=="undefined"){
     gtag("event","click_whatsapp_prequalified",{
       event_category:"CTA",
-      event_label: isEN ? "PreQualified_EN" : "PreQualified_ES"
+      event_label:isEN?"PreQualified_EN":"PreQualified_ES"
     });
   }
 
-  window.open(url, "_blank");
-  panel.style.display = "none";
+  window.open(url,"_blank");
+  panel.style.display="none";
 });
 
 })();
