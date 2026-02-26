@@ -692,43 +692,73 @@ tailwind.config = {
       <h2 id="para-quien-titulo" class="text-3xl font-bold">
         ¿Para quién es este <span class="text-[#1FA2FF]">servicio</span>?
       </h2>
+      <p class="text-[#C7C9D3] text-sm mt-4 max-w-2xl mx-auto">
+        Trabajamos con empresas que ya generan ingresos, pero cuyo crecimiento está limitado por su capacidad operativa.
+      </p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-5 mb-10">
 
+      <!-- PYME saturada -->
       <div class="para-quien-card">
         <span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5 text-lg">✓</span>
         <div>
-          <p class="text-white font-semibold text-sm mb-1">Empresas con operaciones complejas</p>
-          <p class="text-[#C7C9D3] text-xs leading-relaxed">Organizaciones con múltiples procesos, equipos o sedes que necesitan integración y visibilidad unificada.</p>
+          <p class="text-white font-semibold text-sm mb-1">Empresas que podrían vender más, pero no dan abasto</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">
+            Equipos saturados con tareas operativas, procesos manuales y cuellos de botella que impiden aumentar producción o ventas sin contratar más personal.
+          </p>
         </div>
       </div>
 
+      <!-- Directivos -->
       <div class="para-quien-card">
         <span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5 text-lg">✓</span>
         <div>
-          <p class="text-white font-semibold text-sm mb-1">Directivos que buscan control real</p>
-          <p class="text-[#C7C9D3] text-xs leading-relaxed">CEO, COO o directores que necesitan visibilidad en tiempo real sobre sus operaciones y quieren tomar decisiones con datos actuales.</p>
+          <p class="text-white font-semibold text-sm mb-1">Directivos que buscan control y visibilidad real</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">
+            CEO, COO o gerentes que necesitan información en tiempo real sobre su operación para tomar decisiones rápidas y basadas en datos.
+          </p>
         </div>
       </div>
 
+      <!-- Empresas en escala -->
       <div class="para-quien-card">
         <span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5 text-lg">✓</span>
         <div>
-          <p class="text-white font-semibold text-sm mb-1">Empresas que ya probaron herramientas de IA sin resultado</p>
-          <p class="text-[#C7C9D3] text-xs leading-relaxed">Organizaciones que implementaron chatbots, automatizaciones o software de IA pero no vieron impacto real en el negocio.</p>
+          <p class="text-white font-semibold text-sm mb-1">Organizaciones en fase de crecimiento</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">
+            Empresas que están creciendo y necesitan aumentar capacidad operativa sin aumentar su nómina ni generar desorden o retrabajos.
+          </p>
         </div>
       </div>
 
+      <!-- Empresas grandes -->
       <div class="para-quien-card">
         <span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5 text-lg">✓</span>
         <div>
-          <p class="text-white font-semibold text-sm mb-1">Organizaciones en fase de escala</p>
-          <p class="text-[#C7C9D3] text-xs leading-relaxed">Empresas que están creciendo y necesitan sistemas que escalen con ellas sin rediseño constante ni deuda técnica acumulada.</p>
+          <p class="text-white font-semibold text-sm mb-1">Empresas medianas o grandes que buscan optimizar áreas específicas</p>
+          <p class="text-[#C7C9D3] text-xs leading-relaxed">
+            Organizaciones que necesitan mejorar procesos críticos en áreas como operaciones, atención al cliente, cartera, logística o administración.
+          </p>
         </div>
       </div>
 
     </div>
+
+    <!-- No es para quién -->
+    <div class="border border-white/8 rounded-2xl p-6 bg-white/2 text-center">
+      <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">
+        Este servicio no es adecuado para
+      </p>
+      <p class="text-[#C7C9D3] text-sm max-w-3xl mx-auto">
+        Empresas sin procesos operativos definidos · Proyectos experimentales o de corto plazo · 
+        Organizaciones que buscan soluciones tácticas sin enfoque estratégico · 
+        Quienes priorizan el menor costo sobre el impacto operativo y el retorno.
+      </p>
+    </div>
+
+  </div>
+</section>
 
     <!-- No es para quién -->
     <div class="border border-white/8 rounded-2xl p-6 bg-white/2 text-center">
@@ -1055,6 +1085,7 @@ submit.addEventListener("click",()=>{
   
 </body>
 </html>
+
 
 
 
