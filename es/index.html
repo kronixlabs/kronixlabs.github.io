@@ -489,19 +489,33 @@ tailwind.config = {
       <span class="text-sm text-[#C7C9D3]">Impacto proyectado: <strong class="text-white">+40% de capacidad operativa instalada en 90 días</strong></span>
     </div>
 
-    <!-- CTAs -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d5">
-      <a href="#contacto"
-         onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_Diagnostico_ES'});"
-         class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition inline-flex items-center gap-2 justify-center">
-        Solicitar Diagnóstico Operativo
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#ecosistema"
-         class="border border-white/20 px-10 py-4 rounded-xl font-semibold text-lg hover:border-[#1FA2FF]/50 hover:text-[#1FA2FF] transition text-center">
-        Ver cómo funciona
-      </a>
-    </div>
+   <!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d5">
+
+  <!-- CTA Principal -->
+  <a href="#contacto"
+     onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_Diagnostico_ES'});"
+     class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition inline-flex items-center gap-2 justify-center">
+    Solicitar Diagnóstico Operativo
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <!-- CTA Secundario -->
+  <a href="#ecosistema"
+     class="border border-white/20 px-10 py-4 rounded-xl font-semibold text-lg hover:border-[#1FA2FF]/50 hover:text-[#1FA2FF] transition text-center">
+    Ver cómo funciona
+  </a>
+
+  <!-- CTA Caso de Éxito -->
+  <a href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html"
+     onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_CaseStudy_ES'});"
+     class="border border-[#1FA2FF]/40 px-10 py-4 rounded-xl font-semibold text-lg text-[#1FA2FF] hover:bg-[#1FA2FF]/10 transition text-center">
+    Ver casos de éxito
+  </a>
+
+</div>
 
     <!-- Social proof / micro-datos -->
     <div class="flex flex-wrap justify-center gap-6 mt-14 fade-up d6">
@@ -1218,7 +1232,7 @@ tailwind.config = {
         <li><a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:text-[#1FA2FF] transition text-xs">Arquitectura Empresarial IA</a></li>
         <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:text-[#1FA2FF] transition text-xs">Kronix EAA Framework™</a></li>
         <li><a href="/es/industries/distribucion.html" class="hover:text-[#1FA2FF] transition text-xs">Soluciones por Industria</a></li>
-        <li><a href="/es/case-study/sistema-multisede-ia.html" class="hover:text-[#1FA2FF] transition text-xs">Casos de Estudio</a></li>
+        <li><a href="/es/case-study/sistema-multisede-ia.html" class="hover:text-[#1FA2FF] transition text-xs">Casos de Exito</a></li>
       </ul>
     </div>
 
