@@ -8,7 +8,6 @@
   <meta name="description" content="Rediseñamos la operación de empresas de distribución y manufactura en LATAM para escalar volumen y sedes sin aumentar nómina. Diagnóstico de Madurez Operativa gratuito.">
   <meta name="keywords" content="arquitectura IA distribución, automatización manufactura LATAM, escalar distribución sin personal, consultoría IA distribución Colombia, infraestructura IA manufactura PYMEs, burnout operativo distribución, Enterprise AI Distribution LATAM, KRONIX Labs Medellín">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="KRONIX Labs">
   <meta property="og:title" content="KRONIX Labs | Arquitectura IA para Distribución y Manufactura">
@@ -18,26 +17,21 @@
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://kronixlabs.github.io/es/industries/distribucion.html">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="KRONIX Labs | Arquitectura IA para Distribución y Manufactura">
   <meta name="twitter:description" content="Infraestructura IA para distribución y manufactura que permite escalar sin aumentar nómina.">
   <meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
 
-  <!-- Canonical y alternates -->
   <link rel="canonical" href="https://kronixlabs.github.io/es/industries/distribucion.html">
   <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/industries/distribucion.html">
   <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../Kronix-Labs.svg">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -46,7 +40,6 @@
     gtag('config', 'G-T41H03C7CH', { page_title: 'Industrias - Distribución ES', page_location: window.location.href });
   </script>
 
-  <!-- Tailwind + Custom Styles -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -85,10 +78,56 @@
       background-size: 60px 60px;
     }
 
+    .hero-glow {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(31, 162, 255, 0.12) 0%, rgba(31, 162, 255, 0.05) 30%, transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+      animation: heroPulse 12s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .hero-glow::after {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 60%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(31, 162, 255, 0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.4;
+      filter: blur(60px);
+      animation: floatLight 18s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes heroPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50%      { transform: scale(1.15); opacity: 0.85; }
+    }
+
+    @keyframes floatLight {
+      0%, 100% { transform: translate(0, 0); }
+      25%      { transform: translate(80px, -60px); }
+      50%      { transform: translate(-40px, 100px); }
+      75%      { transform: translate(60px, 40px); }
+    }
+
     @keyframes fadeUp { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
     .fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
-    .d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s}
-    .d4{animation-delay:.55s} .d5{animation-delay:.7s} .d6{animation-delay:.85s}
+    .d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s} .d4{animation-delay:.55s} .d5{animation-delay:.7s} .d6{animation-delay:.85s}
 
     .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
     @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)} 50%{box-shadow:0 0 0 14px rgba(31,162,255,0)} }
@@ -151,14 +190,41 @@
       border-radius:16px; padding:24px; z-index:10000; display:none;
       box-shadow:0 15px 60px rgba(0,0,0,.55);
     }
+
+    .kx-wa-panel h4 {
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .kx-wa-panel select,
+    .kx-wa-panel button {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 11px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .kx-wa-panel select {
+      background: #0B0F2B;
+      color: #C7C9D3;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .kx-wa-panel button {
+      background: #1FA2FF;
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-<!-- Scroll Progress -->
 <div id="scrollIndicator" class="scroll-indicator"></div>
 
-<!-- Header -->
 <header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
     <a href="/es/" aria-label="KRONIX Labs">
@@ -183,12 +249,11 @@
   </div>
 </header>
 
-<!-- HERO -->
-<section class="pt-32 pb-24 px-6 grid-bg" style="background: linear-gradient(180deg, #0B0F2B 0%, #070A1E 100%);" aria-labelledby="hero-title">
-  <div class="max-w-4xl mx-auto text-center">
+<section class="pt-32 pb-24 px-6 grid-bg hero-glow" style="background: linear-gradient(180deg, #0B0F2B 0%, #070A1E 100%);">
+  <div class="max-w-4xl mx-auto text-center relative z-10">
     <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-4 fade-up d1">Industrias</p>
     
-    <h1 id="hero-title" class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight fade-up d2">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight fade-up d2">
       Arquitectura IA Empresarial para<br>
       <span class="text-[#1FA2FF]">Distribución y Manufactura</span>
     </h1>
@@ -209,7 +274,6 @@
   </div>
 </section>
 
-<!-- Problemas -->
 <section class="py-24 px-6 bg-[#070A1E]">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
@@ -259,7 +323,6 @@
   </div>
 </section>
 
-<!-- Solución -->
 <section class="py-24 px-6 bg-[#0B0F2B]">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
@@ -297,7 +360,6 @@
   </div>
 </section>
 
-<!-- Métricas de Impacto -->
 <section class="py-24 px-6 bg-[#070A1E]">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
@@ -331,7 +393,6 @@
   </div>
 </section>
 
-<!-- Framework Aplicado -->
 <section class="py-24 px-6 bg-[#0B0F2B]">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
@@ -408,7 +469,6 @@
   </div>
 </section>
 
-<!-- CTA Final -->
 <section class="py-24 px-6 grid-bg" style="background: linear-gradient(180deg, #0B0F2B 0%, #070A1E 100%);">
   <div class="max-w-3xl mx-auto text-center">
     <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-4 fade-up d1">Siguiente paso</p>
@@ -428,11 +488,10 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer class="border-t border-white/5 bg-black py-16 text-sm text-[#C7C9D3]" aria-label="Pie de página">
   <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
     <div>
-      <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
+      <img src="../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
       <p class="leading-relaxed text-[#C7C9D3]/80 mb-4">
         Firma estratégica especializada en Arquitectura Empresarial con IA, diseño de sistemas inteligentes y automatización estructurada.
       </p>
@@ -474,35 +533,21 @@
   </div>
 </footer>
 
-<!-- WhatsApp Floating Button + Panel -->
 <div id="kx-wa-btn" class="kx-wa-btn">
   <span id="kx-wa-text"></span>
 </div>
 
 <div id="kx-wa-panel" class="kx-wa-panel">
   <h4 id="kx-wa-title"></h4>
-
   <select id="kx-sector"></select>
   <select id="kx-size"></select>
-
   <button id="kx-submit"></button>
 </div>
 
 <script>
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const isOpen = menu.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen);
-    });
-  }
-
   // Scroll Progress
   window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
     document.getElementById('scrollIndicator').style.width = scrolled + '%';
   });
 
@@ -520,7 +565,6 @@
     const text = document.getElementById("kx-wa-text");
     const title = document.getElementById("kx-wa-title");
 
-    /* CONTENIDO DINÁMICO POR IDIOMA */
     const content = isEN ? {
       button: "Schedule Diagnosis",
       title: "Before we connect…",
@@ -543,31 +587,22 @@
       message: (s,z)=>`Hola KRONIX, estoy interesado en Arquitectura Empresarial con IA.\n\nSector: ${s}\nTamaño Empresa: ${z}\n\nMe gustaría agendar un diagnóstico estratégico.`
     };
 
-    /* Inyectar texto */
     text.innerText = content.button;
     title.innerText = content.title;
     submit.innerText = content.submit;
 
-    /* Cargar selects */
     sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>`;
-    content.sectors.forEach(s => {
-      sector.innerHTML += `<option>${s}</option>`;
-    });
+    content.sectors.forEach(s => sector.innerHTML += `<option>${s}</option>`);
 
     size.innerHTML = `<option value="">${content.sizePlaceholder}</option>`;
-    content.sizes.forEach(s => {
-      size.innerHTML += `<option>${s}</option>`;
-    });
+    content.sizes.forEach(s => size.innerHTML += `<option>${s}</option>`);
 
-    /* Mostrar botón */
     setTimeout(() => btn.classList.add("show"), 1500);
 
-    /* Toggle panel */
     btn.addEventListener("click", () => {
       panel.style.display = panel.style.display === "block" ? "none" : "block";
     });
 
-    /* Enviar */
     submit.addEventListener("click", () => {
       if (!sector.value || !size.value) {
         alert(content.alert);
