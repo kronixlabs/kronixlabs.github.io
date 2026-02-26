@@ -1,66 +1,427 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" prefix="og: https://ogp.me/ns#">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquitectura IA para Distribución y Manufactura | KRONIX Labs</title>
-    <meta name="description" content="Rediseñamos cómo opera su empresa de distribución o manufactura para que pueda manejar más volumen, más sedes y más clientes — sin contratar más personal ni perder el control.">
-    <link rel="canonical" href="https://kronixlabs.github.io/es/industries/distribucion.html">
-    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html">
-    <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { font-family: 'Montserrat', sans-serif; }
-        body { background: linear-gradient(135deg, #0B0F2B 0%, #070A1E 100%); color: #fff; }
-        .accent { color: #1FA2FF; }
-        .accent-bg { background-color: #1FA2FF; }
-        .accent-border { border-color: #1FA2FF; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fadeUp { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
-        .fadeUp.visible { opacity: 1; animation: fadeUp 0.8s ease-out; }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(31, 162, 255, 0.2); }
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(11, 15, 43, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(31, 162, 255, 0.1); }
-        .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #1FA2FF, #00D4FF); z-index: 1001; }
-        .sticky-mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(31, 162, 255, 0.95); padding: 12px 20px; text-align: center; display: none; }
-        @media (max-width: 768px) { .sticky-mobile-cta { display: block; } }
-        .floating-wa { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 998; transition: all 0.3s; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
-        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6); }
-        footer { background: rgba(11, 15, 43, 0.8); border-top: 1px solid rgba(31, 162, 255, 0.1); padding: 40px 20px; margin-top: 60px; }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ================================================================
+     SEO PRIMARIO
+     ================================================================ -->
+<title>KRONIX Labs | Infraestructura IA Empresarial — Escale Sin Contratar Más</title>
+<meta name="description" content="KRONIX Labs es la Firma de Arquitectura de Infraestructura IA que rediseña cómo opera su empresa para facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para empresas LATAM.">
+<meta name="keywords" content="arquitectura infraestructura IA empresarial, automatización operativa empresas LATAM, escalar empresa sin contratar personal, consultoría IA estratégica Colombia, infraestructura IA para PYMEs, burnout operativo solución, Enterprise AI Architecture LATAM, KRONIX Labs Medellín">
+<meta name="author" content="KRONIX Labs">
+<meta name="publisher" content="KRONIX Labs">
+<meta name="copyright" content="KRONIX Labs, 2026">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="theme-color" content="#1FA2FF">
+<meta name="rating" content="general">
+
+<!-- GEO -->
+<meta name="geo.region" content="CO-ANT">
+<meta name="geo.placename" content="Medellín, Antioquia, Colombia">
+<meta name="geo.position" content="6.2442;-75.5812">
+<meta name="ICBM" content="6.2442, -75.5812">
+<meta name="language" content="Spanish">
+<meta name="coverage" content="Worldwide">
+<meta name="distribution" content="Global">
+
+<!-- CANONICAL + HREFLANG -->
+<link rel="canonical" href="https://kronixlabs.github.io/es/">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/">
+<link rel="alternate" hreflang="es-CO" href="https://kronixlabs.github.io/es/">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/">
+<link rel="alternate" hreflang="en-US" href="https://kronixlabs.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
+
+<!-- OPEN GRAPH -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:locale" content="es_CO">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="KRONIX Labs | Deje de Operar. Comience a Escalar.">
+<meta property="og:description" content="Diseñamos la infraestructura de IA que permite a su empresa facturar más sin contratar a nadie más. Firma de Arquitectura de Infraestructura IA para LATAM.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KRONIX Labs — Infraestructura IA Empresarial">
+<meta property="og:url" content="https://kronixlabs.github.io/es/">
+
+<!-- TWITTER CARD -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@kronixlabs">
+<meta name="twitter:title" content="KRONIX Labs — Deje de Operar. Comience a Escalar.">
+<meta name="twitter:description" content="Infraestructura IA que permite a su empresa facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para LATAM.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="../Kronix-Labs.svg">
+<link rel="apple-touch-icon" href="../Kronix-Labs.svg">
+<link rel="shortcut icon" href="../Kronix-Labs.svg">
+
+<!-- PERFORMANCE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- GOOGLE ANALYTICS 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', { page_title: 'Home ES v2', page_location: window.location.href });
+  let scrollMilestones = {25:false,50:false,75:false,90:false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    for (let m in scrollMilestones) {
+      if (pct>=m && !scrollMilestones[m]) { scrollMilestones[m]=true; gtag('event','scroll_depth',{event_category:'Engagement',event_label:m+'%',value:parseInt(m)}); }
+    }
+  },{passive:true});
+  let startTime = Date.now();
+  window.addEventListener('beforeunload',function(){gtag('event','time_on_page',{event_category:'Engagement',value:Math.round((Date.now()-startTime)/1000)});});
+</script>
+
+<!-- SCHEMA JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://kronixlabs.github.io/#organization",
+      "name": "KRONIX Labs",
+      "alternateName": ["KRONIX Labs by jurion", "Kronix"],
+      "legalName": "KRONIX Labs by jurion",
+      "url": "https://kronixlabs.github.io/",
+      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.github.io/Kronix-Labs.svg", "width": 200, "height": 50 },
+      "image": "https://kronixlabs.github.io/Kronix-Labs.png",
+      "description": "Firma de Arquitectura de Infraestructura IA que rediseña cómo opera una empresa para que pueda facturar más sin contratar más personal. Especialistas en eliminar el Burnout Operativo en PYMEs y grandes empresas de LATAM.",
+      "slogan": "Deje de operar. Comience a escalar.",
+      "foundingDate": "2024",
+      "foundingLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" } },
+      "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" },
+      "geo": { "@type": "GeoCoordinates", "latitude": 6.2442, "longitude": -75.5812 },
+      "contactPoint": [
+        { "@type": "ContactPoint", "contactType": "customer service", "telephone": "+57-310-739-7053", "availableLanguage": ["Spanish","English"], "areaServed": ["CO","LATAM"], "contactOption": "TollFree" }
+      ],
+      "areaServed": [
+        { "@type": "Place", "name": "Colombia" },
+        { "@type": "Place", "name": "México" },
+        { "@type": "Place", "name": "Chile" },
+        { "@type": "Place", "name": "Latinoamérica" }
+      ],
+      "knowsAbout": ["Arquitectura de Infraestructura IA", "Automatización Operativa Empresarial", "Rediseño de Procesos con IA", "Gobernanza IA Empresarial", "Escalabilidad Operativa sin Nómina", "Burnout Operativo PYME"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de Infraestructura IA Empresarial",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diagnóstico de Madurez Operativa", "description": "Sesión estratégica de 45 minutos donde identificamos los cuellos de botella operativos y diseñamos la arquitectura que los resuelve." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Arquitectura EAA Enterprise", "description": "Diseño bespoke de infraestructura de 5 capas: Acceso, Lógica, Cognitiva, Legacy e Integración, y Gobernanza." } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización Operativa Estructural", "description": "Implementación de sistemas que eliminan el burnout operativo y permiten escalar sin contratar más personal." } }
+        ]
+      },
+      "sameAs": ["https://kronixlabs.github.io", "https://kronixlabs.github.io/es/", "https://kronixlabs.github.io/en/"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://kronixlabs.github.io/#website",
+      "url": "https://kronixlabs.github.io/",
+      "name": "KRONIX Labs",
+      "description": "Firma de Arquitectura de Infraestructura IA para empresas LATAM.",
+      "publisher": { "@id": "https://kronixlabs.github.io/#organization" },
+      "inLanguage": ["es","en"],
+      "copyrightYear": 2026,
+      "copyrightHolder": { "@id": "https://kronixlabs.github.io/#organization" }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://kronixlabs.github.io/#service",
+      "name": "KRONIX Labs — Arquitectura de Infraestructura IA",
+      "url": "https://kronixlabs.github.io/es/",
+      "provider": { "@id": "https://kronixlabs.github.io/#organization" },
+      "areaServed": ["Colombia","Latinoamérica"],
+      "serviceType": "Enterprise AI Architecture Consulting",
+      "description": "Diseñamos la infraestructura de IA que permite a su empresa facturar más sin contratar más personal.",
+      "offers": { "@type": "Offer", "name": "Diagnóstico de Madurez Operativa", "description": "Primera sesión estratégica gratuita de diagnóstico operativo.", "price": "0", "priceCurrency": "COP" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "¿Qué es KRONIX Labs?", "acceptedAnswer": { "@type": "Answer", "text": "KRONIX Labs es una Firma de Arquitectura de Infraestructura IA. No vendemos bots ni marketing. Rediseñamos cómo opera una empresa para que pueda facturar más sin contratar más personal, eliminando el Burnout Operativo." } },
+        { "@type": "Question", "name": "¿Qué es el Diagnóstico de Madurez Operativa?", "acceptedAnswer": { "@type": "Answer", "text": "Es una sesión estratégica de 45 minutos donde identificamos sus cuellos de botella operativos, mapeamos dónde su operación pierde tiempo y dinero, y le mostramos qué arquitectura de infraestructura IA resuelve cada uno." } },
+        { "@type": "Question", "name": "¿Cuánto tiempo toma ver resultados?", "acceptedAnswer": { "@type": "Answer", "text": "Nuestro impacto proyectado es de +40% de capacidad operativa instalada en 90 días, con mínima disrupción operativa durante la implementación." } },
+        { "@type": "Question", "name": "¿Para qué tipo de empresas es KRONIX Labs?", "acceptedAnswer": { "@type": "Answer", "text": "Trabajamos con empresas que no quieren crecer en nómina pero sí en facturación, PYMEs atrapadas operando en vez de vendiendo, y empresas grandes que requieren automatización total o por áreas específicas." } }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- TAILWIND CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixDeep: '#070A1E',
+        kronixGray: '#C7C9D3'
+      },
+      fontFamily: { sans: ['Montserrat','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+
+<style>
+  /* ── Variables ── */
+  :root { --blue:#1FA2FF; --dark:#0B0F2B; --deep:#070A1E; --gray:#C7C9D3; }
+
+  body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-serif; overflow-x:hidden; }
+
+  /* ── Grid background ── */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg,rgba(31,162,255,0.04) 1px, transparent 1px);
+    background-size:60px 60px;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)} 50%{box-shadow:0 0 0 14px rgba(31,162,255,0)} }
+  @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+  @keyframes flowDown { 0%,100%{opacity:0;transform:translateY(-8px)} 50%{opacity:1;transform:translateY(8px)} }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+  @keyframes borderGlow { 0%,100%{border-color:rgba(31,162,255,.2)} 50%{border-color:rgba(31,162,255,.6)} }
+
+  .fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
+  .d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s}
+  .d4{animation-delay:.55s} .d5{animation-delay:.7s} .d6{animation-delay:.85s}
+
+  .btn-glow { animation:pulseGlow 2.8s ease-in-out infinite; }
+
+  /* ── Cards ── */
+  .cap-card {
+    border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:2rem;
+    transition:border-color .25s,transform .25s,box-shadow .25s;
+    background:rgba(255,255,255,.02);
+  }
+  .cap-card:hover { border-color:rgba(31,162,255,.4); transform:translateY(-5px); box-shadow:0 20px 60px rgba(31,162,255,.08); }
+
+  /* ── Layer diagram ── */
+  .layer-item {
+    border:1px solid rgba(31,162,255,.15); border-radius:12px; padding:1.25rem 1.5rem;
+    background:rgba(31,162,255,.04); transition:all .3s ease; position:relative;
+  }
+  .layer-item:hover { border-color:rgba(31,162,255,.5); background:rgba(31,162,255,.08); transform:translateX(6px); }
+  .layer-connector {
+    width:2px; height:32px; margin:0 auto;
+    background:linear-gradient(to bottom, rgba(31,162,255,.5),rgba(31,162,255,.1));
+    position:relative; overflow:hidden;
+  }
+  .layer-connector::after {
+    content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+    background:linear-gradient(to bottom,transparent,rgba(31,162,255,.8),transparent);
+    animation:flowDown 2s ease-in-out infinite;
+  }
+
+  /* ── Framework steps ── */
+  .step-card {
+    border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:2rem;
+    background:rgba(255,255,255,.02); position:relative; overflow:hidden;
+    transition:border-color .3s,transform .3s;
+  }
+  .step-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,transparent,#1FA2FF,transparent); opacity:0;
+    transition:opacity .3s;
+  }
+  .step-card:hover { border-color:rgba(31,162,255,.35); transform:translateY(-4px); }
+  .step-card:hover::before { opacity:1; }
+  .step-number {
+    font-size:3.5rem; font-weight:800; color:rgba(31,162,255,.12); line-height:1;
+    position:absolute; top:.75rem; right:1.25rem; font-family:inherit;
+  }
+
+  /* ── Comparison table ── */
+  .compare-col {
+    border-radius:16px; padding:2rem; flex:1; min-width:260px;
+  }
+  .compare-bad { background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07); }
+  .compare-good { background:rgba(31,162,255,.06); border:1px solid rgba(31,162,255,.25); }
+
+  /* ── Persona cards ── */
+  .persona-card {
+    border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:2rem;
+    background:rgba(255,255,255,.02); transition:all .3s;
+  }
+  .persona-card:hover { border-color:rgba(31,162,255,.35); background:rgba(31,162,255,.04); transform:translateY(-4px); }
+
+  /* ── Form ── */
+  .form-input {
+    width:100%; padding:.875rem 1rem; border-radius:10px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    color:#fff; font-family:inherit; font-size:.875rem;
+    transition:border-color .2s,background .2s; outline:none;
+  }
+  .form-input:focus { border-color:rgba(31,162,255,.6); background:rgba(31,162,255,.06); }
+  .form-input::placeholder { color:rgba(255,255,255,.35); }
+  .form-select { appearance:none; cursor:pointer; }
+
+  /* ── Nav ── */
+  .nav-link { color:rgba(255,255,255,.75); font-size:.875rem; transition:color .2s; }
+  .nav-link:hover { color:#1FA2FF; }
+  .nav-link.active { color:#1FA2FF; }
+  #mobile-menu { display:none; }
+  #mobile-menu.open { display:flex; }
+
+  /* ── Metric ── */
+  .metric-value {
+    font-size:2.75rem; font-weight:800; color:#1FA2FF;
+    background:linear-gradient(135deg,#1FA2FF,#7DD3FF);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+
+  /* ── Trust badges ── */
+  .trust-item {
+    border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:1.5rem;
+    background:rgba(255,255,255,.02); text-align:center; transition:all .3s;
+  }
+  .trust-item:hover { border-color:rgba(31,162,255,.3); background:rgba(31,162,255,.04); }
+
+  /* ── Scroll indicator ── */
+  .scroll-indicator {
+    position:fixed; top:0; left:0; height:3px; background:var(--blue);
+    transition:width .1s; z-index:9999; width:0%;
+  }
+
+  /* ── Sticky CTA mobile ── */
+  @media (max-width:768px) {
+    .sticky-mobile-cta {
+      position:fixed; bottom:0; left:0; right:0;
+      padding:1rem; background:rgba(11,15,43,.95);
+      border-top:1px solid rgba(31,162,255,.2); z-index:998;
+      backdrop-filter:blur(12px);
+    }
+  }
+
+  /* ── WhatsApp floating ── */
+  .kx-wa-btn {
+    position:fixed; bottom:28px; right:28px; z-index:9999;
+    background:#1FA2FF; color:#fff; padding:14px 20px; border-radius:14px;
+    font-weight:600; font-size:14px; font-family:inherit;
+    box-shadow:0 10px 40px rgba(31,162,255,.45);
+    display:flex; align-items:center; gap:8px; cursor:pointer;
+    opacity:0; transform:translateY(20px); transition:all .4s ease; border:none;
+  }
+  .kx-wa-btn.show { opacity:1; transform:translateY(0); }
+  .kx-wa-btn:hover { transform:translateY(-3px); box-shadow:0 16px 50px rgba(31,162,255,.55); }
+
+  .kx-wa-panel {
+    position:fixed; bottom:95px; right:28px; width:340px;
+    background:#070A1E; border:1px solid rgba(255,255,255,.08);
+    border-radius:16px; padding:24px; z-index:10000;
+    display:none; box-shadow:0 15px 60px rgba(0,0,0,.55);
+  }
+  .kx-wa-panel h4 { color:#fff; font-size:15px; margin-bottom:14px; }
+  .kx-wa-panel select, .kx-wa-panel button {
+    width:100%; margin-bottom:12px; padding:11px; border-radius:8px; font-size:13px; font-family:inherit;
+  }
+  .kx-wa-panel select { background:#0B0F2B; color:#C7C9D3; border:1px solid rgba(255,255,255,.1); }
+  .kx-wa-panel button { background:#1FA2FF; color:white; font-weight:600; border:none; cursor:pointer; }
+
+  @media (max-width:640px) {
+    .kx-wa-panel { right:12px; left:12px; width:auto; bottom:90px; }
+  }
+</style>
+
 </head>
 <body>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- HEADER STICKY -->
-    <header>
-        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/es/" class="flex items-center gap-2">
-                <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
-                <span class="font-bold text-lg hidden sm:inline">KRONIX</span>
-            </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="/es/" class="hover:accent transition">Inicio</a>
-                <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:accent transition">Arquitectura IA</a>
-                <a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:accent transition">Framework</a>
-                <a href="/es/industries/distribucion.html" class="accent">Industrias</a>
-                <a href="/es/firm/consultora-estrategica-ia.html" class="hover:accent transition">Firma</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="hidden sm:inline-block px-4 py-2 accent-bg text-dark font-semibold rounded text-sm hover:opacity-90 transition">Solicitar Diagnóstico</a>
-                <div class="relative group">
-                    <button class="text-sm font-medium">ES</button>
-                    <div class="absolute right-0 mt-2 w-20 bg-darker rounded opacity-0 group-hover:opacity-100 transition">
-                        <a href="/en/" class="block px-3 py-2 hover:accent text-xs">EN</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+
+<!-- Scroll progress -->
+<div class="scroll-indicator" id="scrollIndicator"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <a href="/es/" aria-label="KRONIX Labs — Inicio">
+      <img src="../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+    </a>
+
+    <!-- Desktop -->
+    <nav class="hidden md:flex items-center gap-7" aria-label="Navegación principal">
+      <a href="/es/" class="nav-link active" aria-current="page">Inicio</a>
+      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a>
+      <a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link">Framework</a>
+      <a href="/es/industries/distribucion.html" class="nav-link">Industrias</a>
+      <a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Firma</a>
+      <a href="/es/insights/" class="nav-link">Insights</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true">
+            <rect width="3" height="2" fill="#C60B1E"/>
+            <rect y="0.5" width="3" height="1" fill="#FFC400"/>
+          </svg>
+          ES
+        </span>
+
+        <a href="/en/" onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN'});" hreflang="en" rel="alternate"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
+            <rect width="19" height="10" fill="#B22234"/>
+            <g fill="#fff">
+              <rect y="1" width="19" height="1"/>
+              <rect y="3" width="19" height="1"/>
+              <rect y="5" width="19" height="1"/>
+              <rect y="7" width="19" height="1"/>
+              <rect y="9" width="19" height="1"/>
+            </g>
+            <rect width="8" height="5" fill="#3C3B6E"/>
+          </svg>
+          EN
+        </a>
+      </div>
+
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile -->
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" aria-label="Menú móvil">
+    <a href="/es/" class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5">Inicio</a>
+    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Arquitectura IA</a>
+    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
+    <a href="/es/industries/distribucion.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industrias</a>
+    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firma</a>
+    <a href="/es/insights/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
+
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa."
+       target="_blank" rel="noopener noreferrer"
+       class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">
+       Solicitar Diagnóstico →
+    </a>
+  </nav>
+</header>
+
 
     <!-- BREADCRUMB -->
     <div class="pt-24 pb-8 px-4 text-sm text-gray-400">
