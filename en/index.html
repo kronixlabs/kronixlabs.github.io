@@ -1,449 +1,1305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ✅ Primary SEO -->
-<title>KRONIX Labs | Enterprise AI Architecture — Medellín, Colombia</title>
-<meta name="description" content="Strategic consultancy specialized in enterprise architecture with AI. We design structured, scalable, and governed intelligent systems for companies across Latin America.">
-<meta name="keywords" content="enterprise AI architecture, artificial intelligence companies, AI consulting Medellín, business automation Colombia, intelligent systems LATAM, KRONIX Labs">
-<meta name="author" content="KRONIX Labs by jurion">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#1FA2FF">
-<!-- Canonical + Hreflang -->
-<link rel="canonical" href="https://kronixlabs.github.io/en/">
-<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/">
-<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/">
-<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="apple-touch-icon" href="../favicon.svg">
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="es_CO">
-<meta property="og:site_name" content="KRONIX Labs">
-<meta property="og:title" content="KRONIX Labs | Enterprise AI Architecture">
-<meta property="og:description" content="We design intelligent enterprise structures integrating AI, governance, and scalability for organizations seeking real competitive advantage.">
-<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="KRONIX Labs — Enterprise AI Architecture">
-<meta property="og:url" content="https://kronixlabs.github.io/en/">
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KRONIX Labs | Enterprise AI Architecture">
-<meta name="twitter:description" content="Strategic consultancy in Enterprise AI Architecture. Intelligent, structured, and scalable systems for LATAM.">
-<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
-<meta name="twitter:image:alt" content="KRONIX Labs — Enterprise AI Architecture">
-<!-- Performance -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        kronixBlue: '#1FA2FF',
-        kronixDark: '#0B0F2B',
-        kronixDeep: '#070A1E',
-        kronixGray: '#C7C9D3'
-      }
-    }
-  }
-}
-</script>
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-T41H03C7CH', { page_title: 'Home EN', page_location: window.location.href });
-  let scrollMilestones = {25: false, 50: false, 75: false, 90: false};
-  window.addEventListener('scroll', function() {
-    let pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-    for (let m in scrollMilestones) {
-      if (pct >= m && !scrollMilestones[m]) {
-        scrollMilestones[m] = true;
-        gtag('event', 'scroll_depth', { event_category: 'Engagement', event_label: m + '%', value: parseInt(m) });
-      }
-    }
-  }, { passive: true });
-  let startTime = Date.now();
-  window.addEventListener('beforeunload', function() {
-    gtag('event', 'time_on_page', { event_category: 'Engagement', value: Math.round((Date.now() - startTime) / 1000) });
-  });
-</script>
-<!-- Schema JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://kronixlabs.github.io/#organization",
-      "name": "KRONIX Labs",
-      "alternateName": "KRONIX Labs by jurion",
-      "description": "Strategic firm specialized in Enterprise Architecture with AI. We design intelligent, structured and scalable systems for companies in Latin America.",
-      "url": "https://kronixlabs.github.io",
-      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.github.io/Kronix-Labs.svg", "width": 200, "height": 60 },
-      "foundingDate": "2024",
-      "foundingLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" } },
-      "areaServed": [ { "@type": "Place", "name": "Colombia" }, { "@type": "Place", "name": "Latin America" } ],
-      "contactPoint": { "@type": "ContactPoint", "telephone": "+573107397053", "contactType": "Strategic Consulting", "availableLanguage": ["English", "Spanish"] }
-    },
-    { "@type": "WebSite", "@id": "https://kronixlabs.github.io/#website", "url": "https://kronixlabs.github.io", "name": "KRONIX Labs", "publisher": { "@id": "https://kronixlabs.github.io/#organization" }, "inLanguage": ["en", "es"] }
-  ]
-}
-</script>
-<!-- Critical CSS inline -->
-<style>
-  body { background-color: #0B0F2B; color: #fff; font-family: 'Montserrat', sans-serif; }
-  .grid-bg {
-    background-image: linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(31,162,255,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(31,162,255,0.35); } 50% { box-shadow: 0 0 0 12px rgba(31,162,255,0); } }
-  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
-  .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.25s; } .d3 { animation-delay: 0.40s; } .d4 { animation-delay: 0.55s; }
-  .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
-  .cap-card { border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 2rem; transition: border-color 0.25s, transform 0.25s; background: rgba(255,255,255,0.02); }
-  .cap-card:hover { border-color: rgba(31,162,255,0.4); transform: translateY(-4px); }
-  .nav-link { color: rgba(255,255,255,0.75); font-size: 0.875rem; transition: color 0.2s; }
-  .nav-link:hover { color: #1FA2FF; }
-  .nav-link.active { color: #1FA2FF; }
-  #mobile-menu { display: none; }
-  #mobile-menu.open { display: flex; }
-</style>
-</head>
-<body class="bg-kronixDark text-white" style="font-family:'Montserrat',sans-serif;">
-
-<!-- HEADER -->
-<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="/en/" aria-label="KRONIX Labs — Home">
-      <img src="../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
-    </a>
-    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
-      <a href="/en/" class="nav-link active">Home</a>
-      <a href="/en/consulting/enterprise-ai-architecture.html" class="nav-link">AI Architecture</a>
-      <a href="/en/framework/enterprise-ai-architecture-framework.html" class="nav-link">Framework</a>
-      <a href="/en/industries/distribution.html" class="nav-link">Industries</a>
-      <a href="/en/firm/strategic-ai-consultancy.html" class="nav-link">Firm</a>
-      <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis."
-         target="_blank" rel="noopener noreferrer" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Nav_Contact_EN'});"
-         class="bg-kronixBlue text-white text-sm font-semibold px-5 py-2 rounded-lg hover:opacity-90 transition">
-        Contact
-      </a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <div class="flex gap-2 items-center">
-        <a href="/es/" class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-kronixBlue hover:text-white transition flex items-center gap-1.5">
-          <svg width="16" height="11" viewBox="0 0 3 2"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
-          ES
-        </a>
-        <span class="px-3 py-1 rounded-full bg-kronixBlue text-white text-xs font-semibold flex items-center gap-1.5">
-          <svg width="16" height="11" viewBox="0 0 19 10">
-            <rect width="19" height="10" fill="#B22234"/>
-            <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
-            <rect width="8" height="5" fill="#3C3B6E"/>
-          </svg>
-          EN
-        </span>
-      </div>
-      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Open menu">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5">
-    <a href="/en/" class="block py-2 text-sm text-kronixBlue font-semibold">Home</a>
-    <a href="/en/consulting/enterprise-ai-architecture.html" class="block py-2 text-sm text-white/75 hover:text-kronixBlue transition">AI Architecture</a>
-    <a href="/en/framework/enterprise-ai-architecture-framework.html" class="block py-2 text-sm text-white/75 hover:text-kronixBlue transition">Framework</a>
-    <a href="/en/industries/distribution.html" class="block py-2 text-sm text-white/75 hover:text-kronixBlue transition">Industries</a>
-    <a href="/en/firm/strategic-ai-consultancy.html" class="block py-2 text-sm text-white/75 hover:text-kronixBlue transition">Firm</a>
-    <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis." class="block py-2 text-sm text-kronixBlue font-semibold">Contact →</a>
-  </nav>
-</header>
-
-<!-- HERO -->
-<section class="relative min-h-screen flex items-center justify-center text-center px-6 grid-bg overflow-hidden"
-  style="background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(31,162,255,0.16) 0%, transparent 70%), linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl opacity-[0.07] pointer-events-none" style="background:#1FA2FF;"></div>
-  <div class="relative max-w-5xl pt-28 pb-20">
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
-      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block animate-pulse"></span>
-      Enterprise AI Architecture Lab · Medellín, Colombia
-    </div>
-    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight fade-up d2">
-      Companies don’t fail due to lack of tools.<br>
-      They fail due to lack of <span class="text-[#1FA2FF]">intelligent architecture.</span>
-    </h1>
-    <p class="text-[#C7C9D3] text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed fade-up d3">
-      KRONIX Labs designs enterprise AI architectures that integrate structure, control and technical execution — so your organization scales with precision, not improvisation.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d4">
-      <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20AI%20architecture%20diagnosis."
-         target="_blank" rel="noopener noreferrer" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Hero_Diagnosis_EN'});"
-         class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-lg font-semibold hover:opacity-90 transition">
-        Schedule Strategic Diagnosis
-      </a>
-      <a href="/en/framework/enterprise-ai-architecture-framework.html" class="border border-white/25 px-10 py-4 rounded-lg font-semibold hover:border-[#1FA2FF]/60 hover:text-[#1FA2FF] transition">
-        View the Framework →
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- DIFERENCIACIÓN -->
-<section class="py-24 bg-[#070A1E] text-center px-6">
-  <div class="max-w-4xl mx-auto">
-    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Strategic Positioning</p>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 leading-snug">
-      We don’t implement bots.<br>We design <span class="text-[#1FA2FF]">systems.</span>
-    </h2>
-    <div class="grid md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden text-left">
-      <div class="bg-[#070A1E] p-8">
-        <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">The market offers</p>
-        <ul class="space-y-2 text-[#C7C9D3] text-sm leading-relaxed">
-          <li>✗ Isolated bots</li>
-          <li>✗ Strategy-less automations</li>
-          <li>✗ Tools without architecture</li>
-          <li>✗ Technological promises</li>
-        </ul>
-      </div>
-      <div class="bg-[#0d1235] p-8 border-x border-white/5">
-        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-3">KRONIX Labs designs</p>
-        <ul class="space-y-2 text-white text-sm leading-relaxed font-medium">
-          <li>✓ Integrated intelligent systems</li>
-          <li>✓ Scalable & documented architecture</li>
-          <li>✓ Governed AI with executive control</li>
-          <li>✓ Measurable results from day one</li>
-        </ul>
-      </div>
-      <div class="bg-[#070A1E] p-8">
-        <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">The outcome</p>
-        <ul class="space-y-2 text-[#C7C9D3] text-sm leading-relaxed">
-          <li>→ Sustainable competitive advantage</li>
-          <li>→ Scalability without redesign</li>
-          <li>→ Self-optimizing operations</li>
-          <li>→ Full control from CEO to agent</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CAPACIDADES -->
-<section class="py-24 px-6 grid-bg" style="background-color:#0B0F2B;">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Service Architecture</p>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        Four lines of <span class="text-[#1FA2FF]">strategic capability</span>
-      </h2>
-      <p class="text-[#C7C9D3] max-w-2xl mx-auto">
-        Each service is designed to integrate with the others — they are not isolated solutions, they are layers of the same enterprise system.
-      </p>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6">
-      <article class="cap-card">
-        <div class="text-[#1FA2FF] text-2xl mb-4">⚙️</div>
-        <h3 class="text-white font-semibold text-lg mb-3">AI Systems Architecture</h3>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
-          Comprehensive design of enterprise intelligent systems. Structured layers of data, agents, processes and governance for scaling.
-        </p>
-        <a href="/en/consulting/enterprise-ai-architecture.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">View service →</a>
-      </article>
-      <article class="cap-card">
-        <div class="text-[#1FA2FF] text-2xl mb-4">🤖</div>
-        <h3 class="text-white font-semibold text-lg mb-3">Intelligent Automation</h3>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
-          Advanced automation with strategic human validation. Intelligent flows that respect key business control points.
-        </p>
-        <a href="/en/consulting/enterprise-ai-architecture.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">View service →</a>
-      </article>
-      <article class="cap-card">
-        <div class="text-[#1FA2FF] text-2xl mb-4">🎯</div>
-        <h3 class="text-white font-semibold text-lg mb-3">Executive AI Consulting</h3>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
-          Strategic consulting on AI implementation and process redesign. We align technology with real executive objectives.
-        </p>
-        <a href="/en/firm/strategic-ai-consultancy.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">Meet the firm →</a>
-      </article>
-      <article class="cap-card">
-        <div class="text-[#1FA2FF] text-2xl mb-4">📊</div>
-        <h3 class="text-white font-semibold text-lg mb-3">Data & Control Dashboards</h3>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed mb-4">
-          Intelligent dashboards and real-time reporting. Full visibility of operations, KPIs and critical system alerts.
-        </p>
-        <a href="/en/framework/enterprise-ai-architecture-framework.html" class="text-[#1FA2FF] text-xs font-semibold hover:underline">View framework →</a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- MANIFIESTO -->
-<section class="py-24 px-6 bg-[#070A1E] text-center">
-  <div class="max-w-3xl mx-auto">
-    <blockquote class="text-2xl md:text-3xl font-semibold leading-relaxed text-white/90 mb-8">
-      "Companies don’t need more tools.<br>
-      They need <span class="text-[#1FA2FF]">systems</span>.<br>
-      They don’t need more bots.<br>
-      They need <span class="text-[#1FA2FF]">architecture</span>."
-    </blockquote>
-    <p class="text-[#C7C9D3]/60 text-sm">— KRONIX Labs Manifesto</p>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="py-24 px-6 grid-bg" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
-  <div class="max-w-3xl mx-auto text-center">
-    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Next step</p>
-    <h2 class="text-3xl md:text-4xl font-bold mb-6">
-      Start with a <span class="text-[#1FA2FF]">strategic diagnosis</span>
-    </h2>
-    <p class="text-[#C7C9D3] text-lg mb-10 leading-relaxed">
-      In 45 minutes we identify the highest leverage point to implement AI in your organization. No commitment, no software sales.
-    </p>
-    <a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20AI%20architecture%20diagnosis."
-       target="_blank" rel="noopener noreferrer" onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Bottom_Diagnosis_EN'});"
-       class="btn-glow inline-block bg-[#1FA2FF] text-white px-12 py-5 rounded-lg font-semibold text-lg hover:opacity-90 transition">
-      Schedule via WhatsApp →
-    </a>
-    <p class="text-[#C7C9D3]/50 text-xs mt-5">We reply in under 2 hours · Monday to Friday</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="border-t border-white/5 bg-black py-16 text-sm text-[#C7C9D3]">
-  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
-    <div>
-      <img src="../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
-      <p class="leading-relaxed text-[#C7C9D3]/80 mb-4">
-        Strategic firm specialized in Enterprise Architecture with AI, intelligent systems design, and structured automation.
-      </p>
-      <p class="text-[#C7C9D3]/40 text-xs">Engineering Intelligent Growth</p>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-5">Services</h4>
-      <ul class="space-y-3">
-        <li><a href="consulting/enterprise-ai-architecture.html" class="hover:text-[#1FA2FF] transition">Enterprise AI Architecture</a></li>
-        <li><a href="framework/enterprise-ai-architecture-framework.html" class="hover:text-[#1FA2FF] transition">Kronix EAA Framework™</a></li>
-        <li><a href="industries/distribution.html" class="hover:text-[#1FA2FF] transition">Solutions for Distribution</a></li>
-        <li><a href="case-study/multi-site-ai-system.html" class="hover:text-[#1FA2FF] transition">Multi-site Case Study</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-5">Firm</h4>
-      <ul class="space-y-3">
-        <li><a href="/en/firm/strategic-ai-consultancy.html" class="hover:text-[#1FA2FF] transition">Our Firm</a></li>
-        <li><a href="/en/framework/enterprise-ai-architecture-framework.html" class="hover:text-[#1FA2FF] transition">Methodology</a></li>
-        <li><a href="https://wa.me/573107397053?text=Hello%20KRONIX,%20I%20would%20like%20to%20schedule%20a%20strategic%20diagnosis." class="hover:text-[#1FA2FF] transition">Schedule Diagnosis</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-5">Contact</h4>
-      <p class="mb-3">Medellín, Antioquia<br>Colombia — LATAM</p>
-      <a href="https://wa.me/573107397053" target="_blank" rel="noopener noreferrer" class="hover:text-[#1FA2FF] transition block mb-2">
-        WhatsApp: +57 310 739 7053
-      </a>
-      <div class="flex gap-2 mt-4">
-        <a href="/es/" class="text-xs text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition">Versión en español →</a>
-      </div>
-    </div>
-  </div>
-  <div class="border-t border-white/5 mt-12 pt-8 max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/30">
-    <span>© 2026 KRONIX Labs by jurion — Enterprise AI Architecture</span>
-    <span>Intelligent Systems Laboratory · Medellín, Colombia</span>
-  </div>
-</footer>
-
-<!-- Mobile menu toggle + smooth scroll -->
-<script>
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', menu.classList.contains('open'));
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRONIX Labs | Scale Your Revenue Without Hiring More Staff — Enterprise AI Infrastructure</title>
+  <meta name="description" content="We design Enterprise AI Infrastructure that enables businesses to scale revenue without expanding payroll. Data sovereignty, executive control and measurable ROI for companies in Colombia and LATAM.">
+  <meta name="keywords" content="enterprise AI infrastructure, CEO automation Colombia, scale without hiring, AI governance LATAM, EAA architecture, KRONIX Labs">
+  <link rel="canonical" href="https://kronixlabs.github.io/en/">
+  <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/">
+  <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/">
+  <link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-T41H03C7CH', {
+      'page_title': 'Home EN'
     });
-  });
-</script>
+  </script>
 
-<!-- WhatsApp Floating Panel (EN version) -->
-<style>
-.kx-wa-btn { position: fixed; bottom: 28px; right: 28px; z-index: 9999; background: #1FA2FF; color: #fff; padding: 14px 20px; border-radius: 14px; font-weight: 600; font-size: 14px; box-shadow: 0 10px 40px rgba(31,162,255,0.45); display: flex; align-items: center; gap: 8px; cursor: pointer; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; }
-.kx-wa-btn.show { opacity: 1; transform: translateY(0); }
-.kx-wa-panel { position: fixed; bottom: 95px; right: 28px; width: 340px; background: #070A1E; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; z-index: 10000; display: none; box-shadow: 0 15px 60px rgba(0,0,0,0.55); }
-.kx-wa-panel h4 { color: #fff; font-size: 15px; margin-bottom: 14px; }
-.kx-wa-panel select, .kx-wa-panel button { width: 100%; margin-bottom: 12px; padding: 11px; border-radius: 8px; font-size: 13px; }
-.kx-wa-panel select { background: #0B0F2B; color: #C7C9D3; border: 1px solid rgba(255,255,255,0.1); }
-.kx-wa-panel button { background: #1FA2FF; color: white; font-weight: 600; border: none; cursor: pointer; }
-</style>
-<div id="kx-wa-btn" class="kx-wa-btn"><span id="kx-wa-text"></span></div>
-<div id="kx-wa-panel" class="kx-wa-panel">
-  <h4 id="kx-wa-title"></h4>
-  <select id="kx-sector"></select>
-  <select id="kx-size"></select>
-  <button id="kx-submit"></button>
-</div>
-<script>
-(function(){
-  const phone = "573107397053";
-  const btn = document.getElementById("kx-wa-btn");
-  const panel = document.getElementById("kx-wa-panel");
-  const submit = document.getElementById("kx-submit");
-  const sector = document.getElementById("kx-sector");
-  const size = document.getElementById("kx-size");
-  const text = document.getElementById("kx-wa-text");
-  const title = document.getElementById("kx-wa-title");
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --blue: #1FA2FF;
+      --dark: #0B0F2B;
+      --deep: #070A1E;
+      --gray: #C7C9D3;
+    }
 
-  const content = {
-    button: "Schedule Diagnosis",
-    title: "Before we connect…",
-    sectorPlaceholder: "Select industry",
-    sizePlaceholder: "Company size",
-    sectors: ["Distribution","Manufacturing","Financial Services","Technology","Healthcare","Other"],
-    sizes: ["1–10 employees","11–50 employees","51–200 employees","200+ employees"],
-    submit: "Continue to WhatsApp",
-    alert: "Please select industry and company size.",
-    message: (s,z) => `Hello KRONIX, I am interested in Enterprise AI Architecture.\nIndustry: ${s}\nCompany Size: ${z}\nI would like to schedule a strategic diagnosis.`
-  };
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  text.innerText = content.button;
-  title.innerText = content.title;
-  submit.innerText = content.submit;
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--deep);
+      color: #e8eaf0;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-  sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>` + content.sectors.map(s => `<option>${s}</option>`).join('');
-  size.innerHTML = `<option value="">${content.sizePlaceholder}</option>` + content.sizes.map(s => `<option>${s}</option>`).join('');
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  setTimeout(() => btn.classList.add("show"), 1500);
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(31, 162, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(31, 162, 255, 0.6);
+      }
+    }
 
-  btn.addEventListener("click", () => { panel.style.display = panel.style.display === "block" ? "none" : "block"; });
+    @keyframes borderGlow {
+      0%, 100% {
+        border-color: rgba(31, 162, 255, 0.2);
+      }
+      50% {
+        border-color: rgba(31, 162, 255, 0.7);
+      }
+    }
 
-  submit.addEventListener("click", () => {
-    if (!sector.value || !size.value) { alert(content.alert); return; }
-    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(content.message(sector.value, size.value));
-    gtag("event", "click_whatsapp_prequalified", { event_category: "CTA", event_label: "PreQualified_EN" });
-    window.open(url, "_blank");
-    panel.style.display = "none";
-  });
-})();
-</script>
+    .fadeUp {
+      animation: fadeUp 0.7s ease forwards;
+    }
 
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      padding: 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: borderGlow 4s infinite;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(31, 162, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #0e91ef;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(31, 162, 255, 0.4);
+    }
+
+    .btn-primary.small {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: rgba(31, 162, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(31, 162, 255, 0.12);
+      color: var(--blue);
+      border: 1px solid rgba(31, 162, 255, 0.3);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section {
+      padding: 96px 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 10, 30, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(31, 162, 255, 0.12);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #e8eaf0;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #e8eaf0;
+      transition: all 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: rgba(7, 10, 30, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(31, 162, 255, 0.12);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      padding: 24px;
+    }
+
+    .mobile-menu li {
+      padding: 12px 0;
+    }
+
+    .mobile-menu a {
+      color: #e8eaf0;
+      text-decoration: none;
+      display: block;
+    }
+
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--blue);
+      z-index: 9999;
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1000;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+      animation: pulseGlow 3s infinite;
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, rgba(31, 162, 255, 0.05) 0%, rgba(7, 10, 30, 0.5) 100%);
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 24px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      padding: 32px;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #a0a2b0;
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+    }
+
+    /* Comparison table */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .comparison-col {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      padding: 40px;
+    }
+
+    .comparison-col h3 {
+      margin-bottom: 32px;
+      color: var(--blue);
+    }
+
+    .comparison-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-item span {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+    }
+
+    /* Layer cards */
+    .layer-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      padding: 32px;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .layer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .layer-subtitle {
+      font-size: 0.9rem;
+      color: #a0a2b0;
+      margin-bottom: 16px;
+    }
+
+    .layer-content {
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* Accordion */
+    .accordion {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      padding: 24px 32px;
+      background: rgba(31, 162, 255, 0.05);
+      border: none;
+      color: #e8eaf0;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .accordion-header:hover {
+      background: rgba(31, 162, 255, 0.1);
+    }
+
+    .accordion-header.active {
+      background: rgba(31, 162, 255, 0.12);
+    }
+
+    .accordion-icon {
+      transition: transform 0.3s;
+      font-size: 1.2rem;
+    }
+
+    .accordion-icon.active {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 24px 32px;
+      color: #a0a2b0;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .accordion-content.active {
+      display: block;
+    }
+
+    /* Form */
+    .form-container {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 12px;
+      padding: 48px;
+      max-width: 600px;
+      margin: 48px auto 0;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(31, 162, 255, 0.15);
+      border-radius: 6px;
+      color: #e8eaf0;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(31, 162, 255, 0.4);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(31, 162, 255, 0.12);
+      padding: 64px 0 24px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 24px;
+      color: var(--blue);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 12px;
+    }
+
+    .footer-section a {
+      color: #a0a2b0;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--blue);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(31, 162, 255, 0.12);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-copyright {
+      font-size: 0.85rem;
+      color: #7a7c8a;
+    }
+
+    .footer-languages {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-languages a {
+      color: #a0a2b0;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-languages a:hover {
+      color: var(--blue);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+      }
+
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-outline {
+        width: 100%;
+        text-align: center;
+      }
+
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .form-container {
+        padding: 32px 24px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    .section-intro {
+      max-width: 700px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .revelation-box {
+      background: rgba(31, 162, 255, 0.1);
+      border: 2px solid rgba(31, 162, 255, 0.3);
+      border-radius: 12px;
+      padding: 48px;
+      text-align: center;
+      margin: 48px auto;
+      max-width: 700px;
+    }
+
+    .revelation-box h3 {
+      color: var(--blue);
+      margin-bottom: 24px;
+      font-size: 1.4rem;
+    }
+
+    .revelation-box p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .contact-info {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      font-size: 0.95rem;
+    }
+
+    .contact-info a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-logo-section {
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(31, 162, 255, 0.12);
+    }
+
+    .footer-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .footer-tagline {
+      color: #a0a2b0;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="scrollProgress"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="logo">
+        KRONIX<span style="color:var(--blue)">Labs</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/consulting/enterprise-ai-architecture.html">Consulting</a></li>
+        <li><a href="/en/framework/enterprise-ai-architecture-framework.html">EAA Framework™</a></li>
+        <li><a href="/en/industries/distribution.html">Industries</a></li>
+        <li><a href="/en/firm/strategic-ai-consultancy.html">The Firm</a></li>
+        <li><a href="/en/insights/">Insights</a></li>
+        <li><a href="#audit" class="btn-primary small">Request Audit</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="/en/consulting/enterprise-ai-architecture.html">Consulting</a></li>
+        <li><a href="/en/framework/enterprise-ai-architecture-framework.html">EAA Framework™</a></li>
+        <li><a href="/en/industries/distribution.html">Industries</a></li>
+        <li><a href="/en/firm/strategic-ai-consultancy.html">The Firm</a></li>
+        <li><a href="/en/insights/">Insights</a></li>
+        <li><a href="#audit" class="btn-primary small" style="margin-top: 16px;">Request Audit</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="tag">Enterprise AI Infrastructure Firm</div>
+        <h1>Scale your revenue<br>without hiring more staff.</h1>
+        <p style="font-size: 1.1rem; color: #a0a2b0; margin: 24px 0 0; line-height: 1.8;">
+          Deploy enterprise-grade AI Infrastructure with full data sovereignty and total executive control over your operations.
+        </p>
+        <div class="hero-ctas">
+          <a href="#audit" class="btn-primary">Request Strategic Operational Audit</a>
+          <a href="/en/framework/enterprise-ai-architecture-framework.html" class="btn-outline">Explore EAA Framework™</a>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card" style="animation-delay: 0.1s;">
+          <div class="stat-value">+40%</div>
+          <div class="stat-label">Installed operational capacity</div>
+          <div style="font-size: 0.85rem; color: #7a7c8a; margin-top: 12px;">Without expanding payroll</div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.2s;">
+          <div class="stat-value">CEO Liberated</div>
+          <div class="stat-label">From operations</div>
+          <div style="font-size: 0.85rem; color: #7a7c8a; margin-top: 12px;">Total strategic control</div>
+        </div>
+        <div class="stat-card" style="animation-delay: 0.3s;">
+          <div class="stat-value">Measurable ROI</div>
+          <div class="stat-label">From quarter one</div>
+          <div style="font-size: 0.85rem; color: #7a7c8a; margin-top: 12px;">Documented results</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operational Burnout Section -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">The Real Problem</div>
+        <h2>Your business is growing. Your operations are holding it back.</h2>
+      </div>
+      <div class="section-intro">
+        <p>78% of CEOs in LATAM spend more than 60% of their time solving operational problems instead of scaling their business. That's not leadership. That's managed chaos.</p>
+      </div>
+      <div class="grid-2" style="margin-bottom: 48px;">
+        <div class="card fadeUp" style="animation-delay: 0.1s;">
+          <h3>CEO trapped in operations</h3>
+          <p style="color: #a0a2b0;">You should be making strategic decisions, not handling day-to-day issues.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.2s;">
+          <h3>Teams saturated with no capacity to scale</h3>
+          <p style="color: #a0a2b0;">Every new client generates more work, not more profitability.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.3s;">
+          <h3>Manual processes consuming productivity</h3>
+          <p style="color: #a0a2b0;">Your best talent is doing work that a system should execute.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.4s;">
+          <h3>Growth that generates chaos, not results</h3>
+          <p style="color: #a0a2b0;">Without architecture, growth amplifies existing problems.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.5s;">
+          <h3>Excessive founder dependency</h3>
+          <p style="color: #a0a2b0;">If you stop, the business stops. That's not a scalable business.</p>
+        </div>
+      </div>
+      <div class="revelation-box">
+        <h3>The problem isn't a lack of tools. It's a lack of architecture.</h3>
+        <p>A company with 10 isolated automations is still a chaotic company. The difference lies in how they are connected, governed, and scaled.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anti-Agency Section -->
+  <section class="section" style="background: rgba(31, 162, 255, 0.03);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">Not What You Think We Are</div>
+        <h2>The difference between tools and architecture</h2>
+      </div>
+      <p style="text-align: center; font-size: 1.1rem; color: #a0a2b0; margin-bottom: 48px; max-width: 700px; margin-left: auto; margin-right: auto;">We don't automate tasks. We design systems that allow you to bill more without hiring more staff.</p>
+      <div class="comparison">
+        <div class="comparison-col">
+          <h3>What generic agencies do</h3>
+          <div class="comparison-item"><span>✗</span><div>Pre-built bots and chatbots</div></div>
+          <div class="comparison-item"><span>✗</span><div>Isolated automations with no strategic connection</div></div>
+          <div class="comparison-item"><span>✗</span><div>Generic tools installed without customization</div></div>
+          <div class="comparison-item"><span>✗</span><div>Implementations that create vendor dependency</div></div>
+          <div class="comparison-item"><span>✗</span><div>Solutions requiring constant manual supervision</div></div>
+          <div class="comparison-item"><span>✗</span><div>Exposed tech stack replaceable by anyone</div></div>
+          <div class="comparison-item"><span>✗</span><div>No governance or data sovereignty</div></div>
+        </div>
+        <div class="comparison-col">
+          <h3>What KRONIX Labs does</h3>
+          <div class="comparison-item"><span>✓</span><div>Bespoke AI infrastructure designed for your business</div></div>
+          <div class="comparison-item"><span>✓</span><div>Integrated 5-layer operational impact system</div></div>
+          <div class="comparison-item"><span>✓</span><div>Architecture that scales with your growth</div></div>
+          <div class="comparison-item"><span>✓</span><div>Full data sovereignty — your data is yours</div></div>
+          <div class="comparison-item"><span>✓</span><div>Autonomous operation with strategic human control</div></div>
+          <div class="comparison-item"><span>✓</span><div>Governance adapted to international AI risk frameworks</div></div>
+          <div class="comparison-item"><span>✓</span><div>Documented, measurable ROI from quarter 1</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EAA Framework Section -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">The Structural Solution</div>
+        <h2>EAA™ Infrastructure</h2>
+        <p style="font-size: 1.2rem; color: #a0a2b0; margin: 24px 0 0;">5-Layer Operational Impact System</p>
+      </div>
+      <p style="text-align: center; font-size: 1rem; color: #a0a2b0; margin-bottom: 48px; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+        The Enterprise AI Architecture Framework (EAA™) is not a theoretical methodology. It is the operational infrastructure that allows your company to scale revenue without scaling payroll.
+      </p>
+      <div class="grid-2" style="gap: 24px;">
+        <div class="layer-card fadeUp" style="animation-delay: 0.1s;">
+          <div class="layer-title">ACCESS</div>
+          <div class="layer-subtitle">Structured Omnichannel</div>
+          <div class="layer-content">
+            All your company's touchpoints unified under a single intelligent infrastructure. WhatsApp as a high-impact strategic channel for acquisition and support. No friction, no lost leads, no human dependency for first contact.
+          </div>
+        </div>
+        <div class="layer-card fadeUp" style="animation-delay: 0.2s;">
+          <div class="layer-title">ORCHESTRATION</div>
+          <div class="layer-subtitle">Business Flows Without Friction</div>
+          <div class="layer-content">
+            Your internal business processes execute autonomously and in a coordinated manner. From prospect reception to service delivery: no bottlenecks, no unnecessary manual intervention.
+          </div>
+        </div>
+        <div class="layer-card fadeUp" style="animation-delay: 0.3s;">
+          <div class="layer-title">OPERATIONAL INTELLIGENCE</div>
+          <div class="layer-subtitle">Decisions with Contextual Control</div>
+          <div class="layer-content">
+            Decision systems that operate with the context of your business. Not generic responses — intelligence trained with your operation, your policies and your strategic objectives.
+          </div>
+        </div>
+        <div class="layer-card fadeUp" style="animation-delay: 0.4s;">
+          <div class="layer-title">INTEGRATION</div>
+          <div class="layer-subtitle">Unified Business Ecosystem</div>
+          <div class="layer-content">
+            Native connection with CRM, ERP, and Google Workspace. Your AI infrastructure speaks the language of your current tools without traumatic migrations or costly replacements.
+          </div>
+        </div>
+        <div class="layer-card fadeUp" style="animation-delay: 0.5s;">
+          <div class="layer-title">GOVERNANCE</div>
+          <div class="layer-subtitle">Sovereignty and Executive Control</div>
+          <div class="layer-content">
+            Your data is yours. Total control over what the AI processes, how it processes it, and where it is stored. Process auditing, LATAM regulatory compliance, and vendor lock-in mitigation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section" style="background: rgba(31, 162, 255, 0.03);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">What We Can Do For Your Business</div>
+        <h2>Enterprise AI Infrastructure Services</h2>
+        <p style="font-size: 1.1rem; color: #a0a2b0; margin: 24px 0 0; max-width: 700px; margin-left: auto; margin-right: auto;">Everything you need to scale your operation without scaling your payroll</p>
+      </div>
+      <div class="grid-2">
+        <div class="card fadeUp" style="animation-delay: 0.1s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🔍</div>
+          <h3>Strategic Operational Audit</h3>
+          <p style="color: #a0a2b0;">Complete diagnosis of your current operation. We identify the exact friction, chaos, and capacity loss points. Result: a priority map with projected ROI.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.2s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🏗️</div>
+          <h3>Complete EAA™ Architecture</h3>
+          <p style="color: #a0a2b0;">Design and implementation of the complete 5-layer AI infrastructure, customized for your company. Bespoke. Not generic. Not replicable.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.3s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🤖</div>
+          <h3>Autonomous AI Agents</h3>
+          <p style="color: #a0a2b0;">Agent systems that execute complex processes without constant supervision. They attend, qualify, follow up, and close — while you sleep.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.4s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">👔</div>
+          <h3>CEO Command Center</h3>
+          <p style="color: #a0a2b0;">Operational liberation of the founder. Automatic reports, strategic alerts, and decision flows that eliminate your dependence on daily operations.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.5s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🛡️</div>
+          <h3>AI Governance + Data Sovereignty</h3>
+          <p style="color: #a0a2b0;">On-premise or hybrid infrastructure. Your data never leaves your control. Compliance with Colombian Law 1581, Brazilian LGPD, and international AI risk frameworks.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.6s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">📱</div>
+          <h3>Intelligent WhatsApp Business</h3>
+          <p style="color: #a0a2b0;">WhatsApp as a strategic channel for acquisition, support, and closing. Not a generic chatbot — a high-impact business communication system integrated into your infrastructure.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.7s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">⚙️</div>
+          <h3>Complex Flow Automation</h3>
+          <p style="color: #a0a2b0;">Business workflows without friction. Sales, operations, HR, and finance processes automated with contextual intelligence and total control.</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.8s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🔗</div>
+          <h3>Google Workspace + CRM/ERP Integration</h3>
+          <p style="color: #a0a2b0;">Deep connection with your current ecosystem. Gmail, Drive, Calendar, Meet + your CRM and ERP, functioning as a unified operational intelligence system.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For Whom Section -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">Designed For Leaders Who Scale</div>
+        <h2>Is your company the right profile?</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card fadeUp" style="animation-delay: 0.1s;">
+          <h3>CEO/Founder</h3>
+          <p style="color: #a0a2b0;">Who wants to scale revenue without hiring more staff and reclaim strategic time</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.2s;">
+          <h3>Sales Director</h3>
+          <p style="color: #a0a2b0;">Who needs more pipeline, better conversion, and automated follow-up without depending on their team</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.3s;">
+          <h3>General Manager</h3>
+          <p style="color: #a0a2b0;">Who requires total operational visibility and data-backed decisions in real time</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.4s;">
+          <h3>Expanding Business</h3>
+          <p style="color: #a0a2b0;">With operations in multiple cities or countries needing infrastructure that scales without chaos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LATAM Data Protection Section -->
+  <section class="section" style="background: rgba(31, 162, 255, 0.03);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">Designed For LATAM</div>
+        <h2>Data Sovereignty in Colombia and LATAM</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card fadeUp" style="animation-delay: 0.1s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🇨🇴</div>
+          <h3>Colombia (Law 1581)</h3>
+          <p style="color: #a0a2b0;">Full compliance with Colombian personal data protection regulations</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.2s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🇧🇷</div>
+          <h3>Brazil (LGPD)</h3>
+          <p style="color: #a0a2b0;">Compatible with the Brazilian Lei Geral de Proteção de Dados</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.3s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🌎</div>
+          <h3>Vendor Lock-in Mitigation</h3>
+          <p style="color: #a0a2b0;">Your infrastructure does not depend on any external provider. Free migration at any time</p>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.4s;">
+          <div style="font-size: 2rem; margin-bottom: 16px;">🔐</div>
+          <h3>On-Premise / Hybrid</h3>
+          <p style="color: #a0a2b0;">Your data processed in your infrastructure or in hybrid environments with total control</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights Section -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">Strategic Knowledge Center</div>
+        <h2>Insights for Leaders Who Scale</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card fadeUp" style="animation-delay: 0.1s;">
+          <h3>Operational Burnout: Why Your Business Can't Scale</h3>
+          <p style="color: #a0a2b0; margin-bottom: 20px;">Understand the root causes of operational chaos and how to architect your way out.</p>
+          <a href="/en/insights/" style="color: var(--blue); text-decoration: none; font-weight: 600;">Read Article →</a>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.2s;">
+          <h3>The Success Code: The Operational Manifesto of KRONIX Labs</h3>
+          <p style="color: #a0a2b0; margin-bottom: 20px;">Our philosophy on how enterprise AI infrastructure transforms businesses.</p>
+          <a href="/en/insights/the-success-code.html" style="color: var(--blue); text-decoration: none; font-weight: 600;">Read Article →</a>
+        </div>
+        <div class="card fadeUp" style="animation-delay: 0.3s;">
+          <h3>AI Governance in LATAM: What Every CEO Must Know in 2025</h3>
+          <p style="color: #a0a2b0; margin-bottom: 20px;">Navigate the regulatory landscape and ensure your AI infrastructure is compliant.</p>
+          <a href="/en/insights/" style="color: var(--blue); text-decoration: none; font-weight: 600;">Read Article →</a>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 48px;">
+        <a href="/en/insights/" class="btn-outline">View all Insights</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" style="background: rgba(31, 162, 255, 0.03);">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="tag" style="justify-content: center; width: fit-content; margin-left: auto; margin-right: auto;">Frequently Asked Questions</div>
+        <h2>What CEOs ask us before starting</h2>
+      </div>
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div class="accordion">
+          <button class="accordion-header">
+            <span>How long does implementation take?</span>
+            <span class="accordion-icon">⌄</span>
+          </button>
+          <div class="accordion-content">
+            Depends on scope. A Strategic Operational Audit takes 2 weeks. A complete EAA™ Architecture between 8 and 16 weeks, depending on the complexity of your operation.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header">
+            <span>Do I need to replace my current systems?</span>
+            <span class="accordion-icon">⌄</span>
+          </button>
+          <div class="accordion-content">
+            No. EAA™ Infrastructure integrates with your current ecosystem. We work with what you already have and enhance it.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header">
+            <span>Will my data be safe?</span>
+            <span class="accordion-icon">⌄</span>
+          </button>
+          <div class="accordion-content">
+            Your data sovereignty is non-negotiable for us. We offer on-premise and hybrid configurations that keep your data under your total control.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header">
+            <span>How do I know if the ROI justifies the investment?</span>
+            <span class="accordion-icon">⌄</span>
+          </button>
+          <div class="accordion-content">
+            That's why we start with a Strategic Operational Audit. We show you exactly which processes are generating losses and what the projected impact is before committing any investment.
+          </div>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion-header">
+            <span>Is it only for large companies?</span>
+            <span class="accordion-icon">⌄</span>
+          </button>
+          <div class="accordion-content">
+            No. We work with companies from 10 to 500 employees. The criterion isn't size: it's the willingness to scale with structure.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="section" id="audit">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 48px;">
+        <h2>Stop operating. Start scaling.</h2>
+        <p style="font-size: 1.1rem; color: #a0a2b0; margin: 24px 0 0; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+          The Strategic Operational Audit is the first step. In 2 weeks you'll know exactly what operational friction is costing your business and what the path is to eliminate it.
+        </p>
+      </div>
+      <form class="form-container" name="auditForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Your company name" required>
+        </div>
+        <div class="form-group">
+          <label for="position">Position</label>
+          <input type="text" id="position" name="position" placeholder="Your position" required>
+        </div>
+        <div class="form-group">
+          <label for="challenge">What is your biggest operational challenge today?</label>
+          <textarea id="challenge" name="challenge" placeholder="Tell us about your main challenge..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+57 310 739 7053" required>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; text-align: center;">Request Strategic Operational Audit</button>
+      </form>
+      <div class="contact-info">
+        <a href="https://wa.me/573107397053?text=Hello, I'm interested in a Strategic Operational Audit">WhatsApp +57 310 739 7053</a>
+        <span style="color: #7a7c8a;">|</span>
+        <a href="mailto:admin@kronixlabs.com">admin@kronixlabs.com</a>
+        <span style="color: #7a7c8a;">|</span>
+        <span style="color: #a0a2b0;">We respond within 24 hours.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo-section">
+        <div class="footer-logo">KRONIX<span style="color:var(--blue)">Labs</span></div>
+        <div class="footer-tagline">Enterprise AI Infrastructure for LATAM</div>
+      </div>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/en/consulting/enterprise-ai-architecture.html">Operational Audit</a></li>
+            <li><a href="/en/framework/enterprise-ai-architecture-framework.html">EAA™ Architecture</a></li>
+            <li><a href="/en/consulting/enterprise-ai-architecture.html">AI Agents</a></li>
+            <li><a href="/en/consulting/enterprise-ai-architecture.html">CEO Command Center</a></li>
+            <li><a href="/en/consulting/enterprise-ai-architecture.html">AI Governance</a></li>
+            <li><a href="/en/consulting/enterprise-ai-architecture.html">WhatsApp Business</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/en/firm/strategic-ai-consultancy.html">The Firm</a></li>
+            <li><a href="/en/framework/enterprise-ai-architecture-framework.html">EAA™ Framework</a></li>
+            <li><a href="/en/insights/">Insights</a></li>
+            <li><a href="/en/insights/the-success-code.html">The Success Code</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Industries</h4>
+          <ul>
+            <li><a href="/en/industries/distribution.html">Distribution & Logistics</a></li>
+            <li><a href="/en/industries/distribution.html">Professional Services</a></li>
+            <li><a href="/en/industries/distribution.html">Health & Clinics</a></li>
+            <li><a href="/en/industries/distribution.html">Retail & Commerce</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:admin@kronixlabs.com">admin@kronixlabs.com</a></li>
+            <li><a href="https://wa.me/573107397053?text=Hello, I'm interested in a Strategic Operational Audit">WhatsApp +57 310 739 7053</a></li>
+            <li>Medellín, Colombia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2025 KRONIX Labs. All rights reserved.
+        </div>
+        <div class="footer-languages">
+          <a href="/es/">ES</a>
+          <a href="/en/">EN</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/573107397053?text=Hello, I'm interested in a Strategic Operational Audit" class="whatsapp-float" title="Chat with us on WhatsApp">
+    <span style="font-size: 28px;">💬</span>
+  </a>
+
+  <!-- JavaScript -->
+  <script>
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
+    });
+
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Intersection Observer for fadeUp animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fadeUp');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fadeUp').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Accordion functionality
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const accordion = header.parentElement;
+        const content = accordion.querySelector('.accordion-content');
+        const icon = header.querySelector('.accordion-icon');
+
+        // Close other accordions
+        document.querySelectorAll('.accordion-header').forEach(otherHeader => {
+          if (otherHeader !== header) {
+            otherHeader.classList.remove('active');
+            otherHeader.querySelector('.accordion-icon').classList.remove('active');
+            otherHeader.parentElement.querySelector('.accordion-content').classList.remove('active');
+          }
+        });
+
+        // Toggle current accordion
+        header.classList.toggle('active');
+        icon.classList.toggle('active');
+        content.classList.toggle('active');
+      });
+    });
+
+    // Form submission handling
+    document.querySelector('form[name="auditForm"]').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+      
+      // Create WhatsApp message
+      const message = `Hello! I'm interested in a Strategic Operational Audit.\n\nName: ${data.fullName}\nCompany: ${data.company}\nPosition: ${data.position}\nBiggest Challenge: ${data.challenge}\nWhatsApp: ${data.whatsapp}`;
+      
+      const whatsappUrl = `https://wa.me/573107397053?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+      
+      // Reset form
+      e.target.reset();
+    });
+  </script>
 </body>
 </html>
