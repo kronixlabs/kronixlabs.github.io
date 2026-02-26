@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kronix EAA Framework™ | Metodología de Arquitectura IA Empresarial | KRONIX Labs</title>
+    <meta name="description" content="El EAA Framework™ es la metodología propietaria que transforma la intención de automatizar en una arquitectura de IA estructurada, gobernada y escalable.">
+    <link rel="canonical" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html">
+    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html">
+    <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T41H03C7CH');
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Kronix EAA Framework™",
+        "url": "https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html",
+        "description": "Metodología propietaria de arquitectura de IA empresarial en 5 capas y 4 fases.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "KRONIX Labs",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://kronixlabs.github.io/Kronix-Labs.svg"
+            }
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0B0F2B;
+            --bg-darker: #070A1E;
+            --accent-blue: #1FA2FF;
+            --text-light: #FFFFFF;
+            --text-gray: #B0B5C3;
+            --card-hover: rgba(31, 162, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue) 0%, #00D4FF 100%);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Animation */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 43, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(31, 162, 255, 0.1);
+            z-index: 999;
+            padding: 1.25rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            border-radius: 1px;
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--bg-darker);
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                border-bottom: 1px solid rgba(31, 162, 255, 0.1);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--text-light);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(31, 162, 255, 0.05) 0%, rgba(7, 10, 30, 0) 100%);
+            border-bottom: 1px solid rgba(31, 162, 255, 0.1);
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(31, 162, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            border-radius: 50px;
+            color: var(--accent-blue);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+        }
+
+        .metric-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Section */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        section > p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            max-width: 900px;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, rgba(31, 162, 255, 0.05) 0%, rgba(31, 162, 255, 0.02) 100%);
+            border: 1px solid rgba(31, 162, 255, 0.15);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: linear-gradient(135deg, rgba(31, 162, 255, 0.1) 0%, rgba(31, 162, 255, 0.05) 100%);
+            border-color: var(--accent-blue);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(31, 162, 255, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .card p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-metrics {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Layers */
+        .layers-container {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .layer {
+            background: linear-gradient(135deg, rgba(31, 162, 255, 0.05) 0%, rgba(31, 162, 255, 0.02) 100%);
+            border: 1px solid rgba(31, 162, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .layer:hover {
+            background: linear-gradient(135deg, rgba(31, 162, 255, 0.1) 0%, rgba(31, 162, 255, 0.05) 100%);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(31, 162, 255, 0.15);
+        }
+
+        .layer-number {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            width: 50px;
+            height: 50px;
+            background: rgba(31, 162, 255, 0.1);
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layer h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .layer p {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+        }
+
+        .layer-outputs {
+            background: rgba(31, 162, 255, 0.05);
+            border-left: 3px solid var(--accent-blue);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .layer-outputs strong {
+            color: var(--accent-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .layer-outputs ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .layer-outputs li {
+            color: var(--text-gray);
+            padding: 0.25rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .layer-outputs li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(31, 162, 255, 0.02);
+            border: 1px solid rgba(31, 162, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(31, 162, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(31, 162, 255, 0.1);
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table td:first-child {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            color: var(--text-gray);
+        }
+
+        .comparison-table tbody tr:hover {
+            background: rgba(31, 162, 255, 0.05);
+        }
+
+        /* Form */
+        .contact-form {
+            background: linear-gradient(135deg, rgba(31, 162, 255, 0.05) 0%, rgba(31, 162, 255, 0.02) 100%);
+            border: 1px solid rgba(31, 162, 255, 0.15);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 700px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(31, 162, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(176, 181, 195, 0.5);
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(31, 162, 255, 0.1);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #00D4FF 100%);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(31, 162, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid rgba(31, 162, 255, 0.1);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(31, 162, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 900;
+            font-size: 1.5rem;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Mobile CTA */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(180deg, transparent 0%, var(--bg-darker) 100%);
+            z-index: 800;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-cta {
+                display: block;
+            }
+
+            .whatsapp-btn {
+                bottom: 100px;
+                right: 1rem;
+            }
+
+            nav {
+                gap: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 2rem 2rem 0;
+            max-width: 1400px;
+            margin: 80px auto 0;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: var(--text-gray);
+            margin: 0 0.5rem;
+        }
+
+        /* Button */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #00D4FF 100%);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(31, 162, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/es/" class="logo">
+                <img src="../../Kronix-Labs.svg" alt="KRONIX Labs">
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <nav id="menu">
+                <a href="/es/">Inicio</a>
+                <a href="/es/consultoria/">Consultoría</a>
+                <a href="/es/framework/arquitectura-empresarial-ia.html" class="active">Framework</a>
+                <a href="/es/industries/">Industrias</a>
+                <a href="/es/firm/">Firma</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb fade-up">
+        <a href="/es/">Inicio</a>
+        <span>/</span>
+        <span>Framework EAA</span>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge fade-up">Metodología Propietaria · KRONIX Labs</div>
+            <h1 class="fade-up delay-1">Kronix EAA Framework™</h1>
+            <p class="fade-up delay-2">La metodología propietaria que transforma la intención de automatizar en una arquitectura de IA estructurada, gobernada y escalable.</p>
+            <div class="hero-metrics fade-up delay-3">
+                <div class="metric">
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Capas</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">4</div>
+                    <div class="metric-label">Fases</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">90</div>
+                    <div class="metric-label">Días</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qué es EAA -->
+    <section>
+        <h2 class="fade-up">Un sistema para diseñar sistemas</h2>
+        <p class="fade-up delay-1">El EAA Framework™ (Enterprise AI Architecture) es la metodología que KRONIX Labs usa en cada proyecto. No es una plantilla — es un sistema de razonamiento para tomar las decisiones correctas en el orden correcto.</p>
+        <div class="grid-3 fade-up delay-2">
+            <div class="card fade-up">
+                <h3>Secuencia</h3>
+                <p>Decisiones en el orden correcto. Estrategia primero, después proceso, luego sistema, gobierno y escala.</p>
+            </div>
+            <div class="card fade-up delay-1">
+                <h3>Sistema</h3>
+                <p>Cubre tecnología, procesos y gobierno en una sola arquitectura. Los silos son el enemigo de la escalabilidad.</p>
+            </div>
+            <div class="card fade-up delay-2">
+                <h3>Escala</h3>
+                <p>Diseñado para replicarse sin rediseño total. De un área a toda la empresa, multisede, multinegocio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Las 5 Capas -->
+    <section>
+        <h2 class="fade-up">Las 5 Capas del EAA Framework™</h2>
+        <div class="layers-container fade-up delay-1">
+            <div class="layer fade-up">
+                <div class="layer-number">1</div>
+                <h3>Inteligencia Estratégica</h3>
+                <p>Antes de diseñar cualquier sistema, definimos con precisión qué problema de negocio estamos resolviendo. Esta capa establece el mapa de valor, los objetivos medibles y la alineación con la visión ejecutiva.</p>
+                <div class="layer-outputs">
+                    <strong>Outputs:</strong>
+                    <ul>
+                        <li>Mapa de valor operativo</li>
+                        <li>OKRs de transformación IA</li>
+                        <li>Matriz de priorización</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="layer fade-up delay-1">
+                <div class="layer-number">2</div>
+                <h3>Arquitectura de Procesos</h3>
+                <p>La IA no mejora procesos rotos — los automatiza de forma más rápida. Por eso rediseñamos los procesos antes de automatizarlos. Define flujos optimizados, puntos de decisión y roles de cada componente.</p>
+                <div class="layer-outputs">
+                    <strong>Outputs:</strong>
+                    <ul>
+                        <li>Flujos rediseñados</li>
+                        <li>RACI de automatización</li>
+                        <li>Matriz de impacto</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="layer fade-up delay-2">
+                <div class="layer-number">3</div>
+                <h3>Sistemas IA</h3>
+                <p>El corazón técnico. Diseñamos la arquitectura multi-agente, los modelos de IA, las integraciones sistémicas y los flujos de automatización. Cada componente documentado y alineado con las capas anteriores.</p>
+                <div class="layer-outputs">
+                    <strong>Outputs:</strong>
+                    <ul>
+                        <li>Blueprint multi-agente</li>
+                        <li>Especificaciones técnicas</li>
+                        <li>Plan de integración</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="layer fade-up delay-3">
+                <div class="layer-number">4</div>
+                <h3>Gobernanza y Control Ejecutivo</h3>
+                <p>IA sin gobierno es riesgo. Define los marcos de control, los dashboards ejecutivos, las métricas de rendimiento y los puntos de auditoría.</p>
+                <div class="layer-outputs">
+                    <strong>Outputs:</strong>
+                    <ul>
+                        <li>Dashboard ejecutivo</li>
+                        <li>KPI framework</li>
+                        <li>Protocolos de auditoría</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="layer fade-up delay-4">
+                <div class="layer-number">5</div>
+                <h3>Escalabilidad</h3>
+                <p>El sistema se diseña para crecer. Define la infraestructura replicable, los estándares de expansión multisede y los protocolos para nuevas unidades de negocio.</p>
+                <div class="layer-outputs">
+                    <strong>Outputs:</strong>
+                    <ul>
+                        <li>Playbook de escalabilidad</li>
+                        <li>Protocolos multisede</li>
+                        <li>Roadmap de expansión</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principios -->
+    <section>
+        <h2 class="fade-up">Principios que guían cada proyecto</h2>
+        <div class="grid-5 fade-up delay-1">
+            <div class="card fade-up">
+                <h3>Arquitectura primero</h3>
+                <p>No se automatiza lo que no está estructurado. Diseñamos el sistema antes de elegir cualquier herramienta.</p>
+            </div>
+            <div class="card fade-up delay-1">
+                <h3>Integración total</h3>
+                <p>IA, negocio y control deben ser una sola arquitectura. Los silos son el enemigo de la escalabilidad.</p>
+            </div>
+            <div class="card fade-up delay-2">
+                <h3>Medición desde el inicio</h3>
+                <p>Cada capa tiene métricas de éxito definidas antes de implementar. Si no se puede medir, no se debe construir.</p>
+            </div>
+            <div class="card fade-up delay-3">
+                <h3>Validación humana estratégica</h3>
+                <p>La IA ejecuta, los humanos deciden en los puntos críticos. El framework define exactamente dónde está cada punto de control.</p>
+            </div>
+            <div class="card fade-up delay-4">
+                <h3>Documentación estructurada</h3>
+                <p>Cada decisión arquitectónica queda documentada. El sistema no depende de quién lo diseñó.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparación -->
+    <section>
+        <h2 class="fade-up">EAA Framework™ vs. enfoques tradicionales</h2>
+        <div style="overflow-x: auto; fade-up delay-1">
+            <table class="comparison-table fade-up delay-1">
+                <thead>
+                    <tr>
+                        <th>Criterio</th>
+                        <th>Implementación ad-hoc</th>
+                        <th>EAA Framework™</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Secuencia de diseño</td>
+                        <td>Sin orden definido</td>
+                        <td>Estrategia → Proceso → Sistema → Gobierno → Escala</td>
+                    </tr>
+                    <tr>
+                        <td>Gobernanza</td>
+                        <td>Reactiva o inexistente</td>
+                        <td>Integrada desde la capa 1</td>
+                    </tr>
+                    <tr>
+                        <td>Documentación</td>
+                        <td>Dispersa o nula</td>
+                        <td>Estructurada en cada capa</td>
+                    </tr>
+                    <tr>
+                        <td>Escalabilidad</td>
+                        <td>Rediseño total</td>
+                        <td>Replicación por protocolo</td>
+                    </tr>
+                    <tr>
+                        <td>Control ejecutivo</td>
+                        <td>Limitado</td>
+                        <td>Dashboard unificado en tiempo real</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- CTA / Contacto -->
+    <section id="contacto">
+        <h2 class="fade-up">Solicite su Diagnóstico de Madurez Operativa</h2>
+        <p class="fade-up delay-1">45 minutos, sin compromiso</p>
+        <form class="contact-form fade-up delay-2" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="empresa">Empresa</label>
+                <input type="text" id="empresa" name="empresa" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="whatsapp">WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" required>
+            </div>
+            <div class="form-group">
+                <label for="sector">Sector</label>
+                <select id="sector" name="sector" required>
+                    <option value="">Seleccionar sector</option>
+                    <option value="tecnologia">Tecnología</option>
+                    <option value="distribucion">Distribución</option>
+                    <option value="manufactura">Manufactura</option>
+                    <option value="financiero">Financiero</option>
+                    <option value="retail">Retail</option>
+                    <option value="logistica">Logística</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="desafio">¿Cuál es tu desafío principal?</label>
+                <textarea id="desafio" name="desafio" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Solicitar Diagnóstico →</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>KRONIX Labs</h3>
+                <a href="/es/">Inicio</a>
+                <a href="/es/consultoria/">Consultoría</a>
+                <a href="/es/framework/">Framework</a>
+                <a href="/es/case-study/">Case Studies</a>
+            </div>
+            <div class="footer-section">
+                <h3>Industrias</h3>
+                <a href="/es/industries/distribucion.html">Distribución</a>
+                <a href="/es/industries/">Todas las industrias</a>
+            </div>
+            <div class="footer-section">
+                <h3>Firma</h3>
+                <a href="/es/firm/consultora-estrategica-ia.html">Sobre nosotros</a>
+                <a href="/es/firm/">Equipo</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa." target="_blank">WhatsApp</a>
+                <a href="mailto:admin@kronixlabs.com">Email</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KRONIX Labs. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa." target="_blank" class="whatsapp-btn">
+        <span style="color: white; font-size: 1.5rem;">💬</span>
+    </a>
+
+    <!-- Mobile CTA -->
+    <div class="mobile-cta">
+        <button class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;" onclick="scrollToContact();">Solicitar Diagnóstico</button>
+    </div>
+
+    <script>
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrolled + '%';
+        });
+
+        // Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+
+        // Smooth scroll to contact
+        function scrollToContact() {
+            const contactSection = document.getElementById('contacto');
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+            gtag('event', 'click_contact_cta');
+        }
+
+        // Form Submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const empresa = document.getElementById('empresa').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const sector = document.getElementById('sector').value;
+            const desafio = document.getElementById('desafio').value;
+
+            const message = `Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.\n\nNombre: ${nombre}\nEmpresa: ${empresa}\nEmail: ${email}\nWhatsApp: ${whatsapp}\nSector: ${sector}\nDesafío: ${desafio}`;
+
+            window.location.href = `https://wa.me/573107397053?text=${encodeURIComponent(message)}`;
+            gtag('event', 'submit_contact_form');
+        }
+
+        // Fade up animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .layer, .badge').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

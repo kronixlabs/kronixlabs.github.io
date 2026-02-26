@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura IA para Distribución y Manufactura | KRONIX Labs</title>
+    <meta name="description" content="Rediseñamos cómo opera su empresa de distribución o manufactura para que pueda manejar más volumen, más sedes y más clientes — sin contratar más personal ni perder el control.">
+    <link rel="canonical" href="https://kronixlabs.github.io/es/industries/distribucion.html">
+    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html">
+    <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Montserrat', sans-serif; }
+        body { background: linear-gradient(135deg, #0B0F2B 0%, #070A1E 100%); color: #fff; }
+        .accent { color: #1FA2FF; }
+        .accent-bg { background-color: #1FA2FF; }
+        .accent-border { border-color: #1FA2FF; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fadeUp { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
+        .fadeUp.visible { opacity: 1; animation: fadeUp 0.8s ease-out; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(31, 162, 255, 0.2); }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(11, 15, 43, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(31, 162, 255, 0.1); }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #1FA2FF, #00D4FF); z-index: 1001; }
+        .sticky-mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(31, 162, 255, 0.95); padding: 12px 20px; text-align: center; display: none; }
+        @media (max-width: 768px) { .sticky-mobile-cta { display: block; } }
+        .floating-wa { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 998; transition: all 0.3s; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
+        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6); }
+        footer { background: rgba(11, 15, 43, 0.8); border-top: 1px solid rgba(31, 162, 255, 0.1); padding: 40px 20px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- HEADER STICKY -->
+    <header>
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="/es/" class="flex items-center gap-2">
+                <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
+                <span class="font-bold text-lg hidden sm:inline">KRONIX</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="/es/" class="hover:accent transition">Inicio</a>
+                <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:accent transition">Arquitectura IA</a>
+                <a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:accent transition">Framework</a>
+                <a href="/es/industries/distribucion.html" class="accent">Industrias</a>
+                <a href="/es/firm/consultora-estrategica-ia.html" class="hover:accent transition">Firma</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="hidden sm:inline-block px-4 py-2 accent-bg text-dark font-semibold rounded text-sm hover:opacity-90 transition">Solicitar Diagnóstico</a>
+                <div class="relative group">
+                    <button class="text-sm font-medium">ES</button>
+                    <div class="absolute right-0 mt-2 w-20 bg-darker rounded opacity-0 group-hover:opacity-100 transition">
+                        <a href="/en/" class="block px-3 py-2 hover:accent text-xs">EN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="pt-24 pb-8 px-4 text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto">
+            <span class="accent">Inicio</span> > <span class="accent">Industrias</span> > Distribución y Manufactura
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="pt-20 pb-40 px-4">
+        <div class="max-w-4xl mx-auto text-center fadeUp">
+            <div class="inline-block px-3 py-1 border border-blue-500 rounded-full text-sm font-medium mb-6 accent">
+                Industria · Distribución y Manufactura
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-8 fadeUp">
+                Arquitectura IA Empresarial para <span class="accent">Distribución y Manufactura</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-12 fadeUp">
+                Rediseñamos cómo opera su empresa de distribución o manufactura para que pueda manejar más volumen, más sedes y más clientes — sin contratar más personal ni perder el control.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fadeUp">
+                <a href="#contacto" class="px-8 py-4 accent-bg text-dark font-bold rounded hover:opacity-90 transition">
+                    Solicitar Arquitectura
+                </a>
+                <a href="/es/case-study/sistema-multisede-ia.html" class="px-8 py-4 border-2 accent-border accent font-bold rounded hover:bg-blue-500 hover:bg-opacity-10 transition">
+                    Ver Case Study →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMAS OPERATIVOS -->
+    <section class="py-40 px-4 bg-black bg-opacity-30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
+                Complejidades operativas que <span class="accent">frenan el crecimiento</span>
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Alto volumen de pedidos manuales</h3>
+                    <p class="text-gray-300 text-sm">Procesos que dependen de personas para tareas repetitivas, generando errores, demoras y cuellos de botella.</p>
+                </div>
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Coordinación entre múltiples sedes</h3>
+                    <p class="text-gray-300 text-sm">Información desconectada, decisiones lentas y estándares operativos que no se replican uniformemente.</p>
+                </div>
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Falta de visibilidad en tiempo real</h3>
+                    <p class="text-gray-300 text-sm">Gerencia toma decisiones con datos de ayer. Sin dashboards unificados, el control es reactivo.</p>
+                </div>
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Gestión manual de cartera</h3>
+                    <p class="text-gray-300 text-sm">Seguimiento de cobros que depende de personas, con inconsistencias y pérdida de liquidez por falta de sistema.</p>
+                </div>
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Desconexión ventas—operaciones</h3>
+                    <p class="text-gray-300 text-sm">Comercial promete, operaciones no puede cumplir. Sin integración de sistemas, la fricción es constante.</p>
+                </div>
+                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <h3 class="text-lg font-bold mb-3 accent">Decisiones gerenciales tardías</h3>
+                    <p class="text-gray-300 text-sm">La alta dirección recibe reportes manuales con días de retraso. Imposible reaccionar a tiempo al mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section class="py-40 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 fadeUp">
+                Diseño de Arquitectura <span class="accent">Inteligente Integrada</span>
+            </h2>
+            <p class="text-center text-gray-300 mb-20 text-lg fadeUp">
+                Diseñamos el sistema completo que conecta cada área de su operación con IA especializada para cada función.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
+                    <h3 class="text-2xl font-bold mb-4 accent">Automatización de Pedidos</h3>
+                    <p class="text-gray-300 mb-4">Sistema IA que recibe, procesa y confirma pedidos automáticamente via WhatsApp y otros canales. Sin digitación manual, sin errores de transcripción.</p>
+                    <p class="text-sm accent font-semibold">Beneficio: -70% tiempo de procesamiento de pedidos</p>
+                </div>
+                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
+                    <h3 class="text-2xl font-bold mb-4 accent">Agente Inteligente de Cartera</h3>
+                    <p class="text-gray-300 mb-4">Monitoreo en tiempo real, recordatorios automáticos escalonados y alertas gerenciales sobre clientes en riesgo. Tu cartera trabaja sola.</p>
+                    <p class="text-sm accent font-semibold">Beneficio: -40% en mora promedio</p>
+                </div>
+                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
+                    <h3 class="text-2xl font-bold mb-4 accent">Control Multisede Unificado</h3>
+                    <p class="text-gray-300 mb-4">Dashboard ejecutivo que consolida datos de todas las sedes en tiempo real. Una sola vista para toda la operación.</p>
+                    <p class="text-sm accent font-semibold">Beneficio: Decisiones con datos de hoy, no de ayer</p>
+                </div>
+                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
+                    <h3 class="text-2xl font-bold mb-4 accent">Integración ERP/CRM</h3>
+                    <p class="text-gray-300 mb-4">Conexión bidireccional con su sistema actual. Los agentes IA leen y escriben en su ERP sin necesidad de migración.</p>
+                    <p class="text-sm accent font-semibold">Beneficio: 0 migraciones. 0 disrupciones</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÉTRICAS DE IMPACTO -->
+    <section class="py-40 px-4 bg-black bg-opacity-30">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
+                Impacto proyectado en <span class="accent">90 días</span>
+            </h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center fadeUp">
+                    <p class="text-5xl font-extrabold accent mb-2">+40%</p>
+                    <p class="text-gray-300">Capacidad operativa instalada</p>
+                </div>
+                <div class="text-center fadeUp">
+                    <p class="text-5xl font-extrabold accent mb-2">-70%</p>
+                    <p class="text-gray-300">Tiempo en pedidos manuales</p>
+                </div>
+                <div class="text-center fadeUp">
+                    <p class="text-5xl font-extrabold accent mb-2">-40%</p>
+                    <p class="text-gray-300">Mora en cartera</p>
+                </div>
+                <div class="text-center fadeUp">
+                    <p class="text-5xl font-extrabold accent mb-2">100%</p>
+                    <p class="text-gray-300">Visibilidad en tiempo real</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="py-40 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
+                EAA Framework™ aplicado a <span class="accent">Distribución</span>
+            </h2>
+            <div class="space-y-4">
+                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <p class="font-bold accent mb-2">Capa 1: Inteligencia Estratégica</p>
+                    <p class="text-gray-300 text-sm">Mapeo de puntos críticos de pérdida de eficiencia en distribución. Definición de KPIs de impacto operativo.</p>
+                </div>
+                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <p class="font-bold accent mb-2">Capa 2: Procesos</p>
+                    <p class="text-gray-300 text-sm">Rediseño del flujo de pedidos, cartera y coordinación multisede antes de automatizar.</p>
+                </div>
+                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <p class="font-bold accent mb-2">Capa 3: Sistemas IA</p>
+                    <p class="text-gray-300 text-sm">Diseño e implementación de agentes especializados para pedidos, cartera y visibilidad gerencial.</p>
+                </div>
+                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <p class="font-bold accent mb-2">Capa 4: Gobernanza</p>
+                    <p class="text-gray-300 text-sm">Dashboard ejecutivo unificado. Alertas automáticas para decisiones gerenciales ágiles.</p>
+                </div>
+                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
+                    <p class="font-bold accent mb-2">Capa 5: Escalabilidad</p>
+                    <p class="text-gray-300 text-sm">Arquitectura preparada para replicarse en nuevas sedes sin necesidad de rediseño.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / CONTACTO -->
+    <section id="contacto" class="py-40 px-4 bg-black bg-opacity-30">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-4 fadeUp">
+                Solicite su Diagnóstico para <span class="accent">Distribución</span>
+            </h2>
+            <p class="text-center text-gray-300 mb-12 fadeUp">Descubra qué arquitectura resuelve los cuellos de botella de su operación.</p>
+            <form class="space-y-6 fadeUp" onsubmit="handleForm(event)">
+                <input type="text" placeholder="Su nombre" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
+                <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
+                <input type="tel" placeholder="Teléfono (WhatsApp)" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
+                <input type="text" placeholder="Empresa" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
+                <textarea placeholder="Cuéntenos sobre su desafío operativo" rows="4" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required></textarea>
+                <button type="submit" class="w-full px-6 py-3 accent-bg text-dark font-bold rounded hover:opacity-90 transition">
+                    Solicitar Diagnóstico de Madurez
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FLOATING WHATSAPP -->
+    <div class="floating-wa" onclick="window.open('https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa', '_blank')">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.776c0 2.615.6 5.134 1.75 7.364L2.257 22l7.855-2.041A9.868 9.868 0 0012.03 22c5.424 0 9.868-4.436 9.868-9.889 0-2.63-.636-5.159-1.85-7.402L22 2.89l-7.854 2.052a9.855 9.855 0 00-6.116-1.945m0-2C6.444 2.034 2.034 6.444 2.034 12s4.41 9.966 9.966 9.966c2.488 0 4.844-.968 6.601-2.57l.054.09 7.281-1.897-1.897 7.282.09.054c1.602 1.757 2.57 4.113 2.57 6.601 0 5.556-4.41 9.966-9.966 9.966S2.034 23.556 2.034 18c0-2.488.968-4.844 2.57-6.601l.054-.09-7.282-1.897 1.897-7.281-.09-.054C2.968 1.276 2 -1.08 2 -3.568c0-5.556 4.41-9.966 9.966-9.966"/>
+        </svg>
+    </div>
+
+    <!-- STICKY MOBILE CTA -->
+    <div class="sticky-mobile-cta">
+        <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="text-white font-bold hover:opacity-80 transition">
+            Solicitar Diagnóstico
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
+                    </div>
+                    <p class="text-gray-400 text-sm">Firma de Arquitectura de Infraestructura IA.</p>
+                    <p class="text-gray-500 text-xs mt-2">Medellín, Colombia</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Navegar</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="/es/consultoria/" class="hover:accent transition">Consultoría</a></li>
+                        <li><a href="/es/framework/" class="hover:accent transition">Framework</a></li>
+                        <li><a href="/es/industries/" class="hover:accent transition">Industrias</a></li>
+                        <li><a href="/es/firm/" class="hover:accent transition">Firma</a></li>
+                        <li><a href="/es/case-study/sistema-multisede-ia.html" class="hover:accent transition">Case Study</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Contacto</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="https://wa.me/573107397053" class="hover:accent transition">WhatsApp: +57 310 739 7053</a></li>
+                        <li><a href="mailto:admin@kronixlabs.com" class="hover:accent transition">admin@kronixlabs.com</a></li>
+                        <li><a href="/en/" class="hover:accent transition text-xs">Ver en English</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-500 border-opacity-20 pt-8">
+                <p class="text-center text-xs text-gray-500">© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const updateScrollProgress = () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        };
+        window.addEventListener('scroll', updateScrollProgress);
+
+        const observeFadeUp = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.fadeUp').forEach(el => observer.observe(el));
+        };
+        observeFadeUp();
+
+        function handleForm(e) {
+            e.preventDefault();
+            alert('Gracias por tu interés. Nos contactaremos pronto para realizar tu diagnóstico.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
