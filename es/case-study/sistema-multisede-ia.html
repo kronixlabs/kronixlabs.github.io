@@ -1,350 +1,1120 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" prefix="og: https://ogp.me/ns#">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Study: Sistema Inteligente Multisede con IA | KRONIX Labs</title>
-    <meta name="description" content="Arquitectura de infraestructura IA completa para empresa de distribución con múltiples sedes: automatización de pedidos, gestión de cartera, comercial y control gerencial en tiempo real.">
-    <link rel="canonical" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html">
-    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
-    <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { font-family: 'Montserrat', sans-serif; }
-        body { background: linear-gradient(135deg, #0B0F2B 0%, #070A1E 100%); color: #fff; }
-        .accent { color: #1FA2FF; }
-        .accent-bg { background-color: #1FA2FF; }
-        .accent-border { border-color: #1FA2FF; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fadeUp { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
-        .fadeUp.visible { opacity: 1; animation: fadeUp 0.8s ease-out; }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(31, 162, 255, 0.2); }
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(11, 15, 43, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(31, 162, 255, 0.1); }
-        .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #1FA2FF, #00D4FF); z-index: 1001; }
-        .sticky-mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(31, 162, 255, 0.95); padding: 12px 20px; text-align: center; display: none; }
-        @media (max-width: 768px) { .sticky-mobile-cta { display: block; } }
-        .floating-wa { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 998; transition: all 0.3s; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
-        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6); }
-        footer { background: rgba(11, 15, 43, 0.8); border-top: 1px solid rgba(31, 162, 255, 0.1); padding: 40px 20px; margin-top: 60px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ================================================================
+     SEO PRIMARIO
+================================================================ -->
+<title>Caso de Estudio: Para Quién Construimos | Arquitectura IA por Perfil | KRONIX Labs</title>
+<meta name="description" content="Tres perfiles empresariales, una arquitectura de solución. Cómo KRONIX Labs resuelve la sobrecarga operativa en PYMES en crecimiento, pequeñas empresas saturadas y departamentos corporativos.">
+<meta name="keywords" content="caso de estudio IA LATAM, sobrecarga operativa PYMES Colombia, escalar sin contratar, arquitectura IA empresarial, automatización operaciones, KRONIX Labs caso de estudio">
+<meta name="author" content="KRONIX Labs">
+<meta name="publisher" content="KRONIX Labs">
+<meta name="copyright" content="KRONIX Labs, 2026">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="theme-color" content="#1FA2FF">
+<meta name="geo.region" content="CO-ANT">
+<meta name="geo.placename" content="Medellín, Antioquia, Colombia">
+<meta name="geo.position" content="6.2442;-75.5812">
+<meta name="ICBM" content="6.2442, -75.5812">
+<meta name="language" content="Spanish">
+<!-- CANONICAL + HREFLANG -->
+<link rel="canonical" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
+<!-- OPEN GRAPH -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:locale" content="es_CO">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Caso de Estudio: Para Quién Construimos | KRONIX Labs">
+<meta property="og:description" content="Tres perfiles empresariales, una arquitectura de solución. IA que libera tiempo operativo y escala ingresos sin contratar más personal.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html">
+<!-- TWITTER CARD -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@kronixlabs">
+<meta name="twitter:title" content="Caso de Estudio: Para Quién Construimos | KRONIX Labs">
+<meta name="twitter:description" content="Tres perfiles empresariales, una arquitectura de solución. IA operativa para empresas LATAM.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
+<link rel="apple-touch-icon" href="../../Kronix-Labs.svg">
+<!-- PERFORMANCE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- GOOGLE ANALYTICS 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', {
+    page_title: 'Caso de Estudio Perfiles ES',
+    page_location: window.location.href
+  });
+  let scrollMilestones = {25:false,50:false,75:false,90:false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    for (let m in scrollMilestones) {
+      if (pct>=m && !scrollMilestones[m]) {
+        scrollMilestones[m]=true;
+        gtag('event','scroll_depth',{event_category:'Engagement',event_label:m+'%',value:parseInt(m)});
+      }
+    }
+  },{passive:true});
+  let startTime = Date.now();
+  window.addEventListener('beforeunload',function(){gtag('event','time_on_page',{event_category:'Engagement',value:Math.round((Date.now()-startTime)/1000)});});
+</script>
+<!-- SCHEMA JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://kronixlabs.github.io/#organization",
+      "name": "KRONIX Labs",
+      "url": "https://kronixlabs.github.io/",
+      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.github.io/Kronix-Labs.svg" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" }
+    },
+    {
+      "@type": "Article",
+      "name": "Caso de Estudio: Para Quién Construimos | KRONIX Labs",
+      "description": "Tres perfiles empresariales y cómo la arquitectura de infraestructura IA resuelve la sobrecarga operativa y optimiza departamentos específicos.",
+      "url": "https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html",
+      "publisher": { "@id": "https://kronixlabs.github.io/#organization" },
+      "inLanguage": "es"
+    }
+  ]
+}
+</script>
+<!-- TAILWIND + CONFIG -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { kronixBlue:'#1FA2FF', kronixDark:'#0B0F2B', kronixDeep:'#070A1E', kronixGray:'#C7C9D3' },
+        fontFamily: { sans: ['Montserrat','system-ui','sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+:root { --blue:#1FA2FF; --dark:#0B0F2B; --deep:#070A1E; --gray:#C7C9D3; }
+body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-serif; overflow-x:hidden; }
+
+.grid-bg {
+  background-image:linear-gradient(rgba(31,162,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(31,162,255,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)} 50%{box-shadow:0 0 0 14px rgba(31,162,255,0)} }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+.fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
+.d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s}
+.d4{animation-delay:.55s} .d5{animation-delay:.7s}
+.btn-glow { animation:pulseGlow 2.8s ease-in-out infinite; }
+
+.nav-link { color:rgba(255,255,255,.75); font-size:.875rem; transition:color .2s; }
+.nav-link:hover { color:#1FA2FF; }
+.nav-link.active { color:#1FA2FF; font-weight:600; }
+#mobile-menu { display:none; }
+#mobile-menu.open { display:flex; }
+
+.scroll-indicator { position:fixed;top:0;left:0;height:3px;background:var(--blue);z-index:9999;width:0%;transition:width .1s; }
+
+@media (max-width:768px) {
+  .sticky-mobile-cta { position:fixed;bottom:0;left:0;right:0;padding:1rem;background:rgba(11,15,43,.95);border-top:1px solid rgba(31,162,255,.2);z-index:998;backdrop-filter:blur(12px); }
+}
+
+.kx-wa-btn { position:fixed;bottom:28px;right:28px;z-index:9999;background:#1FA2FF;color:#fff;padding:14px 20px;border-radius:14px;font-weight:600;font-size:14px;font-family:inherit;box-shadow:0 10px 40px rgba(31,162,255,.45);display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;transform:translateY(20px);transition:all .4s ease;border:none; }
+.kx-wa-btn.show { opacity:1;transform:translateY(0); }
+.kx-wa-btn:hover { transform:translateY(-3px);box-shadow:0 16px 50px rgba(31,162,255,.55); }
+.kx-wa-panel { position:fixed;bottom:95px;right:28px;width:340px;background:#070A1E;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;z-index:10000;display:none;box-shadow:0 15px 60px rgba(0,0,0,.55); }
+.kx-wa-panel h4 { color:#fff;font-size:15px;margin-bottom:14px; }
+.kx-wa-panel select,.kx-wa-panel button { width:100%;margin-bottom:12px;padding:11px;border-radius:8px;font-size:13px;font-family:inherit; }
+.kx-wa-panel select { background:#0B0F2B;color:#C7C9D3;border:1px solid rgba(255,255,255,.1);appearance:none;-webkit-appearance:none; }
+.kx-wa-panel button { background:#1FA2FF;color:white;font-weight:600;border:none;cursor:pointer; }
+@media (max-width:640px) { .kx-wa-panel { right:12px;left:12px;width:auto;bottom:90px; } }
+
+.form-input { width:100%;padding:.875rem 1rem;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:.875rem;transition:border-color .2s,background .2s;outline:none; }
+.form-input:focus { border-color:rgba(31,162,255,.6);background:rgba(31,162,255,.06); }
+.form-input::placeholder { color:rgba(255,255,255,.35); }
+.select-wrapper { position:relative;width:100%; }
+.select-wrapper::after { content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #1FA2FF;pointer-events:none; }
+.form-select { appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;padding-right:2.5rem !important;background:#070A1E !important;color:rgba(255,255,255,0.85); }
+.form-select:focus { border-color:rgba(31,162,255,.6);background:#070A1E !important;color:#fff; }
+.form-select option { background:#070A1E;color:#fff; }
+@-moz-document url-prefix() { .form-select { background:#070A1E !important;color:#fff; } .form-select option { background:#070A1E;color:#fff; } }
+
+.fade-in-on-scroll { opacity:0;transform:translateY(30px); }
+.fade-in-on-scroll.visible { animation:fadeUp .6s ease-out forwards; }
+
+.pain-card { background:rgba(255,59,59,.04);border:1px solid rgba(255,59,59,.15);border-radius:14px;padding:1.5rem; }
+.pain-card h4 { color:#FF6B6B;font-size:.875rem;font-weight:700;margin-bottom:.5rem; }
+.solution-card { background:rgba(31,162,255,.04);border:1px solid rgba(31,162,255,.15);border-radius:14px;padding:1.5rem; }
+.solution-card h4 { color:#1FA2FF;font-size:.875rem;font-weight:700;margin-bottom:.5rem; }
+
+.case-card { background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:2rem;transition:all .3s; }
+.case-card:hover { border-color:rgba(31,162,255,.3);transform:translateY(-5px);box-shadow:0 20px 50px rgba(31,162,255,.08); }
+.case-tag { display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem; }
+
+.agent-block { background:linear-gradient(90deg,rgba(31,162,255,.06),transparent);border:1px solid rgba(31,162,255,.15);border-radius:14px;padding:1.75rem;transition:all .3s; }
+.agent-block:hover { border-color:rgba(31,162,255,.35);box-shadow:0 10px 35px rgba(31,162,255,.07); }
+
+.stat-item { text-align:center;padding:1.5rem; }
+.stat-item .val { font-size:2.5rem;font-weight:800;color:#1FA2FF;line-height:1; }
+.stat-item .lbl { color:rgba(199,201,211,.6);font-size:.75rem;margin-top:.4rem; }
+
+.eaa-layer { background:rgba(31,162,255,.06);border:1px solid rgba(31,162,255,.15);border-radius:12px;padding:1.25rem;text-align:center;transition:all .25s; }
+.eaa-layer:hover { background:rgba(31,162,255,.12);border-color:rgba(31,162,255,.35); }
+
+.vs-row { display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05); }
+.vs-row:last-child { border-bottom:none; }
+.vs-bad { color:rgba(255,107,107,.8);font-size:.875rem; }
+.vs-good { color:rgba(31,162,255,.9);font-size:.875rem;text-align:right; }
+.vs-label { text-align:center;font-size:.7rem;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.3); }
+</style>
 </head>
 <body>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- HEADER STICKY -->
-    <header>
-        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/es/" class="flex items-center gap-2">
-                <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
-                <span class="font-bold text-lg hidden sm:inline">KRONIX</span>
-            </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="/es/" class="hover:accent transition">Inicio</a>
-                <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:accent transition">Arquitectura IA</a>
-                <a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:accent transition">Framework</a>
-                <a href="/es/industries/distribucion.html" class="hover:accent transition">Industrias</a>
-                <a href="/es/firm/consultora-estrategica-ia.html" class="hover:accent transition">Firma</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="hidden sm:inline-block px-4 py-2 accent-bg text-dark font-semibold rounded text-sm hover:opacity-90 transition">Solicitar Diagnóstico</a>
-                <div class="relative group">
-                    <button class="text-sm font-medium">ES</button>
-                    <div class="absolute right-0 mt-2 w-20 bg-darker rounded opacity-0 group-hover:opacity-100 transition">
-                        <a href="/en/" class="block px-3 py-2 hover:accent text-xs">EN</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<div class="scroll-indicator" id="scrollIndicator"></div>
 
-    <!-- BREADCRUMB -->
-    <div class="pt-24 pb-8 px-4 text-sm text-gray-400">
-        <div class="max-w-7xl mx-auto">
-            <span class="accent">Inicio</span> > <span class="accent">Industrias</span> > Case Study
-        </div>
-    </div>
-
-    <!-- HERO -->
-    <section class="pt-20 pb-40 px-4">
-        <div class="max-w-4xl mx-auto text-center fadeUp">
-            <div class="inline-block px-3 py-1 border border-blue-500 rounded-full text-sm font-medium mb-6 accent">
-                Case Study · Distribución Multisede
-            </div>
-            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-8 fadeUp">
-                Sistema Inteligente <span class="accent">Multisede con IA</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-12 fadeUp">
-                Arquitectura de infraestructura IA completa para empresa de distribución con múltiples sedes: automatización de pedidos, gestión de cartera, comercial y control gerencial en tiempo real.
-            </p>
-            <div class="grid md:grid-cols-4 gap-4 text-center fadeUp">
-                <div>
-                    <p class="text-3xl font-bold accent">-40%</p>
-                    <p class="text-gray-400 text-sm">Tiempo operativo</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold accent">+3</p>
-                    <p class="text-gray-400 text-sm">Sedes integradas</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold accent">0</p>
-                    <p class="text-gray-400 text-sm">Contrataciones</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold accent">90</p>
-                    <p class="text-gray-400 text-sm">Días implementación</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EL DESAFÍO -->
-    <section class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-4 fadeUp">
-                El desafío: operación que no podía <span class="accent">escalar</span>
-            </h2>
-            <p class="text-center text-gray-300 mb-12 text-lg fadeUp">
-                Empresa de distribución de consumo masivo, 3 sedes, 50+ clientes activos, equipo operativo saturado.
-            </p>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Procesamiento manual de pedidos</p>
-                    <p class="text-gray-300 text-sm">Recibidos por WhatsApp personal y transcritos manualmente al sistema. Errores y demoras constantes.</p>
-                </div>
-                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Gestión de cartera manual</p>
-                    <p class="text-gray-300 text-sm">Seguimiento con llamadas y sin sistema. Mora alta y seguimiento inconsistente.</p>
-                </div>
-                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Prospectos sin seguimiento</p>
-                    <p class="text-gray-300 text-sm">Nuevos clientes entran sin proceso de calificación. Pipeline comercial sin control.</p>
-                </div>
-                <div class="card-hover p-6 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Cero visibilidad gerencial</p>
-                    <p class="text-gray-300 text-sm">Gerencia sin datos en tiempo real de ninguna sede. Decisiones a ciegas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LA ARQUITECTURA -->
-    <section class="py-40 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Sistema Integral de <span class="accent">Agentes IA</span>
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-2 accent">Gestión Automatizada de Pedidos</h3>
-                    <p class="text-gray-300 mb-4 text-sm">Recibe pedidos por WhatsApp, los estructura automáticamente, valida disponibilidad, genera confirmación al cliente y registra en el sistema — sin intervención humana en el flujo estándar.</p>
-                    <div class="text-xs text-gray-400 mb-3 pb-3 border-t border-blue-500 border-opacity-20">
-                        <p class="font-semibold mt-3">Stack:</p>
-                        <p>WhatsApp Business API + Agente IA + ERP integration</p>
-                    </div>
-                    <p class="text-sm accent font-semibold">Resultado: -70% tiempo de procesamiento</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-2 accent">Agente Inteligente de Cartera</h3>
-                    <p class="text-gray-300 mb-4 text-sm">Monitorea cartera en tiempo real, detecta vencimientos próximos, envía recordatorios automáticos escalonados y alerta a la gerencia sobre clientes con riesgo elevado.</p>
-                    <div class="text-xs text-gray-400 mb-3 pb-3 border-t border-blue-500 border-opacity-20">
-                        <p class="font-semibold mt-3">Stack:</p>
-                        <p>CRM integration + IA predictiva + WhatsApp</p>
-                    </div>
-                    <p class="text-sm accent font-semibold">Resultado: -40% mora promedio</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-2 accent">Agente Comercial para Nuevos Clientes</h3>
-                    <p class="text-gray-300 mb-4 text-sm">Califica prospectos entrantes, responde consultas, recopila información necesaria y agenda citas con el equipo comercial — acelerando el pipeline sin saturar.</p>
-                    <div class="text-xs text-gray-400 mb-3 pb-3 border-t border-blue-500 border-opacity-20">
-                        <p class="font-semibold mt-3">Stack:</p>
-                        <p>WhatsApp + IA conversacional + CRM</p>
-                    </div>
-                    <p class="text-sm accent font-semibold">Resultado: +60% prospectos calificados</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-2 accent">Dashboard Gerencial en Tiempo Real</h3>
-                    <p class="text-gray-300 mb-4 text-sm">Panel ejecutivo unificado que consolida datos de todos los agentes: pedidos del día, estado de cartera, pipeline comercial y KPIs operativos — accesible desde cualquier dispositivo.</p>
-                    <div class="text-xs text-gray-400 mb-3 pb-3 border-t border-blue-500 border-opacity-20">
-                        <p class="font-semibold mt-3">Stack:</p>
-                        <p>API integrations + visualización en tiempo real</p>
-                    </div>
-                    <p class="text-sm accent font-semibold">Resultado: 100% visibilidad operativa</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EAA FRAMEWORK -->
-    <section class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                EAA Framework™ aplicado <span class="accent">capa por capa</span>
-            </h2>
-            <div class="space-y-4">
-                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Capa 1: Inteligencia Estratégica</p>
-                    <p class="text-gray-300 text-sm">Mapeo de los 4 puntos críticos de pérdida de eficiencia. Definición de KPIs de impacto.</p>
-                </div>
-                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Capa 2: Procesos</p>
-                    <p class="text-gray-300 text-sm">Rediseño del flujo de pedidos, cartera y comercial antes de automatizar.</p>
-                </div>
-                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Capa 3: Sistemas IA</p>
-                    <p class="text-gray-300 text-sm">Diseño e implementación de los 4 agentes especializados para toda la operación.</p>
-                </div>
-                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Capa 4: Gobernanza</p>
-                    <p class="text-gray-300 text-sm">Dashboard ejecutivo unificado. Alertas automáticas para decisiones gerenciales.</p>
-                </div>
-                <div class="card-hover p-6 border-l-4 accent-border bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <p class="font-bold accent mb-2">Capa 5: Escalabilidad</p>
-                    <p class="text-gray-300 text-sm">Arquitectura preparada para replicarse en nuevas sedes sin rediseño.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RESULTADOS -->
-    <section class="py-40 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Impacto medible desde el <span class="accent">primer mes</span>
-            </h2>
-            <div class="grid md:grid-cols-3 gap-6 mb-12">
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">-40%</p>
-                    <p class="text-gray-300">Tiempo operativo total</p>
-                </div>
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">-70%</p>
-                    <p class="text-gray-300">Tiempo en pedidos</p>
-                </div>
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">-40%</p>
-                    <p class="text-gray-300">Mora en cartera</p>
-                </div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">+60%</p>
-                    <p class="text-gray-300">Pipeline calificado</p>
-                </div>
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">100%</p>
-                    <p class="text-gray-300">Visibilidad gerencial</p>
-                </div>
-                <div class="text-center fadeUp">
-                    <p class="text-5xl font-extrabold accent mb-2">3</p>
-                    <p class="text-gray-300">Sedes integradas</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section id="contacto" class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4 fadeUp">
-                ¿Su empresa tiene desafíos <span class="accent">similares?</span>
-            </h2>
-            <p class="text-gray-300 mb-12 text-lg fadeUp">
-                Solicite su Diagnóstico de Madurez Operativa y descubra qué arquitectura resuelve los cuellos de botella de su operación.
-            </p>
-            <div class="space-y-6 fadeUp">
-                <form class="space-y-4" onsubmit="handleForm(event)">
-                    <input type="text" placeholder="Su nombre" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                    <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                    <input type="tel" placeholder="Teléfono (WhatsApp)" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                    <input type="text" placeholder="Empresa" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                    <button type="submit" class="w-full px-6 py-3 accent-bg text-dark font-bold rounded hover:opacity-90 transition">
-                        Solicitar Diagnóstico
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FLOATING WHATSAPP -->
-    <div class="floating-wa" onclick="window.open('https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa', '_blank')">
-        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.776c0 2.615.6 5.134 1.75 7.364L2.257 22l7.855-2.041A9.868 9.868 0 0012.03 22c5.424 0 9.868-4.436 9.868-9.889 0-2.63-.636-5.159-1.85-7.402L22 2.89l-7.854 2.052a9.855 9.855 0 00-6.116-1.945m0-2C6.444 2.034 2.034 6.444 2.034 12s4.41 9.966 9.966 9.966c2.488 0 4.844-.968 6.601-2.57l.054.09 7.281-1.897-1.897 7.282.09.054c1.602 1.757 2.57 4.113 2.57 6.601 0 5.556-4.41 9.966-9.966 9.966S2.034 23.556 2.034 18c0-2.488.968-4.844 2.57-6.601l.054-.09-7.282-1.897 1.897-7.281-.09-.054C2.968 1.276 2 -1.08 2 -3.568c0-5.556 4.41-9.966 9.966-9.966"/>
-        </svg>
-    </div>
-
-    <!-- STICKY MOBILE CTA -->
-    <div class="sticky-mobile-cta">
-        <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="text-white font-bold hover:opacity-80 transition">
-            Solicitar Diagnóstico
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/es/" aria-label="KRONIX Labs — Inicio">
+      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+    </a>
+    <nav class="hidden md:flex items-center gap-7" aria-label="Navegación principal">
+      <a href="/es/" class="nav-link">Inicio</a>
+      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a>
+      <a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link">Framework</a>
+      <a href="/es/industries/distribucion.html" class="nav-link">Industrias</a>
+      <a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Firma</a>
+      <a href="/es/insights/" class="nav-link">Insights</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+          ES
+        </span>
+        <a href="/en/case-study/multi-site-ai-system.html"
+           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN'});"
+           hreflang="en" rel="alternate"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true"><rect width="19" height="10" fill="#B22234"/><g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g><rect width="8" height="5" fill="#3C3B6E"/></svg>
+          EN
         </a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" aria-label="Menú móvil">
+    <a href="/es/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Inicio</a>
+    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Arquitectura IA</a>
+    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
+    <a href="/es/industries/distribucion.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industrias</a>
+    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firma</a>
+    <a href="/es/insights/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa." target="_blank" rel="noopener noreferrer" class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">Solicitar Diagnóstico →</a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     SECCIÓN 1 — HERO
+============================================================ -->
+<section class="relative pt-36 pb-24 px-6 grid-bg overflow-hidden"
+  style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);"
+  aria-label="Hero caso de estudio">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);"></div>
+  <div class="relative max-w-5xl mx-auto text-center">
+
+    <nav class="text-xs text-[#C7C9D3]/50 mb-6 fade-up d1" aria-label="Breadcrumb">
+      <a href="/es/" class="hover:text-[#1FA2FF] transition">Inicio</a>
+      <span class="mx-2">/</span>
+      <span class="text-[#C7C9D3]/80">Casos de Estudio</span>
+    </nav>
+
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
+      Casos de Estudio · Arquitectura IA por Perfil
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
-                    </div>
-                    <p class="text-gray-400 text-sm">Firma de Arquitectura de Infraestructura IA.</p>
-                    <p class="text-gray-500 text-xs mt-2">Medellín, Colombia</p>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-4">Navegar</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="/es/consultoria/" class="hover:accent transition">Consultoría</a></li>
-                        <li><a href="/es/framework/" class="hover:accent transition">Framework</a></li>
-                        <li><a href="/es/industries/" class="hover:accent transition">Industrias</a></li>
-                        <li><a href="/es/firm/" class="hover:accent transition">Firma</a></li>
-                        <li><a href="/es/case-study/sistema-multisede-ia.html" class="hover:accent transition">Case Study</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-4">Contacto</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="https://wa.me/573107397053" class="hover:accent transition">WhatsApp: +57 310 739 7053</a></li>
-                        <li><a href="mailto:admin@kronixlabs.com" class="hover:accent transition">admin@kronixlabs.com</a></li>
-                        <li><a href="/en/" class="hover:accent transition text-xs">Ver en English</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-blue-500 border-opacity-20 pt-8">
-                <p class="text-center text-xs text-gray-500">© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</p>
-            </div>
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.05] tracking-tight fade-up d2">
+      El mismo problema.<br><span class="text-[#1FA2FF]">Tres empresas distintas.</span>
+    </h1>
+
+    <p class="text-[#C7C9D3] text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-10 fade-up d3">
+      La sobrecarga operativa frena el crecimiento en todas las escalas. Así es como KRONIX Labs la diagnostica diferente — y la resuelve sin contratar más personas.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 fade-up d4">
+      <a href="#perfil-pyme" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0B0F2B] border border-white/10 hover:border-[#1FA2FF]/50 transition text-sm font-semibold">
+        <span class="text-lg">🚀</span> PYME en Crecimiento
+      </a>
+      <a href="#perfil-pequena" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0B0F2B] border border-white/10 hover:border-[#1FA2FF]/50 transition text-sm font-semibold">
+        <span class="text-lg">⚡</span> Pequeña Empresa Sobrecargada
+      </a>
+      <a href="#perfil-empresa" class="flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0B0F2B] border border-white/10 hover:border-[#1FA2FF]/50 transition text-sm font-semibold">
+        <span class="text-lg">🏢</span> Empresa / Departamento
+      </a>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden fade-up d5">
+      <div class="stat-item bg-[#070A1E]"><div class="val">-40%</div><div class="lbl">tiempo operativo liberado</div></div>
+      <div class="stat-item bg-[#070A1E]"><div class="val">+60%</div><div class="lbl">aumento de pipeline calificado</div></div>
+      <div class="stat-item bg-[#070A1E]"><div class="val">0</div><div class="lbl">contrataciones necesarias</div></div>
+      <div class="stat-item bg-[#070A1E]"><div class="val">90d</div><div class="lbl">implementación promedio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 2 — EL DIAGNÓSTICO
+============================================================ -->
+<section class="py-20 px-6" style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4 fade-in-on-scroll">El Diagnóstico</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-5 fade-in-on-scroll">Toda empresa crece hasta que choca<br>contra su propio techo operativo.</h2>
+      <p class="text-[#C7C9D3]/75 text-lg max-w-2xl mx-auto fade-in-on-scroll">El techo se ve distinto según el tamaño de la empresa. Pero la causa raíz siempre es la misma: personas haciendo trabajo que debería ser arquitectura.</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto bg-[#070A1E] border border-white/7 rounded-2xl p-8 fade-in-on-scroll">
+      <div class="vs-row" style="border-bottom:1px solid rgba(31,162,255,.15);padding-bottom:1rem;margin-bottom:.75rem;">
+        <span class="text-xs font-bold text-[#FF6B6B] uppercase tracking-wider">Cómo se ve hoy</span>
+        <span></span>
+        <span class="text-xs font-bold text-[#1FA2FF] uppercase tracking-wider text-right">Con la arquitectura</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">El CEO responde cada pregunta operativa</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Los procesos operan sin el fundador</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">Crecer = contratar más personas</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Crecer = mismo equipo, infraestructura más inteligente</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">Ventas limitadas por horas humanas disponibles</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Pipeline comercial activo 24/7 con agentes IA</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">Decisiones basadas en intuición, no en datos</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Dashboard gerencial en tiempo real, siempre actualizado</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">Silos por departamento, sin visibilidad compartida</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Flujos de datos cruzados, una sola fuente de verdad</span>
+      </div>
+      <div class="vs-row">
+        <span class="vs-bad">Talento valioso enterrado en tareas de bajo valor</span>
+        <span class="vs-label">→</span>
+        <span class="vs-good">Equipo enfocado en estrategia y trabajo de alto impacto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 3 — PERFIL 1: PYME EN CRECIMIENTO
+============================================================ -->
+<section id="perfil-pyme" class="py-24 px-6 border-t border-[#1FA2FF]/10"
+  style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex items-start gap-5 mb-14 fade-in-on-scroll">
+      <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/30 flex items-center justify-center text-2xl">🚀</div>
+      <div>
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-widest mb-2">Perfil 01 — PYME en Crecimiento</div>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">La empresa que no puede crecer<br>porque no puede respirar.</h2>
+        <p class="text-[#C7C9D3]/70 mt-3 max-w-2xl">Una empresa que ya validó su mercado, tiene clientes reales y genera ingresos — pero no puede escalar porque el equipo está enterrado en tareas operativas. Saben que necesitan crecer. Aún no pueden arriesgarse a contratar más personas. Y no pueden atender más clientes con las mismas horas.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-14">
+      <div class="fade-in-on-scroll bg-[#070A1E] border border-white/7 rounded-xl p-5">
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider mb-3">Se parecen a</div>
+        <ul class="text-[#C7C9D3]/75 text-sm space-y-2">
+          <li>• Equipos de 5 a 30 personas</li>
+          <li>• 1 a 3 años en operación</li>
+          <li>• $500M–$5.000M COP en ingresos</li>
+          <li>• Producto o servicio probado</li>
+          <li>• Fundador aún hace todo</li>
+        </ul>
+      </div>
+      <div class="fade-in-on-scroll bg-[#070A1E] border border-white/7 rounded-xl p-5" style="animation-delay:.1s">
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider mb-3">Industrias frecuentes</div>
+        <ul class="text-[#C7C9D3]/75 text-sm space-y-2">
+          <li>• Distribución y logística</li>
+          <li>• Servicios profesionales</li>
+          <li>• Salud y clínicas</li>
+          <li>• Comercio y e-commerce</li>
+          <li>• Construcción e inmobiliario</li>
+        </ul>
+      </div>
+      <div class="fade-in-on-scroll bg-[#070A1E] border border-white/7 rounded-xl p-5" style="animation-delay:.2s">
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider mb-3">Lo que sienten</div>
+        <ul class="text-[#C7C9D3]/75 text-sm space-y-2">
+          <li>• "No podemos aceptar más clientes"</li>
+          <li>• "Paso el día apagando incendios"</li>
+          <li>• "El buen talento está frustrado"</li>
+          <li>• "Contratar se siente muy arriesgado"</li>
+          <li>• "Estamos dejando dinero sobre la mesa"</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Los problemas reales — y lo que hacemos al respecto</h3>
+    <div class="grid md:grid-cols-2 gap-5 mb-14">
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Capacidad de ventas limitada por horas humanas</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">El equipo solo puede hacer seguimiento a tantos prospectos por día. Los leads de WhatsApp, Instagram y referidos se acumulan sin calificar. Las oportunidades se enfrían porque nadie tuvo tiempo de responder en los primeros 5 minutos críticos.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Agente comercial IA — siempre activo</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Un agente IA responde instantáneamente a cada lead entrante, los califica con preguntas inteligentes, agenda la llamada de ventas y actualiza el CRM — 24/7, sin intervención humana. Su equipo solo habla con personas que ya están calificadas y listas para comprar.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 La operación corre dentro de la cabeza del fundador</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Sin procesos documentados. El equipo interrumpe al fundador constantemente para aprobaciones, contexto y decisiones que deberían ser autónomas. La empresa literalmente no puede operar sin que el fundador esté presente — lo que significa que no puede escalar.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Arquitectura de procesos + gestión por excepción</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Mapeamos cada proceso crítico, lo diseñamos para que opere de forma autónoma y construimos la capa IA que lo ejecuta. El fundador solo ve las excepciones — el 10% de los casos que genuinamente requieren su atención. El otro 90% se maneja solo.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Servicio al cliente consumiendo tiempo desproporcionado</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Las mismas 20 preguntas respondidas manualmente, todos los días, por quien tenga tiempo — frecuentemente el fundador o el mejor talento. Actualizaciones de estado, seguimiento de pedidos, FAQs, confirmación de citas: todo gestionado por humanos cuando no debería serlo.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Agente de soporte inteligente por WhatsApp</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">La IA maneja soporte Tier 1 y Tier 2 — preguntas frecuentes, estado de pedidos, gestión de citas, flujos de onboarding. Los casos complejos o sensibles escalan a un humano con todo el contexto ya cargado. La experiencia del cliente mejora. Las horas del equipo se liberan para trabajo de crecimiento.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Sin visibilidad — decisiones tomadas de memoria</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">El fundador toma decisiones basado en lo que recuerda de la última reunión, no en datos actuales. No hay una vista en tiempo real de ingresos, pipeline, desempeño del equipo ni salud operativa. Crecer a ciegas es crecer caro.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Centro de Comando del CEO — vista operativa en tiempo real</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Un dashboard unificado que consolida pipeline de ventas, estado de cartera, desempeño del equipo y KPIs operativos — actualizado automáticamente, accesible desde cualquier dispositivo. El fundador gestiona la empresa desde arriba, no desde las trincheras.</p>
+      </div>
+
+    </div>
+
+    <!-- Caso: Empresa de distribución multisede -->
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Caso de referencia: Empresa distribuidora multisede</h3>
+    <div class="bg-[#070A1E] border border-[#1FA2FF]/20 rounded-2xl p-8 md:p-10 fade-in-on-scroll">
+      <div class="flex flex-wrap gap-3 mb-6">
+        <span class="case-tag bg-[#1FA2FF]/10 text-[#1FA2FF] border border-[#1FA2FF]/20">Distribución</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">3 sedes · 50+ clientes activos</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">90 días de implementación</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div>
+          <h4 class="font-bold text-[#FF6B6B] mb-4 text-sm uppercase tracking-wide">Antes de KRONIX</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ Pedidos recibidos por WhatsApp personal y transcritos manualmente al ERP. Errores en cada transacción, demoras en cada pedido.</li>
+            <li>→ Cartera gestionada con llamadas y apuntes a mano. Sin sistema. Mora creciente. Flujo de caja impredecible.</li>
+            <li>→ Nuevos prospectos sin seguimiento estructurado. Equipo comercial saturado. Pipeline invisible.</li>
+            <li>→ Gerencia en 3 sedes sin visibilidad en tiempo real. Decisiones basadas en informes semanales, ya desactualizados.</li>
+          </ul>
         </div>
-    </footer>
+        <div>
+          <h4 class="font-bold text-[#1FA2FF] mb-4 text-sm uppercase tracking-wide">Después de KRONIX</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ Pedidos por WhatsApp estructurados, validados y registrados por agente IA — sin humano en el flujo estándar.</li>
+            <li>→ Agente IA de cartera monitorea vencimientos, envía recordatorios escalonados y alerta a gerencia sobre cuentas de alto riesgo.</li>
+            <li>→ Agente comercial IA califica cada lead entrante, recopila información y agenda reuniones — el equipo de ventas solo cierra.</li>
+            <li>→ Dashboard ejecutivo unificado: pedidos del día, estado de cartera, pipeline y KPIs de las 3 sedes en una sola vista.</li>
+          </ul>
+        </div>
+      </div>
 
-    <script>
-        const updateScrollProgress = () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / scrollHeight) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + '%';
-        };
-        window.addEventListener('scroll', updateScrollProgress);
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-px bg-white/5 rounded-xl overflow-hidden">
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-40%</div><div class="lbl">tiempo operativo total</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-70%</div><div class="lbl">tiempo procesamiento pedidos</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-40%</div><div class="lbl">mora en cartera</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+60%</div><div class="lbl">pipeline calificado</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">100%</div><div class="lbl">visibilidad gerencial</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">0</div><div class="lbl">contrataciones adicionales</div></div>
+      </div>
+    </div>
 
-        const observeFadeUp = () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fadeUp').forEach(el => observer.observe(el));
-        };
-        observeFadeUp();
+  </div>
+</section>
 
-        function handleForm(e) {
-            e.preventDefault();
-            alert('Gracias por tu interés. Nos contactaremos pronto con tu diagnóstico personalizado.');
-            e.target.reset();
-        }
-    </script>
+<!-- ============================================================
+     SECCIÓN 4 — PERFIL 2: PEQUEÑA EMPRESA SOBRECARGADA
+============================================================ -->
+<section id="perfil-pequena" class="py-24 px-6 border-t border-[#1FA2FF]/10"
+  style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex items-start gap-5 mb-14 fade-in-on-scroll">
+      <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/30 flex items-center justify-center text-2xl">⚡</div>
+      <div>
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-widest mb-2">Perfil 02 — Pequeña Empresa con Sobrecarga Operativa</div>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">El equipo que trabaja 60 horas semanales<br>y aún no logra mantenerse al día.</h2>
+        <p class="text-[#C7C9D3]/70 mt-3 max-w-2xl">Un equipo compacto — a veces de 3 a 10 personas — donde cada persona maneja 3 o 4 roles simultáneamente. El negocio tiene demanda real pero la capacidad de producción y servicio está limitada no por estrategia, sino por horas humanas. No necesitan más personas — necesitan que la carga operativa se levante de las personas que ya tienen.</p>
+      </div>
+    </div>
+
+    <!-- Día típico -->
+    <div class="bg-[#070A1E] border border-[#FF6B6B]/20 rounded-2xl p-8 mb-14 fade-in-on-scroll">
+      <h3 class="font-bold text-lg mb-5">Cómo se ve un día típico para este equipo:</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="text-[#FF6B6B] text-xs font-bold uppercase tracking-wider mb-3">Mañana</div>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-2">
+            <li>• Responder 20+ mensajes de WhatsApp de clientes</li>
+            <li>• Actualizar manualmente la hoja de cálculo con los pedidos del día anterior</li>
+            <li>• Llamar a 3 proveedores por entregas retrasadas</li>
+            <li>• Atender el problema urgente que llegó anoche</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[#FF6B6B] text-xs font-bold uppercase tracking-wider mb-3">Tarde</div>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-2">
+            <li>• Hacer seguimiento a 5 propuestas que no han respondido</li>
+            <li>• Generar facturas y enviarlas manualmente</li>
+            <li>• Responder las mismas preguntas de siempre sobre precios y disponibilidad</li>
+            <li>• Coordinar la logística de entrega por teléfono</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-[#FF6B6B] text-xs font-bold uppercase tracking-wider mb-3">Final del día</div>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-2">
+            <li>• Cero tiempo para estrategia, mercadeo o nuevos clientes</li>
+            <li>• El fundador lleva trabajo urgente a casa</li>
+            <li>• Mañana se ve exactamente igual</li>
+            <li>• Los ingresos están planos — no por falta de demanda</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Qué está comiendo realmente el tiempo del equipo</h3>
+    <div class="grid md:grid-cols-2 gap-5 mb-14">
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Personas como routers, no como tomadores de decisiones</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Los miembros del equipo pasan el 40–60% del día enrutando información: reenviando mensajes, copiando datos entre sistemas, transmitiendo actualizaciones entre áreas y confirmando estados que deberían ser automáticos. Funcionan como middleware humano.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Flujos de información automatizados entre sistemas</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Conectamos las herramientas que su equipo ya usa — WhatsApp, ERP, CRM, hojas de cálculo — y construimos agentes IA que mueven datos, activan confirmaciones y enrutan información automáticamente. Su equipo deja de ser el pegamento entre sistemas.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Interacciones repetitivas con clientes consumiendo tiempo de expertos</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Las mismas 15–20 preguntas llegan cada día. Precios, disponibilidad, estado del pedido, confirmación de citas, guías de uso. Estas interacciones requieren el tiempo de un experto para atenderse, pero no requieren el juicio de un experto para responderse. La diferencia es costosa.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Capa IA de primera respuesta en WhatsApp</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Un agente IA entrenado en su negocio específico maneja el 70–80% de las interacciones predecibles y rutinarias — instantáneamente, correctamente, 24/7. El 20–30% restante que necesita juicio humano escala con todo el contexto ya cargado.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Ventas no ocurren porque nadie tiene tiempo de vender</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Las personas con más conocimiento comercial — el fundador, el equipo senior — están demasiado metidas en operaciones para prospectar, hacer seguimiento o cerrar. Los nuevos negocios dependen completamente de referidos entrantes. El crecimiento se estanca no por falta de oportunidades, sino por falta de capacidad para perseguirlas.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Infraestructura autónoma de prospección y calificación</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">Los agentes IA identifican, contactan y califican nuevos prospectos por WhatsApp y correo — sin requerir tiempo humano. Cuando un humano entra al proceso, el prospecto ya está cálido, informado y agendado. La capacidad de ventas se multiplica sin agregar ni un vendedor.</p>
+      </div>
+
+      <div class="pain-card fade-in-on-scroll">
+        <h4>🔴 Cobro de cartera comiendo el tiempo personal del dueño</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">El seguimiento a facturas vencidas se hace manualmente, de forma incómoda e inconsistente. Al dueño le incomoda cobrarle personalmente a los clientes. El resultado: se hace tarde o no se hace — y el flujo de caja paga las consecuencias.</p>
+      </div>
+      <div class="solution-card fade-in-on-scroll" style="animation-delay:.1s">
+        <h4>✅ Agente IA de cartera — automatizado, sistemático, profesional</h4>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed">El agente monitorea todas las facturas pendientes, envía recordatorios profesionalmente cronometrados por WhatsApp en los intervalos correctos, escala según los días de mora y alerta al dueño solo cuando genuinamente se requiere una decisión humana. La cartera se gestiona sin que el fundador intervenga.</p>
+      </div>
+
+    </div>
+
+    <!-- Caso: Clínica médica -->
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Caso de referencia: Clínica médica, 8 colaboradores, 3 médicos</h3>
+    <div class="bg-[#070A1E] border border-[#1FA2FF]/20 rounded-2xl p-8 md:p-10 fade-in-on-scroll">
+      <div class="flex flex-wrap gap-3 mb-6">
+        <span class="case-tag bg-[#1FA2FF]/10 text-[#1FA2FF] border border-[#1FA2FF]/20">Salud / Clínica</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">8 colaboradores · alto volumen de pacientes</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">60 días de implementación</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div>
+          <h4 class="font-bold text-[#FF6B6B] mb-4 text-sm uppercase tracking-wide">El problema</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ La recepcionista gestionaba 80+ mensajes de WhatsApp al día: solicitudes de cita, reagendamientos, preguntas de precios, consultas de resultados.</li>
+            <li>→ 30% de los turnos quedaban sin llenar por cancelaciones de último momento sin sistema de reemplazo automático.</li>
+            <li>→ Los médicos gastaban 20 min/paciente en documentación administrativa que debería tomar 5 min.</li>
+            <li>→ Sin sistema de seguimiento post-consulta, generando mala experiencia y pérdida de recitas.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-[#1FA2FF] mb-4 text-sm uppercase tracking-wide">La solución</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ Agente IA maneja todas las solicitudes de cita, confirmaciones, reagendamientos y cancelaciones por WhatsApp — llenando automáticamente los turnos cancelados desde la lista de espera.</li>
+            <li>→ Resúmenes pre-consulta generados por IA y mensajes de seguimiento post-consulta enviados automáticamente.</li>
+            <li>→ Agente de preguntas frecuentes resuelve consultas de precios, preparación y resultados — liberando a la recepcionista para interacciones genuinamente complejas.</li>
+            <li>→ Agente de recitación envía mensajes personalizados 4 semanas después de cada consulta con oferta de próximo paso.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-xl overflow-hidden">
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-65%</div><div class="lbl">carga WhatsApp recepcionista</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+28%</div><div class="lbl">utilización de turnos</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+40%</div><div class="lbl">tasa de recitación</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">0</div><div class="lbl">contrataciones necesarias</div></div>
+      </div>
+    </div>
+
+    <!-- Caso: Retail -->
+    <h3 class="text-2xl font-bold mb-8 mt-12 fade-in-on-scroll">Caso de referencia: Tienda especializada + canal online</h3>
+    <div class="bg-[#070A1E] border border-[#1FA2FF]/20 rounded-2xl p-8 md:p-10 fade-in-on-scroll">
+      <div class="flex flex-wrap gap-3 mb-6">
+        <span class="case-tag bg-[#1FA2FF]/10 text-[#1FA2FF] border border-[#1FA2FF]/20">Comercio / E-commerce</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">5 colaboradores · canal dual</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">45 días de implementación</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div>
+          <h4 class="font-bold text-[#FF6B6B] mb-4 text-sm uppercase tracking-wide">El problema</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ La dueña gestionaba 2 canales de ventas manualmente: tienda física + pedidos de Instagram/WhatsApp. Sincronización de inventario hecha a mano dos veces al día.</li>
+            <li>→ Consultas de pedidos online sin respuesta por 4–8 horas, perdiendo clientes ante competidores más ágiles.</li>
+            <li>→ Sin sistema para recuperar conversaciones abandonadas — prospectos que preguntaron pero nunca compraron.</li>
+            <li>→ Cero datos de clientes capturados en la tienda física. Sin capacidad de construir fidelización ni campañas de reactivación.</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-[#1FA2FF] mb-4 text-sm uppercase tracking-wide">La solución</h4>
+          <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+            <li>→ Agente WhatsApp unificado atiende todas las consultas online — preguntas de producto, disponibilidad, toma de pedidos — instantáneamente y con precisión.</li>
+            <li>→ Secuencia automática de reactivación para prospectos que no convirtieron en 48 horas: seguimiento personalizado con oferta.</li>
+            <li>→ Flujo post-compra por WhatsApp para clientes de la tienda física: solicitud de reseña, beneficio de fidelización, incentivo para próxima visita.</li>
+            <li>→ Resumen semanal de ventas generado por IA entregado al WhatsApp de la dueña cada lunes en la mañana.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-xl overflow-hidden">
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+35%</div><div class="lbl">tasa de conversión online</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-80%</div><div class="lbl">tiempo de respuesta a consultas</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+50%</div><div class="lbl">tasa de recompra</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">2h/día</div><div class="lbl">tiempo liberado para la dueña</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 5 — PERFIL 3: EMPRESA / DEPARTAMENTO
+============================================================ -->
+<section id="perfil-empresa" class="py-24 px-6 border-t border-[#1FA2FF]/10"
+  style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex items-start gap-5 mb-14 fade-in-on-scroll">
+      <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#1FA2FF]/15 border border-[#1FA2FF]/30 flex items-center justify-center text-2xl">🏢</div>
+      <div>
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-widest mb-2">Perfil 03 — Empresa / Optimización de Departamento</div>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">La empresa que ya opera —<br>pero deja eficiencia sobre la mesa.</h2>
+        <p class="text-[#C7C9D3]/70 mt-3 max-w-2xl">Una empresa mediana o grande con operaciones establecidas, múltiples áreas y equipos estructurados. No necesitan salvar el negocio — necesitan desbloquear el siguiente nivel de rendimiento en zonas específicas. Un departamento que no está al nivel. Un proceso transversal que se rompe. Un problema de datos aislados que distorsiona las decisiones en la cima.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mb-14 fade-in-on-scroll">
+      <div class="bg-[#070A1E] border border-white/7 rounded-xl p-6">
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider mb-4">Por qué falla la adopción de IA en empresas grandes</div>
+        <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+          <li>→ <strong class="text-white">Enfoque tecnología primero:</strong> Comprar software de IA antes de rediseñar el proceso que supuestamente mejorará. Tecnología sobre procesos rotos solo automatiza el caos más rápido.</li>
+          <li>→ <strong class="text-white">Piloto sin hoja de ruta:</strong> Proyectos aislados de prueba de concepto que nunca escalan porque no hay arquitectura que los conecte.</li>
+          <li>→ <strong class="text-white">IT lo lidera, el negocio no:</strong> Iniciativas de IA impulsadas por equipos de tecnología sin que el área de negocio sea dueña — las personas que entienden el problema no están diseñando la solución.</li>
+          <li>→ <strong class="text-white">Los silos de datos persisten:</strong> Cada área tiene sus propios datos, sus propias herramientas, sus propias métricas. La visibilidad transversal es imposible porque la infraestructura nunca fue diseñada para eso.</li>
+        </ul>
+      </div>
+      <div class="bg-[#070A1E] border border-white/7 rounded-xl p-6">
+        <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider mb-4">Lo que KRONIX hace diferente</div>
+        <ul class="text-[#C7C9D3]/70 text-sm space-y-3">
+          <li>→ <strong class="text-white">Proceso antes que tecnología:</strong> Primero rediseñamos el proceso. La capa de IA viene después. Siempre.</li>
+          <li>→ <strong class="text-white">Diagnóstico específico por departamento:</strong> Identificamos los puntos exactos de fricción dentro de un área o proceso transversal específico — no una evaluación genérica de toda la empresa.</li>
+          <li>→ <strong class="text-white">Arquitectura que conecta:</strong> Cada solución está diseñada para alimentar la capa gerencial — para que las mejoras en Ventas, RRHH u Operaciones se consoliden en una sola vista directiva.</li>
+          <li>→ <strong class="text-white">Propiedad incorporada:</strong> Capacitamos al equipo de negocio para ser dueño de la arquitectura — no solo usarla. La infraestructura pertenece a su empresa, no a un proveedor.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Intervención por departamento: dónde operamos</h3>
+    <div class="grid md:grid-cols-2 gap-5 mb-14">
+
+      <div class="agent-block fade-in-on-scroll">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">📈</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Ventas y Área Comercial</div>
+            <h4 class="font-bold">Automatización del pipeline e inteligencia comercial</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los equipos de ventas pasan el 60–70% del tiempo en actividades no comerciales — reportes, ingreso de datos, agendamiento y coordinación interna. El CRM se actualiza manualmente e inconsistentemente. El pronóstico de pipeline está basado en hojas de cálculo que ya tienen dos semanas de retraso.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Agentes IA que actualizan automáticamente el CRM desde cada interacción, generan informes semanales de pipeline sin intervención humana, califican leads por comportamiento y datos firmográficos, y alertan a los gerentes de ventas sobre negocios en riesgo antes de que se enfríen.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: tiempo del equipo en venta pasa del ~35% al 70%+</div>
+      </div>
+
+      <div class="agent-block fade-in-on-scroll" style="animation-delay:.1s">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">💰</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Finanzas y Cartera</div>
+            <h4 class="font-bold">Inteligencia de flujo de caja y automatización de cobro</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los equipos de finanzas dedican tiempo desproporcionado a conciliación manual, seguimiento de facturas y gestión de cobro. Los informes de cartera se generan semanalmente, no en tiempo real. Los CFO no tienen visibilidad para tomar decisiones proactivas de flujo de caja.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Monitoreo de cartera en tiempo real con alertas predictivas de mora, secuencias de cobro automatizadas escalonadas por nivel de riesgo, automatización de conciliación entre ERP y datos bancarios, y un dashboard del CFO con posición de caja en vivo y pronóstico a 30–60–90 días.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: mora reducida 35–50%, tiempo de reportes financieros reducido 60%</div>
+      </div>
+
+      <div class="agent-block fade-in-on-scroll">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">👥</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Recursos Humanos y Talento</div>
+            <h4 class="font-bold">Selección, onboarding e inteligencia de desempeño</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los equipos de RRHH en empresas medianas pasan el 40% del tiempo en tareas administrativas: agendar entrevistas, enviar cartas de oferta, gestionar listas de verificación de onboarding. La selección toma en promedio 45–60 días — los cargos quedan vacantes, los equipos sufren. Las evaluaciones de desempeño ocurren una vez al año y reflejan sesgo de recencia, no datos reales.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Filtro y agendamiento de candidatos potenciado por IA, flujos de onboarding automatizados activados por la firma del contrato, seguimiento continuo de desempeño contra objetivos definidos, y una capa de analítica de RRHH que detecta riesgo de talento antes de que se convierta en renuncia.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: tiempo de contratación reducido ~40%, carga administrativa RRHH reducida 50%</div>
+      </div>
+
+      <div class="agent-block fade-in-on-scroll" style="animation-delay:.1s">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">🎧</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Servicio al Cliente y Post-Venta</div>
+            <h4 class="font-bold">Soporte inteligente y gestión del ciclo del cliente</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los equipos de soporte a escala enfrentan una paradoja: el volumen crece con los ingresos, pero contratar crece los costos sin mejorar la experiencia. El 60–70% de los tickets son Tier 1 — preguntas con respuesta definida — pero los atienden humanos que podrían estar resolviendo problemas complejos. El tiempo promedio de primera respuesta se mide en horas. La satisfacción del cliente sufre. La rotación aumenta.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Capa IA de primera respuesta que resuelve tickets Tier 1 y 2 por WhatsApp, correo y web — con integración completa de base de conocimiento. Enrutamiento inteligente hacia el especialista correcto con todo el contexto precargado. Encuestas de satisfacción post-resolución automáticas. Los patrones de escalación detectan problemas de producto antes de que se conviertan en crisis.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: 65–75% de deflexión de tickets, mejora de CSAT de 20–35 puntos</div>
+      </div>
+
+      <div class="agent-block fade-in-on-scroll">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">🔄</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Operaciones y Cadena de Suministro</div>
+            <h4 class="font-bold">Automatización de procesos y visibilidad multisede</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los equipos de operaciones en múltiples sedes o áreas corren sobre sistemas desconectados, transferencias manuales y coordinación por teléfono. Los niveles de inventario solo se conocen después de conteos físicos. Los retrasos de proveedores se descubren de forma reactiva. La planeación de producción se basa en promedios históricos que no reflejan señales de demanda actuales.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Visibilidad de inventario y cadena de suministro en tiempo real en todas las sedes, activadores automáticos de compra cuando se alcanzan umbrales de stock, monitoreo de desempeño de proveedores con escalación automática, y un dashboard de operaciones visible tanto para jefes de sede como para la dirección.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: incidentes de desabastecimiento reducidos 45%, llamadas de coordinación operativa reducidas 60%</div>
+      </div>
+
+      <div class="agent-block fade-in-on-scroll" style="animation-delay:.1s">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-xl">🎯</span>
+          <div>
+            <div class="text-[#1FA2FF] text-xs font-bold uppercase tracking-wider">Gerencia y Transversal</div>
+            <h4 class="font-bold">Capa de inteligencia gerencial</h4>
+          </div>
+        </div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Problema real:</strong> Los CEO y directivos en empresas medianas-grandes toman decisiones importantes basados en informes que analistas ensamblan en 3–4 días recopilando y limpiando datos. Cuando la junta ve los números, ya están desactualizados. Los departamentos se optimizan de forma aislada — nadie tiene una vista unificada del negocio completo.</div>
+        <div class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-3"><strong class="text-white">Lo que construimos:</strong> Una capa de inteligencia ejecutiva que agrega datos de todos los departamentos — Ventas, Finanzas, RRHH, Operaciones, Servicio al Cliente — en un único dashboard en tiempo real. Briefings estratégicos semanales generados por IA que destacan qué cambió, por qué importa y qué decisiones implica.</div>
+        <div class="text-[#1FA2FF] text-xs font-semibold">Resultado: tiempo de reportes directivos eliminado, calidad y velocidad de decisiones mejoradas materialmente</div>
+      </div>
+
+    </div>
+
+    <!-- Caso completo multisede -->
+    <h3 class="text-2xl font-bold mb-8 fade-in-on-scroll">Caso de referencia: Distribuidora nacional — arquitectura IA multisede</h3>
+    <div class="bg-[#070A1E] border border-[#1FA2FF]/20 rounded-2xl p-8 md:p-10 mb-10 fade-in-on-scroll">
+      <div class="flex flex-wrap gap-3 mb-8">
+        <span class="case-tag bg-[#1FA2FF]/10 text-[#1FA2FF] border border-[#1FA2FF]/20">Distribución Empresarial</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">3 sedes · transversal</span>
+        <span class="case-tag bg-white/5 text-white/60 border border-white/10">Framework EAA™ aplicado</span>
+      </div>
+
+      <h4 class="font-bold text-lg mb-6">Sistema Integral de Agentes IA — 4 Agentes, 1 Arquitectura</h4>
+      <div class="space-y-5 mb-10">
+        <div class="agent-block">
+          <div class="flex justify-between items-start mb-2">
+            <h5 class="font-bold text-[#1FA2FF]">Agente 1 — Gestión Automatizada de Pedidos</h5>
+            <span class="text-xs text-[#1FA2FF] font-bold">-70% tiempo de procesamiento</span>
+          </div>
+          <p class="text-[#C7C9D3]/70 text-sm mb-2">Recibe pedidos por WhatsApp, los estructura automáticamente, valida disponibilidad de inventario, genera confirmación al cliente y registra en el ERP — sin intervención humana en el flujo estándar. Tasa de error: casi cero.</p>
+          <p class="text-[#C7C9D3]/50 text-xs"><strong>Stack:</strong> WhatsApp Business API + Agente IA + integración ERP</p>
+        </div>
+        <div class="agent-block">
+          <div class="flex justify-between items-start mb-2">
+            <h5 class="font-bold text-[#1FA2FF]">Agente 2 — Gestión Inteligente de Cartera</h5>
+            <span class="text-xs text-[#1FA2FF] font-bold">-40% mora promedio</span>
+          </div>
+          <p class="text-[#C7C9D3]/70 text-sm mb-2">Monitorea cartera en tiempo real. Detecta vencimientos próximos con 7 días de anticipación. Envía recordatorios automáticos escalonados (amable → firme → urgente). Alerta a gerencia sobre cuentas de alto riesgo con historial completo de pagos.</p>
+          <p class="text-[#C7C9D3]/50 text-xs"><strong>Stack:</strong> Integración CRM + IA predictiva + secuencias WhatsApp</p>
+        </div>
+        <div class="agent-block">
+          <div class="flex justify-between items-start mb-2">
+            <h5 class="font-bold text-[#1FA2FF]">Agente 3 — Agente de Pipeline Comercial</h5>
+            <span class="text-xs text-[#1FA2FF] font-bold">+60% prospectos calificados</span>
+          </div>
+          <p class="text-[#C7C9D3]/70 text-sm mb-2">Califica cada prospecto entrante con preguntas estructuradas. Responde consultas de producto y precio. Recopila toda la información comercial necesaria. Agenda la cita con el vendedor correcto — sin saturar al equipo de ventas con conversaciones sin calificar.</p>
+          <p class="text-[#C7C9D3]/50 text-xs"><strong>Stack:</strong> WhatsApp + IA conversacional + actualización automática CRM</p>
+        </div>
+        <div class="agent-block">
+          <div class="flex justify-between items-start mb-2">
+            <h5 class="font-bold text-[#1FA2FF]">Agente 4 — Dashboard Gerencial en Tiempo Real</h5>
+            <span class="text-xs text-[#1FA2FF] font-bold">100% visibilidad operativa</span>
+          </div>
+          <p class="text-[#C7C9D3]/70 text-sm mb-2">Panel ejecutivo unificado con datos en vivo de las 3 sedes y los 3 agentes: pedidos del día, antigüedad de cartera, pipeline comercial y KPIs operativos. Accesible desde cualquier dispositivo. Alertas automáticas para decisiones que requieren atención ejecutiva.</p>
+          <p class="text-[#C7C9D3]/50 text-xs"><strong>Stack:</strong> Integraciones multi-API + visualización en tiempo real</p>
+        </div>
+      </div>
+
+      <h4 class="font-bold text-lg mb-6">EAA Framework™ — Aplicado Capa por Capa</h4>
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-10">
+        <div class="eaa-layer fade-in-on-scroll">
+          <div class="text-[#1FA2FF] text-xs font-bold mb-2">Capa 1</div>
+          <div class="text-xs font-semibold text-white mb-1">Diagnóstico</div>
+          <p class="text-[#C7C9D3]/60 text-xs">Mapeo de 4 puntos críticos de pérdida de eficiencia. Cuantificación de impacto. Definición de KPIs.</p>
+        </div>
+        <div class="hidden md:flex items-center justify-center text-[#1FA2FF]/40 text-xl">→</div>
+        <div class="eaa-layer fade-in-on-scroll" style="animation-delay:.1s">
+          <div class="text-[#1FA2FF] text-xs font-bold mb-2">Capa 2</div>
+          <div class="text-xs font-semibold text-white mb-1">Rediseño de Procesos</div>
+          <p class="text-[#C7C9D3]/60 text-xs">Rediseño de flujos de pedidos, cartera y comercial antes de tocar cualquier tecnología.</p>
+        </div>
+        <div class="hidden md:flex items-center justify-center text-[#1FA2FF]/40 text-xl">→</div>
+        <div class="eaa-layer fade-in-on-scroll" style="animation-delay:.2s">
+          <div class="text-[#1FA2FF] text-xs font-bold mb-2">Capa 3</div>
+          <div class="text-xs font-semibold text-white mb-1">Construcción de Agentes</div>
+          <p class="text-[#C7C9D3]/60 text-xs">Diseño e implementación de 4 agentes IA especializados para funciones específicas.</p>
+        </div>
+        <div class="hidden md:flex items-center justify-center text-[#1FA2FF]/40 text-xl">→</div>
+        <div class="eaa-layer fade-in-on-scroll" style="animation-delay:.3s">
+          <div class="text-[#1FA2FF] text-xs font-bold mb-2">Capa 4</div>
+          <div class="text-xs font-semibold text-white mb-1">Capa de Visibilidad</div>
+          <p class="text-[#C7C9D3]/60 text-xs">Dashboard ejecutivo unificado. Alertas automáticas para decisiones gerenciales.</p>
+        </div>
+        <div class="hidden md:flex items-center justify-center text-[#1FA2FF]/40 text-xl">→</div>
+        <div class="eaa-layer fade-in-on-scroll" style="animation-delay:.4s">
+          <div class="text-[#1FA2FF] text-xs font-bold mb-2">Capa 5</div>
+          <div class="text-xs font-semibold text-white mb-1">Escalabilidad</div>
+          <p class="text-[#C7C9D3]/60 text-xs">Arquitectura diseñada para replicarse en nuevas sedes sin rediseño completo.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-px bg-white/5 rounded-xl overflow-hidden">
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-40%</div><div class="lbl">tiempo operativo total</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-70%</div><div class="lbl">tiempo de pedidos</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">-40%</div><div class="lbl">mora en cartera</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">+60%</div><div class="lbl">pipeline calificado</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">100%</div><div class="lbl">visibilidad gerencial</div></div>
+        <div class="stat-item bg-[#0B0F2B]"><div class="val text-3xl">3</div><div class="lbl">sedes integradas</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 6 — ¿CUÁL PERFIL ES USTED?
+============================================================ -->
+<section class="py-20 px-6 border-t border-[#1FA2FF]/10"
+  style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
+  <div class="max-w-5xl mx-auto text-center">
+    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4 fade-in-on-scroll">Autoevaluación</p>
+    <h2 class="text-4xl font-bold mb-5 fade-in-on-scroll">¿Algo de esto le suena familiar?</h2>
+    <p class="text-[#C7C9D3]/75 text-lg mb-12 max-w-2xl mx-auto fade-in-on-scroll">El diagnóstico toma 45 minutos. Identifica exactamente dónde está el techo operativo de su empresa — y qué arquitectura lo elimina.</p>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-14">
+      <div class="bg-[#070A1E] border border-white/7 rounded-2xl p-6 text-left fade-in-on-scroll">
+        <div class="text-2xl mb-3">🚀</div>
+        <h3 class="font-bold mb-3">PYME en Crecimiento</h3>
+        <p class="text-[#C7C9D3]/60 text-sm mb-5">Tiene ingresos, tiene clientes, tiene prueba de concepto. Pero no puede aceptar más negocio sin más personas — y contratar más se siente muy arriesgado ahora mismo.</p>
+        <a href="#contacto" class="text-[#1FA2FF] text-sm font-semibold hover:underline">Este soy yo →</a>
+      </div>
+      <div class="bg-[#070A1E] border border-white/7 rounded-2xl p-6 text-left fade-in-on-scroll" style="animation-delay:.1s">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="font-bold mb-3">Pequeña Empresa, Sobrecargada</h3>
+        <p class="text-[#C7C9D3]/60 text-sm mb-5">Su equipo está trabajando al límite — o más allá. La demanda existe. El tiempo no alcanza. No necesita más personal, necesita que el trabajo correcto se automatice.</p>
+        <a href="#contacto" class="text-[#1FA2FF] text-sm font-semibold hover:underline">Este soy yo →</a>
+      </div>
+      <div class="bg-[#070A1E] border border-white/7 rounded-2xl p-6 text-left fade-in-on-scroll" style="animation-delay:.2s">
+        <div class="text-2xl mb-3">🏢</div>
+        <h3 class="font-bold mb-3">Empresa, Área Específica</h3>
+        <p class="text-[#C7C9D3]/60 text-sm mb-5">Tiene un departamento, un proceso o un flujo transversal que no está rindiendo — y usted lo sabe. Necesita una intervención puntual, no una transformación de toda la empresa.</p>
+        <a href="#contacto" class="text-[#1FA2FF] text-sm font-semibold hover:underline">Este soy yo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECCIÓN 7 — FORMULARIO / CTA
+============================================================ -->
+<section id="contacto" class="py-28 px-6 relative overflow-hidden"
+  style="background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(31,162,255,.10) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+  <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
+    style="background-image:linear-gradient(rgba(31,162,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(31,162,255,0.1) 1px,transparent 1px);background-size:40px 40px;"></div>
+  <div class="max-w-3xl mx-auto relative">
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Primer Paso</p>
+      <h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
+        ¿Su empresa enfrenta<br><span class="text-[#1FA2FF]">desafíos similares?</span>
+      </h2>
+      <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">45 minutos. Sin compromiso. Se irá sabiendo exactamente dónde está perdiendo capacidad su operación — y qué arquitectura lo resuelve.</p>
+    </div>
+
+    <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label for="nombre" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Nombre completo *</label>
+          <input id="nombre" name="nombre" type="text" required placeholder="Su nombre" class="form-input" autocomplete="name">
+        </div>
+        <div>
+          <label for="empresa" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Empresa *</label>
+          <input id="empresa" name="empresa" type="text" required placeholder="Su empresa" class="form-input" autocomplete="organization">
+        </div>
+      </div>
+      <div>
+        <label for="email" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Correo electrónico *</label>
+        <input id="email" name="email" type="email" required placeholder="su@empresa.com" class="form-input" autocomplete="email">
+      </div>
+      <div>
+        <label for="whatsapp" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">WhatsApp (con código de país) *</label>
+        <input id="whatsapp" name="whatsapp" type="tel" required placeholder="+57 310 739 7053" class="form-input" autocomplete="tel">
+      </div>
+      <div>
+        <label for="empleados" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Número de empleados *</label>
+        <div class="select-wrapper">
+          <select id="empleados" name="empleados" required class="form-input form-select">
+            <option value="" disabled selected>Seleccione el tamaño de su empresa</option>
+            <option value="1-10">1 – 10 empleados</option>
+            <option value="11-50">11 – 50 empleados</option>
+            <option value="51-200">51 – 200 empleados</option>
+            <option value="201-500">201 – 500 empleados</option>
+            <option value="500+">500+ empleados</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="sector" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Industria *</label>
+        <div class="select-wrapper">
+          <select id="sector" name="sector" required class="form-input form-select">
+            <option value="" disabled selected>Seleccione su industria</option>
+            <option value="distribucion">Distribución y Logística</option>
+            <option value="salud">Salud y Clínicas</option>
+            <option value="construccion">Construcción e Inmobiliaria</option>
+            <option value="manufactura">Manufactura e Industria</option>
+            <option value="servicios">Servicios Profesionales</option>
+            <option value="comercio">Comercio y E-commerce</option>
+            <option value="tecnologia">Tecnología</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="perfil" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">¿Cuál perfil lo describe mejor? *</label>
+        <div class="select-wrapper">
+          <select id="perfil" name="perfil" required class="form-input form-select">
+            <option value="" disabled selected>Seleccione su perfil</option>
+            <option value="pyme-crecimiento">🚀 PYME en crecimiento — necesito escalar sin contratar</option>
+            <option value="empresa-sobrecargada">⚡ Pequeña empresa — equipo operativamente sobrecargado</option>
+            <option value="empresa-departamento">🏢 Empresa — optimizar un departamento o proceso específico</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="desafio" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Principal desafío operativo</label>
+        <textarea id="desafio" name="desafio" rows="3"
+          placeholder="¿Cuál es el problema operativo que más tiempo le consume a su equipo ahora mismo?"
+          class="form-input" style="resize:vertical;"></textarea>
+      </div>
+      <button type="submit" id="submit-btn"
+        class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3">
+        <span id="btn-text">Solicitar Mi Diagnóstico</span>
+        <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg id="btn-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-width="3" stroke-linecap="round"/></svg>
+      </button>
+      <p id="form-success" class="hidden text-center text-green-400 text-sm font-semibold py-3">✓ Solicitud recibida. Lo contactaremos por WhatsApp en las próximas 24 / 48 horas hábiles.</p>
+      <p id="form-error" class="hidden text-center text-red-400 text-sm py-3">Ocurrió un error. Por favor escríbanos directamente por WhatsApp.</p>
+    </form>
+
+    <div class="mt-12 grid grid-cols-3 gap-4 text-center">
+      <div><div class="text-[#1FA2FF] font-bold text-lg">45min</div><div class="text-xs text-[#C7C9D3]/60 mt-1">sesión de diagnóstico</div></div>
+      <div><div class="text-[#1FA2FF] font-bold text-lg">24h</div><div class="text-xs text-[#C7C9D3]/60 mt-1">tiempo de respuesta</div></div>
+      <div><div class="text-[#1FA2FF] font-bold text-lg">Sin</div><div class="text-xs text-[#C7C9D3]/60 mt-1">compromiso requerido</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bg-[#070A1E] border-t border-white/5 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div class="md:col-span-2">
+        <a href="/es/" aria-label="KRONIX Labs"><img src="../../Kronix-Labs.svg" class="h-10 mb-5" alt="KRONIX Labs" width="140" height="40"></a>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed max-w-sm">Firma de Arquitectura de Infraestructura IA Empresarial. Rediseñamos cómo operan las empresas para generar más ingresos sin contratar más personal.</p>
+        <p class="text-[#C7C9D3]/40 text-xs mt-4">Medellín, Antioquia, Colombia</p>
+      </div>
+      <div>
+        <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Navegación</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a></li>
+          <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link">Framework EAA</a></li>
+          <li><a href="/es/industries/distribucion.html" class="nav-link">Industrias</a></li>
+          <li><a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Nuestra Firma</a></li>
+          <li><a href="/es/insights/" class="nav-link">Insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Contacto</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa." target="_blank" rel="noopener noreferrer" class="nav-link">WhatsApp: +57 310 739 7053</a></li>
+          <li><a href="mailto:hello@kronixlabs.com" class="nav-link">hello@kronixlabs.com</a></li>
+          <li><a href="/en/case-study/multi-site-ai-system.html" hreflang="en" class="nav-link flex items-center gap-2">
+            <svg width="14" height="10" viewBox="0 0 19 10"><rect width="19" height="10" fill="#B22234"/><g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g><rect width="8" height="5" fill="#3C3B6E"/></svg>
+            View in English
+          </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-[#C7C9D3]/40 text-xs">© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</p>
+      <p class="text-[#C7C9D3]/25 text-xs">Arquitectura de Infraestructura IA Empresarial · Medellín, Colombia</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Sticky mobile CTA -->
+<div class="sticky-mobile-cta md:hidden">
+  <a href="#contacto"
+     onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_CasoEstudio_ES'});"
+     class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base">
+    Solicitar Diagnóstico →
+  </a>
+</div>
+
+<!-- WA Flotante -->
+<button class="kx-wa-btn" id="kxWaBtn" aria-label="Chatear por WhatsApp" aria-expanded="false"
+  onclick="document.getElementById('kxWaPanel').style.display=document.getElementById('kxWaPanel').style.display==='block'?'none':'block';this.setAttribute('aria-expanded',document.getElementById('kxWaPanel').style.display==='block')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.858L.057 23.57a.5.5 0 0 0 .608.655l5.939-1.547A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.669-.513-5.2-1.41l-.374-.22-3.523.917.948-3.416-.244-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  WhatsApp
+</button>
+<div class="kx-wa-panel" id="kxWaPanel" role="dialog" aria-label="Contacto por WhatsApp">
+  <h4>Contáctenos por WhatsApp</h4>
+  <select id="waTopicCasoES" aria-label="Tema del mensaje">
+    <option value="diagnostico">Solicitar Diagnóstico Operativo</option>
+    <option value="pyme">Soy PYME en crecimiento — necesito escalar</option>
+    <option value="sobrecarga">Mi equipo está operativamente sobrecargado</option>
+    <option value="empresa">Empresa — optimizar departamento específico</option>
+    <option value="info">Información general</option>
+  </select>
+  <button onclick="sendWhatsAppCasoES()">Abrir WhatsApp →</button>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// Scroll progress
+window.addEventListener('scroll',function(){
+  let el=document.getElementById('scrollIndicator');
+  if(el){let pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;el.style.width=pct+'%';}
+},{passive:true});
+
+// Mostrar botón WA
+window.addEventListener('scroll',function(){
+  let btn=document.getElementById('kxWaBtn');
+  if(btn){btn.classList.toggle('show',window.scrollY>400);}
+},{passive:true});
+
+// Menú móvil
+let menuBtn=document.getElementById('menu-btn'),mobileMenu=document.getElementById('mobile-menu');
+if(menuBtn&&mobileMenu){menuBtn.addEventListener('click',function(){mobileMenu.classList.toggle('open');menuBtn.setAttribute('aria-expanded',mobileMenu.classList.contains('open'));});}
+
+// Tinte de placeholders en selects
+(function(){
+  ['empleados','sector','perfil'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    function update(){ el.style.color=el.value===''?'rgba(255,255,255,0.35)':'#ffffff'; }
+    el.addEventListener('change',update); update();
+  });
+})();
+
+// Enviador WhatsApp
+function sendWhatsAppCasoES(){
+  let topic=document.getElementById('waTopicCasoES').value;
+  let msgs={
+    diagnostico:'Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.',
+    pyme:'Hola KRONIX, tengo una empresa en crecimiento y necesito escalar operaciones sin contratar más personas.',
+    sobrecarga:'Hola KRONIX, mi equipo está operativamente sobrecargado y necesito liberar su tiempo para crecer.',
+    empresa:'Hola KRONIX, quiero optimizar un departamento o proceso específico de mi empresa.',
+    info:'Hola KRONIX, quiero más información sobre sus servicios de infraestructura IA.'
+  };
+  gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_CasoEstudio_ES_'+topic});
+  window.open('https://wa.me/573107397053?text='+encodeURIComponent(msgs[topic]||msgs.info),'_blank');
+}
+
+// Envío de formulario
+function handleFormSubmit(e){
+  e.preventDefault();
+  let btn=document.getElementById('submit-btn'),btnText=document.getElementById('btn-text'),btnArrow=document.getElementById('btn-arrow'),btnSpinner=document.getElementById('btn-spinner'),successMsg=document.getElementById('form-success');
+  btn.disabled=true; btnArrow.classList.add('hidden'); btnSpinner.classList.remove('hidden'); btnText.textContent='Enviando...';
+  let f=new FormData(e.target);
+  let data={nombre:f.get('nombre'),empresa:f.get('empresa'),email:f.get('email'),whatsapp:f.get('whatsapp'),empleados:f.get('empleados'),sector:f.get('sector'),perfil:f.get('perfil'),desafio:f.get('desafio')||'No especificado'};
+  gtag('event','form_submit',{event_category:'Lead',event_label:'FormularioDiagnostico_CasoEstudio_ES_'+data.perfil,value:1});
+  let msg='[LEAD ES - CASO DE ESTUDIO] Nueva Solicitud de Diagnóstico\n'+'Nombre: '+data.nombre+'\nEmpresa: '+data.empresa+'\nEmail: '+data.email+'\nWhatsApp: '+data.whatsapp+'\nEmpleados: '+data.empleados+'\nIndustria: '+data.sector+'\nPerfil: '+data.perfil+'\nDesafío: '+data.desafio;
+  btn.disabled=false; btnArrow.classList.remove('hidden'); btnSpinner.classList.add('hidden'); btnText.textContent='Solicitar Mi Diagnóstico';
+  successMsg.classList.remove('hidden'); e.target.reset();
+  ['empleados','sector','perfil'].forEach(function(id){let el=document.getElementById(id);if(el){el.style.color='rgba(255,255,255,0.35)';}});
+  setTimeout(function(){window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');},1200);
+}
+
+// Scroll suave
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){let t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}});});
+
+// Fade on scroll
+const obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -80px 0px'});
+document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){obs.observe(el);});
+</script>
 </body>
 </html>
