@@ -1,354 +1,927 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Firma | KRONIX Labs — Firma Estratégica en Arquitectura Empresarial con IA</title>
-    <meta name="description" content="KRONIX Labs no vende software ni implementa herramientas aisladas. Diseñamos la arquitectura de infraestructura IA que permite a empresas LATAM escalar con control, precisión y sin contratar más personal.">
-    <link rel="canonical" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html">
-    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html">
-    <link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * { font-family: 'Montserrat', sans-serif; }
-        body { background: linear-gradient(135deg, #0B0F2B 0%, #070A1E 100%); color: #fff; }
-        .accent { color: #1FA2FF; }
-        .accent-bg { background-color: #1FA2FF; }
-        .accent-border { border-color: #1FA2FF; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fadeUp { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
-        .fadeUp.visible { opacity: 1; animation: fadeUp 0.8s ease-out; }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(31, 162, 255, 0.2); }
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(11, 15, 43, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(31, 162, 255, 0.1); }
-        .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, #1FA2FF, #00D4FF); z-index: 1001; }
-        .sticky-mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: rgba(31, 162, 255, 0.95); padding: 12px 20px; text-align: center; display: none; }
-        @media (max-width: 768px) { .sticky-mobile-cta { display: block; } }
-        .floating-wa { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 998; transition: all 0.3s; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); }
-        .floating-wa:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(37, 211, 102, 0.6); }
-        footer { background: rgba(11, 15, 43, 0.8); border-top: 1px solid rgba(31, 162, 255, 0.1); padding: 40px 20px; margin-top: 60px; }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ✅ SEO Primario -->
+<title>Nuestra Firma | KRONIX Labs — Firma Estratégica en Arquitectura Empresarial con IA</title>
+<meta name="description" content="KRONIX Labs es una firma estratégica especializada en arquitectura empresarial con IA. No somos un proveedor técnico — somos el arquitecto de sistemas inteligentes que permite a su empresa escalar con control real.">
+<meta name="keywords" content="KRONIX Labs firma, consultora estratégica IA, arquitectura empresarial inteligente, firma IA Medellín, boutique tecnológica IA LATAM, by jurion">
+<meta name="author" content="KRONIX Labs by jurion">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1FA2FF">
+
+<!-- ✅ Canonical + Hreflang -->
+<link rel="canonical" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html">
+
+<!-- ✅ Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+
+
+<!-- ✅ Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:title" content="Nuestra Firma | KRONIX Labs — Arquitectura Empresarial con IA">
+<meta property="og:description" content="Firma estratégica especializada en arquitectura empresarial con IA. No implementamos bots — diseñamos sistemas inteligentes integrados para empresas en LATAM.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KRONIX Labs — Firma Estratégica en IA">
+<meta property="og:url" content="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html">
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nuestra Firma | KRONIX Labs — Arquitectura Empresarial con IA">
+<meta name="twitter:description" content="Firma estratégica en arquitectura empresarial con IA. Sistemas inteligentes estructurados para empresas en LATAM.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta name="twitter:image:alt" content="KRONIX Labs — Firma Estratégica en IA">
+
+<!-- ✅ Performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        kronixBlue: '#1FA2FF',
+        kronixDark: '#0B0F2B',
+        kronixDeep: '#070A1E',
+        kronixGray: '#C7C9D3'
+      }
+    }
+  }
+}
+</script>
+
+<!-- ✅ Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', {
+    page_title: 'Firm ES',
+    page_location: window.location.href
+  });
+
+  let scrollMilestones = {25: false, 50: false, 75: false, 90: false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    for (let m in scrollMilestones) {
+      if (pct >= m && !scrollMilestones[m]) {
+        scrollMilestones[m] = true;
+        gtag('event', 'scroll_depth', { event_category: 'Engagement', event_label: m + '%', value: parseInt(m) });
+      }
+    }
+  }, { passive: true });
+
+  let startTime = Date.now();
+  window.addEventListener('beforeunload', function() {
+    gtag('event', 'time_on_page', { event_category: 'Engagement', value: Math.round((Date.now() - startTime) / 1000) });
+  });
+</script>
+
+<!-- ✅ Schema JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html#page",
+      "name": "Nuestra Firma — KRONIX Labs",
+      "description": "KRONIX Labs es una firma estratégica especializada en arquitectura empresarial con IA. Diseñamos sistemas inteligentes integrados para empresas en Latinoamérica.",
+      "url": "https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html",
+      "about": {
+        "@type": "Organization",
+        "@id": "https://kronixlabs.github.io/#organization",
+        "name": "KRONIX Labs",
+        "alternateName": "KRONIX Labs by jurion",
+        "foundingDate": "2024",
+        "foundingLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Medellín",
+            "addressRegion": "Antioquia",
+            "addressCountry": "CO"
+          }
+        },
+        "description": "Laboratorio de Sistemas Inteligentes y Arquitectura de Automatización Empresarial.",
+        "slogan": "Engineering Intelligent Growth"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://kronixlabs.github.io/es/" },
+        { "@type": "ListItem", "position": 2, "name": "Firma", "item": "https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html" }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- ✅ Critical CSS -->
+<style>
+  body { background-color: #0B0F2B; color: #fff; font-family: 'Montserrat', sans-serif; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,162,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(31,162,255,0.35); }
+    50%       { box-shadow: 0 0 0 12px rgba(31,162,255,0); }
+  }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .d1 { animation-delay: 0.10s; }
+  .d2 { animation-delay: 0.25s; }
+  .d3 { animation-delay: 0.40s; }
+  .d4 { animation-delay: 0.55s; }
+  .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
+
+  .value-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.75rem;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .value-card:hover { border-color: rgba(31,162,255,0.35); transform: translateY(-3px); }
+
+  .adn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s;
+  }
+  .adn-item:hover { border-color: rgba(31,162,255,0.25); }
+
+  .no-somos {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: rgba(255,255,255,0.02);
+  }
+  .si-somos {
+    border: 1px solid rgba(31,162,255,0.25);
+    border-radius: 12px;
+    padding: 1.5rem;
+    background: rgba(31,162,255,0.05);
+  }
+
+  .nav-link { color: rgba(255,255,255,0.75); font-size: 0.875rem; transition: color 0.2s; }
+  .nav-link:hover { color: #1FA2FF; }
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: flex; }
+</style>
+
 </head>
-<body>
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- HEADER STICKY -->
-    <header>
-        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="/es/" class="flex items-center gap-2">
-                <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
-                <span class="font-bold text-lg hidden sm:inline">KRONIX</span>
-            </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="/es/" class="hover:accent transition">Inicio</a>
-                <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:accent transition">Arquitectura IA</a>
-                <a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:accent transition">Framework</a>
-                <a href="/es/industries/distribucion.html" class="hover:accent transition">Industrias</a>
-                <a href="/es/firm/consultora-estrategica-ia.html" class="accent">Firma</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="hidden sm:inline-block px-4 py-2 accent-bg text-dark font-semibold rounded text-sm hover:opacity-90 transition">Solicitar Diagnóstico</a>
-                <div class="relative group">
-                    <button class="text-sm font-medium">ES</button>
-                    <div class="absolute right-0 mt-2 w-20 bg-darker rounded opacity-0 group-hover:opacity-100 transition">
-                        <a href="/en/" class="block px-3 py-2 hover:accent text-xs">EN</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<body style="font-family:'Montserrat',sans-serif;">
 
-    <!-- BREADCRUMB -->
-    <div class="pt-24 pb-8 px-4 text-sm text-gray-400">
-        <div class="max-w-7xl mx-auto">
-            <span class="accent">Inicio</span> > Nuestra Firma
-        </div>
-    </div>
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-    <!-- HERO -->
-    <section class="pt-20 pb-40 px-4">
-        <div class="max-w-4xl mx-auto text-center fadeUp">
-            <div class="inline-block px-3 py-1 border border-blue-500 rounded-full text-sm font-medium mb-6 accent">
-                Sobre KRONIX Labs
-            </div>
-            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-8 fadeUp">
-                Una firma <span class="accent">estratégica</span>. No un proveedor técnico.
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-12 fadeUp">
-                KRONIX Labs no vende software ni implementa herramientas aisladas. Diseñamos la arquitectura de infraestructura IA que permite a empresas LATAM escalar con control, precisión y sin contratar más personal.
-            </p>
-            <div class="grid md:grid-cols-3 gap-6 text-center fadeUp">
-                <div>
-                    <p class="text-3xl font-bold accent">2024</p>
-                    <p class="text-gray-400 text-sm">Fundada</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold accent">Medellín</p>
-                    <p class="text-gray-400 text-sm">Colombia</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold accent">LATAM</p>
-                    <p class="text-gray-400 text-sm">Cobertura</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <a href="/es/" aria-label="KRONIX Labs — Inicio">
+      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+    </a>
 
-    <!-- POR QUÉ EXISTIMOS -->
-    <section class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Lo que nos <span class="accent">define</span>
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card-hover p-8 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <h3 class="text-xl font-bold accent mb-4">Por qué existimos</h3>
-                    <p class="text-gray-300 text-sm">Construir sistemas inteligentes que permitan a las empresas escalar con precisión, eficiencia y control. No vendemos herramientas — diseñamos la arquitectura que hace posible el crecimiento real.</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <h3 class="text-xl font-bold accent mb-4">Qué hacemos</h3>
-                    <p class="text-gray-300 text-sm">Diseñar, desarrollar e implementar arquitecturas de IA aplicada que optimicen operaciones reales de negocio. Cada proyecto es un sistema documentado, gobernado y listo para escalar.</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-20 rounded-lg bg-blue-900 bg-opacity-10 backdrop-blur fadeUp">
-                    <h3 class="text-xl font-bold accent mb-4">A dónde vamos</h3>
-                    <p class="text-gray-300 text-sm">Convertirnos en el laboratorio latinoamericano líder en sistemas de automatización empresarial con IA aplicada. La referencia regional en arquitectura inteligente estructurada.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
+      <a href="/es/" class="nav-link">Inicio</a>
+      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a>
+      <a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link">Framework</a>
+      <a href="/es/industries/distribucion.html" class="nav-link">Industrias</a>
+      <a href="/es/firm/consultora-estrategica-ia.html" class="nav-link" style="color:#1FA2FF;" aria-current="page">Firma</a>
+      <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Nav_Contacto_ES'});"
+         class="bg-[#1FA2FF] text-white text-sm font-semibold px-5 py-2 rounded-lg hover:opacity-90 transition">
+        Contacto
+      </a>
+    </nav>
 
-    <!-- POSICIONAMIENTO -->
-    <section class="py-40 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Dónde vivimos y dónde <span class="accent">no competimos</span>
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="fadeUp">
-                    <h3 class="text-2xl font-bold accent mb-6">Somos</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex gap-3">
-                            <span class="accent font-bold">+</span>
-                            <span>Firma de Arquitectura de Infraestructura IA</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="accent font-bold">+</span>
-                            <span>Diseñadores de sistemas, no vendedores de herramientas</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="accent font-bold">+</span>
-                            <span>Especialistas en escalar operaciones sin nómina</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="accent font-bold">+</span>
-                            <span>Partner estratégico de transformación IA</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fadeUp">
-                    <h3 class="text-2xl font-bold mb-6" style="color: #FF6B6B;">No somos</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex gap-3">
-                            <span style="color: #FF6B6B;" class="font-bold">−</span>
-                            <span>Agencia de marketing digital</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span style="color: #FF6B6B;" class="font-bold">−</span>
-                            <span>Proveedor de chatbots o bots de ventas</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span style="color: #FF6B6B;" class="font-bold">−</span>
-                            <span>Consultoría de TI generalista</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span style="color: #FF6B6B;" class="font-bold">−</span>
-                            <span>Empresa de software SaaS</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ADN DE LA FIRMA -->
-    <section class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Cómo pensamos y <span class="accent">actuamos</span>
-            </h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="fadeUp">
-                    <h3 class="text-2xl font-bold accent mb-6">Arquetipos</h3>
-                    <ul class="space-y-4">
-                        <li>
-                            <p class="font-bold mb-2">El Arquitecto</p>
-                            <p class="text-gray-300 text-sm">Diseñamos antes de construir. Cada decisión parte de la estructura, no de la herramienta.</p>
-                        </li>
-                        <li>
-                            <p class="font-bold mb-2">El Estratega</p>
-                            <p class="text-gray-300 text-sm">Pensamos en sistemas, no en herramientas. Vemos cómo cada pieza conecta con el negocio.</p>
-                        </li>
-                        <li>
-                            <p class="font-bold mb-2">El Científico</p>
-                            <p class="text-gray-300 text-sm">Medimos todo desde el día uno. No hay intuición — solo datos y resultados verificables.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fadeUp">
-                    <h3 class="text-2xl font-bold accent mb-6">Personalidad</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full accent-bg"></div>
-                            <span>Directos</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full accent-bg"></div>
-                            <span>Rigurosos</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full accent-bg"></div>
-                            <span>Estratégicos</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full accent-bg"></div>
-                            <span>Obsesivos con el resultado</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full accent-bg"></div>
-                            <span>Latinoamericanos</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NUESTRO ENFOQUE -->
-    <section class="py-40 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-20 fadeUp">
-                Lo que hace diferente cada <span class="accent">proyecto KRONIX</span>
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-4 accent">Bespoke, no genérico</h3>
-                    <p class="text-gray-300">Cada arquitectura es diseñada para la empresa específica. No hay plantillas ni soluciones de copia-pega.</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-4 accent">Implementación incluida</h3>
-                    <p class="text-gray-300">No damos recomendaciones sin implementar. Diseñamos y desplegamos. Usted ve resultados reales.</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-4 accent">Gobernanza desde el día uno</h3>
-                    <p class="text-gray-300">Cada sistema incluye los marcos de control que permiten a la gerencia mantener visibilidad y autoridad sobre la IA.</p>
-                </div>
-                <div class="card-hover p-8 border border-blue-500 border-opacity-30 rounded-lg bg-gradient-to-br from-blue-900 from-opacity-20 to-transparent backdrop-blur fadeUp">
-                    <h3 class="text-2xl font-bold mb-4 accent">Soberanía de datos garantizada</h3>
-                    <p class="text-gray-300">Su infraestructura corre en sus servidores o nube privada. Sus datos nunca salen de su entorno.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA / CONTACTO -->
-    <section id="contacto" class="py-40 px-4 bg-black bg-opacity-30">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-4 fadeUp">
-                Hablemos de su <span class="accent">próximo proyecto</span>
-            </h2>
-            <p class="text-center text-gray-300 mb-12 fadeUp">Contacte a nuestro equipo de arquitectos para discutir su transformación IA.</p>
-            <form class="space-y-6 fadeUp" onsubmit="handleForm(event)">
-                <input type="text" placeholder="Su nombre" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                <input type="email" placeholder="Correo electrónico" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                <input type="tel" placeholder="Teléfono (WhatsApp)" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                <input type="text" placeholder="Empresa" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required>
-                <textarea placeholder="Cuéntenos sobre su proyecto" rows="4" class="w-full px-4 py-3 bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-blue-500" required></textarea>
-                <button type="submit" class="w-full px-6 py-3 accent-bg text-dark font-bold rounded hover:opacity-90 transition">
-                    Iniciar Conversación
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FLOATING WHATSAPP -->
-    <div class="floating-wa" onclick="window.open('https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa', '_blank')">
-        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.776c0 2.615.6 5.134 1.75 7.364L2.257 22l7.855-2.041A9.868 9.868 0 0012.03 22c5.424 0 9.868-4.436 9.868-9.889 0-2.63-.636-5.159-1.85-7.402L22 2.89l-7.854 2.052a9.855 9.855 0 00-6.116-1.945m0-2C6.444 2.034 2.034 6.444 2.034 12s4.41 9.966 9.966 9.966c2.488 0 4.844-.968 6.601-2.57l.054.09 7.281-1.897-1.897 7.282.09.054c1.602 1.757 2.57 4.113 2.57 6.601 0 5.556-4.41 9.966-9.966 9.966S2.034 23.556 2.034 18c0-2.488.968-4.844 2.57-6.601l.054-.09-7.282-1.897 1.897-7.281-.09-.054C2.968 1.276 2 -1.08 2 -3.568c0-5.556 4.41-9.966 9.966-9.966"/>
-        </svg>
-    </div>
-
-    <!-- STICKY MOBILE CTA -->
-    <div class="sticky-mobile-cta">
-        <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagnóstico%20de%20Madurez%20Operativa" class="text-white font-bold hover:opacity-80 transition">
-            Solicitar Diagnóstico
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+          ES
+        </span>
+        <!-- ✅ BUG CORREGIDO: Flag USA correcto -->
+        <a href="/en/firm/strategic-ai-consultancy.html"
+           hreflang="en" rel="alternate"
+           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN_firm'});"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
+            <rect width="19" height="10" fill="#B22234"/>
+            <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
+            <rect width="8" height="5" fill="#3C3B6E"/>
+          </svg>
+          EN
         </a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8">
-                    </div>
-                    <p class="text-gray-400 text-sm">Firma de Arquitectura de Infraestructura IA.</p>
-                    <p class="text-gray-500 text-xs mt-2">Medellín, Colombia</p>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-4">Navegar</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="/es/consultoria/" class="hover:accent transition">Consultoría</a></li>
-                        <li><a href="/es/framework/" class="hover:accent transition">Framework</a></li>
-                        <li><a href="/es/industries/" class="hover:accent transition">Industrias</a></li>
-                        <li><a href="/es/firm/" class="hover:accent transition">Firma</a></li>
-                        <li><a href="/es/case-study/sistema-multisede-ia.html" class="hover:accent transition">Case Study</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold mb-4">Contacto</h3>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="https://wa.me/573107397053" class="hover:accent transition">WhatsApp: +57 310 739 7053</a></li>
-                        <li><a href="mailto:admin@kronixlabs.com" class="hover:accent transition">admin@kronixlabs.com</a></li>
-                        <li><a href="/en/" class="hover:accent transition text-xs">Ver en English</a></li>
-                    </ul>
-                </div>
+  </div>
+
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5">
+    <a href="/es/" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Inicio</a>
+    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Arquitectura IA</a>
+    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Framework</a>
+    <a href="/es/industries/distribucion.html" class="block py-2 text-sm text-white/75 hover:text-[#1FA2FF] transition">Industrias</a>
+    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2 text-sm text-[#1FA2FF] font-semibold">Firma</a>
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+       target="_blank" rel="noopener noreferrer"
+       class="block py-2 text-sm text-[#1FA2FF] font-semibold">Contacto →</a>
+  </nav>
+</header>
+
+
+<!-- ============================================================
+     BREADCRUMB
+     ============================================================ -->
+<div class="pt-24 bg-[#070A1E]">
+  <div class="max-w-7xl mx-auto px-6 py-3">
+    <nav aria-label="Breadcrumb" class="text-xs text-white/40 flex items-center gap-2">
+      <a href="/es/" class="hover:text-[#1FA2FF] transition">Inicio</a>
+      <span>/</span>
+      <span class="text-white/60">Nuestra Firma</span>
+    </nav>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="relative pt-12 pb-28 px-6 text-center grid-bg overflow-hidden"
+         style="background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(31,162,255,0.15) 0%, transparent 70%), linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);"
+         aria-label="Nuestra Firma">
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl opacity-[0.06] pointer-events-none" style="background:#1FA2FF;"></div>
+
+  <div class="relative max-w-4xl mx-auto">
+
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] animate-pulse inline-block"></span>
+      Medellín, Colombia · Laboratorio de Arquitectura IA Empresarial
+    </div>
+
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight fade-up d2">
+      Una firma estratégica.<br>
+      No un <span class="text-[#1FA2FF]">proveedor técnico.</span>
+    </h1>
+
+    <p class="text-[#C7C9D3] text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed fade-up d3">
+      KRONIX Labs nace con una visión clara: la IA empresarial no es una herramienta aislada — es arquitectura estructural. Somos el laboratorio que diseña los sistemas que permiten a las empresas escalar con precisión, eficiencia y control real.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d4">
+      <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Hero_Firm_ES'});"
+         class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-lg font-semibold hover:opacity-90 transition">
+        Agendar Diagnóstico Estratégico
+      </a>
+      <a href="/es/framework/arquitectura-empresarial-ia.html"
+         class="border border-white/25 px-10 py-4 rounded-lg font-semibold hover:border-[#1FA2FF]/60 hover:text-[#1FA2FF] transition">
+        Ver nuestro Framework →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ESENCIA — Propósito, Misión, Visión
+     ============================================================ -->
+<section class="py-24 bg-black px-6" aria-labelledby="esencia-titulo">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-16">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Nuestra esencia</p>
+      <h2 id="esencia-titulo" class="text-3xl md:text-4xl font-bold">
+        Lo que nos <span class="text-[#1FA2FF]">define</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="value-card text-center">
+        <div class="text-3xl mb-5">🎯</div>
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-3">Propósito</p>
+        <h3 class="text-white font-bold text-lg mb-4">Por qué existimos</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">
+          Construir sistemas inteligentes que permitan a las empresas escalar con precisión, eficiencia y control. No vendemos herramientas — diseñamos la arquitectura que hace posible el crecimiento real.
+        </p>
+      </div>
+
+      <div class="value-card text-center" style="border-color: rgba(31,162,255,0.2); background: rgba(31,162,255,0.04);">
+        <div class="text-3xl mb-5">⚙️</div>
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-3">Misión</p>
+        <h3 class="text-white font-bold text-lg mb-4">Qué hacemos</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">
+          Diseñar, desarrollar e implementar arquitecturas de IA aplicada que optimicen operaciones reales de negocio. Cada proyecto es un sistema documentado, gobernado y listo para escalar.
+        </p>
+      </div>
+
+      <div class="value-card text-center">
+        <div class="text-3xl mb-5">🚀</div>
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-3">Visión</p>
+        <h3 class="text-white font-bold text-lg mb-4">A dónde vamos</h3>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed">
+          Convertirnos en el laboratorio latinoamericano líder en sistemas de automatización empresarial con IA aplicada. La referencia regional en arquitectura inteligente estructurada.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     POSICIONAMIENTO — No somos vs Sí somos
+     ============================================================ -->
+<section class="py-24 px-6 grid-bg" style="background-color:#0B0F2B;" aria-labelledby="posicionamiento-titulo">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Posicionamiento estratégico</p>
+      <h2 id="posicionamiento-titulo" class="text-3xl md:text-4xl font-bold">
+        Dónde <span class="text-[#1FA2FF]">vivimos</span> y dónde no competimos
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+
+      <div class="no-somos">
+        <p class="text-white/40 text-xs font-semibold uppercase tracking-widest mb-5">KRONIX Labs no compite en</p>
+        <ul class="space-y-4 text-[#C7C9D3] text-sm">
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>Freelancers de bots y automatizaciones básicas</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>Soluciones genéricas sin estrategia empresarial</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>Implementaciones de herramientas sin arquitectura</li>
+          <li class="flex items-start gap-3"><span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✗</span>Promesas tecnológicas sin resultados medibles</li>
+        </ul>
+      </div>
+
+      <div class="si-somos">
+        <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-5">KRONIX Labs vive en la intersección de</p>
+        <ul class="space-y-4 text-white text-sm">
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5">✓</span>Inteligencia Artificial aplicada a negocio real</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5">✓</span>Arquitectura de procesos estructurada</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5">✓</span>Automatización empresarial gobernada</li>
+          <li class="flex items-start gap-3"><span class="text-[#1FA2FF] font-bold flex-shrink-0 mt-0.5">✓</span>Transformación digital con control ejecutivo</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Declaración de posicionamiento -->
+    <div class="border border-[#1FA2FF]/20 rounded-2xl p-8 bg-[#1FA2FF]/5 text-center">
+      <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-4">Declaración de posicionamiento</p>
+      <p class="text-white text-lg leading-relaxed max-w-3xl mx-auto">
+        Para empresas que necesitan escalar sin perder control, <strong>KRONIX Labs</strong> diseña arquitecturas de automatización con IA que convierten procesos operativos en sistemas inteligentes, medibles y optimizados.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ADN DE MARCA — Arquetipo + Personalidad
+     ============================================================ -->
+<section class="py-24 bg-[#070A1E] px-6" aria-labelledby="adn-titulo">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-16">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">ADN de marca</p>
+      <h2 id="adn-titulo" class="text-3xl md:text-4xl font-bold">
+        Cómo <span class="text-[#1FA2FF]">pensamos y actuamos</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12">
+
+      <!-- Arquetipos -->
+      <div>
+        <h3 class="text-white font-bold text-xl mb-6">Nuestros arquetipos</h3>
+        <div class="space-y-4">
+
+          <div class="adn-item">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-lg">⚡</div>
+            <div>
+              <p class="text-white font-semibold mb-1">El Arquitecto — Principal</p>
+              <p class="text-[#C7C9D3] text-sm">Diseña sistemas. Piensa en estructuras. Optimiza procesos. Construye soluciones duraderas que no dependen de improvización.</p>
             </div>
-            <div class="border-t border-blue-500 border-opacity-20 pt-8">
-                <p class="text-center text-xs text-gray-500">© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</p>
+          </div>
+
+          <div class="adn-item">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/40 flex items-center justify-center text-lg">🔬</div>
+            <div>
+              <p class="text-white font-semibold mb-1">El Innovador — Secundario</p>
+              <p class="text-[#C7C9D3] text-sm">Experimenta. Itera. Mejora continuamente. Aplica tecnología emergente con criterio estratégico, no por moda.</p>
             </div>
+          </div>
+
         </div>
-    </footer>
+      </div>
 
-    <script>
-        const updateScrollProgress = () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / scrollHeight) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + '%';
-        };
-        window.addEventListener('scroll', updateScrollProgress);
+      <!-- Personalidad -->
+      <div>
+        <h3 class="text-white font-bold text-xl mb-6">Nuestra personalidad</h3>
+        <div class="grid grid-cols-2 gap-3">
 
-        const observeFadeUp = () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fadeUp').forEach(el => observer.observe(el));
-        };
-        observeFadeUp();
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">📐</span>
+            <p class="text-white font-semibold text-sm">Preciso</p>
+          </div>
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">♟️</span>
+            <p class="text-white font-semibold text-sm">Estratégico</p>
+          </div>
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">⚙️</span>
+            <p class="text-white font-semibold text-sm">Técnico</p>
+          </div>
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">◻️</span>
+            <p class="text-white font-semibold text-sm">Minimalista</p>
+          </div>
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">💎</span>
+            <p class="text-white font-semibold text-sm">Sofisticado</p>
+          </div>
+          <div class="adn-item flex-col gap-2 text-center" style="align-items:center;">
+            <span class="text-[#1FA2FF] text-2xl">📈</span>
+            <p class="text-white font-semibold text-sm">Orientado a resultados</p>
+          </div>
 
-        function handleForm(e) {
-            e.preventDefault();
-            alert('Gracias por tu interés. Nos contactaremos pronto.');
-            e.target.reset();
-        }
-    </script>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ARQUITECTURA DE SERVICIOS
+     ============================================================ -->
+<section class="py-24 bg-black px-6" aria-labelledby="servicios-titulo">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Lo que hacemos</p>
+      <h2 id="servicios-titulo" class="text-3xl md:text-4xl font-bold">
+        Arquitectura de <span class="text-[#1FA2FF]">servicios</span>
+      </h2>
+      <p class="text-[#C7C9D3] max-w-2xl mx-auto mt-4">
+        Cuatro líneas de capacidad diseñadas para articularse. No son productos aislados — son capas de un mismo sistema empresarial inteligente.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="value-card group block">
+        <div class="flex items-start gap-4">
+          <div class="text-2xl flex-shrink-0">⚙️</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Línea 1</p>
+            <h3 class="text-white font-semibold text-base mb-2 group-hover:text-[#1FA2FF] transition">AI Systems Architecture</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed">Diseño integral de sistemas inteligentes empresariales con capas de datos, agentes, procesos y gobernanza.</p>
+          </div>
+        </div>
+      </a>
+
+      <div class="value-card">
+        <div class="flex items-start gap-4">
+          <div class="text-2xl flex-shrink-0">🤖</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Línea 2</p>
+            <h3 class="text-white font-semibold text-base mb-2">Intelligent Automation</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed">Automatización avanzada con validación humana estratégica y control de flujos de negocio.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="flex items-start gap-4">
+          <div class="text-2xl flex-shrink-0">🎯</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Línea 3</p>
+            <h3 class="text-white font-semibold text-base mb-2">Executive AI Consulting</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed">Consultoría estratégica en implementación de IA y rediseño de procesos alineada con objetivos ejecutivos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="value-card">
+        <div class="flex items-start gap-4">
+          <div class="text-2xl flex-shrink-0">📊</div>
+          <div>
+            <p class="text-[#1FA2FF] text-xs font-semibold uppercase tracking-widest mb-1">Línea 4</p>
+            <h3 class="text-white font-semibold text-base mb-2">Data & Control Dashboards</h3>
+            <p class="text-[#C7C9D3] text-sm leading-relaxed">Tableros inteligentes y reportería en tiempo real con visibilidad total de operaciones y alertas críticas.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MANIFIESTO
+     ============================================================ -->
+<section class="py-24 px-6 grid-bg" style="background-color:#0B0F2B;" aria-label="Manifiesto KRONIX">
+  <div class="max-w-4xl mx-auto text-center">
+
+    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-8">Manifiesto KRONIX</p>
+
+    <div class="space-y-4 text-xl md:text-2xl font-semibold leading-relaxed">
+      <p class="text-white/50">Las empresas no necesitan más herramientas.</p>
+      <p class="text-white">Necesitan <span class="text-[#1FA2FF]">sistemas.</span></p>
+      <p class="text-white/50 mt-4">No necesitan más bots.</p>
+      <p class="text-white">Necesitan <span class="text-[#1FA2FF]">arquitectura.</span></p>
+      <p class="text-white/50 mt-4">No necesitan promesas tecnológicas.</p>
+      <p class="text-white">Necesitan <span class="text-[#1FA2FF]">resultados medibles.</span></p>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10">
+      <p class="text-white text-lg font-semibold mb-2">KRONIX Labs diseña inteligencia aplicada.</p>
+      <p class="text-[#1FA2FF] font-semibold">Diseña control. Diseña escalabilidad.</p>
+      <p class="text-[#C7C9D3]/50 text-sm mt-4">— KRONIX Labs by jurion</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     EXPANSIÓN FUTURA — Submarcas
+     ============================================================ -->
+<section class="py-20 bg-[#070A1E] px-6" aria-labelledby="expansion-titulo">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-12">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Visión de expansión</p>
+      <h2 id="expansion-titulo" class="text-2xl md:text-3xl font-bold">
+        El ecosistema <span class="text-[#1FA2FF]">KRONIX</span>
+      </h2>
+      <p class="text-[#C7C9D3] max-w-2xl mx-auto mt-4 text-sm">
+        KRONIX Labs es la firma principal. A partir de ella, estamos construyendo un ecosistema de soluciones especializadas para diferentes verticales empresariales.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4">
+
+      <div class="border border-white/8 rounded-xl p-5 bg-white/2 text-center">
+        <p class="text-[#1FA2FF] font-bold text-sm mb-2">KRONIX Ops</p>
+        <p class="text-[#C7C9D3] text-xs leading-relaxed">Sistemas operativos empresariales</p>
+      </div>
+
+      <div class="border border-white/8 rounded-xl p-5 bg-white/2 text-center">
+        <p class="text-[#1FA2FF] font-bold text-sm mb-2">KRONIX Data</p>
+        <p class="text-[#C7C9D3] text-xs leading-relaxed">Analítica avanzada y control</p>
+      </div>
+
+      <div class="border border-white/8 rounded-xl p-5 bg-white/2 text-center">
+        <p class="text-[#1FA2FF] font-bold text-sm mb-2">KRONIX Commerce</p>
+        <p class="text-[#C7C9D3] text-xs leading-relaxed">Automatización comercial</p>
+      </div>
+
+      <div class="border border-white/8 rounded-xl p-5 bg-white/2 text-center">
+        <p class="text-[#1FA2FF] font-bold text-sm mb-2">KRONIX AI Agents</p>
+        <p class="text-[#C7C9D3] text-xs leading-relaxed">Sistemas conversacionales inteligentes</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA FINAL
+     ============================================================ -->
+<section class="py-24 px-6 grid-bg" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);" aria-label="Llamado a la acción">
+  <div class="max-w-3xl mx-auto text-center">
+
+    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Hablemos</p>
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+      ¿Su empresa necesita <span class="text-[#1FA2FF]">arquitectura, no herramientas</span>?
+    </h2>
+    <p class="text-[#C7C9D3] text-lg mb-10 leading-relaxed">
+      En 45 minutos realizamos un diagnóstico estratégico sin compromiso. Identificamos el mayor punto de palanca para su organización y qué tipo de arquitectura requiere.
+    </p>
+
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+       target="_blank" rel="noopener noreferrer"
+       onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Bottom_Firm_ES'});"
+       class="btn-glow inline-block bg-[#1FA2FF] text-white px-12 py-5 rounded-lg font-semibold text-lg hover:opacity-90 transition">
+      Agendar Diagnóstico Estratégico →
+    </a>
+
+    <p class="text-[#C7C9D3]/50 text-xs mt-5">Respondemos en menos de 2 horas · Lunes a Viernes</p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="border-t border-white/5 bg-black py-16 text-sm text-[#C7C9D3]" aria-label="Pie de página">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+    <div>
+      <img src="../../Kronix-Labs.svg" alt="KRONIX Labs" class="h-8 mb-4" width="120" height="32">
+      <p class="leading-relaxed text-[#C7C9D3]/80 mb-4">
+        Firma estratégica especializada en Arquitectura Empresarial con IA, diseño de sistemas inteligentes y automatización estructurada.
+      </p>
+      <p class="text-[#C7C9D3]/40 text-xs">Engineering Intelligent Growth</p>
+    </div>
+    
+ <!-- Servicios -->
+    <div>
+  <h4 class="text-white font-semibold mb-5">Servicios</h4>
+  <ul class="space-y-3">
+    <li><a href="../consultoria/arquitectura-ia-empresarial.html" class="hover:text-[#1FA2FF] transition">Arquitectura Empresarial en IA</a></li>
+    <li><a href="../framework/arquitectura-empresarial-ia.html" class="hover:text-[#1FA2FF] transition">Kronix EAA Framework™</a></li>
+    <li><a href="../industries/distribucion.html" class="hover:text-[#1FA2FF] transition">Soluciones para Distribución</a></li>
+    <li><a href="../case-study/sistema-multisede-ia.html" class="hover:text-[#1FA2FF] transition">Case Study Multisede</a></li>
+  </ul>
+</div>
+
+    <div>
+      <h4 class="text-white font-semibold mb-5">Firma</h4>
+      <ul class="space-y-3">
+        <li><a href="/es/firm/consultora-estrategica-ia.html" class="text-[#1FA2FF]">Nuestra Firma</a></li>
+        <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:text-[#1FA2FF] transition">Metodología</a></li>
+        <li>
+          <a href="https://wa.me/573107397053?text=Hola%20KRONIX,%20quiero%20agendar%20un%20diagnóstico%20estratégico."
+             target="_blank" rel="noopener noreferrer"
+             onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_ES'});"
+             class="hover:text-[#1FA2FF] transition">Agendar Diagnóstico</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-white font-semibold mb-5">Contacto</h4>
+      <p class="mb-3">Medellín, Antioquia<br>Colombia — LATAM</p>
+      <a href="https://wa.me/573107397053"
+         target="_blank" rel="noopener noreferrer"
+         onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_WA_ES'});"
+         class="hover:text-[#1FA2FF] transition block mb-2">WhatsApp: +57 310 739 7053</a>
+      <div class="mt-4">
+        <a href="/en/firm/strategic-ai-consultancy.html" hreflang="en" rel="alternate" class="text-xs text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition">English version →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="border-t border-white/5 mt-12 pt-8 max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/30">
+    <span>© 2026 KRONIX Labs by jurion — Arquitectura Empresarial en IA</span>
+    <span>Laboratorio de Sistemas Inteligentes · Medellín, Colombia</span>
+  </div>
+</footer>
+
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+  
+<!-- =========================================
+    ✅ KRONIX ENTERPRISE WHATSAPP SYSTEM v2
+     ========================================= -->
+
+<style>
+.kx-wa-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  background: #1FA2FF;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 10px 40px rgba(31,162,255,0.45);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  isolation: isolate;
+}
+
+.kx-wa-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kx-wa-panel {
+  position: fixed;
+  bottom: 95px;
+  right: 28px;
+  width: 340px;
+  background: #070A1E;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  z-index: 10000;
+  display: none;
+  box-shadow: 0 15px 60px rgba(0,0,0,0.55);
+}
+
+.kx-wa-panel h4 {
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.kx-wa-panel select,
+.kx-wa-panel button {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 11px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.kx-wa-panel select {
+  background: #0B0F2B;
+  color: #C7C9D3;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.kx-wa-panel button {
+  background: #1FA2FF;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+<div id="kx-wa-btn" class="kx-wa-btn">
+  <span id="kx-wa-text"></span>
+</div>
+
+<div id="kx-wa-panel" class="kx-wa-panel">
+  <h4 id="kx-wa-title"></h4>
+
+  <select id="kx-sector"></select>
+  <select id="kx-size"></select>
+
+  <button id="kx-submit"></button>
+</div>
+
+<script>
+(function(){
+
+const phone = "573107397053";
+const path = window.location.pathname;
+const isEN = path.includes("/en/");
+
+const btn = document.getElementById("kx-wa-btn");
+const panel = document.getElementById("kx-wa-panel");
+const submit = document.getElementById("kx-submit");
+const sector = document.getElementById("kx-sector");
+const size = document.getElementById("kx-size");
+const text = document.getElementById("kx-wa-text");
+const title = document.getElementById("kx-wa-title");
+
+/* CONTENIDO DINÁMICO POR IDIOMA */
+const content = isEN ? {
+  button: "Schedule Diagnosis",
+  title: "Before we connect…",
+  sectorPlaceholder: "Select sector",
+  sizePlaceholder: "Company size",
+  sectors: ["Distribution","Manufacturing","Financial Services","Technology","Healthcare","Other"],
+  sizes: ["1–10 employees","11–50 employees","51–200 employees","200+ employees"],
+  submit: "Continue to WhatsApp",
+  alert: "Please select sector and company size.",
+  message: (s,z)=>`Hello KRONIX, I am interested in Enterprise AI Architecture.
+
+Sector: ${s}
+Company Size: ${z}
+
+I would like to schedule a strategic diagnosis.`
+}
+:
+{
+  button: "Agendar Diagnóstico",
+  title: "Antes de conectarnos…",
+  sectorPlaceholder: "Selecciona sector",
+  sizePlaceholder: "Tamaño de empresa",
+  sectors: ["Distribución","Manufactura","Servicios Financieros","Tecnología","Salud","Otro"],
+  sizes: ["1–10 empleados","11–50 empleados","51–200 empleados","Más de 200 empleados"],
+  submit: "Continuar a WhatsApp",
+  alert: "Selecciona sector y tamaño de empresa.",
+  message: (s,z)=>`Hola KRONIX, estoy interesado en Arquitectura Empresarial con IA.
+
+Sector: ${s}
+Tamaño Empresa: ${z}
+
+Me gustaría agendar un diagnóstico estratégico.`
+};
+
+/* Inyectar texto */
+text.innerText = content.button;
+title.innerText = content.title;
+submit.innerText = content.submit;
+
+/* Cargar selects */
+sector.innerHTML = `<option value="">${content.sectorPlaceholder}</option>`;
+content.sectors.forEach(s=>{
+  sector.innerHTML += `<option>${s}</option>`;
+});
+
+size.innerHTML = `<option value="">${content.sizePlaceholder}</option>`;
+content.sizes.forEach(s=>{
+  size.innerHTML += `<option>${s}</option>`;
+});
+
+/* Mostrar botón */
+setTimeout(()=>btn.classList.add("show"),1500);
+
+/* Toggle panel */
+btn.addEventListener("click",()=> {
+  panel.style.display = panel.style.display==="block"?"none":"block";
+});
+
+/* Enviar */
+submit.addEventListener("click",()=>{
+  if(!sector.value || !size.value){
+    alert(content.alert);
+    return;
+  }
+
+  const url = "https://wa.me/"+phone+"?text="+
+              encodeURIComponent(content.message(sector.value,size.value));
+
+  if(typeof gtag!=="undefined"){
+    gtag("event","click_whatsapp_prequalified",{
+      event_category:"CTA",
+      event_label:isEN?"PreQualified_EN":"PreQualified_ES"
+    });
+  }
+
+  window.open(url,"_blank");
+  panel.style.display="none";
+});
+
+})();
+</script>
+  
 </body>
 </html>
