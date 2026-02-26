@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Root — Language Router -->
+  <url>
+    <loc>https://kronixlabs.github.io/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/"/>
+  </url>
+
+  <!-- ES — Home -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/"/>
+  </url>
+
+  <!-- ES — Consultoría -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html"/>
+  </url>
+
+  <!-- ES — Framework -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html"/>
+  </url>
+
+  <!-- ES — Industrias: Distribución -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/industries/distribucion.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/industries/distribucion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html"/>
+  </url>
+
+  <!-- ES — Firma -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html"/>
+  </url>
+
+  <!-- ES — Case Study -->
+  <url>
+    <loc>https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html"/>
+  </url>
+
+  <!-- EN — Home -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/"/>
+  </url>
+
+  <!-- EN — Consulting -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- EN — Framework -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- EN — Industries: Distribution -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/industries/distribution.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- EN — Firm -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- EN — Case Study -->
+  <url>
+    <loc>https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+</urlset>
