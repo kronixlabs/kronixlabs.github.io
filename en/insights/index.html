@@ -1,334 +1,932 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insights | Strategic Knowledge Center | KRONIX Labs</title>
-    <meta name="description" content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM.">
-    <link rel="canonical" href="https://kronixlabs.github.io/en/insights/">
-    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-T41H03C7CH', {'page_title': 'Insights EN'});
-    </script>
-    <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights/">
-    <link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights/">
-    <style>
-        :root {
-            --blue: #1FA2FF;
-            --dark: #0B0F2B;
-            --deep: #070A1E;
-            --gray: #C7C9D3;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ================================================================
+     PRIMARY SEO
+================================================================ -->
+<title>Insights | Strategic Knowledge Center | KRONIX Labs</title>
+<meta name="description" content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos.">
+<meta name="keywords" content="AI insights LATAM, enterprise AI strategy, operational burnout, scale without hiring, AI governance Colombia, data sovereignty, KRONIX Labs insights">
+<meta name="author" content="KRONIX Labs">
+<meta name="publisher" content="KRONIX Labs">
+<meta name="copyright" content="KRONIX Labs, 2026">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="theme-color" content="#1FA2FF">
+<meta name="rating" content="general">
+<!-- GEO -->
+<meta name="geo.region" content="CO-ANT">
+<meta name="geo.placename" content="Medellín, Antioquia, Colombia">
+<meta name="geo.position" content="6.2442;-75.5812">
+<meta name="ICBM" content="6.2442, -75.5812">
+<meta name="language" content="English">
+<meta name="coverage" content="Worldwide">
+<meta name="distribution" content="Global">
+<!-- CANONICAL + HREFLANG -->
+<link rel="canonical" href="https://kronixlabs.github.io/en/insights.html">
+<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights.html">
+<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights.html">
+<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
+<!-- OPEN GRAPH -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KRONIX Labs">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_CO">
+<meta property="og:title" content="Insights | Strategic Knowledge Center | KRONIX Labs">
+<meta property="og:description" content="Operational and strategic intelligence for leaders who want to grow without chaos. No hype. No unnecessary jargon.">
+<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KRONIX Labs — Strategic Knowledge Center">
+<meta property="og:url" content="https://kronixlabs.github.io/en/insights.html">
+<!-- TWITTER CARD -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@kronixlabs">
+<meta name="twitter:title" content="KRONIX Labs Insights — Strategic Knowledge for CEOs">
+<meta name="twitter:description" content="Strategic articles on AI infrastructure, governance, scalability and data sovereignty in LATAM.">
+<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="../Kronix-Labs.svg">
+<link rel="apple-touch-icon" href="../Kronix-Labs.svg">
+<link rel="shortcut icon" href="../Kronix-Labs.svg">
+<!-- PERFORMANCE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- GOOGLE ANALYTICS 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T41H03C7CH', {
+    page_title: 'Insights EN',
+    page_location: window.location.href
+  });
+  let scrollMilestones = {25:false,50:false,75:false,90:false};
+  window.addEventListener('scroll', function() {
+    let pct = Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    for (let m in scrollMilestones) {
+      if (pct>=m && !scrollMilestones[m]) {
+        scrollMilestones[m]=true;
+        gtag('event','scroll_depth',{event_category:'Engagement',event_label:m+'%',value:parseInt(m)});
+      }
+    }
+  },{passive:true});
+  let startTime = Date.now();
+  window.addEventListener('beforeunload',function(){gtag('event','time_on_page',{event_category:'Engagement',value:Math.round((Date.now()-startTime)/1000)});});
+</script>
+<!-- SCHEMA JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://kronixlabs.github.io/#organization",
+      "name": "KRONIX Labs",
+      "url": "https://kronixlabs.github.io/",
+      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.github.io/Kronix-Labs.svg" },
+      "description": "Enterprise AI Infrastructure Architecture Firm for LATAM companies.",
+      "address": { "@type": "PostalAddress", "addressLocality": "Medellín", "addressRegion": "Antioquia", "addressCountry": "CO" }
+    },
+    {
+      "@type": "Blog",
+      "name": "KRONIX Labs Insights — Strategic Knowledge Center",
+      "description": "Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM.",
+      "url": "https://kronixlabs.github.io/en/insights.html",
+      "publisher": { "@id": "https://kronixlabs.github.io/#organization" },
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
+<!-- TAILWIND CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          kronixBlue: '#1FA2FF',
+          kronixDark: '#0B0F2B',
+          kronixDeep: '#070A1E',
+          kronixGray: '#C7C9D3'
+        },
+        fontFamily: {
+          sans: ['Montserrat','system-ui','sans-serif']
         }
-        body { font-family: 'Montserrat', sans-serif; color: #fff; }
-    </style>
+      }
+    }
+  }
+</script>
+<style>
+/* ── Variables ── */
+:root {
+  --blue:#1FA2FF;
+  --dark:#0B0F2B;
+  --deep:#070A1E;
+  --gray:#C7C9D3;
+}
+body {
+  background:#0B0F2B;
+  color:#fff;
+  font-family:'Montserrat',system-ui,sans-serif;
+  overflow-x:hidden;
+}
+/* ── Grid background ── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(31,162,255,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+/* ── Animations ── */
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pulseGlow {
+  0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)}
+  50%{box-shadow:0 0 0 14px rgba(31,162,255,0)}
+}
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.7)}
+}
+.fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
+.d1{animation-delay:.1s}
+.d2{animation-delay:.25s}
+.d3{animation-delay:.4s}
+.d4{animation-delay:.55s}
+.d5{animation-delay:.7s}
+.btn-glow { animation:pulseGlow 2.8s ease-in-out infinite; }
+
+/* ── Cards ── */
+.cap-card {
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;
+  padding:2rem;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  background:rgba(255,255,255,.02);
+}
+.cap-card:hover {
+  border-color:rgba(31,162,255,.4);
+  transform:translateY(-5px);
+  box-shadow:0 20px 60px rgba(31,162,255,.08);
+}
+
+/* ── Form inputs ── */
+.form-input {
+  width:100%;
+  padding:.875rem 1rem;
+  border-radius:10px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:#fff;
+  font-family:inherit;
+  font-size:.875rem;
+  transition:border-color .2s,background .2s;
+  outline:none;
+}
+.form-input:focus {
+  border-color:rgba(31,162,255,.6);
+  background:rgba(31,162,255,.06);
+}
+.form-input::placeholder { color:rgba(255,255,255,.35); }
+
+/* ── Custom Select ── */
+.select-wrapper { position:relative; width:100%; }
+.select-wrapper::after {
+  content:'';position:absolute;right:14px;top:50%;
+  transform:translateY(-50%);width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:6px solid #1FA2FF;pointer-events:none;transition:border-top-color .2s;
+}
+.select-wrapper:focus-within::after { border-top-color:#7DD3FF; }
+.form-select {
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer;
+  padding-right:2.5rem !important;background:#070A1E !important;color:rgba(255,255,255,0.85);
+}
+.form-select:focus { border-color:rgba(31,162,255,.6);background:#070A1E !important;color:#fff; }
+.form-select option[value=""] { color:rgba(255,255,255,0.35); }
+.form-select option { background:#070A1E;color:#fff;padding:8px 12px; }
+.form-select option:hover,.form-select option:focus,.form-select option:checked { background:#1FA2FF !important;color:#fff !important; }
+@-moz-document url-prefix() {
+  .form-select { background:#070A1E !important;color:#fff; }
+  .form-select option { background:#070A1E;color:#fff; }
+}
+
+/* ── Nav ── */
+.nav-link { color:rgba(255,255,255,.75);font-size:.875rem;transition:color .2s; }
+.nav-link:hover { color:#1FA2FF; }
+.nav-link.active { color:#1FA2FF;font-weight:600; }
+#mobile-menu { display:none; }
+#mobile-menu.open { display:flex; }
+
+/* ── Scroll indicator ── */
+.scroll-indicator {
+  position:fixed;top:0;left:0;height:3px;
+  background:var(--blue);transition:width .1s;z-index:9999;width:0%;
+}
+
+/* ── Sticky CTA mobile ── */
+@media (max-width:768px) {
+  .sticky-mobile-cta {
+    position:fixed;bottom:0;left:0;right:0;
+    padding:1rem;background:rgba(11,15,43,.95);
+    border-top:1px solid rgba(31,162,255,.2);z-index:998;backdrop-filter:blur(12px);
+  }
+}
+
+/* ── WhatsApp floating ── */
+.kx-wa-btn {
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:#1FA2FF;color:#fff;padding:14px 20px;border-radius:14px;
+  font-weight:600;font-size:14px;font-family:inherit;
+  box-shadow:0 10px 40px rgba(31,162,255,.45);
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  opacity:0;transform:translateY(20px);transition:all .4s ease;border:none;
+}
+.kx-wa-btn.show { opacity:1;transform:translateY(0); }
+.kx-wa-btn:hover { transform:translateY(-3px);box-shadow:0 16px 50px rgba(31,162,255,.55); }
+.kx-wa-panel {
+  position:fixed;bottom:95px;right:28px;width:340px;
+  background:#070A1E;border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:24px;z-index:10000;display:none;
+  box-shadow:0 15px 60px rgba(0,0,0,.55);
+}
+.kx-wa-panel h4 { color:#fff;font-size:15px;margin-bottom:14px; }
+.kx-wa-panel select,.kx-wa-panel button {
+  width:100%;margin-bottom:12px;padding:11px;
+  border-radius:8px;font-size:13px;font-family:inherit;
+}
+.kx-wa-panel select { background:#0B0F2B;color:#C7C9D3;border:1px solid rgba(255,255,255,.1);appearance:none;-webkit-appearance:none; }
+.kx-wa-panel button { background:#1FA2FF;color:white;font-weight:600;border:none;cursor:pointer; }
+@media (max-width:640px) { .kx-wa-panel { right:12px;left:12px;width:auto;bottom:90px; } }
+
+/* ── Page-specific ── */
+.article-tag {
+  display:inline-block;padding:4px 12px;
+  border-radius:6px;font-size:11px;font-weight:700;
+  background:rgba(31,162,255,.12);color:#1FA2FF;
+  border:1px solid rgba(31,162,255,.25);
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.article-card {
+  background:rgba(11,15,43,.8);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px;padding:2rem;
+  transition:all .3s ease;
+  display:flex;flex-direction:column;height:100%;
+}
+.article-card:hover {
+  border-color:rgba(31,162,255,.4);
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(31,162,255,.1);
+}
+.article-card .read-more {
+  color:#1FA2FF;font-weight:600;font-size:.875rem;
+  display:inline-flex;align-items:center;gap:4px;
+  transition:gap .2s;margin-top:auto;padding-top:1rem;
+}
+.article-card:hover .read-more { gap:8px; }
+.featured-card {
+  background:linear-gradient(135deg,#0B0F2B,#070A1E);
+  border:1px solid rgba(31,162,255,.2);
+  border-radius:20px;overflow:hidden;
+  transition:all .3s ease;
+}
+.featured-card:hover {
+  border-color:rgba(31,162,255,.5);
+  box-shadow:0 30px 80px rgba(31,162,255,.12);
+  transform:translateY(-4px);
+}
+.article-detail {
+  border-bottom:1px solid rgba(31,162,255,.1);
+  padding-bottom:3.5rem;margin-bottom:3.5rem;
+}
+.article-detail:last-child { border-bottom:none; }
+.article-detail h2 { scroll-margin-top:120px; }
+.article-detail p { color:rgba(199,201,211,.8);line-height:1.8; }
+.article-detail strong { color:#fff; }
+.article-detail ul { color:rgba(199,201,211,.8);line-height:1.8; }
+.article-detail li { margin-bottom:.5rem; }
+.fade-in-on-scroll { opacity:0;transform:translateY(30px); }
+.fade-in-on-scroll.visible { animation:fadeUp .6s ease-out forwards; }
+</style>
 </head>
-<body style="background-color: #070A1E">
+<body>
+<!-- Scroll progress -->
+<div class="scroll-indicator" id="scrollIndicator"></div>
 
-
-<nav class="fixed top-0 left-0 right-0 z-50 bg-opacity-95" style="background-color: #070A1E">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/en/" class="text-white font-bold text-xl">KRONIX Labs</a>
-    <div class="hidden md:flex space-x-6">
-      <a href="/en/" class="text-gray-300 hover:text-white">Home</a>
-      <a href="/en/consulting" class="text-gray-300 hover:text-white">Consulting</a>
-      <a href="/en/framework-eaa" class="text-gray-300 hover:text-white">Framework EAA™</a>
-      <a href="/en/industries" class="text-gray-300 hover:text-white">Industries</a>
-      <a href="/en/the-firm" class="text-gray-300 hover:text-white">The Firm</a>
-      <a href="/en/insights" class="text-white border-b-2" style="border-color: #1FA2FF">Insights</a>
-    </div>
-    <a href="#solicitar" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">Request Audit</a>
-  </div>
-</nav>
-
-
-<!-- HERO SECTION -->
-<section class="pt-32 pb-20 px-6 text-center">
-    <div class="max-w-4xl mx-auto">
-        <div class="inline-block mb-4 px-4 py-2 rounded-full" style="background-color: #0B0F2B; color: #1FA2FF; font-size: 14px; font-weight: 600;">
-            Strategic Knowledge Center
-        </div>
-        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Insights for CEOs who scale</h1>
-        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Operational and strategic intelligence for leaders who want to grow without chaos. No hype. No unnecessary jargon.</p>
-    </div>
-</section>
-
-<!-- FEATURED ARTICLE -->
-<section class="max-w-7xl mx-auto px-6 mb-20">
-    <a href="/en/insights/the-success-code.html" class="block group cursor-pointer">
-        <div class="relative rounded-lg overflow-hidden" style="background: linear-gradient(135deg, #0B0F2B, #070A1E)">
-            <div class="p-12">
-                <div class="inline-block mb-4 px-3 py-1 rounded" style="background-color: #1FA2FF; color: #fff; font-size: 12px; font-weight: 700;">
-                    FOUNDATIONAL BOOK
-                </div>
-                <h2 class="text-4xl font-bold mb-4 group-hover:text-opacity-80 transition">The Success Code — The Operational Manifesto of KRONIX Labs</h2>
-                <p class="text-lg text-gray-300 mb-6">The book that originated the EAA™ Framework. An intelligent entrepreneurship system with AI designed for companies that want to scale without losing control. Written by the founder of KRONIX Labs.</p>
-                <div class="inline-block text-blue-400 font-semibold group-hover:translate-x-2 transition-transform">
-                    Read more (Spanish version only) →
-                </div>
-            </div>
-        </div>
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/en/" aria-label="KRONIX Labs — Home">
+      <img src="../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
     </a>
-</section>
-
-<!-- ARTICLE GRID -->
-<section class="max-w-7xl mx-auto px-6 mb-20">
-    <h2 class="text-3xl font-bold mb-12">Strategic Articles</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Article 1 -->
-        <a href="#burnout-operativo" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    OPERATIONS
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">Operational Burnout: Why your business can't scale without architecture</h3>
-                <p class="text-gray-300 text-sm mb-4">78% of CEOs in LATAM spend more than 60% of their time solving operational problems. This is not leadership — it's managed chaos. Discover what generates it and how to eliminate it.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
+    <nav class="hidden md:flex items-center gap-7" aria-label="Main navigation">
+      <a href="/en/" class="nav-link">Home</a>
+      <a href="/en/consulting/enterprise-ai-architecture.html" class="nav-link">AI Architecture</a>
+      <a href="/en/framework/enterprise-ai-architecture-framework.html" class="nav-link">Framework</a>
+      <a href="/en/industries/distribution.html" class="nav-link">Industries</a>
+      <a href="/en/firm/strategic-ai-consultancy.html" class="nav-link">Firm</a>
+      <a href="/en/insights.html" class="nav-link active" aria-current="page">Insights</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center">
+        <a href="/es/insights.html"
+           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'ES'});"
+           hreflang="es" rel="alternate"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+          ES
         </a>
-
-        <!-- Article 2 -->
-        <a href="#escalar-sin-contratar" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    SCALABILITY
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">Scale without hiring: The new business paradigm</h3>
-                <p class="text-gray-300 text-sm mb-4">The belief that growing requires hiring more people is the biggest constraint on business profitability in 2025. AI infrastructure breaks that paradigm.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
-        </a>
-
-        <!-- Article 3 -->
-        <a href="#gobernanza-latam" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    GOVERNANCE
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">AI Governance in LATAM: What every CEO must know</h3>
-                <p class="text-gray-300 text-sm mb-4">Colombia has Law 1581. Brazil has the LGPD. The world has AI risk frameworks. What does this mean for your company and how to protect yourself without slowing down.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
-        </a>
-
-        <!-- Article 4 -->
-        <a href="#soberania-datos" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    BUSINESS SECURITY
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">Data sovereignty: Why your data should not be in third-party hands</h3>
-                <p class="text-gray-300 text-sm mb-4">Every time your company uses a third-party tool without contractual control, you're ceding strategic assets. Understand the risk and how to mitigate it.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
-        </a>
-
-        <!-- Article 5 -->
-        <a href="#whatsapp-empresarial" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    STRATEGIC CHANNELS
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">WhatsApp as business infrastructure: Beyond the chatbot</h3>
-                <p class="text-gray-300 text-sm mb-4">WhatsApp is not a customer service channel. It's the most powerful business communication channel in LATAM. The difference lies in how it's architected.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
-        </a>
-
-        <!-- Article 6 -->
-        <a href="#ceo-cuello-botella" class="group cursor-pointer">
-            <div class="h-full p-8 rounded-lg transition-all hover:shadow-lg" style="background-color: #0B0F2B; border: 1px solid #C7C9D3; border-opacity: 0.2;">
-                <div class="mb-3 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-                    OPERATIONAL LEADERSHIP
-                </div>
-                <h3 class="text-xl font-bold mb-4 group-hover:text-opacity-80 transition">The CEO as bottleneck: How architecture liberates the founder</h3>
-                <p class="text-gray-300 text-sm mb-4">If your company can't operate without you for 2 weeks, you don't have a business — you have a job. The right AI infrastructure changes that.</p>
-                <div class="text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition-transform">Read →</div>
-            </div>
-        </a>
-
-    </div>
-</section>
-
-<!-- ARTICLE DETAIL SECTIONS -->
-<section class="max-w-4xl mx-auto px-6 mb-20">
-
-    <!-- Article 1 Detail -->
-    <article id="burnout-operativo" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            OPERATIONS
-        </div>
-        <h2 class="text-3xl font-bold mb-6">Operational Burnout: Why your business can't scale without architecture</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>Operational burnout is the silent reality of most companies in LATAM. 78% of CEOs spend more than 60% of their time solving operational problems: fighting fires, reviewing processes that should be automated, supervising tasks that don't scale.</p>
-            <p>This is not leadership. It's managed chaos.</p>
-            <p><strong>The three main causes:</strong></p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Lack of delegation structure:</strong> Without documented processes, the CEO becomes the only decision-maker. Every decision requires their participation.</li>
-                <li><strong>Absence of processes:</strong> Without clear operational flows, every task is reinvented. There's no repeatability. There's no scale.</li>
-                <li><strong>Manual operations:</strong> Companies continue doing manually what should be automated. RPA, AI, integrations — tools that reduce operational load — aren't integrated into the architecture.</li>
-            </ul>
-            <p><strong>The consequences:</strong> Stagnant profitability. Frustrated talent. Plateaued growth. The CEO and their team feel like they're working harder to achieve the same results.</p>
-            <p><strong>How the EAA™ Framework solves it:</strong> The Framework diagnoses exactly where unnecessary load exists. Then it rebuilds operational architecture so processes scale, not people. AI, in this context, is a decision and execution layer that frees the team from low-value tasks.</p>
-        </div>
-    </article>
-
-    <!-- Article 2 Detail -->
-    <article id="escalar-sin-contratar" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            SCALABILITY
-        </div>
-        <h2 class="text-3xl font-bold mb-6">Scale without hiring: The new business paradigm</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>For decades, the equation has been simple: more growth = more people. Hire a sales manager, hire two account executives, hire an analyst. The cost of growth is always labor.</p>
-            <p>That paradigm is collapsing. And with it, the profitability of companies that don't adapt.</p>
-            <p><strong>The old model vs the new:</strong></p>
-            <p>Old: Double revenue = Double team = Same margin (or worse).</p>
-            <p>New: Double revenue = Same team + Intelligent architecture = Improved margin.</p>
-            <p><strong>Three concrete examples:</strong></p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Prospecting and sales:</strong> Instead of hiring 3 account executives, an AI infrastructure integrated with CRM, LinkedIn, and lead intelligence automates prospecting and qualifies opportunities. One executive closes better-qualified deals.</li>
-                <li><strong>Customer service:</strong> Intelligent chatbots with access to knowledge base resolve 70% of inquiries. Human team handles only escalations. Same SLA, fewer people.</li>
-                <li><strong>Analytics and reporting:</strong> AI-generated automated dashboards replace the dedicated analyst who spent 4 days writing reports. Data reaches the CEO in real-time, processed.</li>
-            </ul>
-            <p><strong>The ROI is immediate:</strong> Infrastructure investment recovers in 6-9 months. After that, it's pure profitability.</p>
-        </div>
-    </article>
-
-    <!-- Article 3 Detail -->
-    <article id="gobernanza-latam" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            GOVERNANCE
-        </div>
-        <h2 class="text-3xl font-bold mb-6">AI Governance in LATAM: What every CEO must know</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>The AI governance regulatory landscape in LATAM is consolidating rapidly. Colombia has Law 1581 for data protection. Brazil has the LGPD — even stricter. Internationally, the European AI Act is setting standards that reach other regions.</p>
-            <p>For CEOs in LATAM, this means one thing: AI governance is not optional. It's operational.</p>
-            <p><strong>Four principles of AI governance that matter now:</strong></p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Transparency:</strong> Your customers have the right to know when they're interacting with AI. Documenting this is a legal requirement in many cases.</li>
-                <li><strong>Audit:</strong> How does your AI system make decisions? What are its biases? This must be regularly audited.</li>
-                <li><strong>Consent and Privacy:</strong> AI trains on data. That data must be collected and used with explicit consent.</li>
-                <li><strong>Accountability:</strong> If your AI makes an error — discriminatory recommendation, biased decision — who is responsible? The legal framework is clear: the company.</li>
-            </ul>
-            <p><strong>Why this matters for your company:</strong> Fines up to 4% of revenue (Law 1581, LGPD). Loss of reputation. Litigation. AI infrastructure without governance is a legal liability waiting to happen.</p>
-        </div>
-    </article>
-
-    <!-- Article 4 Detail -->
-    <article id="soberania-datos" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            BUSINESS SECURITY
-        </div>
-        <h2 class="text-3xl font-bold mb-6">Data sovereignty: Why your data should not be in third-party hands</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>Every SaaS tool your company uses without a data contract is a cession of strategic assets. Your customer data, your internal processes, your metrics — all on servers you don't control, with terms of service that can change at any time.</p>
-            <p>That's risk. Pure risk.</p>
-            <p><strong>What data sovereignty means:</strong> Complete control over where your data lives, who can access it, how it's processed, and when it's deleted. It's not paranoia. It's executive prudence.</p>
-            <p><strong>Three strategies to protect your data:</strong></p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>On-Premise:</strong> Your own servers, inside your office or local data center. Total control. Operational complexity. Ideal for ultra-sensitive data.</li>
-                <li><strong>Hybrid:</strong> Sensitive data on-premise. Less critical data in cloud with data residency contract. The balance between control and operability.</li>
-                <li><strong>Cloud with Guaranteed Residency:</strong> Data in cloud, but with legal guarantee that it resides in specific geography (e.g., servers in Colombia). Requires trusted providers.</li>
-            </ul>
-            <p><strong>The reality:</strong> AI infrastructure worth building requires data sovereignty. If you cede your data, you cede the value that infrastructure generates.</p>
-        </div>
-    </article>
-
-    <!-- Article 5 Detail -->
-    <article id="whatsapp-empresarial" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            STRATEGIC CHANNELS
-        </div>
-        <h2 class="text-3xl font-bold mb-6">WhatsApp as business infrastructure: Beyond the chatbot</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>In Colombia, 94% of the population is on WhatsApp. In Brazil, it's 95%. In Mexico, 94%. It's not a customer service channel. It's the most powerful communication channel in LATAM. Period.</p>
-            <p>The problem: most companies treat WhatsApp like a free chatbot. They send automated messages, respond to point queries, and draw attention.</p>
-            <p><strong>The difference between chatbot and infrastructure:</strong> A chatbot answers questions. Infrastructure executes operations. It sells, invoices, delivers, supports — all through WhatsApp, integrated with your CRM, inventory, and payment system.</p>
-            <p><strong>Four high-impact use cases:</strong></p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Consultative sales:</strong> Customer texts your account, receives personalized recommendations (based on their history), and buys without leaving WhatsApp.</li>
-                <li><strong>Onboarding:</strong> New customer enters automated welcome flow, training, and first use — all via WhatsApp, with documents, videos, and human support if needed.</li>
-                <li><strong>Intelligent notifications:</strong> Not spam. Contextual notifications: "Your order is ready. It's 2 blocks away. Press here to pick up." High conversion, low rejection.</li>
-                <li><strong>Tier 1 and 2 support:</strong> Frequent questions solved by AI. Complex escalations solved by humans. All in one thread, no platform switching.</li>
-            </ul>
-            <p><strong>The result:</strong> WhatsApp as infrastructure is the highest ROI channel in LATAM today. Low friction, high penetration, proven conversion.</p>
-        </div>
-    </article>
-
-    <!-- Article 6 Detail -->
-    <article id="ceo-cuello-botella" class="mb-20 pb-12 border-b border-gray-700">
-        <div class="mb-4 inline-block px-3 py-1 rounded text-xs font-bold" style="background-color: #070A1E; color: #1FA2FF;">
-            OPERATIONAL LEADERSHIP
-        </div>
-        <h2 class="text-3xl font-bold mb-6">The CEO as bottleneck: How architecture liberates the founder</h2>
-        <div class="text-gray-300 leading-relaxed space-y-4">
-            <p>If your company can't operate without you for two weeks, you don't have a business. You have a job. And with that job, you have a business that doesn't scale.</p>
-            <p>This is the classic symptom of the CEO bottleneck: the company depends on the founder for decisions, processes, relationships. Growth is trapped.</p>
-            <p><strong>The symptoms are unmistakable:</strong> You're called during vacation. Your team waits for your approval for routine decisions. Processes aren't documented because "it's easier if I do it." Meetings steal 60% of your day.</p>
-            <p><strong>The causes:</strong> Lack of clear operational structure. Processes that don't scale because they're tied to key people. Delegation limited by fear of losing control.</p>
-            <p><strong>Architectural liberation:</strong> The EAA™ Framework builds a "CEO Command Center" — a series of dashboards, automations, and processes that allow the CEO to manage from above, not from the trenches.</p>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Exception-based decisions:</strong> The CEO sees only what really requires their attention. Everything else is automated or delegated.</li>
-                <li><strong>Dependency-free processes:</strong> Every operation functions without the CEO. Sales, support, finance, ops — each area has its autonomous architecture.</li>
-                <li><strong>Human scalability:</strong> When revenue grows, the team doesn't grow proportionally. Infrastructure absorbs growth.</li>
-            </ul>
-            <p><strong>The result:</strong> The CEO as strategist, not as operative. The company operates. It grows. It creates value. Without the founder working 70-hour weeks.</p>
-        </div>
-    </article>
-
-</section>
-
-<!-- CTA SECTION -->
-<section class="max-w-4xl mx-auto px-6 mb-20 py-12 rounded-lg text-center" style="background-color: #0B0F2B; border: 1px solid #1FA2FF; border-opacity: 0.3;">
-    <h2 class="text-3xl font-bold mb-6">Ready to turn these insights into results?</h2>
-    <p class="text-gray-300 mb-8">The next step is a personalized Strategic Operational Audit for your company.</p>
-    <a href="#solicitar" class="inline-block px-8 py-3 rounded-lg font-bold transition-all hover:shadow-lg" style="background-color: #1FA2FF; color: #fff;">
-        Request Strategic Operational Audit →
-    </a>
-</section>
-
-
-<footer class="mt-20" style="background-color: #070A1E">
-  <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-    <div>
-      <h4 class="text-white font-bold mb-4">KRONIX Labs</h4>
-      <p class="text-gray-400 text-sm">AI infrastructure for scaling companies.</p>
-    </div>
-    <div>
-      <h4 class="text-white font-bold mb-4">Solutions</h4>
-      <ul class="text-gray-400 text-sm space-y-2">
-        <li><a href="/en/consulting" class="hover:text-white">Consulting</a></li>
-        <li><a href="/en/framework-eaa" class="hover:text-white">Framework EAA™</a></li>
-        <li><a href="/en/insights" class="hover:text-white">Insights</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-bold mb-4">Company</h4>
-      <ul class="text-gray-400 text-sm space-y-2">
-        <li><a href="/en/the-firm" class="hover:text-white">The Firm</a></li>
-        <li><a href="/en/industries" class="hover:text-white">Industries</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-bold mb-4">Contact</h4>
-      <ul class="text-gray-400 text-sm space-y-2">
-        <li><a href="mailto:admin@kronixlabs.com" class="hover:text-white">admin@kronixlabs.com</a></li>
-        <li><a href="https://wa.me/573107397053" class="hover:text-white">WhatsApp</a></li>
-      </ul>
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
+            <rect width="19" height="10" fill="#B22234"/>
+            <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
+            <rect width="8" height="5" fill="#3C3B6E"/>
+          </svg>
+          EN
+        </span>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Open menu" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </div>
-  <div class="border-t border-gray-700 text-center py-6 text-gray-500 text-sm">
-    <p>&copy; 2026 KRONIX Labs. All rights reserved.</p>
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" aria-label="Mobile menu">
+    <a href="/en/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Home</a>
+    <a href="/en/consulting/enterprise-ai-architecture.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">AI Architecture</a>
+    <a href="/en/framework/enterprise-ai-architecture-framework.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
+    <a href="/en/industries/distribution.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industries</a>
+    <a href="/en/firm/strategic-ai-consultancy.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firm</a>
+    <a href="/en/insights.html" class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5">Insights</a>
+    <a href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic."
+       target="_blank" rel="noopener noreferrer"
+       class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">Request Diagnostic →</a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     SECTION 1 — HERO
+============================================================ -->
+<section class="relative pt-36 pb-20 px-6 text-center grid-bg overflow-hidden"
+  style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);"
+  aria-label="Insights hero">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);"></div>
+  <div class="relative max-w-4xl mx-auto">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
+      Strategic Knowledge Center
+    </div>
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-[1.08] tracking-tight fade-up d2">
+      Insights for CEOs<br>
+      <span class="text-[#1FA2FF]">who scale.</span>
+    </h1>
+    <p class="text-[#C7C9D3] text-xl max-w-2xl mx-auto leading-relaxed fade-up d3">
+      Operational and strategic intelligence for leaders who want to grow without chaos. No hype. No unnecessary jargon.
+    </p>
+    <!-- Breadcrumb -->
+    <nav class="mt-8 text-sm text-[#C7C9D3]/50 fade-up d4" aria-label="Breadcrumb">
+      <a href="/en/" class="hover:text-[#1FA2FF] transition">Home</a>
+      <span class="mx-2">/</span>
+      <span class="text-[#C7C9D3]/80">Insights</span>
+    </nav>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — FEATURED ARTICLE
+============================================================ -->
+<section class="max-w-7xl mx-auto px-6 py-12" aria-label="Featured article">
+  <a href="/en/insights/the-success-code.html"
+     onclick="gtag('event','click_article',{event_category:'Insights',event_label:'FeaturedBook'});"
+     class="featured-card block group">
+    <div class="p-10 md:p-14">
+      <div class="inline-block mb-5 px-4 py-1.5 rounded-lg text-xs font-bold bg-[#1FA2FF] text-white uppercase tracking-widest">
+        Foundational Book
+      </div>
+      <h2 class="text-3xl md:text-4xl font-extrabold mb-5 transition-colors group-hover:text-[#1FA2FF]">
+        The Success Code — The Operational Manifesto of KRONIX Labs
+      </h2>
+      <p class="text-[#C7C9D3]/80 text-lg mb-8 max-w-3xl leading-relaxed">
+        The book that originated the EAA™ Framework. An intelligent entrepreneurship system with AI designed for companies that want to scale without losing control. Written by the founder of KRONIX Labs.
+      </p>
+      <div class="inline-flex items-center gap-2 text-[#1FA2FF] font-semibold group-hover:gap-4 transition-all">
+        Read more (Spanish version only)
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  </a>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — ARTICLE GRID
+============================================================ -->
+<section class="max-w-7xl mx-auto px-6 py-12" aria-labelledby="articles-title">
+  <div class="flex items-baseline justify-between mb-12">
+    <h2 id="articles-title" class="text-3xl font-bold fade-in-on-scroll">Strategic Articles</h2>
+    <span class="text-[#C7C9D3]/40 text-sm fade-in-on-scroll">6 articles</span>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- Article 1 -->
+    <a href="#burnout-operativo"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'OperationalBurnout'});"
+       class="fade-in-on-scroll article-card group">
+      <div class="article-tag mb-4">Operations</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">Operational Burnout: Why your business can't scale without architecture</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">78% of CEOs in LATAM spend more than 60% of their time solving operational problems. This is not leadership — it's managed chaos. Discover what generates it and how to eliminate it.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <!-- Article 2 -->
+    <a href="#escalar-sin-contratar"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'ScaleWithoutHiring'});"
+       class="fade-in-on-scroll article-card group" style="animation-delay:.1s">
+      <div class="article-tag mb-4">Scalability</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">Scale without hiring: The new business paradigm</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">The belief that growing requires hiring more people is the biggest constraint on business profitability in 2025. AI infrastructure breaks that paradigm.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <!-- Article 3 -->
+    <a href="#gobernanza-latam"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'GovernanceLATAM'});"
+       class="fade-in-on-scroll article-card group" style="animation-delay:.2s">
+      <div class="article-tag mb-4">Governance</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">AI Governance in LATAM: What every CEO must know</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">Colombia has Law 1581. Brazil has the LGPD. The world has AI risk frameworks. What does this mean for your company and how to protect yourself without slowing down.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <!-- Article 4 -->
+    <a href="#soberania-datos"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'DataSovereignty'});"
+       class="fade-in-on-scroll article-card group" style="animation-delay:.3s">
+      <div class="article-tag mb-4">Business Security</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">Data sovereignty: Why your data should not be in third-party hands</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">Every time your company uses a third-party tool without contractual control, you're ceding strategic assets. Understand the risk and how to mitigate it.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <!-- Article 5 -->
+    <a href="#whatsapp-empresarial"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'WhatsAppInfra'});"
+       class="fade-in-on-scroll article-card group" style="animation-delay:.4s">
+      <div class="article-tag mb-4">Strategic Channels</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">WhatsApp as business infrastructure: Beyond the chatbot</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">WhatsApp is not a customer service channel. It's the most powerful business communication channel in LATAM. The difference lies in how it's architected.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+    <!-- Article 6 -->
+    <a href="#ceo-cuello-botella"
+       onclick="gtag('event','click_article',{event_category:'Insights',event_label:'CEOBottleneck'});"
+       class="fade-in-on-scroll article-card group" style="animation-delay:.5s">
+      <div class="article-tag mb-4">Operational Leadership</div>
+      <h3 class="text-lg font-bold mb-3 leading-snug">The CEO as bottleneck: How architecture liberates the founder</h3>
+      <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">If your company can't operate without you for 2 weeks, you don't have a business — you have a job. The right AI infrastructure changes that.</p>
+      <div class="read-more">Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — ARTICLE DETAILS
+============================================================ -->
+<section class="max-w-4xl mx-auto px-6 py-16" aria-label="Article full content">
+
+  <!-- Article 1 Detail -->
+  <article id="burnout-operativo" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Operations</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">Operational Burnout: Why your business can't scale without architecture</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>Operational burnout is the silent reality of most companies in LATAM. 78% of CEOs spend more than 60% of their time solving operational problems: fighting fires, reviewing processes that should be automated, supervising tasks that don't scale.</p>
+      <p>This is not leadership. It's managed chaos.</p>
+      <p><strong>The three main causes:</strong></p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>Lack of delegation structure:</strong> Without documented processes, the CEO becomes the only decision-maker. Every decision requires their participation.</li>
+        <li><strong>Absence of processes:</strong> Without clear operational flows, every task is reinvented. There's no repeatability. There's no scale.</li>
+        <li><strong>Manual operations:</strong> Companies continue doing manually what should be automated. RPA, AI, integrations — tools that reduce operational load — aren't integrated into the architecture.</li>
+      </ul>
+      <p><strong>The consequences:</strong> Stagnant profitability. Frustrated talent. Plateaued growth. The CEO and their team feel like they're working harder to achieve the same results.</p>
+      <p><strong>How the EAA™ Framework solves it:</strong> The Framework diagnoses exactly where unnecessary load exists. Then it rebuilds operational architecture so processes scale, not people. AI, in this context, is a decision and execution layer that frees the team from low-value tasks.</p>
+    </div>
+  </article>
+
+  <!-- Article 2 Detail -->
+  <article id="escalar-sin-contratar" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Scalability</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">Scale without hiring: The new business paradigm</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>For decades, the equation has been simple: more growth = more people. Hire a sales manager, hire two account executives, hire an analyst. The cost of growth is always labor.</p>
+      <p>That paradigm is collapsing. And with it, the profitability of companies that don't adapt.</p>
+      <p><strong>The old model vs the new:</strong></p>
+      <p>Old: Double revenue = Double team = Same margin (or worse).</p>
+      <p>New: Double revenue = Same team + Intelligent architecture = Improved margin.</p>
+      <p><strong>Three concrete examples:</strong></p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>Prospecting and sales:</strong> Instead of hiring 3 account executives, an AI infrastructure integrated with CRM, LinkedIn, and lead intelligence automates prospecting and qualifies opportunities. One executive closes better-qualified deals.</li>
+        <li><strong>Customer service:</strong> Intelligent chatbots with access to knowledge base resolve 70% of inquiries. Human team handles only escalations. Same SLA, fewer people.</li>
+        <li><strong>Analytics and reporting:</strong> AI-generated automated dashboards replace the dedicated analyst who spent 4 days writing reports. Data reaches the CEO in real-time, processed.</li>
+      </ul>
+      <p><strong>The ROI is immediate:</strong> Infrastructure investment recovers in 6–9 months. After that, it's pure profitability.</p>
+    </div>
+  </article>
+
+  <!-- Article 3 Detail -->
+  <article id="gobernanza-latam" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Governance</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">AI Governance in LATAM: What every CEO must know</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>The AI governance regulatory landscape in LATAM is consolidating rapidly. Colombia has Law 1581 for data protection. Brazil has the LGPD — even stricter. Internationally, the European AI Act is setting standards that reach other regions.</p>
+      <p>For CEOs in LATAM, this means one thing: AI governance is not optional. It's operational.</p>
+      <p><strong>Four principles of AI governance that matter now:</strong></p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>Transparency:</strong> Your customers have the right to know when they're interacting with AI. Documenting this is a legal requirement in many cases.</li>
+        <li><strong>Audit:</strong> How does your AI system make decisions? What are its biases? This must be regularly audited.</li>
+        <li><strong>Consent and Privacy:</strong> AI trains on data. That data must be collected and used with explicit consent.</li>
+        <li><strong>Accountability:</strong> If your AI makes an error — discriminatory recommendation, biased decision — who is responsible? The legal framework is clear: the company.</li>
+      </ul>
+      <p><strong>Why this matters for your company:</strong> Fines up to 4% of revenue (Law 1581, LGPD). Loss of reputation. Litigation. AI infrastructure without governance is a legal liability waiting to happen.</p>
+    </div>
+  </article>
+
+  <!-- Article 4 Detail -->
+  <article id="soberania-datos" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Business Security</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">Data sovereignty: Why your data should not be in third-party hands</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>Every SaaS tool your company uses without a data contract is a cession of strategic assets. Your customer data, your internal processes, your metrics — all on servers you don't control, with terms of service that can change at any time.</p>
+      <p>That's risk. Pure risk.</p>
+      <p><strong>What data sovereignty means:</strong> Complete control over where your data lives, who can access it, how it's processed, and when it's deleted. It's not paranoia. It's executive prudence.</p>
+      <p><strong>Three strategies to protect your data:</strong></p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>On-Premise:</strong> Your own servers, inside your office or local data center. Total control. Operational complexity. Ideal for ultra-sensitive data.</li>
+        <li><strong>Hybrid:</strong> Sensitive data on-premise. Less critical data in cloud with data residency contract. The balance between control and operability.</li>
+        <li><strong>Cloud with Guaranteed Residency:</strong> Data in cloud, but with legal guarantee that it resides in specific geography (e.g., servers in Colombia). Requires trusted providers.</li>
+      </ul>
+      <p><strong>The reality:</strong> AI infrastructure worth building requires data sovereignty. If you cede your data, you cede the value that infrastructure generates.</p>
+    </div>
+  </article>
+
+  <!-- Article 5 Detail -->
+  <article id="whatsapp-empresarial" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Strategic Channels</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">WhatsApp as business infrastructure: Beyond the chatbot</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>In Colombia, 94% of the population is on WhatsApp. In Brazil, it's 95%. In Mexico, 94%. It's not a customer service channel. It's the most powerful communication channel in LATAM. Period.</p>
+      <p>The problem: most companies treat WhatsApp like a free chatbot. They send automated messages, respond to point queries, and draw attention.</p>
+      <p><strong>The difference between chatbot and infrastructure:</strong> A chatbot answers questions. Infrastructure executes operations. It sells, invoices, delivers, supports — all through WhatsApp, integrated with your CRM, inventory, and payment system.</p>
+      <p><strong>Four high-impact use cases:</strong></p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>Consultative sales:</strong> Customer texts your account, receives personalized recommendations (based on their history), and buys without leaving WhatsApp.</li>
+        <li><strong>Onboarding:</strong> New customer enters automated welcome flow, training, and first use — all via WhatsApp, with documents, videos, and human support if needed.</li>
+        <li><strong>Intelligent notifications:</strong> Not spam. Contextual notifications: "Your order is ready. It's 2 blocks away. Press here to pick up." High conversion, low rejection.</li>
+        <li><strong>Tier 1 and 2 support:</strong> Frequent questions solved by AI. Complex escalations solved by humans. All in one thread, no platform switching.</li>
+      </ul>
+      <p><strong>The result:</strong> WhatsApp as infrastructure is the highest ROI channel in LATAM today. Low friction, high penetration, proven conversion.</p>
+    </div>
+  </article>
+
+  <!-- Article 6 Detail -->
+  <article id="ceo-cuello-botella" class="article-detail fade-in-on-scroll">
+    <div class="article-tag mb-5">Operational Leadership</div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8">The CEO as bottleneck: How architecture liberates the founder</h2>
+    <div class="space-y-5 text-sm md:text-base">
+      <p>If your company can't operate without you for two weeks, you don't have a business. You have a job. And with that job, you have a business that doesn't scale.</p>
+      <p>This is the classic symptom of the CEO bottleneck: the company depends on the founder for decisions, processes, relationships. Growth is trapped.</p>
+      <p><strong>The symptoms are unmistakable:</strong> You're called during vacation. Your team waits for your approval for routine decisions. Processes aren't documented because "it's easier if I do it." Meetings steal 60% of your day.</p>
+      <p><strong>The causes:</strong> Lack of clear operational structure. Processes that don't scale because they're tied to key people. Delegation limited by fear of losing control.</p>
+      <p><strong>Architectural liberation:</strong> The EAA™ Framework builds a "CEO Command Center" — a series of dashboards, automations, and processes that allow the CEO to manage from above, not from the trenches.</p>
+      <ul class="list-disc pl-6 space-y-3">
+        <li><strong>Exception-based decisions:</strong> The CEO sees only what really requires their attention. Everything else is automated or delegated.</li>
+        <li><strong>Dependency-free processes:</strong> Every operation functions without the CEO. Sales, support, finance, ops — each area has its autonomous architecture.</li>
+        <li><strong>Human scalability:</strong> When revenue grows, the team doesn't grow proportionally. Infrastructure absorbs growth.</li>
+      </ul>
+      <p><strong>The result:</strong> The CEO as strategist, not as operative. The company operates. It grows. It creates value. Without the founder working 70-hour weeks.</p>
+    </div>
+  </article>
+
+</section>
+
+<!-- ============================================================
+     SECTION 5 — CTA
+============================================================ -->
+<section id="contact" class="py-28 px-6 relative overflow-hidden"
+  style="background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(31,162,255,0.10) 0%,transparent 70%),linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);"
+  aria-labelledby="contact-title">
+  <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
+    style="background-image:linear-gradient(rgba(31,162,255,0.1) 1px, transparent 1px),linear-gradient(90deg,rgba(31,162,255,0.1) 1px, transparent 1px);background-size:40px 40px;"></div>
+  <div class="max-w-3xl mx-auto relative">
+    <div class="text-center mb-14">
+      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">First Step</p>
+      <h2 id="contact-title" class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
+        Ready to turn these insights<br><span class="text-[#1FA2FF]">into results?</span>
+      </h2>
+      <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">
+        45 minutes. No commitment. You'll walk away knowing exactly where your operation is losing money and what architecture fixes it.
+      </p>
+    </div>
+
+    <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+      <div class="grid md:grid-cols-2 gap-5">
+        <div>
+          <label for="name" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Full Name *</label>
+          <input id="name" name="name" type="text" required placeholder="Your name" class="form-input" autocomplete="name">
+        </div>
+        <div>
+          <label for="company" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Company *</label>
+          <input id="company" name="company" type="text" required placeholder="Your company" class="form-input" autocomplete="organization">
+        </div>
+      </div>
+      <div>
+        <label for="email" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Email *</label>
+        <input id="email" name="email" type="email" required placeholder="your@company.com" class="form-input" autocomplete="email">
+      </div>
+      <div>
+        <label for="whatsapp" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">WhatsApp (with country code) *</label>
+        <input id="whatsapp" name="whatsapp" type="tel" required placeholder="+1 555 000 0000" class="form-input" autocomplete="tel">
+      </div>
+      <div>
+        <label for="employees" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Number of Employees *</label>
+        <div class="select-wrapper">
+          <select id="employees" name="employees" required class="form-input form-select">
+            <option value="" disabled selected style="color:rgba(255,255,255,0.35)">Select company size</option>
+            <option value="1-10">1 – 10 employees</option>
+            <option value="11-50">11 – 50 employees</option>
+            <option value="51-200">51 – 200 employees</option>
+            <option value="201-500">201 – 500 employees</option>
+            <option value="500+">500+ employees</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="sector" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Industry *</label>
+        <div class="select-wrapper">
+          <select id="sector" name="sector" required class="form-input form-select">
+            <option value="" disabled selected style="color:rgba(255,255,255,0.35)">Select your industry</option>
+            <option value="distribution">Distribution &amp; Logistics</option>
+            <option value="healthcare">Healthcare &amp; Clinics</option>
+            <option value="construction">Construction &amp; Real Estate</option>
+            <option value="manufacturing">Manufacturing &amp; Industry</option>
+            <option value="services">Professional Services</option>
+            <option value="retail">Retail &amp; E-commerce</option>
+            <option value="technology">Technology</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="challenge" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Main operational challenge</label>
+        <textarea id="challenge" name="challenge" rows="3"
+          placeholder="What is the operational problem consuming most of your time right now?"
+          class="form-input" style="resize:vertical;"></textarea>
+      </div>
+      <button type="submit" id="submit-btn"
+        class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3">
+        <span id="btn-text">Request My Diagnostic</span>
+        <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg id="btn-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-width="3" stroke-linecap="round"/></svg>
+      </button>
+      <p id="form-success" class="hidden text-center text-green-400 text-sm font-semibold py-3">
+        ✓ Request received. We'll contact you via WhatsApp within 24 / 48 business hours.
+      </p>
+      <p id="form-error" class="hidden text-center text-red-400 text-sm py-3">
+        There was an error. Please write to us directly on WhatsApp.
+      </p>
+    </form>
+
+    <!-- Trust indicators -->
+    <div class="mt-12 grid grid-cols-3 gap-4 text-center">
+      <div>
+        <div class="text-[#1FA2FF] font-bold text-lg">45min</div>
+        <div class="text-xs text-[#C7C9D3]/60 mt-1">diagnostic session</div>
+      </div>
+      <div>
+        <div class="text-[#1FA2FF] font-bold text-lg">24h</div>
+        <div class="text-xs text-[#C7C9D3]/60 mt-1">response time</div>
+      </div>
+      <div>
+        <div class="text-[#1FA2FF] font-bold text-lg">No</div>
+        <div class="text-xs text-[#C7C9D3]/60 mt-1">commitment required</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="bg-[#070A1E] border-t border-white/5 py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+      <div class="md:col-span-2">
+        <a href="/en/" aria-label="KRONIX Labs">
+          <img src="../Kronix-Labs.svg" class="h-10 mb-5" alt="KRONIX Labs" width="140" height="40">
+        </a>
+        <p class="text-[#C7C9D3] text-sm leading-relaxed max-w-sm">
+          Enterprise AI Infrastructure Architecture Firm. We redesign how companies operate to generate more revenue without hiring more staff.
+        </p>
+        <p class="text-[#C7C9D3]/40 text-xs mt-4">Medellín, Antioquia, Colombia</p>
+      </div>
+      <div>
+        <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Navigation</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="/en/consulting/enterprise-ai-architecture.html" class="nav-link">AI Architecture</a></li>
+          <li><a href="/en/framework/enterprise-ai-architecture-framework.html" class="nav-link">EAA Framework</a></li>
+          <li><a href="/en/industries/distribution.html" class="nav-link">Industries</a></li>
+          <li><a href="/en/firm/strategic-ai-consultancy.html" class="nav-link">Our Firm</a></li>
+          <li><a href="/en/case-study/multi-site-ai-system.html" class="nav-link">Case Study</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Contact</div>
+        <ul class="space-y-3 text-sm">
+          <li>
+            <a href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic."
+               target="_blank" rel="noopener noreferrer" class="nav-link">
+              WhatsApp: +57 310 739 7053
+            </a>
+          </li>
+          <li>
+            <a href="mailto:hello@kronixlabs.com" class="nav-link">hello@kronixlabs.com</a>
+          </li>
+          <li>
+            <a href="/es/insights.html" hreflang="es" class="nav-link flex items-center gap-2">
+              <svg width="14" height="10" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#C60B1E"/><rect y="0.5" width="3" height="1" fill="#FFC400"/></svg>
+              Ver en Español
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-[#C7C9D3]/40 text-xs">© 2026 KRONIX Labs by jurion. All rights reserved.</p>
+      <p class="text-[#C7C9D3]/25 text-xs">Enterprise AI Infrastructure Architecture · Medellín, Colombia</p>
+    </div>
   </div>
 </footer>
 
+<!-- ============================================================
+     STICKY MOBILE CTA
+============================================================ -->
+<div class="sticky-mobile-cta md:hidden">
+  <a href="#contact"
+     onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_Insights_EN'});"
+     class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base">
+    Request Diagnostic →
+  </a>
+</div>
 
+<!-- ============================================================
+     WHATSAPP FLOATING BUTTON
+============================================================ -->
+<button class="kx-wa-btn" id="kxWaBtn" aria-label="Chat on WhatsApp" aria-expanded="false"
+  onclick="document.getElementById('kxWaPanel').style.display=document.getElementById('kxWaPanel').style.display==='block'?'none':'block';this.setAttribute('aria-expanded',document.getElementById('kxWaPanel').style.display==='block')">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.858L.057 23.57a.5.5 0 0 0 .608.655l5.939-1.547A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.669-.513-5.2-1.41l-.374-.22-3.523.917.948-3.416-.244-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  WhatsApp
+</button>
+
+<div class="kx-wa-panel" id="kxWaPanel" role="dialog" aria-label="Contact via WhatsApp">
+  <h4>Contact via WhatsApp</h4>
+  <select id="waTopicInsightsEN" aria-label="Message topic">
+    <option value="diagnostic">Request Operational Diagnostic</option>
+    <option value="info">Get more information</option>
+    <option value="pricing">Investment and pricing</option>
+    <option value="demo">Schedule a demo of EAA architecture</option>
+  </select>
+  <button onclick="sendWhatsAppInsightsEN()" aria-label="Open WhatsApp">
+    Open WhatsApp →
+  </button>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// Scroll progress
+window.addEventListener('scroll',function(){
+  let el=document.getElementById('scrollIndicator');
+  if(el){let pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;el.style.width=pct+'%';}
+},{passive:true});
+
+// Show WA button on scroll
+window.addEventListener('scroll',function(){
+  let btn=document.getElementById('kxWaBtn');
+  if(btn){if(window.scrollY>400){btn.classList.add('show');}else{btn.classList.remove('show');}}
+},{passive:true});
+
+// Mobile menu
+let menuBtn=document.getElementById('menu-btn');
+let mobileMenu=document.getElementById('mobile-menu');
+if(menuBtn&&mobileMenu){
+  menuBtn.addEventListener('click',function(){
+    mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',mobileMenu.classList.contains('open'));
+  });
+}
+
+// Tint placeholder option for selects on change
+(function(){
+  function initSelect(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    function update(){ el.style.color=el.value===''?'rgba(255,255,255,0.35)':'#ffffff'; }
+    el.addEventListener('change',update);
+    update();
+  }
+  initSelect('employees');
+  initSelect('sector');
+})();
+
+// WhatsApp sender — Insights EN
+function sendWhatsAppInsightsEN(){
+  let topic=document.getElementById('waTopicInsightsEN').value;
+  let msgs={
+    diagnostic:'Hello KRONIX, I want to request my Operational Maturity Diagnostic.',
+    info:'Hello KRONIX, I want more information about your AI infrastructure services.',
+    pricing:'Hello KRONIX, I want to know about investment options and pricing.',
+    demo:'Hello KRONIX, I would like to schedule a demo of the EAA architecture.'
+  };
+  gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_Insights_EN_'+topic});
+  window.open('https://wa.me/573107397053?text='+encodeURIComponent(msgs[topic]||msgs.info),'_blank');
+}
+
+// Form submission
+function handleFormSubmit(e){
+  e.preventDefault();
+  let btn=document.getElementById('submit-btn');
+  let btnText=document.getElementById('btn-text');
+  let btnArrow=document.getElementById('btn-arrow');
+  let btnSpinner=document.getElementById('btn-spinner');
+  let successMsg=document.getElementById('form-success');
+  btn.disabled=true;
+  btnArrow.classList.add('hidden');
+  btnSpinner.classList.remove('hidden');
+  btnText.textContent='Sending...';
+  let formData=new FormData(e.target);
+  let data={
+    name:formData.get('name'),
+    company:formData.get('company'),
+    email:formData.get('email'),
+    whatsapp:formData.get('whatsapp'),
+    employees:formData.get('employees'),
+    sector:formData.get('sector'),
+    challenge:formData.get('challenge')||'Not specified'
+  };
+  gtag('event','form_submit',{event_category:'Lead',event_label:'DiagnosticForm_Insights_EN',value:1});
+  let msg='[LEAD EN - INSIGHTS] New Diagnostic Request\n'+
+    'Name: '+data.name+'\n'+
+    'Company: '+data.company+'\n'+
+    'Email: '+data.email+'\n'+
+    'WhatsApp: '+data.whatsapp+'\n'+
+    'Employees: '+data.employees+'\n'+
+    'Industry: '+data.sector+'\n'+
+    'Challenge: '+data.challenge;
+  btn.disabled=false;
+  btnArrow.classList.remove('hidden');
+  btnSpinner.classList.add('hidden');
+  btnText.textContent='Request My Diagnostic';
+  successMsg.classList.remove('hidden');
+  e.target.reset();
+  ['employees','sector'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){ el.style.color='rgba(255,255,255,0.35)'; }
+  });
+  setTimeout(function(){
+    window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
+  },1200);
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+  anchor.addEventListener('click',function(e){
+    let target=document.querySelector(this.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+
+// Fade-in on scroll
+const observerOptions={threshold:0.1,rootMargin:'0px 0px -80px 0px'};
+const observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
+  });
+},observerOptions);
+document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){observer.observe(el);});
+</script>
 </body>
 </html>
