@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Multi-Site AI System | KRONIX Labs</title>
+    <meta name="description" content="How KRONIX Labs designed an EAA™ Infrastructure for a company with multi-site operations in Colombia, achieving +42% operational capacity without hiring more staff.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html">
+    <link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html">
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T41H03C7CH');
+    </script>
+    <style>
+        :root {
+            --blue: #1FA2FF;
+            --dark: #0B0F2B;
+            --deep: #070A1E;
+        }
+        body { font-family: 'Montserrat', sans-serif; color: #0B0F2B; }
+        .text-blue { color: var(--blue); }
+        .bg-blue { background-color: var(--blue); }
+        .bg-dark { background-color: var(--dark); }
+        .bg-deep { background-color: var(--deep); }
+        .border-blue { border-color: var(--blue); }
+        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+        .font-600 { font-weight: 600; }
+        .font-400 { font-weight: 400; }
+        .tag-casestudy { display: inline-block; background: rgba(31, 162, 255, 0.1); color: var(--blue); padding: 0.5rem 1rem; border-radius: 0.25rem; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
+        .cta-primary { background-color: var(--blue); color: white; padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 600; display: inline-block; transition: all 0.3s; text-decoration: none; }
+        .cta-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .metric-card { background: white; border: 2px solid var(--blue); padding: 2rem; border-radius: 0.5rem; text-align: center; margin-bottom: 1.5rem; }
+        .metric-value { color: var(--blue); font-weight: 700; font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .metric-label { font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+        .metric-description { font-size: 0.875rem; color: #666; font-weight: 400; }
+        .agent-box { background: var(--deep); color: white; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        .agent-name { color: var(--blue); font-weight: 700; font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .challenge-card { background: #f8f9fa; border-left: 4px solid var(--blue); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        .result-card { background: rgba(31, 162, 255, 0.1); border-left: 4px solid var(--blue); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        .layer-implementation { background: white; border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
+        nav { background: white; padding: 1rem 2rem; border-bottom: 1px solid #e5e7eb; }
+        nav a { color: #0B0F2B; text-decoration: none; font-weight: 500; margin: 0 1rem; transition: color 0.3s; }
+        nav a:hover { color: var(--blue); }
+        footer { background: var(--deep); color: white; padding: 3rem 2rem; text-align: center; }
+        .logo { font-weight: 700; font-size: 1.25rem; }
+        .logo span { color: var(--blue); }
+    </style>
+</head>
+<body>
+    <nav class="flex justify-between items-center">
+        <div class="logo">KRONIX<span>Labs</span></div>
+        <div>
+            <a href="/en/">Home</a>
+            <a href="/en/consulting/enterprise-ai-architecture.html">Consulting</a>
+            <a href="/en/framework/enterprise-ai-architecture-framework.html">EAA Framework™</a>
+            <a href="/en/industries/distribution.html">Industries</a>
+            <a href="/en/firm/strategic-ai-consultancy.html">The Firm</a>
+            <a href="/en/insights/">Insights</a>
+            <a href="#audit" class="cta-primary">Request Audit</a>
+        </div>
+    </nav>
+
+    <section class="bg-deep text-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="tag-casestudy" style="color: var(--blue); border: 1px solid var(--blue);">Case Study</div>
+            <h1 class="text-5xl font-700 mb-6">+42% Operational Capacity.</h1>
+            <h1 class="text-5xl font-700 mb-6">Without Hiring One More Person.</h1>
+            <p class="text-xl mb-8 font-400">How KRONIX Labs designed EAA™ Infrastructure for a multi-site Colombian company that needed to scale operations without scaling payroll.</p>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-700 text-center mb-12 text-dark">The Challenge</h2>
+            <div class="space-y-6">
+                <div class="challenge-card">
+                    <h3 class="text-xl font-600 text-dark mb-2">The Company</h3>
+                    <p class="font-400 text-gray-700">A distribution and services company with 3 operational locations in Colombia. Growing sales at 25% YoY, but operations couldn't scale. Each location operated independently, with manual processes duplicated across all three sites.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="text-xl font-600 text-dark mb-2">The Core Problem</h3>
+                    <p class="font-400 text-gray-700">Leadership was drowning in operational details. Order entry, customer queries, payment reconciliation, inventory coordination — all manual, all consuming 40+ hours/week from the operational team. Sales growth was stalling because the team was maxed out on execution.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="text-xl font-600 text-dark mb-2">The Limitation</h3>
+                    <p class="font-400 text-gray-700">The company couldn't hire more staff without significantly impacting margins. They needed to increase capacity without proportional cost increase. Traditional hiring would have added 4-5 more operational staff. The math didn't work.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="text-xl font-600 text-dark mb-2">The Opportunity</h3>
+                    <p class="font-400 text-gray-700">Implement EAA™ Infrastructure to automate repetitive processes, centralize coordination across locations, and free the team to focus on exceptions and strategic work. Keep the team size same, increase operational output by 3x+.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-700 text-center mb-16 text-dark">The 4 AI Agents Implemented</h2>
+
+            <div class="agent-box">
+                <div class="agent-name">AGENT 1: Order Reception & Initial Qualification</div>
+                <p class="font-400 text-lg mb-4">Connected to WhatsApp, email, and the company website. When a customer places an order through any channel, the AI agent receives it, extracts details, checks inventory across all 3 locations, confirms availability, and provides instant confirmation. Zero manual entry.</p>
+                <p class="font-600 mb-2">Impact:</p>
+                <p class="font-400">Orders processed 24/7. Processing speed: 10 seconds average (previously 15-20 minutes of manual work). 100% accuracy in order capture.</p>
+            </div>
+
+            <div class="agent-box">
+                <div class="agent-name">AGENT 2: Multi-Location Inventory Orchestration</div>
+                <p class="font-400 text-lg mb-4">Real-time view of stock across all 3 locations. When an order is placed, the agent automatically selects the optimal location for fulfillment (nearest to customer, stock availability, operational load). Automatically updates inventory in the ERP system.</p>
+                <p class="font-600 mb-2">Impact:</p>
+                <p class="font-400">-80% inventory coordination time. Eliminated overselling issues. Improved fulfillment speed by centralizing logic across locations.</p>
+            </div>
+
+            <div class="agent-box">
+                <div class="agent-name">AGENT 3: Customer Service & Inquiry Management</div>
+                <p class="font-400 text-lg mb-4">Unified customer service across all channels. Customers ask about order status, delivery timing, product details, or return procedures in WhatsApp, email, or web chat. The AI agent answers in real-time with company-specific context (policies, product information, delivery status).</p>
+                <p class="font-600 mb-2">Impact:</p>
+                <p class="font-400">-70% customer service overhead. Average response time: 2 minutes (previously 4-6 hours). 95% of inquiries resolved without human intervention.</p>
+            </div>
+
+            <div class="agent-box">
+                <div class="agent-name">AGENT 4: Order-to-Fulfillment Orchestration</div>
+                <p class="font-400 text-lg mb-4">Manages the entire order lifecycle after entry. Verifies payment, confirms fulfillment readiness, routes to the correct location, generates picking lists, coordinates delivery, sends customer notifications, and flags exceptions for human review.</p>
+                <p class="font-600 mb-2">Impact:</p>
+                <p class="font-400">-85% manual order processing. Average order-to-delivery cycle: 22 hours (previously 3-4 days with manual coordination). Fulfillment accuracy improved from 92% to 99%.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-700 text-center mb-16 text-dark">EAA™ Framework Application</h2>
+
+            <div class="layer-implementation">
+                <h3 class="text-lg font-600 text-blue mb-3">LAYER 1 — ACCESS</h3>
+                <p class="font-400 text-gray-700 mb-4">All customer touchpoints (WhatsApp, email, web, phone) funneled through a single omnichannel gateway. No customer ever waits. Instant acknowledgment and routing to the right process. 24/7 availability without staff escalation.</p>
+                <p class="text-sm text-dark font-600">Result: 100% prospect coverage, zero dropped inquiries, instant first response.</p>
+            </div>
+
+            <div class="layer-implementation">
+                <h3 class="text-lg font-600 text-blue mb-3">LAYER 2 — ORCHESTRATION</h3>
+                <p class="font-400 text-gray-700 mb-4">Business flows automated end-to-end. Order entry → inventory check → payment verification → fulfillment routing → delivery coordination → customer notification. Each step triggers automatically at the right moment, with human review only for exceptions.</p>
+                <p class="text-sm text-dark font-600">Result: 85% reduction in manual coordination. Order cycle: 22 hours vs. 3-4 days previously.</p>
+            </div>
+
+            <div class="layer-implementation">
+                <h3 class="text-lg font-600 text-blue mb-3">LAYER 3 — OPERATIONAL INTELLIGENCE</h3>
+                <p class="font-400 text-gray-700 mb-4">AI agents trained with the company's specific context: inventory policies, delivery zones, product categories, customer tiers, payment methods, special procedures. Decisions made autonomously within the company's operational rules. Zero generic responses.</p>
+                <p class="text-sm text-dark font-600">Result: 99% fulfillment accuracy. Decisions aligned 100% with company policy. No "I don't know" — only contextually intelligent answers.</p>
+            </div>
+
+            <div class="layer-implementation">
+                <h3 class="text-lg font-600 text-blue mb-3">LAYER 4 — INTEGRATION</h3>
+                <p class="font-400 text-gray-700 mb-4">All systems unified: ERP (order and inventory management) + WhatsApp Business API + email + Google Workspace + internal databases. Single source of truth. No data silos. Real-time synchronization across the company.</p>
+                <p class="text-sm text-dark font-600">Result: Complete operational visibility. Leadership sees unified metrics across all 3 locations in real-time.</p>
+            </div>
+
+            <div class="layer-implementation">
+                <h3 class="text-lg font-600 text-blue mb-3">LAYER 5 — GOVERNANCE</h3>
+                <p class="font-400 text-gray-700 mb-4">All data remains on company servers (hybrid on-premise). Complete audit trail of every AI decision. Executive dashboard shows what happened, why, and by which agent. Governance board can adjust policies anytime. Full compliance with Colombian Law 1581.</p>
+                <p class="text-sm text-dark font-600">Result: 100% data control. Leadership maintains complete oversight. Regulatory compliance guaranteed.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-700 text-center mb-16 text-dark">Results</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="metric-card">
+                    <div class="metric-value">+42%</div>
+                    <div class="metric-label">Operational Capacity Increase</div>
+                    <div class="metric-description">The company now handles 42% more orders with the same team size. Growth enabled without hiring.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">-75%</div>
+                    <div class="metric-label">Operational Time Reduction</div>
+                    <div class="metric-description">Team now spends 75% less time on repetitive, manual tasks. Focus shifted to strategic work and customer relationship building.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">22 hrs</div>
+                    <div class="metric-label">Order-to-Delivery Cycle</div>
+                    <div class="metric-description">Reduced from 3-4 days of manual coordination to 22 hours of automated orchestration. 6x faster fulfillment.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99%</div>
+                    <div class="metric-label">Fulfillment Accuracy</div>
+                    <div class="metric-description">Up from 92% previously. Automated processes eliminate human error in order processing and inventory allocation.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2 min</div>
+                    <div class="metric-label">Customer Support Response</div>
+                    <div class="metric-description">Average response time to customer inquiries dropped from 4-6 hours to 2 minutes, 24/7. 95% resolved by AI.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">+35%</div>
+                    <div class="metric-label">Team Job Satisfaction</div>
+                    <div class="metric-description">Staff now focus on problem-solving and relationship building instead of manual data entry. Engagement and retention improved.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-700 text-center mb-12 text-dark">Key Lesson</h2>
+            <div class="bg-blue bg-opacity-10 p-8 rounded-lg border-l-4 border-blue">
+                <p class="font-400 text-lg text-gray-700 mb-4">This company's problem wasn't that they lacked tools. They already had an ERP system, email, WhatsApp. The problem was that their processes were siloed, manual, and required constant human coordination.</p>
+                <p class="font-400 text-lg text-gray-700 mb-4">The solution wasn't new software. It was architectural redesign — unifying their existing systems under a coherent infrastructure where intelligent automation handles routine coordination, and humans focus on exceptions and strategy.</p>
+                <p class="font-600 text-lg text-dark">This is Enterprise AI Infrastructure: redesigning how a company works, not just adding more tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-deep text-white" id="audit">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-700 mb-4">Ready to Achieve Similar Results?</h2>
+            <p class="text-lg font-400 mb-8">Schedule your Strategic Operational Audit. Discover exactly where your operational infrastructure can enable 3x+ capacity without 3x+ hiring.</p>
+            <a href="https://wa.me/573107397053" class="cta-primary">Message us on WhatsApp →</a>
+            <p class="mt-6 text-sm font-400">Or email <a href="mailto:admin@kronixlabs.com" style="color: var(--blue);">admin@kronixlabs.com</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="mb-8">
+            <div class="logo mb-4">KRONIX<span>Labs</span></div>
+            <p class="font-400">Enterprise AI Infrastructure for LATAM</p>
+        </div>
+        <div class="flex justify-center gap-8 mb-8 text-sm">
+            <a href="/en/" style="color: white;">Home</a>
+            <a href="/en/consulting/enterprise-ai-architecture.html" style="color: white;">Consulting</a>
+            <a href="/en/framework/enterprise-ai-architecture-framework.html" style="color: white;">EAA Framework™</a>
+            <a href="/en/firm/strategic-ai-consultancy.html" style="color: white;">The Firm</a>
+        </div>
+        <p class="text-xs font-400">WhatsApp: +57 310 739 7053 | Email: admin@kronixlabs.com</p>
+    </footer>
+</body>
+</html>
