@@ -193,6 +193,21 @@ body {
   background:#070A1E;
   color:#fff;
 }
+
+/* Sticky mobile CTA */
+@media (max-width:768px) {
+  .sticky-mobile-cta {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:1rem;
+    background:rgba(11,15,43,.95);
+    border-top:1px solid rgba(31,162,255,.2);
+    z-index:998;
+    backdrop-filter:blur(12px);
+  }
+}
 </style>
 </head>
 
@@ -304,6 +319,20 @@ style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
     Comprar el libro →
   </a>
 </div>
+
+<!-- make room for WA float when sticky exists -->
+<script>
+(function(){
+  function adjustWa(){
+    var btn=document.getElementById('kxWaBtn'); if(!btn) return;
+    if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
+    else { btn.style.bottom=''; }
+  }
+  adjustWa();
+  window.addEventListener('resize',adjustWa);
+  document.addEventListener('DOMContentLoaded',adjustWa);
+})();
+</script>
 
 
 
