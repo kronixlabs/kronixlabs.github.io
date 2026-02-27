@@ -205,6 +205,9 @@ body {
     backdrop-filter:blur(12px);
   }
 }
+/* Mobile menu */
+#mobile-menu { display:none; }
+#mobile-menu.open { display:flex; }
 </style>
 </head>
 
@@ -248,16 +251,29 @@ body {
 
     </nav>
 
-    <!-- Language switch -->
-    <div class="flex items-center gap-2 text-xs">
-      <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white font-semibold">ES</span>
-      <a href="/en/insights/the-success-code.html"
-         class="px-3 py-1 rounded-full border border-white/30 text-white/70 hover:border-[#1FA2FF] hover:text-white transition">
-         EN
-      </a>
+    <!-- Language switch + hamburger -->
+    <div class="flex items-center gap-3">
+      <div class="flex gap-2 items-center text-xs">
+        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white font-semibold">ES</span>
+        <a href="/en/insights/the-success-code.html"
+           class="px-3 py-1 rounded-full border border-white/30 text-white/70 hover:border-[#1FA2FF] hover:text-white transition">
+           EN
+        </a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
 
   </div>
+  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" aria-label="Menú móvil">
+    <a href="/es/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Inicio</a>
+    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Arquitectura IA</a>
+    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
+    <a href="/es/industries/distribucion.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industrias</a>
+    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firma</a>
+    <a href="/es/insights/" class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5">Insights</a>
+  </nav>
 </header>
 
 
@@ -316,6 +332,20 @@ style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
     Comprar el libro →
   </a>
 </div>
+
+<!-- Mobile menu toggle -->
+<script>
+(function(){
+  var btn=document.getElementById('menu-btn');
+  var menu=document.getElementById('mobile-menu');
+  if(btn&&menu){
+    btn.addEventListener('click',function(){
+      menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded',menu.classList.contains('open'));
+    });
+  }
+})();
+</script>
 
 <!-- make room for WA float when sticky exists -->
 <script>
