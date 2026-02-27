@@ -728,8 +728,8 @@ body {
         <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <svg id="btn-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-width="3" stroke-linecap="round"/></svg>
       </button>
-      <p id="form-success" class="hidden text-center text-green-400 text-sm font-semibold py-3">
-        ✓ Request received. We'll contact you via WhatsApp within 24 / 48 business hours.
+        <p id="form-success" class="hidden text-center text-green-400 text-sm font-semibold py-3">
+        ✓ Request received. Expect a WhatsApp reply within 24–48 business hours with next steps.
       </p>
       <p id="form-error" class="hidden text-center text-red-400 text-sm py-3">
         There was an error. Please write to us directly on WhatsApp.
@@ -883,10 +883,10 @@ if(menuBtn&&mobileMenu){
 function sendWhatsAppFirmEN(){
   let topic=document.getElementById('waTopicFirmEN').value;
   let msgs={
-    diagnostic:'Hello KRONIX, I want to request my Operational Maturity Diagnostic.',
-    firm:'Hello KRONIX, I want to learn more about your firm and how you work.',
-    info:'Hello KRONIX, I want more information about your AI infrastructure services.',
-    pricing:'Hello KRONIX, I want to know about investment options and pricing.'
+    diagnostic:'Hello KRONIX — I would like to request the Operational Maturity Diagnostic. Please share next steps and availability.',
+    firm:'Hello KRONIX — I want to learn more about your firm and how you engage with enterprise clients. Please share a brief overview and next steps.',
+    info:'Hello KRONIX — Please send concise information about your Enterprise AI Architecture services and expected outcomes.',
+    pricing:'Hello KRONIX — Please share investment ranges and engagement models for your services.'
   };
   gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_Firm_EN_'+topic});
   window.open('https://wa.me/573107397053?text='+encodeURIComponent(msgs[topic]||msgs.info),'_blank');

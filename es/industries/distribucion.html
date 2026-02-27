@@ -259,7 +259,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     <a href="/es/industries/distribucion.html" class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5">Industrias</a>
     <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firma</a>
     <a href="/es/insights/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
-    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20para%20mi%20empresa%20de%20distribuci%C3%B3n." target="_blank" rel="noopener noreferrer" class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">Solicitar Diagnóstico →</a>
+    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20agendar%20un%20diagn%C3%B3stico%20para%20mi%20empresa%20de%20distribuci%C3%B3n.%20Por%20favor%20ind%C3%ADquenme%20pr%C3%B3ximos%20pasos%20y%20disponibilidad." target="_blank" rel="noopener noreferrer" class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">Solicitar Diagnóstico →</a>
   </nav>
 </header>
 
@@ -293,7 +293,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     </p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d4">
-      <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20estrat%C3%A9gico%20para%20mi%20empresa%20de%20distribuci%C3%B3n%20o%20manufactura."
+      <a href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20agendar%20un%20diagn%C3%B3stico%20estrat%C3%A9gico%20para%20mi%20empresa%20de%20distribuci%C3%B3n%20o%20manufactura.%20Por%20favor%20ind%C3%ADquenme%20pr%C3%B3ximos%20pasos%20y%20disponibilidad."
          target="_blank" rel="noopener noreferrer"
          onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_WA_Distribucion_ES'});"
          class="btn-glow inline-flex items-center gap-2 bg-[#1FA2FF] text-white px-10 py-5 rounded-xl font-bold text-lg hover:opacity-90 transition">
@@ -892,7 +892,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
       <div>
         <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">Contacto</div>
         <ul class="space-y-3 text-sm">
-          <li><a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20estrat%C3%A9gico." target="_blank" rel="noopener noreferrer" class="nav-link">WhatsApp: +57 310 739 7053</a></li>
+          <li><a href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20agendar%20un%20diagn%C3%B3stico%20estrat%C3%A9gico.%20Por%20favor%20ind%C3%ADquenme%20pr%C3%B3ximos%20pasos%20y%20disponibilidad." target="_blank" rel="noopener noreferrer" class="nav-link">WhatsApp: +57 310 739 7053</a></li>
           <li><a href="mailto:Admin@kronixlabs.com" class="nav-link">Admin@kronixlabs.com</a></li>
           <li><a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Nuestra Firma</a></li>
           <li><a href="/en/industries/distribution.html" hreflang="en" rel="alternate" class="nav-link flex items-center gap-2 mt-2">
@@ -979,7 +979,7 @@ function sendWhatsAppDistES(){
   let sector=document.getElementById('waSector').value;
   let tamanio=document.getElementById('waTamanio').value;
   if(!sector||!tamanio){alert('Por favor seleccione sector y tamaño de empresa.');return;}
-  let msg='Hola KRONIX, estoy interesado en Arquitectura IA Empresarial para '+sector+'.\n\nSector: '+sector+'\nTamaño de empresa: '+tamanio+'\n\nMe gustaría agendar un diagnóstico estratégico.';
+  let msg='Hola KRONIX — Estoy interesado en Arquitectura IA Empresarial para '+sector+'.\n\nSector: '+sector+'\nTamaño de empresa: '+tamanio+'\n\nPor favor indíquenme próximos pasos, disponibilidad y si requieren información adicional. Gracias.';
   gtag('event','click_whatsapp_prequalified',{event_category:'CTA',event_label:'PreQualified_Distribucion_ES_'+sector});
   window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
   document.getElementById('kxWaPanel').style.display='none';
