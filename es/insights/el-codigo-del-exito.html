@@ -108,12 +108,9 @@ tailwind.config = {
 }
 
 @media (max-width:768px) {
-  .kx-wa-btn {
-    bottom: 20px;
-    right: 16px;
-    padding: 12px 14px;
-    font-size: 13px;
-  }
+  /* match other pages: keep WA button above sticky CTA */
+  .kx-wa-btn { bottom: 90px !important; right: 12px !important; }
+  .kx-wa-panel { bottom: auto !important; top: 80px !important; }
 }
 body {
   background:#0B0F2B;
