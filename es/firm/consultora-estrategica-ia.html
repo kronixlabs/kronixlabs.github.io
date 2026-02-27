@@ -167,15 +167,15 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   .sticky-mobile-cta { position:fixed;bottom:0;left:0;right:0;padding:1rem;background:rgba(11,15,43,.95);border-top:1px solid rgba(31,162,255,.2);z-index:998;backdrop-filter:blur(12px); }
 }
 
-.kx-wa-btn { position:fixed;top:28px;right:28px;z-index:9999;bottom:auto;background:#1FA2FF;color:#fff;padding:14px 20px;border-radius:14px;font-weight:600;font-size:14px;font-family:inherit;box-shadow:0 10px 40px rgba(31,162,255,.45);display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;transform:translateY(20px);transition:all .4s ease;border:none; }
+.kx-wa-btn { position:fixed;bottom:28px;right:28px;z-index:999;top:auto;background:#1FA2FF;color:#fff;padding:14px 20px;border-radius:14px;font-weight:600;font-size:14px;font-family:inherit;box-shadow:0 10px 40px rgba(31,162,255,.45);display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;transform:translateY(20px);transition:all .4s ease;border:none; }
 .kx-wa-btn.show { opacity:1;transform:translateY(0); }
 .kx-wa-btn:hover { transform:translateY(-3px);box-shadow:0 16px 50px rgba(31,162,255,.55); }
-.kx-wa-panel { position:fixed;top:95px;right:28px;bottom:auto;width:340px;background:#070A1E;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;z-index:10000;display:none;box-shadow:0 15px 60px rgba(0,0,0,.55); }
+.kx-wa-panel { position:fixed;bottom:95px;right:28px;top:auto;width:340px;background:#070A1E;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;z-index:10000;display:none;box-shadow:0 15px 60px rgba(0,0,0,.55); }
 .kx-wa-panel h4 { color:#fff;font-size:15px;margin-bottom:14px; }
 .kx-wa-panel select,.kx-wa-panel button { width:100%;margin-bottom:12px;padding:11px;border-radius:8px;font-size:13px;font-family:inherit; }
 .kx-wa-panel select { background:#0B0F2B;color:#C7C9D3;border:1px solid rgba(255,255,255,.1);appearance:none;-webkit-appearance:none; }
 .kx-wa-panel button { background:#1FA2FF;color:white;font-weight:600;border:none;cursor:pointer; }
-@media (max-width:640px) { .kx-wa-panel { right:12px;left:12px;width:auto;top:90px;bottom:auto; } }
+@media (max-width:640px) { .kx-wa-panel { right:12px;left:12px;width:auto;bottom:90px;top:auto; } }
 
 .form-input { width:100%;padding:.875rem 1rem;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:.875rem;transition:border-color .2s,background .2s;outline:none; }
 .form-input:focus { border-color:rgba(31,162,255,.6);background:rgba(31,162,255,.06); }
