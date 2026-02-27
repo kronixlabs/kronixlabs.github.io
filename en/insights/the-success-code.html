@@ -48,9 +48,9 @@
 <meta name="twitter:description" content="The strategic framework required before implementing AI. Origins of the EAA™ Framework.">
 <meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
 <!-- FAVICON -->
-<link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-<link rel="apple-touch-icon" href="../../Kronix-Labs.svg">
-<link rel="shortcut icon" href="../../Kronix-Labs.svg">
+<link rel="icon" type="image/svg+xml" href="/Kronix-Labs.svg">
+<link rel="apple-touch-icon" href="/Kronix-Labs.svg">
+<link rel="shortcut icon" href="/Kronix-Labs.svg">
 <!-- PERFORMANCE -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -281,7 +281,7 @@ body {
 <header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
     <a href="/en/" aria-label="KRONIX Labs — Home">
-      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+      <img src="/Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
     </a>
     <nav class="hidden md:flex items-center gap-7" aria-label="Main navigation">
       <a href="/en/" class="nav-link">Home</a>
@@ -598,7 +598,7 @@ body {
     <div class="grid md:grid-cols-4 gap-10 mb-12">
       <div class="md:col-span-2">
         <a href="/en/" aria-label="KRONIX Labs">
-          <img src="../../Kronix-Labs.svg" class="h-10 mb-5" alt="KRONIX Labs" width="140" height="40">
+          <img src="/Kronix-Labs.svg" class="h-10 mb-5" alt="KRONIX Labs" width="140" height="40">
         </a>
         <p class="text-[#C7C9D3] text-sm leading-relaxed max-w-sm">
           Enterprise AI Infrastructure Architecture Firm. We redesign how companies operate to generate more revenue without hiring more staff.
@@ -813,5 +813,19 @@ const observer=new IntersectionObserver(function(entries){
 },{threshold:0.1,rootMargin:'0px 0px -80px 0px'});
 document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){observer.observe(el);});
 </script>
+// Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
+<script>
+(function(){
+  function adjustWa(){
+    var btn=document.getElementById('kxWaBtn'); if(!btn) return;
+    if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
+    else { btn.style.bottom=''; }
+  }
+  adjustWa();
+  window.addEventListener('resize',adjustWa);
+  document.addEventListener('DOMContentLoaded',adjustWa);
+})();
+</script>
 </body>
 </html>
+

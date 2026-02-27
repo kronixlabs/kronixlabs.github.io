@@ -46,9 +46,9 @@
 <meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
 
 <!-- FAVICON -->
-<link rel="icon" type="image/svg+xml" href="../../Kronix-Labs.svg">
-<link rel="apple-touch-icon" href="../../Kronix-Labs.svg">
-<link rel="shortcut icon" href="../../Kronix-Labs.svg">
+<link rel="icon" type="image/svg+xml" href="/Kronix-Labs.svg">
+<link rel="apple-touch-icon" href="/Kronix-Labs.svg">
+<link rel="shortcut icon" href="/Kronix-Labs.svg">
 
 <!-- PERFORMANCE -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,8 +59,21 @@
 <!-- GOOGLE ANALYTICS 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);} 
+// Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
+<script>
+(function(){
+  function adjustWa(){
+    var btn=document.getElementById('kxWaBtn'); if(!btn) return;
+    if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
+    else { btn.style.bottom=''; }
+  }
+  adjustWa();
+  window.addEventListener('resize',adjustWa);
+  document.addEventListener('DOMContentLoaded',adjustWa);
+})();
+</script>
+</body>
+</html>
   gtag('js', new Date());
   gtag('config', 'G-T41H03C7CH', {
     page_title: 'El Código del Éxito ES',
@@ -137,7 +150,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
     <a href="/es/" aria-label="KRONIX Labs — Inicio">
-      <img src="../../Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
+      <img src="/Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
     </a>
 
     <nav class="hidden md:flex items-center gap-7" aria-label="Navegación principal">
