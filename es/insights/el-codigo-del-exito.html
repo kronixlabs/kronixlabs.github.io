@@ -156,7 +156,43 @@ body {
 .btn-glow {
   animation:pulseGlow 2.8s ease-in-out infinite;
 }
+/* ============================================================
+   SELECT PERSONALIZADO (igual al sitio principal)
+============================================================ */
 
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper::after {
+  content:'';
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:0;
+  height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid #1FA2FF;
+  pointer-events:none;
+}
+
+.form-select {
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  cursor:pointer;
+  padding-right:2.5rem !important;
+  background:#070A1E !important;
+  color:rgba(255,255,255,0.85);
+}
+
+.form-select option {
+  background:#070A1E;
+  color:#fff;
+}
 </style>
 </head>
 
@@ -323,28 +359,56 @@ style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
 
     <form class="space-y-5">
 
-      <p class="text-red-400 text-sm">
-        Todos los campos son obligatorios.
-      </p>
+  <p class="text-red-400 text-sm">
+    Todos los campos son obligatorios.
+  </p>
 
-      <input class="form-input" placeholder="Nombre completo">
-      <input class="form-input" placeholder="Empresa">
-      <input class="form-input" placeholder="Correo electrónico">
-      <input class="form-input" placeholder="WhatsApp (con código de país)">
-      <input class="form-input" placeholder="Número de empleados">
+  <!-- Nombre -->
+  <input class="form-input" placeholder="Nombre completo" required>
 
-      <textarea class="form-input" rows="3"
-      placeholder="¿Cuál es su principal cuello de botella operativo?"></textarea>
+  <!-- Empresa -->
+  <input class="form-input" placeholder="Empresa" required>
 
-      <button class="w-full bg-[#1FA2FF] py-4 rounded-xl font-bold btn-glow">
-        Solicitar mi Diagnóstico →
-      </button>
+  <!-- Email -->
+  <input class="form-input" type="email" placeholder="Correo electrónico" required>
 
-      <p class="text-xs text-[#C7C9D3]/60 text-center">
-        Sin costo · Respuesta en menos de 2 horas
-      </p>
+  <!-- WhatsApp -->
+  <input class="form-input" placeholder="WhatsApp (con código de país)" required>
 
-    </form>
+  <!-- Número de empleados (SELECT) -->
+  <div>
+    <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">
+      Número de empleados *
+    </label>
+
+    <div class="select-wrapper">
+      <select class="form-input form-select" required>
+        <option value="" disabled selected>
+          Seleccione el tamaño de su empresa
+        </option>
+        <option value="1-10">1 – 10 empleados</option>
+        <option value="11-50">11 – 50 empleados</option>
+        <option value="51-200">51 – 200 empleados</option>
+        <option value="201-500">201 – 500 empleados</option>
+        <option value="500+">500+ empleados</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Cuello de botella -->
+  <textarea class="form-input" rows="3"
+  placeholder="¿Cuál es su principal cuello de botella operativo?" required></textarea>
+
+  <!-- Botón -->
+  <button class="w-full bg-[#1FA2FF] py-4 rounded-xl font-bold btn-glow">
+    Solicitar mi Diagnóstico →
+  </button>
+
+  <p class="text-xs text-[#C7C9D3]/60 text-center">
+    Sin costo · Respuesta en menos de 2 horas
+  </p>
+
+</form>
   </div>
 
 </section>
