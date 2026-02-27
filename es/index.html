@@ -70,21 +70,6 @@
 <!-- GOOGLE ANALYTICS 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
 <script>
-// Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
-<script>
-(function(){
-  function adjustWa(){
-    var btn=document.getElementById('kxWaBtn'); if(!btn) return;
-    if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
-    else { btn.style.bottom=''; }
-  }
-  adjustWa();
-  window.addEventListener('resize',adjustWa);
-  document.addEventListener('DOMContentLoaded',adjustWa);
-})();
-</script>
-</body>
-</html>
   gtag('js', new Date());
   gtag('config', 'G-T41H03C7CH', { page_title: 'Home ES v2', page_location: window.location.href });
   let scrollMilestones = {25:false,50:false,75:false,90:false};
@@ -96,7 +81,21 @@
   },{passive:true});
   let startTime = Date.now();
   window.addEventListener('beforeunload',function(){gtag('event','time_on_page',{event_category:'Engagement',value:Math.round((Date.now()-startTime)/1000)});});
+
+  // Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
+  (function(){
+    function adjustWa(){
+      var btn=document.getElementById('kxWaBtn'); if(!btn) return;
+      if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
+      else { btn.style.bottom=''; }
+    }
+    adjustWa();
+    window.addEventListener('resize',adjustWa);
+    document.addEventListener('DOMContentLoaded',adjustWa);
+  })();
 </script>
+</body>
+</html>
 
 <!-- SCHEMA JSON-LD -->
 <script type="application/ld+json">
