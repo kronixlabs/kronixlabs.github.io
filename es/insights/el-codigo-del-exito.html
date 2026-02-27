@@ -265,6 +265,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     </div>
 
     <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+      <p class="text-red-400 text-sm">Todos los campos son obligatorios.</p>
       <div class="grid md:grid-cols-2 gap-5">
         <div>
           <label for="nombre" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Nombre completo *</label>
@@ -310,11 +311,11 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
       </div>
       <div>
         <label for="desafio" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Principal cuello de botella operativo</label>
-        <textarea id="desafio" name="desafio" rows="3"
+        <textarea id="desafio" name="desafio" rows="3" required
           placeholder="¿Cuál proceso operativo está consumiendo más tiempo o generando más errores en su empresa ahora mismo?"
           class="form-input" style="resize:vertical;"></textarea>
       </div>
-      <button type="submit" id="submit-btn"
+      <button type="submit" id="submit-btn" disabled style="opacity:0.5;cursor:not-allowed;"
         class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3">
         <span id="btn-text">Iniciar Mi Diagnóstico</span>
         <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -383,13 +384,33 @@ function handleFormSubmit(e){
   let f=new FormData(e.target);
   let data={nombre:f.get('nombre'),empresa:f.get('empresa'),email:f.get('email'),whatsapp:f.get('whatsapp'),empleados:f.get('empleados'),sedes:f.get('sedes'),desafio:f.get('desafio')||'No especificado'};
   gtag('event','form_submit',{event_category:'Lead',event_label:'FormularioDiagnostico_Libro_ES',value:1});
-  let msg='[LEAD ES - LIBRO] Nueva Solicitud de Diagnóstico\n'+
-          'Nombre: '+data.nombre+'\nEmpresa: '+data.empresa+'\nEmail: '+data.email+'\nWhatsApp: '+data.whatsapp+'\nEmpleados: '+data.empleados+'\nSedes: '+data.sedes+'\nDesafío: '+data.desafio;
+  let msg='[LEAD ES - LIBRO] Nueva Solicitud de Diagnóstico\n\n'+
+          'Nombre: '+data.nombre+'\n\nEmpresa: '+data.empresa+'\n\nEmail: '+data.email+'\n\nWhatsApp: '+data.whatsapp+'\n\nEmpleados: '+data.empleados+'\n\nSedes: '+data.sedes+'\n\nDesafío: '+data.desafio;
   btn.disabled=false; btnArrow.classList.remove('hidden'); btnSpinner.classList.add('hidden'); btnText.textContent='Iniciar Mi Diagnóstico';
   successMsg.classList.remove('hidden'); e.target.reset();
   ['empleados','sedes'].forEach(function(id){let el=document.getElementById(id);if(el){el.style.color='rgba(255,255,255,0.35)';}});
   setTimeout(function(){window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');},1200);
 }
+
+// Live validation — activa el botón solo cuando todos los campos están llenos
+(function(){
+  var form=document.getElementById('contact-form');
+  var submitBtn=document.getElementById('submit-btn');
+  if(!form||!submitBtn) return;
+  function checkForm(){
+    var ok=true;
+    form.querySelectorAll('[required]').forEach(function(el){if(!el.value.trim())ok=false;});
+    submitBtn.disabled=!ok;
+    submitBtn.style.opacity=ok?'1':'0.5';
+    submitBtn.style.cursor=ok?'pointer':'not-allowed';
+    form.querySelectorAll('select[required]').forEach(function(el){el.style.color=el.value?'#fff':'rgba(255,255,255,0.35)';});
+  }
+  form.querySelectorAll('[required]').forEach(function(el){
+    el.addEventListener('input',checkForm);
+    el.addEventListener('change',checkForm);
+  });
+  checkForm();
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor){ anchor.addEventListener('click',function(e){ let target=document.querySelector(this.getAttribute('href')); if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); } }); });

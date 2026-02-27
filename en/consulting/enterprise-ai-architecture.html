@@ -285,7 +285,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     <a href="/en/framework/enterprise-ai-architecture-framework.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
     <a href="/en/industries/distribution.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industries</a>
     <a href="/en/firm/strategic-ai-consultancy.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firm</a>
-    <a href="/en/insights.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
+    <a href="/en/insights" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
     <a href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic."
        target="_blank" rel="noopener noreferrer"
        class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">Request Diagnostic →</a>
@@ -618,6 +618,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     </div>
 
     <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
+      <p class="text-red-400 text-sm">All fields are required.</p>
       <div class="grid md:grid-cols-2 gap-5">
         <div>
           <label for="name" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Full Name *</label>
@@ -667,11 +668,11 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
       </div>
       <div>
         <label for="challenge" class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2">Main operational challenge</label>
-        <textarea id="challenge" name="challenge" rows="3"
+        <textarea id="challenge" name="challenge" rows="3" required
           placeholder="What is the operational problem consuming most of your time right now?"
           class="form-input" style="resize:vertical;"></textarea>
       </div>
-      <button type="submit" id="submit-btn"
+      <button type="submit" id="submit-btn" disabled style="opacity:0.5;cursor:not-allowed;"
         class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3">
         <span id="btn-text">Request My Diagnostic</span>
         <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -844,6 +845,9 @@ function sendWhatsAppEN(){
 // Form submission
 function handleFormSubmit(e){
   e.preventDefault();
+  let form=e.target;
+  let requiredEls=form.querySelectorAll('[required]');
+  for(let el of requiredEls){ if(!el.value.trim()){ alert('Please complete all fields before submitting.'); el.focus(); return; } }
   let btn=document.getElementById('submit-btn');
   let btnText=document.getElementById('btn-text');
   let btnArrow=document.getElementById('btn-arrow');
@@ -864,13 +868,13 @@ function handleFormSubmit(e){
     challenge:formData.get('challenge')||'Not specified'
   };
   gtag('event','form_submit',{event_category:'Lead',event_label:'DiagnosticForm_Architecture',value:1});
-  let msg='[LEAD EN - AI Architecture] New Diagnostic Request\n'+
-    'Name: '+data.name+'\n'+
-    'Company: '+data.company+'\n'+
-    'Email: '+data.email+'\n'+
-    'WhatsApp: '+data.whatsapp+'\n'+
-    'Employees: '+data.employees+'\n'+
-    'Industry: '+data.sector+'\n'+
+let msg='[LEAD EN] New Diagnostic Request\n\n'+
+    'Name: '+data.name+'\n\n'+
+    'Company: '+data.company+'\n\n'+
+    'Email: '+data.email+'\n\n'+
+    'WhatsApp: '+data.whatsapp+'\n\n'+
+    'Employees: '+data.employees+'\n\n'+
+    'Industry: '+data.sector+'\n\n'+
     'Challenge: '+data.challenge;
   btn.disabled=false;
   btnArrow.classList.remove('hidden');
@@ -886,6 +890,26 @@ function handleFormSubmit(e){
     window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
   },1200);
 }
+
+// Live validation — enables button only when all required fields are filled
+(function(){
+  var form=document.getElementById('contact-form');
+  var submitBtn=document.getElementById('submit-btn');
+  if(!form||!submitBtn) return;
+  function checkForm(){
+    var ok=true;
+    form.querySelectorAll('[required]').forEach(function(el){if(!el.value.trim())ok=false;});
+    submitBtn.disabled=!ok;
+    submitBtn.style.opacity=ok?'1':'0.5';
+    submitBtn.style.cursor=ok?'pointer':'not-allowed';
+    form.querySelectorAll('select[required]').forEach(function(el){el.style.color=el.value?'#fff':'rgba(255,255,255,0.35)';});
+  }
+  form.querySelectorAll('[required]').forEach(function(el){
+    el.addEventListener('input',checkForm);
+    el.addEventListener('change',checkForm);
+  });
+  checkForm();
+})();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
