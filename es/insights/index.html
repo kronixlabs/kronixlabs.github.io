@@ -144,6 +144,10 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
 .kx-wa-btn { position:fixed;bottom:28px;right:28px;z-index:999;top:auto;background:#1FA2FF;color:#fff;padding:14px 20px;border-radius:14px;font-weight:600;font-size:14px;font-family:inherit;box-shadow:0 10px 40px rgba(31,162,255,.45);display:flex;align-items:center;gap:8px;cursor:pointer;opacity:0;transform:translateY(20px);transition:all .4s ease;border:none; }
 .kx-wa-btn.show { opacity:1;transform:translateY(0); }
 .kx-wa-btn:hover { transform:translateY(-3px);box-shadow:0 16px 50px rgba(31,162,255,.55); }
+@media (max-width:768px) {
+  .kx-wa-btn { bottom:90px !important; }
+  .kx-wa-panel { bottom:auto !important; top:80px !important; }
+}
 .kx-wa-panel { position:fixed;bottom:95px;right:28px;top:auto;width:340px;background:#070A1E;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;z-index:10000;display:none;box-shadow:0 15px 60px rgba(0,0,0,.55); }
 .kx-wa-panel h4 { color:#fff;font-size:15px;margin-bottom:14px; }
 .kx-wa-panel select,.kx-wa-panel button { width:100%;margin-bottom:12px;padding:11px;border-radius:8px;font-size:13px;font-family:inherit; }
@@ -351,7 +355,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
           </span>
         </div>
         <div class="flex-shrink-0 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden bg-[#1FA2FF]/10 border border-[#1FA2FF]/20 flex items-center justify-center">
-          <img src="/el-codigo-del-exito.png" alt="El Código del Éxito" class="w-full h-full object-cover" />
+          <img src="/el-codigo-del-exito.png" alt="El Código del Éxito" class="w-full h-full object-contain" />
         </div>
       </div>
     </a>
@@ -584,6 +588,22 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
       <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">En 45 minutos identificamos los cuellos de botella clave y le mostramos la arquitectura exacta que los resuelve — sin compromiso.</p>
     </div>
 
+    <!-- Tarjeta estilo WhatsApp -->
+    <div class="bg-[#070A1E] border border-[#1FA2FF]/25 rounded-2xl overflow-hidden mb-8" style="box-shadow:0 0 40px rgba(31,162,255,0.08);">
+      <div class="bg-[#1FA2FF] px-5 py-4 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center flex-shrink-0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.858L.057 23.57a.5.5 0 0 0 .608.655l5.939-1.547A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.669-.513-5.2-1.41l-.374-.22-3.523.917.948-3.416-.244-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        </div>
+        <div>
+          <div class="text-white font-bold text-sm">KRONIX Labs</div>
+          <div class="text-white/80 text-xs flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-green-300 inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
+            Disponible · Responde en &lt;2h hábiles
+          </div>
+        </div>
+      </div>
+      <div class="p-6 md:p-8">
+
     <form id="contact-form" class="space-y-5" onsubmit="handleFormSubmit(event)">
       <p class="text-red-400 text-sm">Todos los campos son obligatorios.</p>
       <div class="grid md:grid-cols-2 gap-5">
@@ -641,9 +661,12 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
         <svg id="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <svg id="btn-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/><path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-width="3" stroke-linecap="round"/></svg>
       </button>
+      <p class="text-[#C7C9D3]/50 text-xs text-center mt-1">Sin costo · Respuesta rápida · Recomendación personalizada</p>
       <p id="form-success" class="hidden text-center text-green-400 text-sm font-semibold py-3">✓ Solicitud recibida. Lo contactaremos por WhatsApp en menos de 2 horas hábiles.</p>
       <p id="form-error" class="hidden text-center text-red-400 text-sm py-3">Ocurrió un error. Por favor escríbanos directamente por WhatsApp.</p>
     </form>
+      </div>
+    </div>
 
     <div class="mt-12 grid grid-cols-3 gap-4 text-center">
       <div><div class="text-[#1FA2FF] font-bold text-lg">45min</div><div class="text-xs text-[#C7C9D3]/60 mt-1">sesión de diagnóstico</div></div>
