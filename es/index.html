@@ -1048,7 +1048,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
           <h3 class="text-white font-bold text-xl mb-2">Solicitar mi Diagnóstico</h3>
           <p class="text-[#C7C9D3] text-sm mb-6">Complete el formulario y nos pondremos en contacto en menos de 2 horas hábiles.</p>
 
-          <form id="diagnostico-form" class="space-y-4" onsubmit="handleFormSubmit(event)" novalidate>
+          <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)" novalidate>
             <p class="text-red-400 text-sm">Todos los campos son obligatorios.</p>
 
             <div>
@@ -1086,7 +1086,7 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
             </div>
 
             <button type="submit" disabled
-              id="form-btn"
+              id="submit-btn"
               style="opacity:0.5;cursor:not-allowed;"
               class="w-full btn-glow bg-[#1FA2FF] text-white py-4 rounded-xl font-bold text-base hover:opacity-90 transition flex items-center justify-center gap-3">
               <span id="btn-text">Solicitar mi Diagnóstico →</span>
@@ -1323,7 +1323,7 @@ function sendWhatsAppES() {
 // ── Form submit ──
 function handleFormSubmit(e) {
   e.preventDefault();
-  const form = document.getElementById('diagnostico-form');
+  const form = document.getElementById('contact-form');
   const success = document.getElementById('form-success');
   const btnText = document.getElementById('btn-text');
   const spinner = document.getElementById('btn-spinner');
@@ -1358,8 +1358,8 @@ function handleFormSubmit(e) {
 
 // ── Live validation — activa el botón solo cuando todos los campos están llenos ──
 (function(){
-  var form = document.getElementById('diagnostico-form');
-  var submitBtn = document.getElementById('form-btn');
+  var form = document.getElementById('contact-form');
+  var submitBtn = document.getElementById('submit-btn');
   if(!form || !submitBtn) return;
   function checkForm(){
     var ok = true;
