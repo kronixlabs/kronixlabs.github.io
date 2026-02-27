@@ -246,10 +246,18 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);"></div>
   <div class="relative max-w-5xl mx-auto text-center">
 
-    <nav class="text-xs text-[#C7C9D3]/50 mb-6 fade-up d1" aria-label="Breadcrumb">
-      <a href="/es/" class="hover:text-[#1FA2FF] transition">Inicio</a>
-      <span class="mx-2">/</span>
-      <span class="text-[#C7C9D3]/80">Casos de Estudio</span>
+    <nav class="text-sm" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-2">
+        <li class="inline-flex items-center">
+          <a href="/es/" class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors duration-200">Inicio</a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-4 h-4 text-[#C7C9D3]/50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <span class="ml-1 text-[#C7C9D3]/80 md:ml-2">Casos de Estudio</span>
+          </div>
+        </li>
+      </ol>
     </nav>
 
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">

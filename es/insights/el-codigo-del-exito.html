@@ -176,12 +176,24 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
 <section class="relative min-h-[60vh] flex items-center px-6 grid-bg overflow-hidden pt-20" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.15) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);"></div>
   <div class="max-w-4xl mx-auto pt-16 pb-16 relative">
-    <nav class="text-sm text-[#C7C9D3]/50 mb-6 fade-up d1" aria-label="Breadcrumb">
-      <a href="/es/" class="hover:text-[#1FA2FF] transition">Inicio</a>
-      <span class="mx-2">/</span>
-      <a href="/es/insights/" class="hover:text-[#1FA2FF] transition">Insights</a>
-      <span class="mx-2">/</span>
-      <span class="text-[#C7C9D3]/80">El Código del Éxito</span>
+    <nav class="text-sm" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-2">
+        <li class="inline-flex itemsCenter">
+          <a href="/es/" class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors duration-200">Inicio</a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-4 h-4 text-[#C7C9D3]/50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <a href="/es/insights/" class="ml-1 text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors duration-200 md:ml-2">Insights</a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-4 h-4 text-[#C7C9D3]/50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <span class="ml-1 text-[#C7C9D3]/80 md:ml-2">El Código del Éxito</span>
+          </div>
+        </li>
+      </ol>
     </nav>
 
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-6 fade-up d1">
