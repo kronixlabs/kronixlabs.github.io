@@ -1,0 +1,15 @@
+{
+  "name": "Kronix Labs",
+  "short_name": "Kronix",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C002B",
+  "theme_color": "#0C002B",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
