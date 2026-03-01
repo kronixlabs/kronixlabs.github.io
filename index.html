@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>KRONIX Labs | Infraestructura IA Empresarial</title>
     <meta name="description" content="Infraestructura IA Empresarial para escalar su facturación sin contratar más personal. Soberanía de datos y control ejecutivo total.">
    <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
@@ -173,6 +173,24 @@
                 width: 100%;
             }
         }
+      @media screen and (orientation: landscape) and (max-width: 1024px) {
+  body {
+    display: none;
+  }
+
+  html::before {
+    content: "Por favor use el sitio en orientación vertical.";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    background: #0B0F2B;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+}
     </style>
 </head>
 <body>
