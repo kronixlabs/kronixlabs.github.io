@@ -1,16 +1,32 @@
 {
-  "name": "Kronix Labs",
-  "short_name": "Kronix",
+  "name": "KRONIX Labs",
+  "short_name": "KRONIX",
+  "description": "Enterprise AI Infrastructure Architecture Firm for LATAM companies",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#0C002B",
   "theme_color": "#0C002B",
+  "lang": "es",
   "icons": [
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

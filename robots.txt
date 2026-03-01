@@ -1,11 +1,11 @@
 # KRONIX Labs — robots.txt
-# https://kronixlabs.github.io/
+# https://kronixlabs.com/
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://kronixlabs.github.io/sitemap.xml
+Sitemap: https://kronixlabs.com/sitemap.xml
 
 # Crawl-delay (opcional, para bots más agresivos)
 Crawl-delay: 1
