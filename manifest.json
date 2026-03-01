@@ -3,6 +3,7 @@
   "short_name": "Kronix",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0C002B",
   "theme_color": "#0C002B",
   "icons": [
