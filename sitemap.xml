@@ -1,106 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset 
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- ROOT -->
   <url>
     <loc>https://kronixlabs.com/</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kronixlabs.com/"/>
   </url>
 
-  <url>
-    <loc>https://kronixlabs.com/es/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/en/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-  </url>
-
+  <!-- IMPLEMENTACIÓN IA -->
   <url>
     <loc>https://kronixlabs.com/es/implementacion-ia/</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/implementacion-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/ai-implementation/"/>
   </url>
 
   <url>
     <loc>https://kronixlabs.com/en/ai-implementation/</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/implementacion-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/ai-implementation/"/>
   </url>
 
+  <!-- METODOLOGÍA -->
   <url>
     <loc>https://kronixlabs.com/es/como-lo-hacemos/arquitectura-empresarial-ia.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/como-lo-hacemos/arquitectura-empresarial-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/how-we-work/enterprise-ai-architecture-framework.html"/>
   </url>
 
   <url>
     <loc>https://kronixlabs.com/en/how-we-work/enterprise-ai-architecture-framework.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/como-lo-hacemos/arquitectura-empresarial-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/how-we-work/enterprise-ai-architecture-framework.html"/>
   </url>
 
+  <!-- INDUSTRIA -->
   <url>
     <loc>https://kronixlabs.com/es/industrias/distribucion.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/industrias/distribucion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/industries/distribution.html"/>
   </url>
 
   <url>
     <loc>https://kronixlabs.com/en/industries/distribution.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/industrias/distribucion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/industries/distribution.html"/>
   </url>
 
-  <url>
-    <loc>https://kronixlabs.com/es/sobre-kronix/consultora-estrategica-ia.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/en/about/strategic-ai-consultancy.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/es/case-study/sistema-multisede-ia.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/en/case-study/multi-site-ai-system.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/es/insights/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://kronixlabs.com/en/insights/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
+  <!-- INSIGHTS -->
   <url>
     <loc>https://kronixlabs.com/es/insights/el-codigo-del-exito.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/el-codigo-del-exito.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/the-success-code.html"/>
   </url>
 
   <url>
     <loc>https://kronixlabs.com/en/insights/the-success-code.html</loc>
+    <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/el-codigo-del-exito.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/the-success-code.html"/>
   </url>
 
 </urlset>
