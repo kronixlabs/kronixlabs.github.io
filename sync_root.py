@@ -10,7 +10,14 @@ from bs4 import BeautifulSoup
 import pathlib
 
 root = pathlib.Path(__file__).parent
-src = root / "en" / "index.html"
+import sys
+
+lang = sys.argv[1] if len(sys.argv) > 1 else "es"
+if lang not in ("es","en"):
+    print(f"Unsupported language {lang}, choose 'es' or 'en'.")
+    sys.exit(1)
+
+src = root / lang / "index.html"
 dest = root / "index.html"
 
 html = src.read_text(encoding="utf-8")
@@ -20,6 +27,11 @@ soup = BeautifulSoup(html, "html.parser")
 link_can = soup.find('link', rel='canonical')
 if link_can:
     link_can['href'] = 'https://kronixlabs.com/'
+
+# ensure we don't copy any redirect script from source (e.g. navigator.language)
+for script in soup.find_all('script'):
+    if script.string and 'navigator.language' in script.string:
+        script.decompose()
 
 # ensure hreflang alternates include root x-default
 existing = {tag['hreflang']: tag for tag in soup.find_all('link', hreflang=True)}
@@ -44,9 +56,9 @@ tw_url = soup.find('meta', attrs={'name': 'twitter:url'})
 if tw_url:
     tw_url['content'] = 'https://kronixlabs.com/'
 
-# remove any language-redirect script at bottom if exists (shouldn't in en)
+# remove any language-redirect script at bottom if exists
 for script in soup.find_all('script'):
-    if script.string and 'navigator.language' in script.string:
+    if script.string and ('navigator.language' in script.string or '/es/' in script.string or '/en/' in script.string):
         script.decompose()
 
 # finally write to dest
