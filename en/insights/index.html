@@ -1,1212 +1,993 @@
 <!DOCTYPE html>
+
 <html lang="en" prefix="og: https://ogp.me/ns#">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width,initial-scale=1.0,viewport-fit=cover" name="viewport"/>
-  <meta content="dark light" name="color-scheme"/>
-  <meta content="#0C002B" name="theme-color"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
-  <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
-  <title>
-   Insights | Strategic Knowledge Center | KRONIX Labs
-  </title>
-  <meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." name="description"/>
-  <meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
-  <link href="https://kronixlabs.com/en/insights/" rel="canonical"/>
-  <link href="https://kronixlabs.com/es/insights/" hreflang="es" rel="alternate"/>
-  <link href="https://kronixlabs.com/es/insights/" hreflang="en" rel="alternate"/>
-  <link href="https://kronixlabs.com/" hreflang="x-default" rel="alternate"/>
-  <meta content="website" property="og:type"/>
-  <meta content="KRONIX Labs" property="og:site_name"/>
-  <meta content="en_US" property="og:locale"/>
-  <meta content="Insights | Strategic Knowledge Center | KRONIX Labs" property="og:title"/>
-  <meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." property="og:description"/>
-  <meta content="https://kronixlabs.com/Kronix-Labs.png" property="og:image"/>
-  <meta content="1200" property="og:image:width"/>
-  <meta content="630" property="og:image:height"/>
-  <meta content="KRONIX Labs — Enterprise AI Infrastructure" property="og:image:alt"/>
-  <meta content="https://kronixlabs.com/en/insights/" property="og:url"/>
-  <meta content="summary_large_image" name="twitter:card"/>
-  <meta content="Insights | Strategic Knowledge Center | KRONIX Labs" name="twitter:title"/>
-  <meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." name="twitter:description"/>
-  <meta content="https://kronixlabs.com/Kronix-Labs.png" name="twitter:image"/>
-  <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-  <link href="/Kronix-Labs.svg" rel="icon" type="image/svg+xml"/>
-  <link href="/Kronix-Labs.png" rel="icon" type="image/png"/>
-  <link href="/manifest.json" rel="manifest"/>
-  <link href="https://fonts.googleapis.com" rel="preconnect"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://www.googletagmanager.com" rel="preconnect"/>
-  <link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="preload"/>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-  <script>
-   // Scroll progress
-window.addEventListener('scroll',function(){
-  let el=document.getElementById('scrollIndicator');
-  if(el){let pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;el.style.width=pct+'%';}
-},{passive:true});
-
-// Show WA button on scroll
-window.addEventListener('scroll',function(){
-  let btn=document.getElementById('kxWaBtn');
-  if(btn){if(window.scrollY>400){btn.classList.add('show');}else{btn.classList.remove('show');}}
-},{passive:true});
-
-// Mobile menu
-let menuBtn=document.getElementById('menu-btn');
-let mobileMenu=document.getElementById('mobile-menu');
-if(menuBtn&&mobileMenu){
-  menuBtn.addEventListener('click',function(){
-    mobileMenu.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded',mobileMenu.classList.contains('open'));
-  });
-}
-
-// Tint placeholder option for selects on change
-(function(){
-  function initSelect(id){
-    var el=document.getElementById(id);
-    if(!el) return;
-    function update(){ el.style.color=el.value===''?'rgba(255,255,255,0.35)':'#ffffff'; }
-    el.addEventListener('change',update);
-    update();
-  }
-  initSelect('employees');
-  initSelect('sector');
-})();
-
-// WhatsApp sender — Insights EN
-function sendWhatsAppInsightsEN(){
-  let topic=document.getElementById('waTopicInsightsEN').value;
-  let msgs={
-    diagnostic:'Hello KRONIX — I would like to request the Operational Maturity Diagnostic. Please share next steps and availability.',
-    info:'Hello KRONIX — Please send concise information about your Enterprise AI Architecture services and expected outcomes.',
-    pricing:'Hello KRONIX — Please share investment ranges and engagement models for your services.',
-    demo:'Hello KRONIX — I would like to schedule a demo of the EAA architecture. Please propose available dates.'
-  };
-  gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_Insights_EN_'+topic});
-  window.open('https://wa.me/573107397053?text='+encodeURIComponent(msgs[topic]||msgs.info),'_blank');
-}
-
-// Form submission
-function handleFormSubmit(e){
-  e.preventDefault();
-  // validate required fields
-  let form=e.target;
-  let requiredEls=form.querySelectorAll('[required]');
-  for(let el of requiredEls){ if(!el.value.trim()){ alert('Please complete all fields before submitting.'); el.focus(); return; } }
-  let btn=document.getElementById('submit-btn');
-  let btnText=document.getElementById('btn-text');
-  let btnArrow=document.getElementById('btn-arrow');
-  let btnSpinner=document.getElementById('btn-spinner');
-  let successMsg=document.getElementById('form-success');
-  btn.disabled=true;
-  btnArrow.classList.add('hidden');
-  btnSpinner.classList.remove('hidden');
-  btnText.textContent='Sending...';
-  let formData=new FormData(e.target);
-  let data={
-    name:formData.get('name'),
-    company:formData.get('company'),
-    email:formData.get('email'),
-    whatsapp:formData.get('whatsapp'),
-    employees:formData.get('employees'),
-    sector:formData.get('sector'),
-    challenge:formData.get('challenge')||'Not specified'
-  };
-  gtag('event','form_submit',{event_category:'Lead',event_label:'DiagnosticForm_Insights_EN',value:1});
-  let msg='[LEAD EN - INSIGHTS] New Diagnostic Request\n\n'+
-    'Name: '+data.name+'\n\n'+
-    'Company: '+data.company+'\n\n'+
-    'Email: '+data.email+'\n\n'+
-    'WhatsApp: '+data.whatsapp+'\n\n'+
-    'Employees: '+data.employees+'\n\n'+
-    'Industry: '+data.sector+'\n\n'+
-    'Challenge: '+data.challenge;
-  btn.disabled=false;
-  btnArrow.classList.remove('hidden');
-  btnSpinner.classList.add('hidden');
-  btnText.textContent='Request My Diagnostic';
-  successMsg.classList.remove('hidden');
-  e.target.reset();
-  ['employees','sector'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el){ el.style.color='rgba(255,255,255,0.35)'; }
-  });
-  setTimeout(function(){
-    window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
-  },1200);
-}
-
-// Live validation — enables button only when all required fields are filled
-(function(){
-  var form=document.getElementById('contact-form');
-  var submitBtn=document.getElementById('submit-btn');
-  if(!form||!submitBtn) return;
-  function checkForm(){
-    var ok=true;
-    form.querySelectorAll('[required]').forEach(function(el){if(!el.value.trim())ok=false;});
-    submitBtn.disabled=!ok;
-    submitBtn.style.opacity=ok?'1':'0.5';
-    submitBtn.style.cursor=ok?'pointer':'not-allowed';
-    form.querySelectorAll('select[required]').forEach(function(el){el.style.color=el.value?'#fff':'rgba(255,255,255,0.35)';});
-  }
-  form.querySelectorAll('[required]').forEach(function(el){
-    el.addEventListener('input',checkForm);
-    el.addEventListener('change',checkForm);
-  });
-  checkForm();
-})();
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
-  anchor.addEventListener('click',function(e){
-    let target=document.querySelector(this.getAttribute('href'));
-    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
-  });
-});
-
-// Fade-in on scroll
-const observerOptions={threshold:0.1,rootMargin:'0px 0px -80px 0px'};
-const observer=new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
-  });
-},observerOptions);
-document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){observer.observe(el);});
-  </script>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <script>
-   tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          kronixBlue: '#1FA2FF',
-          kronixDark: '#0B0F2B',
-          kronixDeep: '#070A1E',
-          kronixGray: '#C7C9D3'
-        },
-        fontFamily: { sans: ['Montserrat','system-ui','sans-serif'] }
-      }
-    }
-  }
-  </script>
-  <style>
-   :root { --blue:#1FA2FF; --dark:#0B0F2B; --deep:#070A1E; --gray:#C7C9D3; }
-body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-serif; overflow-x:hidden; }
-.grid-bg { background-image: linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px), linear-gradient(90deg,rgba(31,162,255,0.04) 1px, transparent 1px); background-size:60px 60px; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-@keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)} 50%{box-shadow:0 0 0 14px rgba(31,162,255,0)} }
-@keyframes flowDown { 0%,100%{opacity:0;transform:translateY(-8px)} 50%{opacity:1;transform:translateY(8px)} }
-@keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
-.fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
-.d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s} .d4{animation-delay:.55s} .d5{animation-delay:.7s}
-.btn-glow { animation:pulseGlow 2.8s ease-in-out infinite; }
-.cap-card { border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:2rem; transition:border-color .25s,transform .25s,box-shadow .25s; background:rgba(255,255,255,.02); }
-.cap-card:hover { border-color:rgba(31,162,255,.4); transform:translateY(-5px); box-shadow:0 20px 60px rgba(31,162,255,.08); }
-.fade-in-on-scroll { opacity:0; transform:translateY(30px); }
-.fade-in-on-scroll.visible { animation:fadeUp 0.6s ease-out forwards; }
-.badge { display:inline-block; padding:8px 16px; background:linear-gradient(135deg,rgba(31,162,255,.1),rgba(31,162,255,.05)); border:1px solid rgba(31,162,255,.3); border-radius:8px; font-size:12px; font-weight:600; color:#1FA2FF; text-transform:uppercase; letter-spacing:.05em; }
-.metric-value { font-size:2.75rem; font-weight:800; background:linear-gradient(135deg,#1FA2FF,#7DD3FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.form-input { width:100%; padding:.875rem 1rem; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:#fff; font-family:inherit; font-size:.875rem; transition:border-color .2s,background .2s; outline:none; }
-.form-input:focus { border-color:rgba(31,162,255,.6); background:rgba(31,162,255,.06); }
-.form-input::placeholder { color:rgba(255,255,255,.35); }
-.nav-link { color:rgba(255,255,255,.75); font-size:.875rem; transition:color .2s; }
-.nav-link:hover { color:#1FA2FF; }
-.nav-link.active { color:#1FA2FF; }
-#mobile-menu { display:none; }
-#mobile-menu.open { display:flex; }
-.scroll-indicator { position:fixed; top:0; left:0; height:3px; background:var(--blue); transition:width .1s; z-index:9999; width:0%; }
-@media (max-width:768px) {
-  .sticky-mobile-cta { position:fixed; bottom:0; left:0; right:0; padding:1rem; background:rgba(11,15,43,.95); border-top:1px solid rgba(31,162,255,.2); z-index:998; backdrop-filter:blur(12px); }
-}
-.kx-wa-btn { position:fixed; bottom:28px; right:28px; z-index:997; top:auto; background:#1FA2FF; color:#fff; padding:14px 20px; border-radius:14px; font-weight:600; font-size:14px; font-family:inherit; box-shadow:0 10px 40px rgba(31,162,255,.45); display:flex; align-items:center; gap:8px; cursor:pointer; opacity:0; transform:translateY(20px); transition:all .4s ease; border:none; }
-.kx-wa-btn.show { opacity:1; transform:translateY(0); }
-.kx-wa-btn:hover { transform:translateY(-3px); box-shadow:0 16px 50px rgba(31,162,255,.55); }
-  </style>
- </head>
- <body>
-  <!-- Scroll progress -->
-  <div class="scroll-indicator" id="scrollIndicator">
-  </div>
-  <!-- ============================================================
+<head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0,viewport-fit=cover" name="viewport"/><meta content="dark light" name="color-scheme"/><meta content="#0C002B" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black" name="apple-mobile-web-app-status-bar-style"/><title>
+   Recursos | Strategic Knowledge Center | KRONIX Labs
+  </title><meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." name="description"/><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/><link href="https://kronixlabs.com/en/insights/" rel="canonical"/><link href="https://kronixlabs.com/es/insights/" hreflang="es" rel="alternate"/><link href="https://kronixlabs.com/es/insights/" hreflang="en" rel="alternate"/><link href="https://kronixlabs.com/" hreflang="x-default" rel="alternate"/><meta content="website" property="og:type"/><meta content="KRONIX Labs" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="
+   Recursos | Strategic Knowledge Center | KRONIX Labs
+  " property="og:title"/><meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." property="og:description"/><meta content="https://kronixlabs.com/Kronix-Labs.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="KRONIX Labs — Enterprise AI Infrastructure" property="og:image:alt"/><meta content="https://kronixlabs.com/en/insights/" property="og:url"/><meta content="summary_large_image" name="twitter:card"/><meta content="
+   Recursos | Strategic Knowledge Center | KRONIX Labs
+  " name="twitter:title"/><meta content="Strategic articles for CEOs and business leaders on AI infrastructure, governance, scalability and data sovereignty in LATAM. Operational intelligence for leaders who want to grow without chaos." name="twitter:description"/><meta content="https://kronixlabs.com/Kronix-Labs.png" name="twitter:image"/><link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/><link href="/Kronix-Labs.svg" rel="icon" type="image/svg+xml"/><link href="/Kronix-Labs.png" rel="icon" type="image/png"/><link href="/manifest.json" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://www.googletagmanager.com" rel="preconnect"/><link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="preload"/><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/></head>
+<body>
+<!-- Scroll progress -->
+<div class="scroll-indicator" id="scrollIndicator">
+</div>
+<!-- ============================================================
      HEADER
 ============================================================ -->
-  <header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
-   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a aria-label="KRONIX Labs — Home" href="/en/">
-     <img alt="KRONIX Labs" class="h-9" height="36" src="/Kronix-Labs.svg" width="140"/>
-    </a>
-    <nav aria-label="Main navigation" class="hidden md:flex items-center gap-7">
-     <a class="nav-link" href="/en/">
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<a aria-label="KRONIX Labs — Home" href="/en/">
+<img alt="KRONIX Labs" class="h-9" height="36" src="/Kronix-Labs.svg" width="140"/>
+</a>
+<nav aria-label="Main navigation" class="hidden md:flex items-center gap-7">
+<a class="nav-link" href="/en/">
       Home
      </a>
-     <a class="nav-link" href="/en/consulting/enterprise-ai-architecture.html">
+<a class="nav-link" href="/en/ai-implementation/">
       AI Architecture
      </a>
-     <a class="nav-link" href="/en/framework/enterprise-ai-architecture-framework.html">
-      Framework
+<a class="nav-link" href="/en/how-we-work/enterprise-ai-architecture-framework.html">
+      How we work
      </a>
-     <a class="nav-link" href="/en/industries/distribution.html">
-      Industries
+<a class="nav-link" href="/en/industries/distribution.html">
+      Industry Solutions
      </a>
-     <a class="nav-link" href="/en/firm/strategic-ai-consultancy.html">
+<a class="nav-link" href="/en/about/strategic-ai-consultancy.html">
       Firm
      </a>
-     <a aria-current="page" class="nav-link active" href="/en/insights">
-      Insights
+<a aria-current="page" class="nav-link active" href="/en/insights">
+      Recursos
      </a>
-    </nav>
-    <div class="flex items-center gap-3">
-     <div class="flex gap-2 items-center">
-      <a class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5" href="/es/insights" hreflang="es" onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'ES'});" rel="alternate">
-       <svg aria-hidden="true" height="11" viewbox="0 0 3 2" width="16">
-        <rect fill="#C60B1E" height="2" width="3">
-        </rect>
-        <rect fill="#FFC400" height="1" width="3" y="0.5">
-        </rect>
-       </svg>
+</nav>
+<div class="flex items-center gap-3">
+<div class="flex gap-2 items-center">
+<a class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5" href="/es/insights" hreflang="es" onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'ES'});" rel="alternate">
+<svg aria-hidden="true" height="11" viewbox="0 0 3 2" width="16">
+<rect fill="#C60B1E" height="2" width="3">
+</rect>
+<rect fill="#FFC400" height="1" width="3" y="0.5">
+</rect>
+</svg>
        ES
       </a>
-      <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
-       <svg aria-hidden="true" height="11" viewbox="0 0 19 10" width="16">
-        <rect fill="#B22234" height="10" width="19">
-        </rect>
-        <g fill="#fff">
-         <rect height="1" width="19" y="1">
-         </rect>
-         <rect height="1" width="19" y="3">
-         </rect>
-         <rect height="1" width="19" y="5">
-         </rect>
-         <rect height="1" width="19" y="7">
-         </rect>
-         <rect height="1" width="19" y="9">
-         </rect>
-        </g>
-        <rect fill="#3C3B6E" height="5" width="8">
-        </rect>
-       </svg>
+<span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+<svg aria-hidden="true" height="11" viewbox="0 0 19 10" width="16">
+<rect fill="#B22234" height="10" width="19">
+</rect>
+<g fill="#fff">
+<rect height="1" width="19" y="1">
+</rect>
+<rect height="1" width="19" y="3">
+</rect>
+<rect height="1" width="19" y="5">
+</rect>
+<rect height="1" width="19" y="7">
+</rect>
+<rect height="1" width="19" y="9">
+</rect>
+</g>
+<rect fill="#3C3B6E" height="5" width="8">
+</rect>
+</svg>
        EN
       </span>
-     </div>
-     <button aria-expanded="false" aria-label="Open menu" class="md:hidden text-white/80 hover:text-white p-2" id="menu-btn">
-      <svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
-       <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round">
-       </path>
-      </svg>
-     </button>
-    </div>
-   </div>
-   <nav aria-label="Mobile menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" id="mobile-menu">
-    <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/">
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="md:hidden text-white/80 hover:text-white p-2" id="menu-btn">
+<svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round">
+</path>
+</svg>
+</button>
+</div>
+</div>
+<nav aria-label="Mobile menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" id="mobile-menu">
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/">
      Home
     </a>
-    <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/consulting/enterprise-ai-architecture.html">
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/ai-implementation/">
      AI Architecture
     </a>
-    <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/framework/enterprise-ai-architecture-framework.html">
-     Framework
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/how-we-work/enterprise-ai-architecture-framework.html">
+     How we work
     </a>
-    <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/industries/distribution.html">
-     Industries
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/industries/distribution.html">
+     Industry Solutions
     </a>
-    <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/firm/strategic-ai-consultancy.html">
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/en/about/strategic-ai-consultancy.html">
      Firm
     </a>
-    <a class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5" href="/en/insights">
-     Insights
+<a class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5" href="/en/insights">
+     Recursos
     </a>
-    <a class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1" href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic." rel="noopener noreferrer" target="_blank">
+<a class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1" href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic." rel="noopener noreferrer" target="_blank">
      Request Diagnostic →
     </a>
-   </nav>
-  </header>
-  <!-- ============================================================
+</nav>
+</header>
+<!-- ============================================================
      SECTION 1 — HERO
 ============================================================ -->
-  <section aria-label="Insights hero" class="relative pt-36 pb-20 px-6 text-center grid-bg overflow-hidden" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
-   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);">
-   </div>
-   <div class="relative max-w-4xl mx-auto">
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
-     <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;">
-     </span>
+<section aria-label="Insights hero" class="relative pt-36 pb-20 px-6 text-center grid-bg overflow-hidden" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.05);">
+</div>
+<div class="relative max-w-4xl mx-auto">
+<!-- Badge -->
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+<span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;">
+</span>
      Strategic Knowledge Center
     </div>
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-[1.08] tracking-tight fade-up d2">
+<h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-[1.08] tracking-tight fade-up d2">
      Insights for CEOs
      <br/>
-     <span class="text-[#1FA2FF]">
+<span class="text-[#1FA2FF]">
       who scale.
      </span>
-    </h1>
-    <p class="text-[#C7C9D3] text-xl max-w-2xl mx-auto leading-relaxed fade-up d3">
+</h1>
+<p class="text-[#C7C9D3] text-xl max-w-2xl mx-auto leading-relaxed fade-up d3">
      Operational and strategic intelligence for leaders who want to grow without chaos. No hype. No unnecessary jargon.
     </p>
-    <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="text-sm">
-     <ol class="inline-flex items-center space-x-1 md:space-x-2">
-      <li class="inline-flex items-center">
-       <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors duration-200" href="/en/">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="text-sm">
+<ol class="inline-flex items-center space-x-1 md:space-x-2">
+<li class="inline-flex items-center">
+<a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors duration-200" href="/en/">
         Home
        </a>
-      </li>
-      <li>
-       <div class="flex items-center">
-        <svg aria-hidden="true" class="w-4 h-4 text-[#C7C9D3]/50" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-         <path clip-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" fill-rule="evenodd">
-         </path>
-        </svg>
-        <span class="ml-1 text-[#C7C9D3]/80 md:ml-2">
+</li>
+<li>
+<div class="flex items-center">
+<svg aria-hidden="true" class="w-4 h-4 text-[#C7C9D3]/50" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" fill-rule="evenodd">
+</path>
+</svg>
+<span class="ml-1 text-[#C7C9D3]/80 md:ml-2">
          Insights
         </span>
-       </div>
-      </li>
-     </ol>
-    </nav>
-   </div>
-  </section>
-  <!-- ============================================================
+</div>
+</li>
+</ol>
+</nav>
+</div>
+</section>
+<!-- ============================================================
      SECTION 2 — FEATURED ARTICLE
 ============================================================ -->
-  <section aria-label="Featured article" class="max-w-7xl mx-auto px-6 py-12">
-   <a class="featured-card block group" href="/en/insights/the-success-code.html" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'FeaturedBook'});">
-    <div class="p-10 md:p-14 flex flex-col md:flex-row md:items-center gap-8">
-     <div class="flex-1">
-      <div class="inline-block mb-5 px-4 py-1.5 rounded-lg text-xs font-bold bg-[#1FA2FF] text-white uppercase tracking-widest">
+<section aria-label="Featured article" class="max-w-7xl mx-auto px-6 py-12">
+<a class="featured-card block group" href="/en/insights/the-success-code.html" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'FeaturedBook'});">
+<div class="p-10 md:p-14 flex flex-col md:flex-row md:items-center gap-8">
+<div class="flex-1">
+<div class="inline-block mb-5 px-4 py-1.5 rounded-lg text-xs font-bold bg-[#1FA2FF] text-white uppercase tracking-widest">
        Foundational Book
       </div>
-      <h2 class="text-3xl md:text-4xl font-extrabold mb-5 transition-colors group-hover:text-[#1FA2FF]">
+<h2 class="text-3xl md:text-4xl font-extrabold mb-5 transition-colors group-hover:text-[#1FA2FF]">
        The Success Code — The Operational Manifesto of KRONIX Labs
       </h2>
-      <p class="text-[#C7C9D3]/80 text-lg mb-8 max-w-3xl leading-relaxed">
+<p class="text-[#C7C9D3]/80 text-lg mb-8 max-w-3xl leading-relaxed">
        The book that originated the EAA™ Framework. An intelligent entrepreneurship system with AI designed for companies that want to scale without losing control. Written by the founder of KRONIX Labs.
       </p>
-      <div class="inline-flex items-center gap-2 text-[#1FA2FF] font-semibold group-hover:gap-4 transition-all">
+<div class="inline-flex items-center gap-2 text-[#1FA2FF] font-semibold group-hover:gap-4 transition-all">
        Read more (Spanish version only)
        <svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16">
-        <path d="M5 12h14M12 5l7 7-7 7">
-        </path>
-       </svg>
-      </div>
-     </div>
-     <div class="flex-shrink-0 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden bg-[#1FA2FF]/10 border border-[#1FA2FF]/20 flex items-center justify-center">
-      <img alt="The Success Code" class="w-full h-full object-contain" src="/el-codigo-del-exito.png"/>
-     </div>
-    </div>
-   </a>
-  </section>
-  <!-- ============================================================
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</div>
+<div class="flex-shrink-0 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden bg-[#1FA2FF]/10 border border-[#1FA2FF]/20 flex items-center justify-center">
+<img alt="The Success Code" class="w-full h-full object-contain" src="/el-codigo-del-exito.png"/>
+</div>
+</div>
+</a>
+</section>
+<!-- ============================================================
      SECTION 3 — ARTICLE GRID
 ============================================================ -->
-  <section aria-labelledby="articles-title" class="max-w-7xl mx-auto px-6 py-12">
-   <div class="flex items-baseline justify-between mb-12">
-    <h2 class="text-3xl font-bold fade-in-on-scroll" id="articles-title">
+<section aria-labelledby="articles-title" class="max-w-7xl mx-auto px-6 py-12">
+<div class="flex items-baseline justify-between mb-12">
+<h2 class="text-3xl font-bold fade-in-on-scroll" id="articles-title">
      Strategic Articles
     </h2>
-    <span class="text-[#C7C9D3]/40 text-sm fade-in-on-scroll">
+<span class="text-[#C7C9D3]/40 text-sm fade-in-on-scroll">
      6 articles
     </span>
-   </div>
-   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <!-- Article 1 -->
-    <a class="fade-in-on-scroll article-card group" href="#burnout-operativo" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'OperationalBurnout'});">
-     <div class="article-tag mb-4">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Article 1 -->
+<a class="fade-in-on-scroll article-card group" href="#burnout-operativo" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'OperationalBurnout'});">
+<div class="article-tag mb-4">
       Operations
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       Operational Burnout: Why your business can't scale without architecture
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       78% of CEOs in LATAM spend more than 60% of their time solving operational problems. This is not leadership — it's managed chaos. Discover what generates it and how to eliminate it.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-    <!-- Article 2 -->
-    <a class="fade-in-on-scroll article-card group" href="#escalar-sin-contratar" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'ScaleWithoutHiring'});" style="animation-delay:.1s">
-     <div class="article-tag mb-4">
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+<!-- Article 2 -->
+<a class="fade-in-on-scroll article-card group" href="#escalar-sin-contratar" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'ScaleWithoutHiring'});" style="animation-delay:.1s">
+<div class="article-tag mb-4">
       Scalability
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       Scale without hiring: The new business paradigm
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       The belief that growing requires hiring more people is the biggest constraint on business profitability in 2025. AI infrastructure breaks that paradigm.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-    <!-- Article 3 -->
-    <a class="fade-in-on-scroll article-card group" href="#gobernanza-latam" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'GovernanceLATAM'});" style="animation-delay:.2s">
-     <div class="article-tag mb-4">
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+<!-- Article 3 -->
+<a class="fade-in-on-scroll article-card group" href="#gobernanza-latam" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'GovernanceLATAM'});" style="animation-delay:.2s">
+<div class="article-tag mb-4">
       Governance
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       AI Governance in LATAM: What every CEO must know
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       Colombia has Law 1581. Brazil has the LGPD. The world has AI risk frameworks. What does this mean for your company and how to protect yourself without slowing down.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-    <!-- Article 4 -->
-    <a class="fade-in-on-scroll article-card group" href="#soberania-datos" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'DataSovereignty'});" style="animation-delay:.3s">
-     <div class="article-tag mb-4">
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+<!-- Article 4 -->
+<a class="fade-in-on-scroll article-card group" href="#soberania-datos" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'DataSovereignty'});" style="animation-delay:.3s">
+<div class="article-tag mb-4">
       Business Security
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       Data sovereignty: Why your data should not be in third-party hands
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       Every time your company uses a third-party tool without contractual control, you're ceding strategic assets. Understand the risk and how to mitigate it.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-    <!-- Article 5 -->
-    <a class="fade-in-on-scroll article-card group" href="#whatsapp-empresarial" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'WhatsAppInfra'});" style="animation-delay:.4s">
-     <div class="article-tag mb-4">
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+<!-- Article 5 -->
+<a class="fade-in-on-scroll article-card group" href="#whatsapp-empresarial" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'WhatsAppInfra'});" style="animation-delay:.4s">
+<div class="article-tag mb-4">
       Strategic Channels
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       WhatsApp as business infrastructure: Beyond the chatbot
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       WhatsApp is not a customer service channel. It's the most powerful business communication channel in LATAM. The difference lies in how it's architected.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-    <!-- Article 6 -->
-    <a class="fade-in-on-scroll article-card group" href="#ceo-cuello-botella" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'CEOBottleneck'});" style="animation-delay:.5s">
-     <div class="article-tag mb-4">
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+<!-- Article 6 -->
+<a class="fade-in-on-scroll article-card group" href="#ceo-cuello-botella" onclick="gtag('event','click_article',{event_category:'Insights',event_label:'CEOBottleneck'});" style="animation-delay:.5s">
+<div class="article-tag mb-4">
       Operational Leadership
      </div>
-     <h3 class="text-lg font-bold mb-3 leading-snug">
+<h3 class="text-lg font-bold mb-3 leading-snug">
       The CEO as bottleneck: How architecture liberates the founder
      </h3>
-     <p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
+<p class="text-[#C7C9D3]/70 text-sm leading-relaxed flex-1">
       If your company can't operate without you for 2 weeks, you don't have a business — you have a job. The right AI infrastructure changes that.
      </p>
-     <div class="read-more">
+<div class="read-more">
       Read
       <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14">
-       <path d="M5 12h14M12 5l7 7-7 7">
-       </path>
-      </svg>
-     </div>
-    </a>
-   </div>
-  </section>
-  <!-- ============================================================
+<path d="M5 12h14M12 5l7 7-7 7">
+</path>
+</svg>
+</div>
+</a>
+</div>
+</section>
+<!-- ============================================================
      SECTION 4 — ARTICLE DETAILS
 ============================================================ -->
-  <section aria-label="Article full content" class="max-w-4xl mx-auto px-6 py-16">
-   <!-- Article 1 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="burnout-operativo">
-    <div class="article-tag mb-5">
+<section aria-label="Article full content" class="max-w-4xl mx-auto px-6 py-16">
+<!-- Article 1 Detail -->
+<article class="article-detail fade-in-on-scroll" id="burnout-operativo">
+<div class="article-tag mb-5">
      Operations
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      Operational Burnout: Why your business can't scale without architecture
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       Operational burnout is the silent reality of most companies in LATAM. 78% of CEOs spend more than 60% of their time solving operational problems: fighting fires, reviewing processes that should be automated, supervising tasks that don't scale.
      </p>
-     <p>
+<p>
       This is not leadership. It's managed chaos.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        The three main causes:
       </strong>
-     </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+</p>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         Lack of delegation structure:
        </strong>
        Without documented processes, the CEO becomes the only decision-maker. Every decision requires their participation.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Absence of processes:
        </strong>
        Without clear operational flows, every task is reinvented. There's no repeatability. There's no scale.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Manual operations:
        </strong>
        Companies continue doing manually what should be automated. RPA, AI, integrations — tools that reduce operational load — aren't integrated into the architecture.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        The consequences:
       </strong>
       Stagnant profitability. Frustrated talent. Plateaued growth. The CEO and their team feel like they're working harder to achieve the same results.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        How the EAA™ Framework solves it:
       </strong>
       The Framework diagnoses exactly where unnecessary load exists. Then it rebuilds operational architecture so processes scale, not people. AI, in this context, is a decision and execution layer that frees the team from low-value tasks.
      </p>
-    </div>
-   </article>
-   <!-- Article 2 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="escalar-sin-contratar">
-    <div class="article-tag mb-5">
+</div>
+</article>
+<!-- Article 2 Detail -->
+<article class="article-detail fade-in-on-scroll" id="escalar-sin-contratar">
+<div class="article-tag mb-5">
      Scalability
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      Scale without hiring: The new business paradigm
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       For decades, the equation has been simple: more growth = more people. Hire a sales manager, hire two account executives, hire an analyst. The cost of growth is always labor.
      </p>
-     <p>
+<p>
       That paradigm is collapsing. And with it, the profitability of companies that don't adapt.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        The old model vs the new:
       </strong>
-     </p>
-     <p>
+</p>
+<p>
       Old: Double revenue = Double team = Same margin (or worse).
      </p>
-     <p>
+<p>
       New: Double revenue = Same team + Intelligent architecture = Improved margin.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        Three concrete examples:
       </strong>
-     </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+</p>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         Prospecting and sales:
        </strong>
        Instead of hiring 3 account executives, an AI infrastructure integrated with CRM, LinkedIn, and lead intelligence automates prospecting and qualifies opportunities. One executive closes better-qualified deals.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Customer service:
        </strong>
        Intelligent chatbots with access to knowledge base resolve 70% of inquiries. Human team handles only escalations. Same SLA, fewer people.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Analytics and reporting:
        </strong>
        AI-generated automated dashboards replace the dedicated analyst who spent 4 days writing reports. Data reaches the CEO in real-time, processed.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        The ROI is immediate:
       </strong>
       Infrastructure investment recovers in 6–9 months. After that, it's pure profitability.
      </p>
-    </div>
-   </article>
-   <!-- Article 3 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="gobernanza-latam">
-    <div class="article-tag mb-5">
+</div>
+</article>
+<!-- Article 3 Detail -->
+<article class="article-detail fade-in-on-scroll" id="gobernanza-latam">
+<div class="article-tag mb-5">
      Governance
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      AI Governance in LATAM: What every CEO must know
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       The AI governance regulatory landscape in LATAM is consolidating rapidly. Colombia has Law 1581 for data protection. Brazil has the LGPD — even stricter. Internationally, the European AI Act is setting standards that reach other regions.
      </p>
-     <p>
+<p>
       For CEOs in LATAM, this means one thing: AI governance is not optional. It's operational.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        Four principles of AI governance that matter now:
       </strong>
-     </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+</p>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         Transparency:
        </strong>
        Your customers have the right to know when they're interacting with AI. Documenting this is a legal requirement in many cases.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Audit:
        </strong>
        How does your AI system make decisions? What are its biases? This must be regularly audited.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Consent and Privacy:
        </strong>
        AI trains on data. That data must be collected and used with explicit consent.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Accountability:
        </strong>
        If your AI makes an error — discriminatory recommendation, biased decision — who is responsible? The legal framework is clear: the company.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        Why this matters for your company:
       </strong>
       Fines up to 4% of revenue (Law 1581, LGPD). Loss of reputation. Litigation. AI infrastructure without governance is a legal liability waiting to happen.
      </p>
-    </div>
-   </article>
-   <!-- Article 4 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="soberania-datos">
-    <div class="article-tag mb-5">
+</div>
+</article>
+<!-- Article 4 Detail -->
+<article class="article-detail fade-in-on-scroll" id="soberania-datos">
+<div class="article-tag mb-5">
      Business Security
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      Data sovereignty: Why your data should not be in third-party hands
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       Every SaaS tool your company uses without a data contract is a cession of strategic assets. Your customer data, your internal processes, your metrics — all on servers you don't control, with terms of service that can change at any time.
      </p>
-     <p>
+<p>
       That's risk. Pure risk.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        What data sovereignty means:
       </strong>
       Complete control over where your data lives, who can access it, how it's processed, and when it's deleted. It's not paranoia. It's executive prudence.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        Three strategies to protect your data:
       </strong>
-     </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+</p>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         On-Premise:
        </strong>
        Your own servers, inside your office or local data center. Total control. Operational complexity. Ideal for ultra-sensitive data.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Hybrid:
        </strong>
        Sensitive data on-premise. Less critical data in cloud with data residency contract. The balance between control and operability.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Cloud with Guaranteed Residency:
        </strong>
        Data in cloud, but with legal guarantee that it resides in specific geography (e.g., servers in Colombia). Requires trusted providers.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        The reality:
       </strong>
       AI infrastructure worth building requires data sovereignty. If you cede your data, you cede the value that infrastructure generates.
      </p>
-    </div>
-   </article>
-   <!-- Article 5 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="whatsapp-empresarial">
-    <div class="article-tag mb-5">
+</div>
+</article>
+<!-- Article 5 Detail -->
+<article class="article-detail fade-in-on-scroll" id="whatsapp-empresarial">
+<div class="article-tag mb-5">
      Strategic Channels
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      WhatsApp as business infrastructure: Beyond the chatbot
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       In Colombia, 94% of the population is on WhatsApp. In Brazil, it's 95%. In Mexico, 94%. It's not a customer service channel. It's the most powerful communication channel in LATAM. Period.
      </p>
-     <p>
+<p>
       The problem: most companies treat WhatsApp like a free chatbot. They send automated messages, respond to point queries, and draw attention.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        The difference between chatbot and infrastructure:
       </strong>
       A chatbot answers questions. Infrastructure executes operations. It sells, invoices, delivers, supports — all through WhatsApp, integrated with your CRM, inventory, and payment system.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        Four high-impact use cases:
       </strong>
-     </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+</p>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         Consultative sales:
        </strong>
        Customer texts your account, receives personalized recommendations (based on their history), and buys without leaving WhatsApp.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Onboarding:
        </strong>
        New customer enters automated welcome flow, training, and first use — all via WhatsApp, with documents, videos, and human support if needed.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Intelligent notifications:
        </strong>
        Not spam. Contextual notifications: "Your order is ready. It's 2 blocks away. Press here to pick up." High conversion, low rejection.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Tier 1 and 2 support:
        </strong>
        Frequent questions solved by AI. Complex escalations solved by humans. All in one thread, no platform switching.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        The result:
       </strong>
       WhatsApp as infrastructure is the highest ROI channel in LATAM today. Low friction, high penetration, proven conversion.
      </p>
-    </div>
-   </article>
-   <!-- Article 6 Detail -->
-   <article class="article-detail fade-in-on-scroll" id="ceo-cuello-botella">
-    <div class="article-tag mb-5">
+</div>
+</article>
+<!-- Article 6 Detail -->
+<article class="article-detail fade-in-on-scroll" id="ceo-cuello-botella">
+<div class="article-tag mb-5">
      Operational Leadership
     </div>
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">
+<h2 class="text-3xl md:text-4xl font-bold mb-8">
      The CEO as bottleneck: How architecture liberates the founder
     </h2>
-    <div class="space-y-5 text-sm md:text-base">
-     <p>
+<div class="space-y-5 text-sm md:text-base">
+<p>
       If your company can't operate without you for two weeks, you don't have a business. You have a job. And with that job, you have a business that doesn't scale.
      </p>
-     <p>
+<p>
       This is the classic symptom of the CEO bottleneck: the company depends on the founder for decisions, processes, relationships. Growth is trapped.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        The symptoms are unmistakable:
       </strong>
       You're called during vacation. Your team waits for your approval for routine decisions. Processes aren't documented because "it's easier if I do it." Meetings steal 60% of your day.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        The causes:
       </strong>
       Lack of clear operational structure. Processes that don't scale because they're tied to key people. Delegation limited by fear of losing control.
      </p>
-     <p>
-      <strong>
+<p>
+<strong>
        Architectural liberation:
       </strong>
       The EAA™ Framework builds a "CEO Command Center" — a series of dashboards, automations, and processes that allow the CEO to manage from above, not from the trenches.
      </p>
-     <ul class="list-disc pl-6 space-y-3">
-      <li>
-       <strong>
+<ul class="list-disc pl-6 space-y-3">
+<li>
+<strong>
         Exception-based decisions:
        </strong>
        The CEO sees only what really requires their attention. Everything else is automated or delegated.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Dependency-free processes:
        </strong>
        Every operation functions without the CEO. Sales, support, finance, ops — each area has its autonomous architecture.
       </li>
-      <li>
-       <strong>
+<li>
+<strong>
         Human scalability:
        </strong>
        When revenue grows, the team doesn't grow proportionally. Infrastructure absorbs growth.
       </li>
-     </ul>
-     <p>
-      <strong>
+</ul>
+<p>
+<strong>
        The result:
       </strong>
       The CEO as strategist, not as operative. The company operates. It grows. It creates value. Without the founder working 70-hour weeks.
      </p>
-    </div>
-   </article>
-  </section>
-  <!-- ============================================================
+</div>
+</article>
+</section>
+<!-- ============================================================
      SECTION 5 — CTA
 ============================================================ -->
-  <section aria-labelledby="contact-title" class="py-28 px-6 relative overflow-hidden" id="contact" style="background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(31,162,255,0.10) 0%,transparent 70%),linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
-   <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image:linear-gradient(rgba(31,162,255,0.1) 1px, transparent 1px),linear-gradient(90deg,rgba(31,162,255,0.1) 1px, transparent 1px);background-size:40px 40px;">
-   </div>
-   <div class="max-w-3xl mx-auto relative">
-    <div class="text-center mb-14">
-     <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">
+<section aria-labelledby="contact-title" class="py-28 px-6 relative overflow-hidden" id="contact" style="background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(31,162,255,0.10) 0%,transparent 70%),linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
+<div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image:linear-gradient(rgba(31,162,255,0.1) 1px, transparent 1px),linear-gradient(90deg,rgba(31,162,255,0.1) 1px, transparent 1px);background-size:40px 40px;">
+</div>
+<div class="max-w-3xl mx-auto relative">
+<div class="text-center mb-14">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">
       First Step
      </p>
-     <h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight" id="contact-title">
+<h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight" id="contact-title">
       Ready to turn these insights
       <br/>
-      <span class="text-[#1FA2FF]">
+<span class="text-[#1FA2FF]">
        into results?
       </span>
-     </h2>
-     <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">
       45 minutes. No commitment. You'll walk away knowing exactly where your operation is losing money and what architecture fixes it.
      </p>
-    </div>
-    <!-- WhatsApp-style card -->
-    <div class="bg-[#070A1E] border border-[#1FA2FF]/25 rounded-2xl overflow-hidden mb-8" style="box-shadow:0 0 40px rgba(31,162,255,0.08);">
-     <div class="bg-[#1FA2FF] px-5 py-4 flex items-center gap-3">
-      <div class="w-10 h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center flex-shrink-0">
-       <svg aria-hidden="true" fill="white" height="20" viewbox="0 0 24 24" width="20">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z">
-        </path>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.528 5.854L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.947 0-3.763-.524-5.327-1.435l-.38-.226-3.961 1.032 1.055-3.843-.249-.396A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z">
-        </path>
-       </svg>
-      </div>
-      <div>
-       <div class="text-white font-bold text-sm">
+</div>
+<!-- WhatsApp-style card -->
+<div class="bg-[#070A1E] border border-[#1FA2FF]/25 rounded-2xl overflow-hidden mb-8" style="box-shadow:0 0 40px rgba(31,162,255,0.08);">
+<div class="bg-[#1FA2FF] px-5 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white/20 border border-white/30 flex items-center justify-center flex-shrink-0">
+<svg aria-hidden="true" fill="white" height="20" viewbox="0 0 24 24" width="20">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z">
+</path>
+<path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.555 4.122 1.528 5.854L0 24l6.335-1.652A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.947 0-3.763-.524-5.327-1.435l-.38-.226-3.961 1.032 1.055-3.843-.249-.396A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z">
+</path>
+</svg>
+</div>
+<div>
+<div class="text-white font-bold text-sm">
         KRONIX Labs
        </div>
-       <div class="text-white/80 text-xs flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-green-300 inline-block" style="animation:pulse 2s ease-in-out infinite;">
-        </span>
+<div class="text-white/80 text-xs flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-green-300 inline-block" style="animation:pulse 2s ease-in-out infinite;">
+</span>
         Available · Responds in &lt;2h
        </div>
-      </div>
-     </div>
-     <div class="p-6 md:p-8">
-      <form class="space-y-5" id="contact-form" onsubmit="handleFormSubmit(event)">
-       <p class="text-red-400 text-sm">
+</div>
+</div>
+<div class="p-6 md:p-8">
+<form class="space-y-5" id="contact-form" onsubmit="handleFormSubmit(event)">
+<p class="text-red-400 text-sm">
         All fields are required.
        </p>
-       <div class="grid md:grid-cols-2 gap-5">
-        <div>
-         <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="name">
+<div class="grid md:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="name">
           Full Name *
          </label>
-         <input autocomplete="name" class="form-input" id="name" name="name" placeholder="Your name" required="" type="text"/>
-        </div>
-        <div>
-         <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="company">
+<input autocomplete="name" class="form-input" id="name" name="name" placeholder="Your name" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="company">
           Company *
          </label>
-         <input autocomplete="organization" class="form-input" id="company" name="company" placeholder="Your company" required="" type="text"/>
-        </div>
-       </div>
-       <div>
-        <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="email">
+<input autocomplete="organization" class="form-input" id="company" name="company" placeholder="Your company" required="" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="email">
          Email *
         </label>
-        <input autocomplete="email" class="form-input" id="email" name="email" placeholder="your@company.com" required="" type="email"/>
-       </div>
-       <div>
-        <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="whatsapp">
+<input autocomplete="email" class="form-input" id="email" name="email" placeholder="your@company.com" required="" type="email"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="whatsapp">
          WhatsApp (with country code) *
         </label>
-        <input autocomplete="tel" class="form-input" id="whatsapp" name="whatsapp" placeholder="+1 555 000 0000" required="" type="tel"/>
-       </div>
-       <div>
-        <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="employees">
+<input autocomplete="tel" class="form-input" id="whatsapp" name="whatsapp" placeholder="+1 555 000 0000" required="" type="tel"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="employees">
          Number of Employees *
         </label>
-        <div class="select-wrapper">
-         <select class="form-input form-select" id="employees" name="employees" required="">
-          <option disabled="" selected="" style="color:rgba(255,255,255,0.35)" value="">
+<div class="select-wrapper">
+<select class="form-input form-select" id="employees" name="employees" required="">
+<option disabled="" selected="" style="color:rgba(255,255,255,0.35)" value="">
            Select company size
           </option>
-          <option value="1-10">
+<option value="1-10">
            1 – 10 employees
           </option>
-          <option value="11-50">
+<option value="11-50">
            11 – 50 employees
           </option>
-          <option value="51-200">
+<option value="51-200">
            51 – 200 employees
           </option>
-          <option value="201-500">
+<option value="201-500">
            201 – 500 employees
           </option>
-          <option value="500+">
+<option value="500+">
            500+ employees
           </option>
-         </select>
-        </div>
-       </div>
-       <div>
-        <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="sector">
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="sector">
          Industry *
         </label>
-        <div class="select-wrapper">
-         <select class="form-input form-select" id="sector" name="sector" required="">
-          <option disabled="" selected="" style="color:rgba(255,255,255,0.35)" value="">
+<div class="select-wrapper">
+<select class="form-input form-select" id="sector" name="sector" required="">
+<option disabled="" selected="" style="color:rgba(255,255,255,0.35)" value="">
            Select your industry
           </option>
-          <option value="distribution">
+<option value="distribution">
            Distribution &amp; Logistics
           </option>
-          <option value="healthcare">
+<option value="healthcare">
            Healthcare &amp; Clinics
           </option>
-          <option value="construction">
+<option value="construction">
            Construction &amp; Real Estate
           </option>
-          <option value="manufacturing">
+<option value="manufacturing">
            Manufacturing &amp; Industry
           </option>
-          <option value="services">
+<option value="services">
            Professional Services
           </option>
-          <option value="retail">
+<option value="retail">
            Retail &amp; E-commerce
           </option>
-          <option value="technology">
+<option value="technology">
            Technology
           </option>
-          <option value="other">
+<option value="other">
            Other
           </option>
-         </select>
-        </div>
-       </div>
-       <div>
-        <label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="challenge">
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3] uppercase tracking-wide mb-2" for="challenge">
          Main operational challenge
         </label>
-        <textarea class="form-input" id="challenge" name="challenge" placeholder="What is the operational problem consuming most of your time right now?" required="" rows="3" style="resize:vertical;"></textarea>
-       </div>
-       <button class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3" disabled="" id="submit-btn" style="opacity:0.5;cursor:not-allowed;" type="submit">
-        <span id="btn-text">
+<textarea class="form-input" id="challenge" name="challenge" placeholder="What is the operational problem consuming most of your time right now?" required="" rows="3" style="resize:vertical;"></textarea>
+</div>
+<button class="w-full bg-[#1FA2FF] text-white py-4 px-8 rounded-xl font-bold text-lg hover:opacity-90 transition btn-glow flex items-center justify-center gap-3" disabled="" id="submit-btn" style="opacity:0.5;cursor:not-allowed;" type="submit">
+<span id="btn-text">
          Request My Diagnostic
         </span>
-        <svg aria-hidden="true" fill="none" height="18" id="btn-arrow" viewbox="0 0 24 24" width="18">
-         <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-         </path>
-        </svg>
-        <svg class="hidden animate-spin" fill="none" height="18" id="btn-spinner" viewbox="0 0 24 24" width="18">
-         <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3">
-         </circle>
-         <path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-linecap="round" stroke-width="3">
-         </path>
-        </svg>
-       </button>
-       <p class="text-[#C7C9D3]/50 text-xs text-center mt-1">
+<svg aria-hidden="true" fill="none" height="18" id="btn-arrow" viewbox="0 0 24 24" width="18">
+<path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+</path>
+</svg>
+<svg class="hidden animate-spin" fill="none" height="18" id="btn-spinner" viewbox="0 0 24 24" width="18">
+<circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3">
+</circle>
+<path d="M12 2a10 10 0 0 1 10 10" stroke="#283561" stroke-linecap="round" stroke-width="3">
+</path>
+</svg>
+</button>
+<p class="text-[#C7C9D3]/50 text-xs text-center mt-1">
         No cost · Fast response · Personalized recommendation
        </p>
-       <p class="hidden text-center text-green-400 text-sm font-semibold py-3" id="form-success">
+<p class="hidden text-center text-green-400 text-sm font-semibold py-3" id="form-success">
         ✓ Request received. Expect a WhatsApp reply within 24–48 business hours with next steps.
        </p>
-       <p class="hidden text-center text-red-400 text-sm py-3" id="form-error">
+<p class="hidden text-center text-red-400 text-sm py-3" id="form-error">
         There was an error. Please write to us directly on WhatsApp.
        </p>
-      </form>
-     </div>
-    </div>
-    <!-- Trust indicators -->
-    <div class="mt-12 grid grid-cols-3 gap-4 text-center">
-     <div>
-      <div class="text-[#1FA2FF] font-bold text-lg">
+</form>
+</div>
+</div>
+<!-- Trust indicators -->
+<div class="mt-12 grid grid-cols-3 gap-4 text-center">
+<div>
+<div class="text-[#1FA2FF] font-bold text-lg">
        45min
       </div>
-      <div class="text-xs text-[#C7C9D3]/60 mt-1">
+<div class="text-xs text-[#C7C9D3]/60 mt-1">
        diagnostic session
       </div>
-     </div>
-     <div>
-      <div class="text-[#1FA2FF] font-bold text-lg">
+</div>
+<div>
+<div class="text-[#1FA2FF] font-bold text-lg">
        24h
       </div>
-      <div class="text-xs text-[#C7C9D3]/60 mt-1">
+<div class="text-xs text-[#C7C9D3]/60 mt-1">
        response time
       </div>
-     </div>
-     <div>
-      <div class="text-[#1FA2FF] font-bold text-lg">
+</div>
+<div>
+<div class="text-[#1FA2FF] font-bold text-lg">
        No
       </div>
-      <div class="text-xs text-[#C7C9D3]/60 mt-1">
+<div class="text-xs text-[#C7C9D3]/60 mt-1">
        commitment required
       </div>
-     </div>
-    </div>
-   </div>
-  </section>
-  <!-- ============================================================
+</div>
+</div>
+</div>
+</section>
+<!-- ============================================================
      FOOTER
 ============================================================ -->
-  <footer class="bg-[#070A1E] border-t border-white/5 py-16 px-6">
-   <div class="max-w-6xl mx-auto">
-    <div class="grid md:grid-cols-4 gap-10 mb-12">
-     <div class="md:col-span-2">
-      <a aria-label="KRONIX Labs" href="/en/">
-       <img alt="KRONIX Labs" class="h-10 mb-5" height="40" src="/Kronix-Labs.svg" width="140"/>
-      </a>
-      <p class="text-[#C7C9D3] text-sm leading-relaxed max-w-sm">
+<footer class="bg-[#070A1E] border-t border-white/5 py-16 px-6">
+<div class="max-w-6xl mx-auto">
+<div class="grid md:grid-cols-4 gap-10 mb-12">
+<div class="md:col-span-2">
+<a aria-label="KRONIX Labs" href="/en/">
+<img alt="KRONIX Labs" class="h-10 mb-5" height="40" src="/Kronix-Labs.svg" width="140"/>
+</a>
+<p class="text-[#C7C9D3] text-sm leading-relaxed max-w-sm">
        Enterprise AI Infrastructure Architecture Firm. We redesign how companies operate to generate more revenue without hiring more staff.
       </p>
-      <p class="text-[#C7C9D3]/40 text-xs mt-4">
+<p class="text-[#C7C9D3]/40 text-xs mt-4">
        Medellín, Antioquia, Colombia
       </p>
-     </div>
-     <div>
-      <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">
+</div>
+<div>
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">
        Navigation
       </div>
-      <ul class="space-y-3 text-sm">
-       <li>
-        <a class="nav-link" href="/en/consulting/enterprise-ai-architecture.html">
+<ul class="space-y-3 text-sm">
+<li>
+<a class="nav-link" href="/en/ai-implementation/">
          AI Architecture
         </a>
-       </li>
-       <li>
-        <a class="nav-link" href="/en/framework/enterprise-ai-architecture-framework.html">
+</li>
+<li>
+<a class="nav-link" href="/en/how-we-work/enterprise-ai-architecture-framework.html">
          EAA Framework
         </a>
-       </li>
-       <li>
-        <a class="nav-link" href="/en/industries/distribution.html">
-         Industries
+</li>
+<li>
+<a class="nav-link" href="/en/industries/distribution.html">
+         Industry Solutions
         </a>
-       </li>
-       <li>
-        <a class="nav-link" href="/en/firm/strategic-ai-consultancy.html">
+</li>
+<li>
+<a class="nav-link" href="/en/about/strategic-ai-consultancy.html">
          Our Firm
         </a>
-       </li>
-       <li>
-        <a class="nav-link" href="/en/case-study/multi-site-ai-system.html">
+</li>
+<li>
+<a class="nav-link" href="/en/case-study/multi-site-ai-system.html">
          Case Study
         </a>
-       </li>
-      </ul>
-     </div>
-     <div>
-      <div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">
+</li>
+</ul>
+</div>
+<div>
+<div class="text-white/40 text-xs font-bold uppercase tracking-widest mb-5">
        Contact
       </div>
-      <ul class="space-y-3 text-sm">
-       <li>
-        <a class="nav-link" href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic." rel="noopener noreferrer" target="_blank">
+<ul class="space-y-3 text-sm">
+<li>
+<a class="nav-link" href="https://wa.me/573107397053?text=Hello%20KRONIX%2C%20I%20want%20to%20request%20my%20Operational%20Maturity%20Diagnostic." rel="noopener noreferrer" target="_blank">
          WhatsApp: +57 310 739 7053
         </a>
-       </li>
-       <li>
-        <a class="nav-link" href="mailto:Admin@kronixlabs.com">
+</li>
+<li>
+<a class="nav-link" href="mailto:Admin@kronixlabs.com">
          Admin@kronixlabs.com
         </a>
-       </li>
-       <li>
-        <a class="nav-link flex items-center gap-2" href="/es/insights" hreflang="es">
-         <svg aria-hidden="true" height="10" viewbox="0 0 3 2" width="14">
-          <rect fill="#C60B1E" height="2" width="3">
-          </rect>
-          <rect fill="#FFC400" height="1" width="3" y="0.5">
-          </rect>
-         </svg>
+</li>
+<li>
+<a class="nav-link flex items-center gap-2" href="/es/insights" hreflang="es">
+<svg aria-hidden="true" height="10" viewbox="0 0 3 2" width="14">
+<rect fill="#C60B1E" height="2" width="3">
+</rect>
+<rect fill="#FFC400" height="1" width="3" y="0.5">
+</rect>
+</svg>
          Ver en Español
         </a>
-       </li>
-      </ul>
-     </div>
-    </div>
-    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-     <p class="text-[#C7C9D3]/40 text-xs">
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-[#C7C9D3]/40 text-xs">
       © 2026 KRONIX Labs by jurion. All rights reserved.
      </p>
-     <p class="text-[#C7C9D3]/25 text-xs">
+<p class="text-[#C7C9D3]/25 text-xs">
       Enterprise AI Infrastructure Architecture · Medellín, Colombia
      </p>
-    </div>
-   </div>
-  </footer>
-  <!-- ============================================================
+</div>
+</div>
+</footer>
+<!-- ============================================================
      STICKY MOBILE CTA
 ============================================================ -->
-  <div class="sticky-mobile-cta md:hidden">
-   <a class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base" href="#contact" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_Insights_EN'});">
+<div class="sticky-mobile-cta md:hidden">
+<a class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base" href="#contact" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_Insights_EN'});">
     Request Diagnostic →
    </a>
-  </div>
-  <!-- ============================================================
+</div>
+<!-- ============================================================
      WHATSAPP FLOATING BUTTON
 ============================================================ -->
-  <button aria-expanded="false" aria-label="Chat on WhatsApp" class="kx-wa-btn" id="kxWaBtn" onclick="document.getElementById('kxWaPanel').style.display=document.getElementById('kxWaPanel').style.display==='block'?'none':'block';this.setAttribute('aria-expanded',document.getElementById('kxWaPanel').style.display==='block')">
-   <svg aria-hidden="true" fill="currentColor" height="18" viewbox="0 0 24 24" width="18">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z">
-    </path>
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.858L.057 23.57a.5.5 0 0 0 .608.655l5.939-1.547A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.669-.513-5.2-1.41l-.374-.22-3.523.917.948-3.416-.244-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z">
-    </path>
-   </svg>
+<button aria-expanded="false" aria-label="Chat on WhatsApp" class="kx-wa-btn" id="kxWaBtn" onclick="document.getElementById('kxWaPanel').style.display=document.getElementById('kxWaPanel').style.display==='block'?'none':'block';this.setAttribute('aria-expanded',document.getElementById('kxWaPanel').style.display==='block')">
+<svg aria-hidden="true" fill="currentColor" height="18" viewbox="0 0 24 24" width="18">
+<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z">
+</path>
+<path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.527 5.858L.057 23.57a.5.5 0 0 0 .608.655l5.939-1.547A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.669-.513-5.2-1.41l-.374-.22-3.523.917.948-3.416-.244-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z">
+</path>
+</svg>
    WhatsApp
   </button>
-  <div aria-label="Contact via WhatsApp" class="kx-wa-panel" id="kxWaPanel" role="dialog">
-   <h4>
+<div aria-label="Contact via WhatsApp" class="kx-wa-panel" id="kxWaPanel" role="dialog">
+<h4>
     Contact via WhatsApp
    </h4>
-   <select aria-label="Message topic" id="waTopicInsightsEN">
-    <option value="diagnostic">
+<select aria-label="Message topic" id="waTopicInsightsEN">
+<option value="diagnostic">
      Request Operational Diagnostic
     </option>
-    <option value="info">
+<option value="info">
      Get more information
     </option>
-    <option value="pricing">
+<option value="pricing">
      Investment and pricing
     </option>
-    <option value="demo">
+<option value="demo">
      Schedule a demo of EAA architecture
     </option>
-   </select>
-   <button aria-label="Open WhatsApp" onclick="sendWhatsAppInsightsEN()">
+</select>
+<button aria-label="Open WhatsApp" onclick="sendWhatsAppInsightsEN()">
     Open WhatsApp →
    </button>
-  </div>
-  <!-- ============================================================
+</div>
+<!-- ============================================================
      JAVASCRIPT
 ============================================================ -->
   // Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
@@ -1222,5 +1003,5 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   document.addEventListener('DOMContentLoaded',adjustWa);
 })();
   </script>
- </body>
+</body>
 </html>

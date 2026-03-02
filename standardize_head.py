@@ -25,15 +25,37 @@ def web_path(file_path):
     return url
 
 
+# maps certain directory segments between languages when they don't match verbatim
+# e.g. English "how-we-work" corresponds to Spanish "como-lo-hacemos".
+DIR_MAP = {
+    '/en/how-we-work/': '/es/como-lo-hacemos/',
+    '/es/como-lo-hacemos/': '/en/how-we-work/',
+}
+
 def partner_path(url):
+    # first handle english -> spanish
     if url.startswith('/en/'):
-        url2 = url.replace('/en/', '/es/', 1)
+        # if we have a directory mapping, apply it
+        for e_dir, s_dir in DIR_MAP.items():
+            if url.startswith(e_dir):
+                # replace prefix
+                url2 = url.replace(e_dir, s_dir, 1)
+                break
+        else:
+            url2 = url.replace('/en/', '/es/', 1)
+        # translate filename slug if needed
         fname = os.path.basename(url2)
         if fname in slug_map:
             url2 = url2.replace(fname, slug_map[fname])
         return url2
+    # spanish -> english
     if url.startswith('/es/'):
-        url2 = url.replace('/es/', '/en/', 1)
+        for s_dir, e_dir in DIR_MAP.items():
+            if url.startswith(s_dir):
+                url2 = url.replace(s_dir, e_dir, 1)
+                break
+        else:
+            url2 = url.replace('/es/', '/en/', 1)
         fname = os.path.basename(url2)
         if fname in inv_slug_map:
             url2 = url2.replace(fname, inv_slug_map[fname])
