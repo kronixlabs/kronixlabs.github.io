@@ -1,111 +1,145 @@
 <!DOCTYPE html>
+
 <html lang="es" prefix="og: https://ogp.me/ns#">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0,viewport-fit=cover" name="viewport"/><meta content="dark light" name="color-scheme"/><meta content="#0C002B" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black" name="apple-mobile-web-app-status-bar-style"/><title>KRONIX Labs | Infraestructura IA Empresarial — Escale Sin Contratar Más</title><meta content="KRONIX Labs es la Firma de Arquitectura de Infraestructura IA que rediseña cómo opera su empresa para facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para empresas LATAM." name="description"/><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/><link href="https://kronixlabs.com/es/" rel="canonical"/><link href="https://kronixlabs.com/en/" hreflang="es" rel="alternate"/><link href="https://kronixlabs.com/en/" hreflang="en" rel="alternate"/><link href="https://kronixlabs.com/" hreflang="x-default" rel="alternate"/><meta content="website" property="og:type"/><meta content="KRONIX Labs" property="og:site_name"/><meta content="es_CO" property="og:locale"/><meta content="KRONIX Labs | Infraestructura IA Empresarial — Escale Sin Contratar Más" property="og:title"/><meta content="KRONIX Labs es la Firma de Arquitectura de Infraestructura IA que rediseña cómo opera su empresa para facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para empresas LATAM." property="og:description"/><meta content="https://kronixlabs.com/Kronix-Labs.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="KRONIX Labs — Infraestructura IA Empresarial" property="og:image:alt"/><meta content="https://kronixlabs.com/es/" property="og:url"/><meta content="summary_large_image" name="twitter:card"/><meta content="KRONIX Labs | Infraestructura IA Empresarial — Escale Sin Contratar Más" name="twitter:title"/><meta content="KRONIX Labs es la Firma de Arquitectura de Infraestructura IA que rediseña cómo opera su empresa para facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para empresas LATAM." name="twitter:description"/><meta content="https://kronixlabs.com/Kronix-Labs.png" name="twitter:image"/><link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/><link href="/Kronix-Labs.svg" rel="icon" type="image/svg+xml"/><link href="/Kronix-Labs.png" rel="icon" type="image/png"/><link href="/manifest.json" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://www.googletagmanager.com" rel="preconnect"/><link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="preload"/><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><script>
+// ── Mobile menu ──
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+menuBtn.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', isOpen);
+});
 
-<!-- ================================================================
-     SEO PRIMARIO
-================================================================ -->
-<title>KRONIX Labs | Infraestructura IA Empresarial — Escale Sin Contratar Más</title>
-<meta name="description" content="KRONIX Labs es la Firma de Arquitectura de Infraestructura IA que rediseña cómo opera su empresa para facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para empresas LATAM.">
-<meta name="keywords" content="arquitectura infraestructura IA empresarial, automatización operativa empresas LATAM, escalar empresa sin contratar personal, consultoría IA estratégica Colombia, infraestructura IA para PYMEs, burnout operativo solución, Enterprise AI Architecture LATAM, KRONIX Labs Medellín">
-<meta name="author" content="KRONIX Labs">
-<meta name="publisher" content="KRONIX Labs">
-<meta name="copyright" content="KRONIX Labs, 2026">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="googlebot" content="index, follow">
-<meta name="theme-color" content="#1FA2FF">
-<meta name="rating" content="general">
+// ── Scroll progress ──
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('scrollIndicator').style.width = ((scrolled / total) * 100) + '%';
+  // Show WA button
+  const btn = document.getElementById('kxWaBtn');
+  if (btn) { scrolled > 400 ? btn.classList.add('show') : btn.classList.remove('show'); }
+}, { passive: true });
 
-<!-- GEO -->
-<meta name="geo.region" content="CO-ANT">
-<meta name="geo.placename" content="Medellín, Antioquia, Colombia">
-<meta name="geo.position" content="6.2442;-75.5812">
-<meta name="ICBM" content="6.2442, -75.5812">
-<meta name="language" content="Spanish">
-<meta name="coverage" content="Worldwide">
-<meta name="distribution" content="Global">
-
-<!-- CANONICAL + HREFLANG -->
-<link rel="canonical" href="https://kronixlabs.github.io/es/">
-<link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/">
-<link rel="alternate" hreflang="es-CO" href="https://kronixlabs.github.io/es/">
-<link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/">
-<link rel="alternate" hreflang="en-US" href="https://kronixlabs.github.io/en/">
-<link rel="alternate" hreflang="x-default" href="https://kronixlabs.github.io/">
-
-<!-- OPEN GRAPH -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="KRONIX Labs">
-<meta property="og:locale" content="es_CO">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:title" content="KRONIX Labs | Deje de Operar. Comience a Escalar.">
-<meta property="og:description" content="Diseñamos la infraestructura de IA que permite a su empresa facturar más sin contratar a nadie más. Firma de Arquitectura de Infraestructura IA para LATAM.">
-<meta property="og:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="KRONIX Labs — Infraestructura IA Empresarial">
-<meta property="og:url" content="https://kronixlabs.github.io/es/">
-
-
-<!-- logo tipo app -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.json">
-
-<meta name="theme-color" content="#0C002B">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-<!-- TWITTER CARD -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@kronixlabs">
-<meta name="twitter:title" content="KRONIX Labs — Deje de Operar. Comience a Escalar.">
-<meta name="twitter:description" content="Infraestructura IA que permite a su empresa facturar más sin contratar más personal. Diagnóstico de Madurez Operativa para LATAM.">
-<meta name="twitter:image" content="https://kronixlabs.github.io/Kronix-Labs.png">
-
-<!-- FAVICON -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<link rel="shortcut icon" href="/favicon.svg">
-
-<!-- PERFORMANCE -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<!-- GOOGLE ANALYTICS 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-T41H03C7CH"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-T41H03C7CH', { page_title: 'Home ES v2', page_location: window.location.href });
-  let scrollMilestones = {25:false,50:false,75:false,90:false};
-  window.addEventListener('scroll', function() {
-    let pct = Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
-    for (let m in scrollMilestones) {
-      if (pct>=m && !scrollMilestones[m]) { scrollMilestones[m]=true; gtag('event','scroll_depth',{event_category:'Engagement',event_label:m+'%',value:parseInt(m)}); }
+// ── Scroll animations ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
     }
-  },{passive:true});
-  let startTime = Date.now();
-  window.addEventListener('beforeunload',function(){gtag('event','time_on_page',{event_category:'Engagement',value:Math.round((Date.now()-startTime)/1000)});});
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-  // Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
-  (function(){
-    function adjustWa(){
-      var btn=document.getElementById('kxWaBtn'); if(!btn) return;
-      if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
-      else { btn.style.bottom=''; }
-    }
-    adjustWa();
-    window.addEventListener('resize',adjustWa);
-    document.addEventListener('DOMContentLoaded',adjustWa);
-  })();
-</script>
-</body>
-</html>
+document.querySelectorAll('.cap-card, .step-card, .persona-card, .trust-item, .layer-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  observer.observe(el);
+});
 
+// ── Smooth scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ── Select placeholder color ──
+document.getElementById('empleados').addEventListener('change', function() {
+  this.style.color = this.value ? '#fff' : 'rgba(255,255,255,.35)';
+});
+
+// ── WhatsApp panel toggle ──
+function toggleWaPanel() {
+  const panel = document.getElementById('kxWaPanel');
+  const btn = document.getElementById('kxWaBtn');
+  const isOpen = panel.style.display === 'block';
+  panel.style.display = isOpen ? 'none' : 'block';
+  btn.setAttribute('aria-expanded', !isOpen);
+}
+
+// ── WhatsApp sender ──
+function sendWhatsAppES() {
+  const topic = document.getElementById('waTopicES').value;
+  const msgs = {
+    diagnostico: 'Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.',
+    arquitectura: 'Hola KRONIX, tengo una consulta sobre Arquitectura IA Empresarial.',
+    framework: 'Hola KRONIX, quiero conocer más sobre el Framework EAA™.',
+    info: 'Hola KRONIX, quiero más información sobre sus servicios.'
+  };
+  gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_Home_ES_'+topic});
+  window.open('https://wa.me/573107397053?text=' + encodeURIComponent(msgs[topic] || msgs.info), '_blank');
+  document.getElementById('kxWaPanel').style.display = 'none';
+}
+
+// ── Form submit ──
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('form-success');
+  const btnText = document.getElementById('btn-text');
+  const spinner = document.getElementById('btn-spinner');
+
+  const nombre = document.getElementById('nombre').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const cargo = document.getElementById('cargo').value.trim();
+  const empleados = document.getElementById('empleados').value;
+  const dolor = document.getElementById('dolor').value.trim();
+
+  if (!nombre || !empresa || !cargo || !empleados || !dolor) {
+    alert('Por favor complete todos los campos requeridos.');
+    return;
+  }
+
+  // Show spinner
+  btnText.textContent = 'Enviando...';
+  spinner.classList.remove('hidden');
+
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'DiagnosticForm_Home_ES', { event_category: 'Lead', event_label: 'Diagnostico_Form_ES', company_size: empleados });
+  }
+
+  const message = `[LEAD ES - Home] Nueva Solicitud de Diagnóstico\n\nNombre: ${nombre}\n\nEmpresa: ${empresa}\n\nCargo: ${cargo}\n\nEmpleados: ${empleados}\n\nPrincipal dolor: ${dolor}`;
+
+  setTimeout(() => {
+    window.open('https://wa.me/573107397053?text=' + encodeURIComponent(message), '_blank');
+    form.classList.add('hidden');
+    success.classList.remove('hidden');
+  }, 500);
+}
+
+// ── Live validation — activa el botón solo cuando todos los campos están llenos ──
+(function(){
+  var form = document.getElementById('contact-form');
+  var submitBtn = document.getElementById('submit-btn');
+  if(!form || !submitBtn) return;
+  function checkForm(){
+    var ok = true;
+    form.querySelectorAll('[required]').forEach(function(el){ if(!el.value.trim()) ok = false; });
+    submitBtn.disabled = !ok;
+    submitBtn.style.opacity = ok ? '1' : '0.5';
+    submitBtn.style.cursor = ok ? 'pointer' : 'not-allowed';
+    form.querySelectorAll('select[required]').forEach(function(el){ el.style.color = el.value ? '#fff' : 'rgba(255,255,255,0.35)'; });
+  }
+  form.querySelectorAll('[required]').forEach(function(el){
+    el.addEventListener('input', checkForm);
+    el.addEventListener('change', checkForm);
+  });
+  checkForm();
+})();
+
+// ── Close WA panel on outside click ──
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('kxWaPanel');
+  const btn = document.getElementById('kxWaBtn');
+  if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.style.display = 'none';
+    btn.setAttribute('aria-expanded', 'false');
+  }
+});
+</script></head></html>
 <!-- SCHEMA JSON-LD -->
 <script type="application/ld+json">
 {
@@ -113,13 +147,13 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://kronixlabs.github.io/#organization",
+      "@id": "https://kronixlabs.com/#organization",
       "name": "KRONIX Labs",
       "alternateName": ["KRONIX Labs by jurion", "Kronix"],
       "legalName": "KRONIX Labs by jurion",
-      "url": "https://kronixlabs.github.io/",
-      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.github.io/Kronix-Labs.svg", "width": 200, "height": 50 },
-      "image": "https://kronixlabs.github.io/Kronix-Labs.png",
+      "url": "https://kronixlabs.com/",
+      "logo": { "@type": "ImageObject", "url": "https://kronixlabs.com/Kronix-Labs.svg", "width": 200, "height": 50 },
+      "image": "https://kronixlabs.com/Kronix-Labs.png",
       "description": "Firma de Arquitectura de Infraestructura IA que rediseña cómo opera una empresa para que pueda facturar más sin contratar más personal. Especialistas en eliminar el Burnout Operativo en PYMEs y grandes empresas de LATAM.",
       "slogan": "Deje de operar. Comience a escalar.",
       "foundingDate": "2024",
@@ -145,25 +179,25 @@
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización Operativa Estructural", "description": "Implementación de sistemas que eliminan el burnout operativo y permiten escalar sin contratar más personal." } }
         ]
       },
-      "sameAs": ["https://kronixlabs.github.io", "https://kronixlabs.github.io/es/", "https://kronixlabs.github.io/en/"]
+      "sameAs": ["https://kronixlabs.com", "https://kronixlabs.com/es/", "https://kronixlabs.com/en/"]
     },
     {
       "@type": "WebSite",
-      "@id": "https://kronixlabs.github.io/#website",
-      "url": "https://kronixlabs.github.io/",
+      "@id": "https://kronixlabs.com/#website",
+      "url": "https://kronixlabs.com/",
       "name": "KRONIX Labs",
       "description": "Firma de Arquitectura de Infraestructura IA para empresas LATAM.",
-      "publisher": { "@id": "https://kronixlabs.github.io/#organization" },
+      "publisher": { "@id": "https://kronixlabs.com/#organization" },
       "inLanguage": ["es","en"],
       "copyrightYear": 2026,
-      "copyrightHolder": { "@id": "https://kronixlabs.github.io/#organization" }
+      "copyrightHolder": { "@id": "https://kronixlabs.com/#organization" }
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://kronixlabs.github.io/#service",
+      "@id": "https://kronixlabs.com/#service",
       "name": "KRONIX Labs — Arquitectura de Infraestructura IA",
-      "url": "https://kronixlabs.github.io/es/",
-      "provider": { "@id": "https://kronixlabs.github.io/#organization" },
+      "url": "https://kronixlabs.com/es/",
+      "provider": { "@id": "https://kronixlabs.com/#organization" },
       "areaServed": ["Colombia","Latinoamérica"],
       "serviceType": "Enterprise AI Architecture Consulting",
       "description": "Diseñamos la infraestructura de IA que permite a su empresa facturar más sin contratar más personal.",
@@ -181,7 +215,6 @@
   ]
 }
 </script>
-
 <!-- TAILWIND CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -199,7 +232,6 @@ tailwind.config = {
   }
 }
 </script>
-
 <style>
 /* ── Variables ── */
 :root { --blue:#1FA2FF; --dark:#0B0F2B; --deep:#070A1E; --gray:#C7C9D3; }
@@ -375,1056 +407,770 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   .kx-wa-panel { right:12px; left:12px; width:auto; bottom:145px; top:auto; }
 }
 </style>
-</head>
-<body>
 
+<body>
 <!-- Scroll progress -->
 <div class="scroll-indicator" id="scrollIndicator"></div>
-
 <!-- ============================================================
      HEADER
 ============================================================ -->
 <header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
-    <a href="/es/" aria-label="KRONIX Labs — Inicio">
-      <img src="/Kronix-Labs.svg" class="h-9" alt="KRONIX Labs" width="140" height="36">
-    </a>
-
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-7" aria-label="Navegación principal">
-      <a href="/es/" class="nav-link active" aria-current="page">Inicio</a>
-      <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="nav-link">Arquitectura IA</a>
-      <a href="/es/framework/arquitectura-empresarial-ia.html" class="nav-link">Framework</a>
-      <a href="/es/industries/distribucion.html" class="nav-link">Industrias</a>
-      <a href="/es/firm/consultora-estrategica-ia.html" class="nav-link">Firma</a>
-      <a href="/es/insights/" class="nav-link">Insights</a>
-    </nav>
-
-    <div class="flex items-center gap-3">
-      <!-- Language selector -->
-      <div class="flex gap-2 items-center">
-        <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
-          <svg width="16" height="11" viewBox="0 0 3 2" aria-hidden="true">
-            <rect width="3" height="2" fill="#C60B1E"/>
-            <rect y="0.5" width="3" height="1" fill="#FFC400"/>
-          </svg>
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<a aria-label="KRONIX Labs — Inicio" href="/es/">
+<img alt="KRONIX Labs" class="h-9" height="36" src="/Kronix-Labs.svg" width="140"/>
+</a>
+<!-- Desktop nav -->
+<nav aria-label="Navegación principal" class="hidden md:flex items-center gap-7">
+<a aria-current="page" class="nav-link active" href="/es/">Inicio</a>
+<a class="nav-link" href="/es/consultoria/arquitectura-ia-empresarial.html">Arquitectura IA</a>
+<a class="nav-link" href="/es/framework/arquitectura-empresarial-ia.html">Framework</a>
+<a class="nav-link" href="/es/industries/distribucion.html">Industrias</a>
+<a class="nav-link" href="/es/firm/consultora-estrategica-ia.html">Firma</a>
+<a class="nav-link" href="/es/insights/">Insights</a>
+</nav>
+<div class="flex items-center gap-3">
+<!-- Language selector -->
+<div class="flex gap-2 items-center">
+<span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+<svg aria-hidden="true" height="11" viewbox="0 0 3 2" width="16">
+<rect fill="#C60B1E" height="2" width="3"></rect>
+<rect fill="#FFC400" height="1" width="3" y="0.5"></rect>
+</svg>
           ES
         </span>
-        <a href="/en/"
-           onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN'});"
-           hreflang="en" rel="alternate"
-           class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5">
-          <svg width="16" height="11" viewBox="0 0 19 10" aria-hidden="true">
-            <rect width="19" height="10" fill="#B22234"/>
-            <g fill="#fff">
-              <rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/>
-              <rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/>
-              <rect y="9" width="19" height="1"/>
-            </g>
-            <rect width="8" height="5" fill="#3C3B6E"/>
-          </svg>
+<a class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5" href="/en/" hreflang="en" onclick="gtag('event','click_lang',{event_category:'Navigation',event_label:'EN'});" rel="alternate">
+<svg aria-hidden="true" height="11" viewbox="0 0 19 10" width="16">
+<rect fill="#B22234" height="10" width="19"></rect>
+<g fill="#fff">
+<rect height="1" width="19" y="1"></rect><rect height="1" width="19" y="3"></rect>
+<rect height="1" width="19" y="5"></rect><rect height="1" width="19" y="7"></rect>
+<rect height="1" width="19" y="9"></rect>
+</g>
+<rect fill="#3C3B6E" height="5" width="8"></rect>
+</svg>
           EN
         </a>
-      </div>
-
-      <button id="menu-btn" class="md:hidden text-white/80 hover:text-white p-2" aria-label="Abrir menú" aria-expanded="false">
-        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-    </div>
-
-  </div>
-
-  <!-- Mobile menu -->
-  <nav id="mobile-menu" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" aria-label="Menú móvil">
-    <a href="/es/" class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5">Inicio</a>
-    <a href="/es/consultoria/arquitectura-ia-empresarial.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Arquitectura IA</a>
-    <a href="/es/framework/arquitectura-empresarial-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Framework</a>
-    <a href="/es/industries/distribucion.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Industrias</a>
-    <a href="/es/firm/consultora-estrategica-ia.html" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Firma</a>
-    <a href="/es/insights/" class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5">Insights</a>
-    <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa."
-       target="_blank" rel="noopener noreferrer"
-       class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1">
+</div>
+<button aria-expanded="false" aria-label="Abrir menú" class="md:hidden text-white/80 hover:text-white p-2" id="menu-btn">
+<svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Mobile menu -->
+<nav aria-label="Menú móvil" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" id="mobile-menu">
+<a class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5" href="/es/">Inicio</a>
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/consultoria/arquitectura-ia-empresarial.html">Arquitectura IA</a>
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/framework/arquitectura-empresarial-ia.html">Framework</a>
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/industries/distribucion.html">Industrias</a>
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/firm/consultora-estrategica-ia.html">Firma</a>
+<a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/insights/">Insights</a>
+<a class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1" href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa." rel="noopener noreferrer" target="_blank">
       Solicitar Diagnóstico →
     </a>
-  </nav>
+</nav>
 </header>
-
-
 <!-- ============================================================
      SECCIÓN 1 — HERO
 ============================================================ -->
-<section class="relative min-h-screen flex items-center justify-center text-center px-6 grid-bg overflow-hidden"
-  style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);"
-  aria-label="Propuesta de valor principal">
-
-  <!-- Orbs -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.06);"></div>
-  <div class="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.04);"></div>
-  <div class="absolute bottom-0 left-0 w-[350px] h-[350px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.03);"></div>
-
-  <!-- Nodos SVG fondo -->
-  <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-    <line x1="10%" y1="20%" x2="35%" y2="45%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="35%" y1="45%" x2="65%" y2="35%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="65%" y1="35%" x2="90%" y2="60%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="20%" y1="70%" x2="50%" y2="55%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="50%" y1="55%" x2="80%" y2="75%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="35%" y1="45%" x2="50%" y2="55%" stroke="#1FA2FF" stroke-width="1"/>
-    <line x1="65%" y1="35%" x2="50%" y2="55%" stroke="#1FA2FF" stroke-width="1"/>
-    <circle cx="10%" cy="20%" r="4" fill="#1FA2FF" opacity="0.6"/>
-    <circle cx="35%" cy="45%" r="6" fill="#1FA2FF" opacity="0.8"/>
-    <circle cx="65%" cy="35%" r="5" fill="#1FA2FF" opacity="0.7"/>
-    <circle cx="90%" cy="60%" r="4" fill="#1FA2FF" opacity="0.5"/>
-    <circle cx="20%" cy="70%" r="3" fill="#1FA2FF" opacity="0.5"/>
-    <circle cx="50%" cy="55%" r="8" fill="#1FA2FF" opacity="1"/>
-    <circle cx="80%" cy="75%" r="4" fill="#1FA2FF" opacity="0.6"/>
-  </svg>
-
-  <div class="relative max-w-5xl pt-32 pb-24 mx-auto">
-
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
-      <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
+<section aria-label="Propuesta de valor principal" class="relative min-h-screen flex items-center justify-center text-center px-6 grid-bg overflow-hidden" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(31,162,255,0.18) 0%,transparent 70%),linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+<!-- Orbs -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.06);"></div>
+<div class="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.04);"></div>
+<div class="absolute bottom-0 left-0 w-[350px] h-[350px] rounded-full blur-3xl pointer-events-none" style="background:rgba(31,162,255,.03);"></div>
+<!-- Nodos SVG fondo -->
+<svg aria-hidden="true" class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" preserveaspectratio="xMidYMid slice">
+<line stroke="#1FA2FF" stroke-width="1" x1="10%" x2="35%" y1="20%" y2="45%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="35%" x2="65%" y1="45%" y2="35%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="65%" x2="90%" y1="35%" y2="60%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="20%" x2="50%" y1="70%" y2="55%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="50%" x2="80%" y1="55%" y2="75%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="35%" x2="50%" y1="45%" y2="55%"></line>
+<line stroke="#1FA2FF" stroke-width="1" x1="65%" x2="50%" y1="35%" y2="55%"></line>
+<circle cx="10%" cy="20%" fill="#1FA2FF" opacity="0.6" r="4"></circle>
+<circle cx="35%" cy="45%" fill="#1FA2FF" opacity="0.8" r="6"></circle>
+<circle cx="65%" cy="35%" fill="#1FA2FF" opacity="0.7" r="5"></circle>
+<circle cx="90%" cy="60%" fill="#1FA2FF" opacity="0.5" r="4"></circle>
+<circle cx="20%" cy="70%" fill="#1FA2FF" opacity="0.5" r="3"></circle>
+<circle cx="50%" cy="55%" fill="#1FA2FF" opacity="1" r="8"></circle>
+<circle cx="80%" cy="75%" fill="#1FA2FF" opacity="0.6" r="4"></circle>
+</svg>
+<div class="relative max-w-5xl pt-32 pb-24 mx-auto">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+<span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
       Firma de Arquitectura de Infraestructura IA · Medellín, Colombia
     </div>
-
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.08] tracking-tight fade-up d2">
-      Deje de operar.<br>
-      <span class="text-[#1FA2FF]">Comience a escalar.</span>
-    </h1>
-
-    <p class="text-[#C7C9D3] text-xl md:text-2xl mb-6 max-w-3xl mx-auto leading-relaxed fade-up d3">
-      Diseñamos la infraestructura de IA que permite a su empresa<br class="hidden md:block">
-      <strong class="text-white">facturar más sin contratar a nadie más.</strong>
-    </p>
-
-    <div class="inline-flex items-center gap-3 bg-[#070A1E] border border-[#1FA2FF]/20 rounded-xl px-6 py-3 mb-10 fade-up d4">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#1FA2FF" opacity=".8"/>
-      </svg>
-      <span class="text-sm text-[#C7C9D3]">Impacto proyectado: <strong class="text-white">+40% de capacidad operativa instalada en 90 días</strong></span>
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d5">
-      <a href="#contacto"
-         onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_Diagnostico_ES'});"
-         class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition inline-flex items-center gap-2 justify-center">
+<h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.08] tracking-tight fade-up d2">
+      Deje de operar.<br/>
+<span class="text-[#1FA2FF]">Comience a escalar.</span>
+</h1>
+<p class="text-[#C7C9D3] text-xl md:text-2xl mb-6 max-w-3xl mx-auto leading-relaxed fade-up d3">
+      Diseñamos la infraestructura de IA que permite a su empresa<br class="hidden md:block"/>
+<strong class="text-white">facturar más sin contratar a nadie más.</strong>
+</p>
+<div class="inline-flex items-center gap-3 bg-[#070A1E] border border-[#1FA2FF]/20 rounded-xl px-6 py-3 mb-10 fade-up d4">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20">
+<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#1FA2FF" opacity=".8"></path>
+</svg>
+<span class="text-sm text-[#C7C9D3]">Impacto proyectado: <strong class="text-white">+40% de capacidad operativa instalada en 90 días</strong></span>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d5">
+<a class="btn-glow bg-[#1FA2FF] text-white px-10 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition inline-flex items-center gap-2 justify-center" href="#contacto" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_Diagnostico_ES'});">
         Solicitar Diagnóstico Operativo
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#ecosistema"
-         class="border border-white/20 px-10 py-4 rounded-xl font-semibold text-lg hover:border-[#1FA2FF]/50 hover:text-[#1FA2FF] transition text-center">
+        <svg aria-hidden="true" fill="none" height="18" viewbox="0 0 24 24" width="18"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<a class="border border-white/20 px-10 py-4 rounded-xl font-semibold text-lg hover:border-[#1FA2FF]/50 hover:text-[#1FA2FF] transition text-center" href="#ecosistema">
         Ver cómo funciona
       </a>
-      <a href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html"
-         onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_CaseStudy_ES'});"
-         class="border border-[#1FA2FF]/40 px-10 py-4 rounded-xl font-semibold text-lg text-[#1FA2FF] hover:bg-[#1FA2FF]/10 transition text-center">
+<a class="border border-[#1FA2FF]/40 px-10 py-4 rounded-xl font-semibold text-lg text-[#1FA2FF] hover:bg-[#1FA2FF]/10 transition text-center" href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_CaseStudy_ES'});">
         Ver casos de éxito
       </a>
-    </div>
-
-    <div class="flex flex-wrap justify-center gap-6 mt-14 fade-up d6">
-      <div class="text-center">
-        <div class="metric-value">90</div>
-        <div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">días de impacto</div>
-      </div>
-      <div class="w-px bg-white/10 hidden sm:block"></div>
-      <div class="text-center">
-        <div class="metric-value">5</div>
-        <div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">capas de arquitectura</div>
-      </div>
-      <div class="w-px bg-white/10 hidden sm:block"></div>
-      <div class="text-center">
-        <div class="metric-value">0</div>
-        <div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">contrataciones necesarias</div>
-      </div>
-      <div class="w-px bg-white/10 hidden sm:block"></div>
-      <div class="text-center">
-        <div class="metric-value">100%</div>
-        <div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">soberanía de datos</div>
-      </div>
-    </div>
-
-  </div>
+</div>
+<div class="flex flex-wrap justify-center gap-6 mt-14 fade-up d6">
+<div class="text-center">
+<div class="metric-value">90</div>
+<div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">días de impacto</div>
+</div>
+<div class="w-px bg-white/10 hidden sm:block"></div>
+<div class="text-center">
+<div class="metric-value">5</div>
+<div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">capas de arquitectura</div>
+</div>
+<div class="w-px bg-white/10 hidden sm:block"></div>
+<div class="text-center">
+<div class="metric-value">0</div>
+<div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">contrataciones necesarias</div>
+</div>
+<div class="w-px bg-white/10 hidden sm:block"></div>
+<div class="text-center">
+<div class="metric-value">100%</div>
+<div class="text-xs text-[#C7C9D3]/60 uppercase tracking-widest mt-1">soberanía de datos</div>
+</div>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 2 — ECOSISTEMA DE 5 CAPAS
 ============================================================ -->
-<section id="ecosistema" class="py-28 bg-[#070A1E] px-6" aria-labelledby="ecosistema-titulo">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Arquitectura EAA Enterprise</p>
-      <h2 id="ecosistema-titulo" class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-        No implementamos herramientas.<br><span class="text-[#1FA2FF]">Construimos sistemas.</span>
-      </h2>
-      <p class="text-[#C7C9D3] text-lg max-w-2xl mx-auto">
+<section aria-labelledby="ecosistema-titulo" class="py-28 bg-[#070A1E] px-6" id="ecosistema">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Arquitectura EAA Enterprise</p>
+<h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight" id="ecosistema-titulo">
+        No implementamos herramientas.<br/><span class="text-[#1FA2FF]">Construimos sistemas.</span>
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-2xl mx-auto">
         Cada empresa tiene un punto único de palanca. Nuestra infraestructura de 5 capas lo encuentra y lo convierte en ventaja competitiva sostenible.
       </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-12 items-start">
-
-      <!-- Diagrama de capas -->
-      <div class="space-y-1">
-
-        <div class="layer-item">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#1FA2FF" opacity=".3"/><path d="M12 6v6l4 2" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 1</span>
-              </div>
-              <h3 class="text-white font-semibold text-base mb-1">Capa de Acceso</h3>
-              <p class="text-[#C7C9D3] text-sm leading-relaxed">Omnicanalidad inteligente con WhatsApp como eje estratégico de entrada. El cliente llega por cualquier canal; el sistema lo orquesta con precisión.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="layer-connector"></div>
-
-        <div class="layer-item">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="#1FA2FF" opacity=".4"/><rect x="13" y="3" width="8" height="8" rx="2" fill="#1FA2FF" opacity=".6"/><rect x="3" y="13" width="8" height="8" rx="2" fill="#1FA2FF" opacity=".6"/><rect x="13" y="13" width="8" height="8" rx="2" fill="#1FA2FF" opacity=".4"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 2</span>
-              </div>
-              <h3 class="text-white font-semibold text-base mb-1">Capa de Lógica</h3>
-              <p class="text-[#C7C9D3] text-sm leading-relaxed">Orquestación estructurada de procesos con cero fricción operativa. Cada flujo de negocio ejecutado con consistencia, velocidad y trazabilidad total.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="layer-connector"></div>
-
-        <div class="layer-item" style="border-color:rgba(31,162,255,.3);background:rgba(31,162,255,.06);">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/20 border border-[#1FA2FF]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="#1FA2FF"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 3 — Núcleo</span>
-              </div>
-              <h3 class="text-white font-bold text-base mb-1">Capa Cognitiva</h3>
-              <p class="text-[#C7C9D3] text-sm leading-relaxed">Inteligencia avanzada con memoria contextual para máxima precisión y mínimo error. El cerebro de la infraestructura que aprende de su operación.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="layer-connector"></div>
-
-        <div class="layer-item">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2" stroke="#1FA2FF" stroke-width="1.5"/><path d="M6 10h12M6 14h8" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 4</span>
-              </div>
-              <h3 class="text-white font-semibold text-base mb-1">Capa Legacy</h3>
-              <p class="text-[#C7C9D3] text-sm leading-relaxed">Integración profunda con CRM, ERP y sistemas existentes del cliente. Su inversión tecnológica previa no se reemplaza — se potencia.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="layer-connector"></div>
-
-        <div class="layer-item">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#1FA2FF" opacity=".3" stroke="#1FA2FF" stroke-width="1.5"/></svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 mb-1">
-                <span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 5</span>
-              </div>
-              <h3 class="text-white font-semibold text-base mb-1">Capa de Gobernanza</h3>
-              <p class="text-[#C7C9D3] text-sm leading-relaxed">Soberanía de datos, ética IA, auditoría y seguridad de nivel empresarial. Usted controla todo, siempre.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Panel lateral -->
-      <div class="sticky top-28 space-y-6">
-        <div class="bg-[#0B0F2B] border border-white/7 rounded-2xl p-8">
-          <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Por qué importa la arquitectura</p>
-          <h3 class="text-2xl font-bold text-white mb-4">El problema no son las herramientas. Es la falta de estructura.</h3>
-          <p class="text-[#C7C9D3] text-sm leading-relaxed mb-6">
+</div>
+<div class="grid md:grid-cols-2 gap-12 items-start">
+<!-- Diagrama de capas -->
+<div class="space-y-1">
+<div class="layer-item">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#1FA2FF" opacity=".3"></path><path d="M12 6v6l4 2" stroke="#1FA2FF" stroke-linecap="round" stroke-width="2"></path></svg>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 1</span>
+</div>
+<h3 class="text-white font-semibold text-base mb-1">Capa de Acceso</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Omnicanalidad inteligente con WhatsApp como eje estratégico de entrada. El cliente llega por cualquier canal; el sistema lo orquesta con precisión.</p>
+</div>
+</div>
+</div>
+<div class="layer-connector"></div>
+<div class="layer-item">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><rect fill="#1FA2FF" height="8" opacity=".4" rx="2" width="8" x="3" y="3"></rect><rect fill="#1FA2FF" height="8" opacity=".6" rx="2" width="8" x="13" y="3"></rect><rect fill="#1FA2FF" height="8" opacity=".6" rx="2" width="8" x="3" y="13"></rect><rect fill="#1FA2FF" height="8" opacity=".4" rx="2" width="8" x="13" y="13"></rect></svg>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 2</span>
+</div>
+<h3 class="text-white font-semibold text-base mb-1">Capa de Lógica</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Orquestación estructurada de procesos con cero fricción operativa. Cada flujo de negocio ejecutado con consistencia, velocidad y trazabilidad total.</p>
+</div>
+</div>
+</div>
+<div class="layer-connector"></div>
+<div class="layer-item" style="border-color:rgba(31,162,255,.3);background:rgba(31,162,255,.06);">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/20 border border-[#1FA2FF]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" fill="#1FA2FF" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 3 — Núcleo</span>
+</div>
+<h3 class="text-white font-bold text-base mb-1">Capa Cognitiva</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Inteligencia avanzada con memoria contextual para máxima precisión y mínimo error. El cerebro de la infraestructura que aprende de su operación.</p>
+</div>
+</div>
+</div>
+<div class="layer-connector"></div>
+<div class="layer-item">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><rect height="12" rx="2" stroke="#1FA2FF" stroke-width="1.5" width="20" x="2" y="6"></rect><path d="M6 10h12M6 14h8" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 4</span>
+</div>
+<h3 class="text-white font-semibold text-base mb-1">Capa Legacy</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Integración profunda con CRM, ERP y sistemas existentes del cliente. Su inversión tecnológica previa no se reemplaza — se potencia.</p>
+</div>
+</div>
+</div>
+<div class="layer-connector"></div>
+<div class="layer-item">
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#1FA2FF" opacity=".3" stroke="#1FA2FF" stroke-width="1.5"></path></svg>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[#1FA2FF] text-xs font-bold tracking-widest uppercase">Capa 5</span>
+</div>
+<h3 class="text-white font-semibold text-base mb-1">Capa de Gobernanza</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Soberanía de datos, ética IA, auditoría y seguridad de nivel empresarial. Usted controla todo, siempre.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel lateral -->
+<div class="sticky top-28 space-y-6">
+<div class="bg-[#0B0F2B] border border-white/7 rounded-2xl p-8">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Por qué importa la arquitectura</p>
+<h3 class="text-2xl font-bold text-white mb-4">El problema no son las herramientas. Es la falta de estructura.</h3>
+<p class="text-[#C7C9D3] text-sm leading-relaxed mb-6">
             Las empresas que fracasan en IA no fallan por falta de tecnología. Fallan porque implementan herramientas aisladas sin una arquitectura que las conecte, gobierne y escale.
           </p>
-          <div class="space-y-3">
-            <div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Cada capa se comunica con las demás en tiempo real</span></div>
-            <div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">El sistema escala con su empresa sin rediseño</span></div>
-            <div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Control ejecutivo en cada punto crítico del proceso</span></div>
-            <div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Auditoría y trazabilidad completa de cada decisión</span></div>
-          </div>
-        </div>
-        <div class="bg-[#1FA2FF]/06 border border-[#1FA2FF]/20 rounded-2xl p-6 text-center">
-          <div class="text-4xl font-extrabold text-[#1FA2FF] mb-2">+40%</div>
-          <p class="text-white font-semibold mb-1">Capacidad operativa instalada</p>
-          <p class="text-[#C7C9D3] text-sm">en los primeros 90 días de implementación</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<div class="space-y-3">
+<div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Cada capa se comunica con las demás en tiempo real</span></div>
+<div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">El sistema escala con su empresa sin rediseño</span></div>
+<div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Control ejecutivo en cada punto crítico del proceso</span></div>
+<div class="flex items-start gap-3"><span class="text-[#1FA2FF] mt-0.5 flex-shrink-0">✓</span><span class="text-sm text-[#C7C9D3]">Auditoría y trazabilidad completa de cada decisión</span></div>
+</div>
+</div>
+<div class="bg-[#1FA2FF]/06 border border-[#1FA2FF]/20 rounded-2xl p-6 text-center">
+<div class="text-4xl font-extrabold text-[#1FA2FF] mb-2">+40%</div>
+<p class="text-white font-semibold mb-1">Capacidad operativa instalada</p>
+<p class="text-[#C7C9D3] text-sm">en los primeros 90 días de implementación</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 3 — FRAMEWORK EAA
 ============================================================ -->
-<section class="py-28 grid-bg px-6" style="background-color:#0B0F2B;" aria-labelledby="framework-titulo">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Metodología Propietaria</p>
-      <h2 id="framework-titulo" class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-        Nuestra metodología no improvisa.<br><span class="text-[#1FA2FF]">Arquitectura.</span>
-      </h2>
-      <p class="text-[#C7C9D3] text-lg max-w-2xl mx-auto">
-        Basada en el libro <a href="/es/insights/el-codigo-del-exito.html" class="text-white hover:text-[#1FA2FF] transition italic">"El Código del Éxito"</a> del fundador, que combina visión estratégica de negocio, arquitectura técnica avanzada y automatización estructural.
+<section aria-labelledby="framework-titulo" class="py-28 grid-bg px-6" style="background-color:#0B0F2B;">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Metodología Propietaria</p>
+<h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight" id="framework-titulo">
+        Nuestra metodología no improvisa.<br/><span class="text-[#1FA2FF]">Arquitectura.</span>
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-2xl mx-auto">
+        Basada en el libro <a class="text-white hover:text-[#1FA2FF] transition italic" href="/es/insights/el-codigo-del-exito.html">"El Código del Éxito"</a> del fundador, que combina visión estratégica de negocio, arquitectura técnica avanzada y automatización estructural.
       </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-
-      <div class="step-card">
-        <span class="step-number">01</span>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 11l3 3L22 4" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="text-white font-bold text-lg">Diagnóstico de Fricción Operativa</h3>
-        </div>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed">Mapeamos con precisión quirúrgica dónde su operación pierde tiempo, dinero y talento humano. No hacemos suposiciones — medimos y documentamos cada cuello de botella.</p>
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Mapa de Fricción Operativa</span>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <span class="step-number">02</span>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#1FA2FF" stroke-width="1.5"/><path d="M9 9h6M9 12h6M9 15h4" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="text-white font-bold text-lg">Arquitectura Bespoke</h3>
-        </div>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed">Diseñamos un sistema a medida de su empresa. Sin plantillas. Sin soluciones caja negra. Cada decisión arquitectural se documenta y se puede auditar.</p>
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Blueprint de Arquitectura</span>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <span class="step-number">03</span>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="text-white font-bold text-lg">Despliegue Estratégico</h3>
-        </div>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed">Implementación estructurada con mínima disrupción operativa. Su equipo sigue funcionando mientras construimos la infraestructura. Activamos capa por capa.</p>
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Sistema en Producción</span>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <span class="step-number">04</span>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 6h6v6" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="text-white font-bold text-lg">Optimización Continua</h3>
-        </div>
-        <p class="text-[#C7C9D3] text-sm leading-relaxed">El sistema aprende, mejora y escala con su empresa. Monitoreamos KPIs operativos en tiempo real y ajustamos la arquitectura antes de que los problemas aparezcan.</p>
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Dashboard de Control Ejecutivo</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="text-center mt-12">
-      <a href="/es/framework/arquitectura-empresarial-ia.html"
-         onclick="gtag('event','click_framework',{event_category:'Navigation',event_label:'Framework_Detail_ES'});"
-         class="inline-flex items-center gap-2 border border-[#1FA2FF]/30 px-8 py-3.5 rounded-xl text-[#1FA2FF] font-semibold hover:bg-[#1FA2FF]/08 transition">
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="step-card">
+<span class="step-number">01</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="M9 11l3 3L22 4" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-white font-bold text-lg">Diagnóstico de Fricción Operativa</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Mapeamos con precisión quirúrgica dónde su operación pierde tiempo, dinero y talento humano. No hacemos suposiciones — medimos y documentamos cada cuello de botella.</p>
+<div class="mt-4 pt-4 border-t border-white/5">
+<span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Mapa de Fricción Operativa</span>
+</div>
+</div>
+<div class="step-card">
+<span class="step-number">02</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><rect height="18" rx="2" stroke="#1FA2FF" stroke-width="1.5" width="18" x="3" y="3"></rect><path d="M9 9h6M9 12h6M9 15h4" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-bold text-lg">Arquitectura Bespoke</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Diseñamos un sistema a medida de su empresa. Sin plantillas. Sin soluciones caja negra. Cada decisión arquitectural se documenta y se puede auditar.</p>
+<div class="mt-4 pt-4 border-t border-white/5">
+<span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Blueprint de Arquitectura</span>
+</div>
+</div>
+<div class="step-card">
+<span class="step-number">03</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-bold text-lg">Despliegue Estratégico</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Implementación estructurada con mínima disrupción operativa. Su equipo sigue funcionando mientras construimos la infraestructura. Activamos capa por capa.</p>
+<div class="mt-4 pt-4 border-t border-white/5">
+<span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Sistema en Producción</span>
+</div>
+</div>
+<div class="step-card">
+<span class="step-number">04</span>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-[#1FA2FF]/15 border border-[#1FA2FF]/25 flex items-center justify-center flex-shrink-0">
+<svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20"><path d="M23 6l-9.5 9.5-5-5L1 18" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M17 6h6v6" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<h3 class="text-white font-bold text-lg">Optimización Continua</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">El sistema aprende, mejora y escala con su empresa. Monitoreamos KPIs operativos en tiempo real y ajustamos la arquitectura antes de que los problemas aparezcan.</p>
+<div class="mt-4 pt-4 border-t border-white/5">
+<span class="text-xs text-[#1FA2FF] font-semibold">Entregable: Dashboard de Control Ejecutivo</span>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a class="inline-flex items-center gap-2 border border-[#1FA2FF]/30 px-8 py-3.5 rounded-xl text-[#1FA2FF] font-semibold hover:bg-[#1FA2FF]/08 transition" href="/es/framework/arquitectura-empresarial-ia.html" onclick="gtag('event','click_framework',{event_category:'Navigation',event_label:'Framework_Detail_ES'});">
         Explorar el Framework completo
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-
-  </div>
+        <svg aria-hidden="true" fill="none" height="16" viewbox="0 0 24 24" width="16"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 4 — DECLARACIÓN ANTI-AGENCIA
 ============================================================ -->
-<section class="py-28 bg-[#070A1E] px-6" aria-labelledby="antiagencia-titulo">
-  <div class="max-w-5xl mx-auto">
-
-    <div class="text-center mb-14">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Posicionamiento</p>
-      <h2 id="antiagencia-titulo" class="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-        No somos lo que usted<br><span class="text-[#1FA2FF]">ha contratado antes.</span>
-      </h2>
-      <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">La diferencia no está en las herramientas que usamos. Está en el nivel en que operamos.</p>
-    </div>
-
-    <div class="flex flex-col md:flex-row gap-6 mb-12">
-
-      <div class="compare-col compare-bad">
-        <div class="flex items-center gap-2 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-white/05 flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 5L5 19M5 5l14 14" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="text-white/40 text-xs font-bold uppercase tracking-widest">Agencia o vendor tradicional</p>
-        </div>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Instala soluciones genéricas de IA sin entender su operación</span></li>
-          <li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Vende automatizaciones aisladas sin estrategia de negocio</span></li>
-          <li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Entrega soluciones caja negra que usted no puede auditar</span></li>
-          <li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Cobra por herramientas, no por resultados de negocio</span></li>
-          <li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Crea dependencia tecnológica en vez de capacidad interna</span></li>
-        </ul>
-      </div>
-
-      <div class="flex items-center justify-center flex-shrink-0">
-        <div class="w-12 h-12 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/08 flex items-center justify-center text-[#1FA2FF] font-bold text-sm">vs</div>
-      </div>
-
-      <div class="compare-col compare-good">
-        <div class="flex items-center gap-2 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-[#1FA2FF]/20 flex items-center justify-center">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#1FA2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p class="text-[#1FA2FF] text-xs font-bold uppercase tracking-widest">KRONIX Labs</p>
-        </div>
-        <ul class="space-y-4">
-          <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Rediseña cómo opera su empresa desde adentro</span></li>
-          <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Construye arquitectura estratégica con ROI medible</span></li>
-          <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Entrega sistemas transparentes, documentados y auditables</span></li>
-          <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Cobra por capacidad operativa instalada y resultados</span></li>
-          <li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Construye capacidad propia en su organización</span></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="bg-[#0B0F2B] border border-[#1FA2FF]/15 rounded-2xl p-8 text-center">
-      <blockquote class="text-xl md:text-2xl font-semibold text-white/90 leading-relaxed">
-        "Somos arquitectos de procesos empresariales.<br>
-        <span class="text-[#1FA2FF]">Rediseñamos cómo opera su empresa desde adentro.</span>"
+<section aria-labelledby="antiagencia-titulo" class="py-28 bg-[#070A1E] px-6">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-14">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Posicionamiento</p>
+<h2 class="text-3xl md:text-5xl font-bold mb-5 leading-tight" id="antiagencia-titulo">
+        No somos lo que usted<br/><span class="text-[#1FA2FF]">ha contratado antes.</span>
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">La diferencia no está en las herramientas que usamos. Está en el nivel en que operamos.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-6 mb-12">
+<div class="compare-col compare-bad">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 rounded-lg bg-white/05 flex items-center justify-center">
+<svg aria-hidden="true" fill="none" height="16" viewbox="0 0 24 24" width="16"><path d="M19 5L5 19M5 5l14 14" stroke="rgba(255,255,255,0.3)" stroke-linecap="round" stroke-width="2"></path></svg>
+</div>
+<p class="text-white/40 text-xs font-bold uppercase tracking-widest">Agencia o vendor tradicional</p>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Instala soluciones genéricas de IA sin entender su operación</span></li>
+<li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Vende automatizaciones aisladas sin estrategia de negocio</span></li>
+<li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Entrega soluciones caja negra que usted no puede auditar</span></li>
+<li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Cobra por herramientas, no por resultados de negocio</span></li>
+<li class="flex items-start gap-3 text-sm text-[#C7C9D3]/70"><span class="text-red-400/60 flex-shrink-0 mt-0.5">✗</span><span>Crea dependencia tecnológica en vez de capacidad interna</span></li>
+</ul>
+</div>
+<div class="flex items-center justify-center flex-shrink-0">
+<div class="w-12 h-12 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/08 flex items-center justify-center text-[#1FA2FF] font-bold text-sm">vs</div>
+</div>
+<div class="compare-col compare-good">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 rounded-lg bg-[#1FA2FF]/20 flex items-center justify-center">
+<svg aria-hidden="true" fill="none" height="16" viewbox="0 0 24 24" width="16"><path d="M20 6L9 17l-5-5" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+</div>
+<p class="text-[#1FA2FF] text-xs font-bold uppercase tracking-widest">KRONIX Labs</p>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Rediseña cómo opera su empresa desde adentro</span></li>
+<li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Construye arquitectura estratégica con ROI medible</span></li>
+<li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Entrega sistemas transparentes, documentados y auditables</span></li>
+<li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Cobra por capacidad operativa instalada y resultados</span></li>
+<li class="flex items-start gap-3 text-sm text-white/90"><span class="text-[#1FA2FF] flex-shrink-0 mt-0.5">✓</span><span>Construye capacidad propia en su organización</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-[#0B0F2B] border border-[#1FA2FF]/15 rounded-2xl p-8 text-center">
+<blockquote class="text-xl md:text-2xl font-semibold text-white/90 leading-relaxed">
+        "Somos arquitectos de procesos empresariales.<br/>
+<span class="text-[#1FA2FF]">Rediseñamos cómo opera su empresa desde adentro.</span>"
       </blockquote>
-      <p class="text-[#C7C9D3]/50 text-sm mt-4">— Manifiesto KRONIX Labs</p>
-    </div>
-
-  </div>
+<p class="text-[#C7C9D3]/50 text-sm mt-4">— Manifiesto KRONIX Labs</p>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 5 — GOBERNANZA Y CONFIANZA ENTERPRISE
 ============================================================ -->
-<section class="py-28 grid-bg px-6" style="background-color:#0B0F2B;" aria-labelledby="gobernanza-titulo">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-14">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Seguridad Enterprise</p>
-      <h2 id="gobernanza-titulo" class="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-        Sus datos son suyos.<br><span class="text-[#1FA2FF]">Siempre.</span>
-      </h2>
-      <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">Gobernanza y control no son un complemento. Son el cimiento de cada sistema que construimos.</p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#1FA2FF" opacity=".25" stroke="#1FA2FF" stroke-width="1.5"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Soberanía total de datos</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">Sus datos nunca salen de su infraestructura sin su autorización explícita. Cero dependencia de terceros no auditados.</p>
-      </div>
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 11l3 3L22 4" stroke="#1FA2FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Cumplimiento normativo LATAM</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">Arquitectura diseñada para cumplir con las regulaciones de protección de datos en Colombia, México, Chile y toda LATAM.</p>
-      </div>
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="#1FA2FF" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Auditoría y trazabilidad completa</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">Registro completo de cada decisión del sistema. Usted puede auditar qué hizo la IA, cuándo y por qué, en cualquier momento.</p>
-      </div>
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="#1FA2FF" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Control humano estratégico</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">Puntos de validación humana en cada decisión crítica. La IA ejecuta; el liderazgo decide cuándo y dónde intervenir.</p>
-      </div>
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#1FA2FF" stroke-width="1.5"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Seguridad estructural por diseño</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">La seguridad no es un parche posterior. Se diseña desde el primer byte de arquitectura. Cifrado, permisos y protocolos de nivel empresarial.</p>
-      </div>
-
-      <div class="trust-item">
-        <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke="#1FA2FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3 class="text-white font-semibold text-sm mb-2">Ética IA documentada</h3>
-        <p class="text-[#C7C9D3] text-xs leading-relaxed">Protocolo de ética en IA incorporado en la arquitectura. Cada sistema incluye principios de uso responsable, documentados y verificables.</p>
-      </div>
-
-    </div>
-  </div>
+<section aria-labelledby="gobernanza-titulo" class="py-28 grid-bg px-6" style="background-color:#0B0F2B;">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-14">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Seguridad Enterprise</p>
+<h2 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" id="gobernanza-titulo">
+        Sus datos son suyos.<br/><span class="text-[#1FA2FF]">Siempre.</span>
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">Gobernanza y control no son un complemento. Son el cimiento de cada sistema que construimos.</p>
+</div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#1FA2FF" opacity=".25" stroke="#1FA2FF" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Soberanía total de datos</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">Sus datos nunca salen de su infraestructura sin su autorización explícita. Cero dependencia de terceros no auditados.</p>
+</div>
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><path d="M9 11l3 3L22 4" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Cumplimiento normativo LATAM</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">Arquitectura diseñada para cumplir con las regulaciones de protección de datos en Colombia, México, Chile y toda LATAM.</p>
+</div>
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><circle cx="12" cy="12" r="10" stroke="#1FA2FF" stroke-width="1.5"></circle><path d="M12 6v6l4 2" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Auditoría y trazabilidad completa</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">Registro completo de cada decisión del sistema. Usted puede auditar qué hizo la IA, cuándo y por qué, en cualquier momento.</p>
+</div>
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path><circle cx="9" cy="7" r="4" stroke="#1FA2FF" stroke-width="1.5"></circle><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Control humano estratégico</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">Puntos de validación humana en cada decisión crítica. La IA ejecuta; el liderazgo decide cuándo y dónde intervenir.</p>
+</div>
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><rect height="11" rx="2" stroke="#1FA2FF" stroke-width="1.5" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0110 0v4" stroke="#1FA2FF" stroke-linecap="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Seguridad estructural por diseño</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">La seguridad no es un parche posterior. Se diseña desde el primer byte de arquitectura. Cifrado, permisos y protocolos de nivel empresarial.</p>
+</div>
+<div class="trust-item">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="24" viewbox="0 0 24 24" width="24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+</div>
+<h3 class="text-white font-semibold text-sm mb-2">Ética IA documentada</h3>
+<p class="text-[#C7C9D3] text-xs leading-relaxed">Protocolo de ética en IA incorporado en la arquitectura. Cada sistema incluye principios de uso responsable, documentados y verificables.</p>
+</div>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 6 — PARA QUIÉN ES KRONIX
 ============================================================ -->
-<section class="py-28 bg-[#070A1E] px-6" aria-labelledby="paraquien-titulo">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-14">
-      <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Clientes Ideales</p>
-      <h2 id="paraquien-titulo" class="text-3xl md:text-4xl font-bold mb-5 leading-tight">
-        Diseñado para líderes que<br><span class="text-[#1FA2FF]">ya no tienen tiempo que perder.</span>
-      </h2>
-      <p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">Si alguna de estas descripciones le resuena, su empresa está lista para una infraestructura diferente.</p>
-    </div>
-
-    <div class="grid sm:grid-cols-2 gap-5">
-
-      <div class="persona-card">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">👤</div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-white font-bold">CEO / Fundador</h3>
-              <span class="text-[#1FA2FF] text-xs border border-[#1FA2FF]/25 px-2 py-0.5 rounded-full">Alta prioridad</span>
-            </div>
-            <p class="text-[#C7C9D3] text-sm leading-relaxed">Atrapado apagando incendios operativos en vez de tomando decisiones estratégicas. Sabe que su empresa puede más, pero la operación diaria lo consume antes de que pueda actuar.</p>
-            <p class="text-white/50 text-xs mt-3 italic">"Trabajo 12 horas al día pero mi empresa no crece al ritmo que debería."</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="persona-card">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">📈</div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-white font-bold">Director Comercial</h3>
-              <span class="text-[#1FA2FF] text-xs border border-[#1FA2FF]/25 px-2 py-0.5 rounded-full">Alta prioridad</span>
-            </div>
-            <p class="text-[#C7C9D3] text-sm leading-relaxed">Con un equipo que no da abasto y prospectos sin seguimiento. Las oportunidades se pierden no por falta de talento, sino por falta de infraestructura de ventas inteligente.</p>
-            <p class="text-white/50 text-xs mt-3 italic">"Tengo prospectos calientes que nunca llegamos a cerrar por falta de capacidad."</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="persona-card">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">⚙️</div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-white font-bold">Gerente de Operaciones</h3>
-            </div>
-            <p class="text-[#C7C9D3] text-sm leading-relaxed">Coordinando procesos manuales que deberían ser automáticos. El 70% del tiempo de su equipo se va en tareas repetitivas que generan cero valor estratégico para la empresa.</p>
-            <p class="text-white/50 text-xs mt-3 italic">"Mi equipo es inteligente pero lo tengo haciendo trabajo de máquina."</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="persona-card">
-        <div class="flex items-start gap-4">
-          <div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">🏢</div>
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <h3 class="text-white font-bold">Dueño de PYME</h3>
-            </div>
-            <p class="text-[#C7C9D3] text-sm leading-relaxed">Trabajando más horas pero sin ver crecer la facturación. Sabe que necesita tecnología pero teme invertir en herramientas que no funcionen o que su equipo no use.</p>
-            <p class="text-white/50 text-xs mt-3 italic">"Ya contraté una agencia antes y fue dinero perdido. Necesito algo diferente."</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Fit check -->
-    <div class="mt-10 bg-[#0B0F2B] border border-[#1FA2FF]/15 rounded-2xl p-8">
-      <div class="grid md:grid-cols-3 gap-8 items-center">
-        <div class="md:col-span-2">
-          <h3 class="text-white font-bold text-xl mb-3">¿Su empresa encaja?</h3>
-          <div class="grid sm:grid-cols-2 gap-3">
-            <div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> No quiere crecer en nómina pero sí en facturación</div>
-            <div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Está operando en vez de vendiendo</div>
-            <div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Necesita automatización con estrategia, no bots</div>
-            <div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Quiere resultados en 90 días, no en 18 meses</div>
-          </div>
-        </div>
-        <div class="text-center">
-          <a href="#contacto"
-             onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Paraquien_Diagnostico_ES'});"
-             class="btn-glow bg-[#1FA2FF] text-white px-8 py-4 rounded-xl font-bold hover:opacity-90 transition inline-block w-full md:w-auto">
+<section aria-labelledby="paraquien-titulo" class="py-28 bg-[#070A1E] px-6">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-14">
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Clientes Ideales</p>
+<h2 class="text-3xl md:text-4xl font-bold mb-5 leading-tight" id="paraquien-titulo">
+        Diseñado para líderes que<br/><span class="text-[#1FA2FF]">ya no tienen tiempo que perder.</span>
+</h2>
+<p class="text-[#C7C9D3] text-lg max-w-xl mx-auto">Si alguna de estas descripciones le resuena, su empresa está lista para una infraestructura diferente.</p>
+</div>
+<div class="grid sm:grid-cols-2 gap-5">
+<div class="persona-card">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">👤</div>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-white font-bold">CEO / Fundador</h3>
+<span class="text-[#1FA2FF] text-xs border border-[#1FA2FF]/25 px-2 py-0.5 rounded-full">Alta prioridad</span>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Atrapado apagando incendios operativos en vez de tomando decisiones estratégicas. Sabe que su empresa puede más, pero la operación diaria lo consume antes de que pueda actuar.</p>
+<p class="text-white/50 text-xs mt-3 italic">"Trabajo 12 horas al día pero mi empresa no crece al ritmo que debería."</p>
+</div>
+</div>
+</div>
+<div class="persona-card">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">📈</div>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-white font-bold">Director Comercial</h3>
+<span class="text-[#1FA2FF] text-xs border border-[#1FA2FF]/25 px-2 py-0.5 rounded-full">Alta prioridad</span>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Con un equipo que no da abasto y prospectos sin seguimiento. Las oportunidades se pierden no por falta de talento, sino por falta de infraestructura de ventas inteligente.</p>
+<p class="text-white/50 text-xs mt-3 italic">"Tengo prospectos calientes que nunca llegamos a cerrar por falta de capacidad."</p>
+</div>
+</div>
+</div>
+<div class="persona-card">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">⚙️</div>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-white font-bold">Gerente de Operaciones</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Coordinando procesos manuales que deberían ser automáticos. El 70% del tiempo de su equipo se va en tareas repetitivas que generan cero valor estratégico para la empresa.</p>
+<p class="text-white/50 text-xs mt-3 italic">"Mi equipo es inteligente pero lo tengo haciendo trabajo de máquina."</p>
+</div>
+</div>
+</div>
+<div class="persona-card">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-[#1FA2FF]/12 border border-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 text-2xl">🏢</div>
+<div>
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-white font-bold">Dueño de PYME</h3>
+</div>
+<p class="text-[#C7C9D3] text-sm leading-relaxed">Trabajando más horas pero sin ver crecer la facturación. Sabe que necesita tecnología pero teme invertir en herramientas que no funcionen o que su equipo no use.</p>
+<p class="text-white/50 text-xs mt-3 italic">"Ya contraté una agencia antes y fue dinero perdido. Necesito algo diferente."</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Fit check -->
+<div class="mt-10 bg-[#0B0F2B] border border-[#1FA2FF]/15 rounded-2xl p-8">
+<div class="grid md:grid-cols-3 gap-8 items-center">
+<div class="md:col-span-2">
+<h3 class="text-white font-bold text-xl mb-3">¿Su empresa encaja?</h3>
+<div class="grid sm:grid-cols-2 gap-3">
+<div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> No quiere crecer en nómina pero sí en facturación</div>
+<div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Está operando en vez de vendiendo</div>
+<div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Necesita automatización con estrategia, no bots</div>
+<div class="flex items-center gap-2 text-sm text-[#C7C9D3]"><span class="text-[#1FA2FF]">→</span> Quiere resultados en 90 días, no en 18 meses</div>
+</div>
+</div>
+<div class="text-center">
+<a class="btn-glow bg-[#1FA2FF] text-white px-8 py-4 rounded-xl font-bold hover:opacity-90 transition inline-block w-full md:w-auto" href="#contacto" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'Paraquien_Diagnostico_ES'});">
             Solicitar Diagnóstico
           </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      SECCIÓN 7 — CONTACTO / FORMULARIO
 ============================================================ -->
-<section id="contacto" class="py-28 grid-bg px-6" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);" aria-labelledby="contacto-titulo">
-  <div class="max-w-5xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-16 items-start">
-
-      <!-- Texto izquierda -->
-      <div>
-        <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Primer paso</p>
-        <h2 id="contacto-titulo" class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-          El primer paso es entender<br>dónde está perdiendo<br><span class="text-[#1FA2FF]">capacidad.</span>
-        </h2>
-        <p class="text-[#C7C9D3] text-base leading-relaxed mb-8">
+<section aria-labelledby="contacto-titulo" class="py-28 grid-bg px-6" id="contacto" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+<div class="max-w-5xl mx-auto">
+<div class="grid md:grid-cols-2 gap-16 items-start">
+<!-- Texto izquierda -->
+<div>
+<p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4">Primer paso</p>
+<h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight" id="contacto-titulo">
+          El primer paso es entender<br/>dónde está perdiendo<br/><span class="text-[#1FA2FF]">capacidad.</span>
+</h2>
+<p class="text-[#C7C9D3] text-base leading-relaxed mb-8">
           No agendamos demos. Realizamos <strong class="text-white">Diagnósticos de Madurez Operativa</strong> — una sesión estratégica donde identificamos sus cuellos de botella y le mostramos qué arquitectura resuelve cada uno.
         </p>
-
-        <div class="space-y-4 mb-8">
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-[#1FA2FF] text-xs font-bold">1</span>
-            </div>
-            <div>
-              <p class="text-white font-medium text-sm">45 minutos de diagnóstico</p>
-              <p class="text-[#C7C9D3] text-xs mt-0.5">Mapeamos sus principales puntos de fricción operativa</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-[#1FA2FF] text-xs font-bold">2</span>
-            </div>
-            <div>
-              <p class="text-white font-medium text-sm">Recomendación arquitectural</p>
-              <p class="text-[#C7C9D3] text-xs mt-0.5">Le mostramos qué infraestructura resuelve su situación específica</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <span class="text-[#1FA2FF] text-xs font-bold">3</span>
-            </div>
-            <div>
-              <p class="text-white font-medium text-sm">Sin compromiso de compra</p>
-              <p class="text-[#C7C9D3] text-xs mt-0.5">Usted decide si continuamos. Sin presión, sin venta de software</p>
-            </div>
-          </div>
-        </div>
-
-        <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa."
-           target="_blank" rel="noopener noreferrer"
-           onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Contact_WA_ES'});"
-           class="inline-flex items-center gap-3 border border-[#1FA2FF]/30 bg-[#1FA2FF]/06 px-6 py-3.5 rounded-xl text-white font-medium hover:bg-[#1FA2FF]/12 transition">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1FA2FF" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="text-[#1FA2FF] text-xs font-bold">1</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm">45 minutos de diagnóstico</p>
+<p class="text-[#C7C9D3] text-xs mt-0.5">Mapeamos sus principales puntos de fricción operativa</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="text-[#1FA2FF] text-xs font-bold">2</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm">Recomendación arquitectural</p>
+<p class="text-[#C7C9D3] text-xs mt-0.5">Le mostramos qué infraestructura resuelve su situación específica</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-[#1FA2FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="text-[#1FA2FF] text-xs font-bold">3</span>
+</div>
+<div>
+<p class="text-white font-medium text-sm">Sin compromiso de compra</p>
+<p class="text-[#C7C9D3] text-xs mt-0.5">Usted decide si continuamos. Sin presión, sin venta de software</p>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center gap-3 border border-[#1FA2FF]/30 bg-[#1FA2FF]/06 px-6 py-3.5 rounded-xl text-white font-medium hover:bg-[#1FA2FF]/12 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa." onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Contact_WA_ES'});" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" fill="#1FA2FF" height="20" viewbox="0 0 24 24" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
           Contactar por WhatsApp
         </a>
-        <p class="text-[#C7C9D3]/40 text-xs mt-3">Respondemos en menos de 2 horas · Lunes a Viernes</p>
-      </div>
-
-      <!-- Formulario derecha -->
-      <div>
-        <div class="bg-[#070A1E] border border-white/08 rounded-2xl p-8">
-          <h3 class="text-white font-bold text-xl mb-2">Solicitar mi Diagnóstico</h3>
-          <p class="text-[#C7C9D3] text-sm mb-6">Complete el formulario y nos pondremos en contacto en menos de 2 horas hábiles.</p>
-
-          <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)" novalidate>
-            <p class="text-red-400 text-sm">Todos los campos son obligatorios.</p>
-
-            <div>
-              <label for="nombre" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Nombre completo *</label>
-              <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Juan García" required autocomplete="name">
-            </div>
-
-            <div>
-              <label for="empresa" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Empresa *</label>
-              <input type="text" id="empresa" name="empresa" class="form-input" placeholder="Nombre de su empresa" required autocomplete="organization">
-            </div>
-
-            <div>
-              <label for="cargo" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Cargo *</label>
-              <input type="text" id="cargo" name="cargo" class="form-input" placeholder="CEO, Director, Gerente..." required autocomplete="organization-title">
-            </div>
-
-            <div>
-              <label for="empleados" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Número de empleados *</label>
-              <div class="select-wrapper">
-                <select id="empleados" name="empleados" class="form-input form-select" required>
-                  <option value="" disabled selected style="color:rgba(255,255,255,.35)">Seleccionar rango</option>
-                  <option value="1-10">1 – 10 empleados</option>
-                  <option value="11-50">11 – 50 empleados</option>
-                  <option value="51-200">51 – 200 empleados</option>
-                  <option value="200+">Más de 200 empleados</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label for="sector" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Sector de su empresa *</label>
-              <div class="select-wrapper">
-                <select id="sector" name="sector" class="form-input form-select" required>
-                  <option value="" disabled selected style="color:rgba(255,255,255,.35)">Seleccione su sector</option>
-                  <option value="distribution">Distribución & Logística</option>
-                  <option value="manufacturing">Manufactura & Industria</option>
-                  <option value="healthcare">Salud & Clínicas</option>
-                  <option value="construction">Construcción & Bienes Raíces</option>
-                  <option value="services">Servicios Profesionales</option>
-                  <option value="retail">Retail & Comercio Electrónico</option>
-                  <option value="technology">Tecnología</option>
-                  <option value="other">Otro</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label for="dolor" class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5">Principal dolor operativo *</label>
-              <textarea id="dolor" name="dolor" class="form-input" rows="3"
-                placeholder="Ej: No damos abasto con el volumen de ventas, procesos manuales que consumen tiempo del equipo, falta de seguimiento a clientes..." required></textarea>
-            </div>
-
-            <button type="submit" disabled
-              id="submit-btn"
-              style="opacity:0.5;cursor:not-allowed;"
-              class="w-full btn-glow bg-[#1FA2FF] text-white py-4 rounded-xl font-bold text-base hover:opacity-90 transition flex items-center justify-center gap-3">
-              <span id="btn-text">Solicitar mi Diagnóstico →</span>
-              <svg id="btn-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" stroke="white" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="20"/>
-              </svg>
-            </button>
-
-            <p class="text-[#C7C9D3]/30 text-xs text-center">Al enviar, acepta ser contactado por KRONIX Labs vía WhatsApp o correo electrónico.</p>
-
-          </form>
-
-          <!-- Mensaje de éxito -->
-          <div id="form-success" class="hidden text-center py-8">
-            <div class="w-16 h-16 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/30 flex items-center justify-center mx-auto mb-4">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="#1FA2FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h4 class="text-white font-bold text-xl mb-2">¡Solicitud recibida!</h4>
-            <p class="text-[#C7C9D3] text-sm">Nos pondremos en contacto en menos de 2 horas hábiles para agendar su Diagnóstico de Madurez Operativa.</p>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
+<p class="text-[#C7C9D3]/40 text-xs mt-3">Respondemos en menos de 2 horas · Lunes a Viernes</p>
+</div>
+<!-- Formulario derecha -->
+<div>
+<div class="bg-[#070A1E] border border-white/08 rounded-2xl p-8">
+<h3 class="text-white font-bold text-xl mb-2">Solicitar mi Diagnóstico</h3>
+<p class="text-[#C7C9D3] text-sm mb-6">Complete el formulario y nos pondremos en contacto en menos de 2 horas hábiles.</p>
+<form class="space-y-4" id="contact-form" novalidate="" onsubmit="handleFormSubmit(event)">
+<p class="text-red-400 text-sm">Todos los campos son obligatorios.</p>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="nombre">Nombre completo *</label>
+<input autocomplete="name" class="form-input" id="nombre" name="nombre" placeholder="Juan García" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="empresa">Empresa *</label>
+<input autocomplete="organization" class="form-input" id="empresa" name="empresa" placeholder="Nombre de su empresa" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="cargo">Cargo *</label>
+<input autocomplete="organization-title" class="form-input" id="cargo" name="cargo" placeholder="CEO, Director, Gerente..." required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="empleados">Número de empleados *</label>
+<div class="select-wrapper">
+<select class="form-input form-select" id="empleados" name="empleados" required="">
+<option disabled="" selected="" style="color:rgba(255,255,255,.35)" value="">Seleccionar rango</option>
+<option value="1-10">1 – 10 empleados</option>
+<option value="11-50">11 – 50 empleados</option>
+<option value="51-200">51 – 200 empleados</option>
+<option value="200+">Más de 200 empleados</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="sector">Sector de su empresa *</label>
+<div class="select-wrapper">
+<select class="form-input form-select" id="sector" name="sector" required="">
+<option disabled="" selected="" style="color:rgba(255,255,255,.35)" value="">Seleccione su sector</option>
+<option value="distribution">Distribución &amp; Logística</option>
+<option value="manufacturing">Manufactura &amp; Industria</option>
+<option value="healthcare">Salud &amp; Clínicas</option>
+<option value="construction">Construcción &amp; Bienes Raíces</option>
+<option value="services">Servicios Profesionales</option>
+<option value="retail">Retail &amp; Comercio Electrónico</option>
+<option value="technology">Tecnología</option>
+<option value="other">Otro</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold text-[#C7C9D3]/70 uppercase tracking-wider mb-1.5" for="dolor">Principal dolor operativo *</label>
+<textarea class="form-input" id="dolor" name="dolor" placeholder="Ej: No damos abasto con el volumen de ventas, procesos manuales que consumen tiempo del equipo, falta de seguimiento a clientes..." required="" rows="3"></textarea>
+</div>
+<button class="w-full btn-glow bg-[#1FA2FF] text-white py-4 rounded-xl font-bold text-base hover:opacity-90 transition flex items-center justify-center gap-3" disabled="" id="submit-btn" style="opacity:0.5;cursor:not-allowed;" type="submit">
+<span id="btn-text">Solicitar mi Diagnóstico →</span>
+<svg aria-hidden="true" class="hidden animate-spin" fill="none" height="18" id="btn-spinner" viewbox="0 0 24 24" width="18">
+<circle cx="12" cy="12" r="10" stroke="white" stroke-dasharray="60" stroke-dashoffset="20" stroke-width="3"></circle>
+</svg>
+</button>
+<p class="text-[#C7C9D3]/30 text-xs text-center">Al enviar, acepta ser contactado por KRONIX Labs vía WhatsApp o correo electrónico.</p>
+</form>
+<!-- Mensaje de éxito -->
+<div class="hidden text-center py-8" id="form-success">
+<div class="w-16 h-16 rounded-full bg-[#1FA2FF]/15 border border-[#1FA2FF]/30 flex items-center justify-center mx-auto mb-4">
+<svg aria-hidden="true" fill="none" height="28" viewbox="0 0 24 24" width="28"><path d="M20 6L9 17l-5-5" stroke="#1FA2FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+</div>
+<h4 class="text-white font-bold text-xl mb-2">¡Solicitud recibida!</h4>
+<p class="text-[#C7C9D3] text-sm">Nos pondremos en contacto en menos de 2 horas hábiles para agendar su Diagnóstico de Madurez Operativa.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-
 <!-- ============================================================
      FOOTER
 ============================================================ -->
-<footer class="bg-[#070A1E] border-t border-white/5 py-16 px-6" aria-label="Pie de página">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-4 gap-12 mb-12">
-
-      <!-- Col 1: Marca -->
-      <div class="md:col-span-1">
-        <a href="/es/" aria-label="KRONIX Labs">
-          <img src="/Kronix-Labs.svg" alt="KRONIX Labs" class="h-10 mb-5" width="140" height="40">
-        </a>
-        <p class="text-[#C7C9D3]/80 text-xs leading-relaxed mb-3">
+<footer aria-label="Pie de página" class="bg-[#070A1E] border-t border-white/5 py-16 px-6">
+<div class="max-w-7xl mx-auto">
+<div class="grid md:grid-cols-4 gap-12 mb-12">
+<!-- Col 1: Marca -->
+<div class="md:col-span-1">
+<a aria-label="KRONIX Labs" href="/es/">
+<img alt="KRONIX Labs" class="h-10 mb-5" height="40" src="/Kronix-Labs.svg" width="140"/>
+</a>
+<p class="text-[#C7C9D3]/80 text-xs leading-relaxed mb-3">
           Firma de Arquitectura de Infraestructura IA. Rediseñamos cómo opera una empresa para que pueda facturar más sin contratar más personal.
         </p>
-        <p class="text-[#C7C9D3]/40 text-xs italic">Deje de operar. Comience a escalar.</p>
-        <p class="text-[#C7C9D3]/30 text-xs mt-2">Medellín, Antioquia, Colombia</p>
-      </div>
-
-      <!-- Col 2: Servicios -->
-      <div>
-        <h4 class="text-white font-semibold mb-5 text-sm">Servicios</h4>
-        <ul class="space-y-3 text-xs text-[#C7C9D3]">
-          <li><a href="/es/consultoria/arquitectura-ia-empresarial.html" class="hover:text-[#1FA2FF] transition">Arquitectura Empresarial IA</a></li>
-          <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:text-[#1FA2FF] transition">Kronix EAA Framework™</a></li>
-          <li><a href="/es/industries/distribucion.html" class="hover:text-[#1FA2FF] transition">Soluciones por Industria</a></li>
-          <li><a href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html" class="hover:text-[#1FA2FF] transition">Caso de Estudio</a></li>
-          <li><a href="/es/insights/el-codigo-del-exito.html" class="hover:text-[#1FA2FF] transition">El Código del Éxito</a></li>
-        </ul>
-      </div>
-
-      <!-- Col 3: Firma -->
-      <div>
-        <h4 class="text-white font-semibold mb-5 text-sm">Firma</h4>
-        <ul class="space-y-3 text-xs text-[#C7C9D3]">
-          <li><a href="/es/firm/consultora-estrategica-ia.html" class="hover:text-[#1FA2FF] transition">Quiénes somos</a></li>
-          <li><a href="/es/framework/arquitectura-empresarial-ia.html" class="hover:text-[#1FA2FF] transition">Metodología</a></li>
-          <li><a href="/es/insights/" class="hover:text-[#1FA2FF] transition">Insights</a></li>
-          <li><a href="#contacto" class="hover:text-[#1FA2FF] transition">Agendar Diagnóstico</a></li>
-          <li>
-            <a href="/en/" hreflang="en" rel="alternate" class="hover:text-[#1FA2FF] transition flex items-center gap-1.5">
-              <svg width="14" height="10" viewBox="0 0 19 10" aria-hidden="true">
-                <rect width="19" height="10" fill="#B22234"/>
-                <g fill="#fff"><rect y="1" width="19" height="1"/><rect y="3" width="19" height="1"/><rect y="5" width="19" height="1"/><rect y="7" width="19" height="1"/><rect y="9" width="19" height="1"/></g>
-                <rect width="8" height="5" fill="#3C3B6E"/>
-              </svg>
+<p class="text-[#C7C9D3]/40 text-xs italic">Deje de operar. Comience a escalar.</p>
+<p class="text-[#C7C9D3]/30 text-xs mt-2">Medellín, Antioquia, Colombia</p>
+</div>
+<!-- Col 2: Servicios -->
+<div>
+<h4 class="text-white font-semibold mb-5 text-sm">Servicios</h4>
+<ul class="space-y-3 text-xs text-[#C7C9D3]">
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/consultoria/arquitectura-ia-empresarial.html">Arquitectura Empresarial IA</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/framework/arquitectura-empresarial-ia.html">Kronix EAA Framework™</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/industries/distribucion.html">Soluciones por Industria</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html">Caso de Estudio</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/insights/el-codigo-del-exito.html">El Código del Éxito</a></li>
+</ul>
+</div>
+<!-- Col 3: Firma -->
+<div>
+<h4 class="text-white font-semibold mb-5 text-sm">Firma</h4>
+<ul class="space-y-3 text-xs text-[#C7C9D3]">
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/firm/consultora-estrategica-ia.html">Quiénes somos</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/framework/arquitectura-empresarial-ia.html">Metodología</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="/es/insights/">Insights</a></li>
+<li><a class="hover:text-[#1FA2FF] transition" href="#contacto">Agendar Diagnóstico</a></li>
+<li>
+<a class="hover:text-[#1FA2FF] transition flex items-center gap-1.5" href="/en/" hreflang="en" rel="alternate">
+<svg aria-hidden="true" height="10" viewbox="0 0 19 10" width="14">
+<rect fill="#B22234" height="10" width="19"></rect>
+<g fill="#fff"><rect height="1" width="19" y="1"></rect><rect height="1" width="19" y="3"></rect><rect height="1" width="19" y="5"></rect><rect height="1" width="19" y="7"></rect><rect height="1" width="19" y="9"></rect></g>
+<rect fill="#3C3B6E" height="5" width="8"></rect>
+</svg>
               English version →
             </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Col 4: Contacto -->
-      <div>
-        <h4 class="text-white font-semibold mb-5 text-sm">Contacto</h4>
-        <ul class="space-y-3 text-xs text-[#C7C9D3]">
-          <li>Medellín, Antioquia<br>Colombia — LATAM</li>
-          <li>
-            <a href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa."
-               target="_blank" rel="noopener noreferrer"
-               onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_WA_ES'});"
-               class="hover:text-[#1FA2FF] transition block">
+</li>
+</ul>
+</div>
+<!-- Col 4: Contacto -->
+<div>
+<h4 class="text-white font-semibold mb-5 text-sm">Contacto</h4>
+<ul class="space-y-3 text-xs text-[#C7C9D3]">
+<li>Medellín, Antioquia<br/>Colombia — LATAM</li>
+<li>
+<a class="hover:text-[#1FA2FF] transition block" href="https://wa.me/573107397053?text=Hola%20KRONIX%2C%20quiero%20solicitar%20mi%20Diagn%C3%B3stico%20de%20Madurez%20Operativa." onclick="gtag('event','click_whatsapp',{event_category:'CTA',event_label:'Footer_WA_ES'});" rel="noopener noreferrer" target="_blank">
               WhatsApp: +57 310 739 7053
             </a>
-          </li>
-          <li>
-            <a href="mailto:admin@kronixlabs.com" class="hover:text-[#1FA2FF] transition block">
+</li>
+<li>
+<a class="hover:text-[#1FA2FF] transition block" href="mailto:admin@kronixlabs.com">
               admin@kronixlabs.com
             </a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/25">
-      <span>© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</span>
-      <span>Arquitectura de Infraestructura IA Empresarial · Medellín, Colombia</span>
-    </div>
-  </div>
-</footer>
-
-
-<!-- SEO hidden content -->
-<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;" aria-hidden="true">
-  <h2>KRONIX Labs — Firma de Arquitectura de Infraestructura IA · Medellín, Colombia · LATAM</h2>
-  <p>KRONIX Labs es la firma especializada en Arquitectura de Infraestructura IA para empresas en Colombia y Latinoamérica.</p>
-  <address>KRONIX Labs · Medellín, Antioquia, Colombia · WhatsApp: <a href="https://wa.me/573107397053">+57 310 739 7053</a></address>
+</li>
+</ul>
 </div>
-
-
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-white/25">
+<span>© 2026 KRONIX Labs by jurion. Todos los derechos reservados.</span>
+<span>Arquitectura de Infraestructura IA Empresarial · Medellín, Colombia</span>
+</div>
+</div>
+</footer>
+<!-- SEO hidden content -->
+<div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
+<h2>KRONIX Labs — Firma de Arquitectura de Infraestructura IA · Medellín, Colombia · LATAM</h2>
+<p>KRONIX Labs es la firma especializada en Arquitectura de Infraestructura IA para empresas en Colombia y Latinoamérica.</p>
+<address>KRONIX Labs · Medellín, Antioquia, Colombia · WhatsApp: <a href="https://wa.me/573107397053">+57 310 739 7053</a></address>
+</div>
 <!-- ============================================================
      STICKY MOBILE CTA
 ============================================================ -->
 <div class="sticky-mobile-cta md:hidden">
-  <a href="#contacto"
-     onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_Home_ES'});"
-     class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base">
+<a class="block w-full bg-[#1FA2FF] text-white text-center py-3.5 px-6 rounded-xl font-bold text-base" href="#contacto" onclick="gtag('event','click_cta',{event_category:'CTA',event_label:'StickyMobile_Home_ES'});">
     Solicitar Diagnóstico →
   </a>
 </div>
-
-
 <!-- ============================================================
      WHATSAPP FLOATING BUTTON
 ============================================================ -->
-<button class="kx-wa-btn" id="kxWaBtn"
-  aria-label="Agendar Diagnóstico por WhatsApp"
-  aria-expanded="false"
-  onclick="toggleWaPanel()">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  <span>WhatsApp</span>
+<button aria-expanded="false" aria-label="Agendar Diagnóstico por WhatsApp" class="kx-wa-btn" id="kxWaBtn" onclick="toggleWaPanel()">
+<svg aria-hidden="true" fill="white" height="20" viewbox="0 0 24 24" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+<span>WhatsApp</span>
 </button>
-
-<div class="kx-wa-panel" id="kxWaPanel" role="dialog" aria-label="Opciones de contacto WhatsApp">
-  <h4>¿En qué le podemos ayudar?</h4>
-  <select id="waTopicES" aria-label="Tema del mensaje">
-    <option value="diagnostico">Solicitar Diagnóstico Operativo</option>
-    <option value="arquitectura">Consulta sobre Arquitectura IA</option>
-    <option value="framework">Preguntas sobre Framework EAA™</option>
-    <option value="info">Más información sobre KRONIX Labs</option>
-  </select>
-  <button onclick="sendWhatsAppES()" aria-label="Abrir conversación en WhatsApp">
+<div aria-label="Opciones de contacto WhatsApp" class="kx-wa-panel" id="kxWaPanel" role="dialog">
+<h4>¿En qué le podemos ayudar?</h4>
+<select aria-label="Tema del mensaje" id="waTopicES">
+<option value="diagnostico">Solicitar Diagnóstico Operativo</option>
+<option value="arquitectura">Consulta sobre Arquitectura IA</option>
+<option value="framework">Preguntas sobre Framework EAA™</option>
+<option value="info">Más información sobre KRONIX Labs</option>
+</select>
+<button aria-label="Abrir conversación en WhatsApp" onclick="sendWhatsAppES()">
     Abrir WhatsApp →
   </button>
 </div>
-
-
 <!-- ============================================================
      JAVASCRIPT
 ============================================================ -->
-<script>
-// ── Mobile menu ──
-const menuBtn = document.getElementById('menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-menuBtn.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  menuBtn.setAttribute('aria-expanded', isOpen);
-});
-
-// ── Scroll progress ──
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const total = document.body.scrollHeight - window.innerHeight;
-  document.getElementById('scrollIndicator').style.width = ((scrolled / total) * 100) + '%';
-  // Show WA button
-  const btn = document.getElementById('kxWaBtn');
-  if (btn) { scrolled > 400 ? btn.classList.add('show') : btn.classList.remove('show'); }
-}, { passive: true });
-
-// ── Scroll animations ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.cap-card, .step-card, .persona-card, .trust-item, .layer-item').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity .6s ease, transform .6s ease';
-  observer.observe(el);
-});
-
-// ── Smooth scroll ──
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// ── Select placeholder color ──
-document.getElementById('empleados').addEventListener('change', function() {
-  this.style.color = this.value ? '#fff' : 'rgba(255,255,255,.35)';
-});
-
-// ── WhatsApp panel toggle ──
-function toggleWaPanel() {
-  const panel = document.getElementById('kxWaPanel');
-  const btn = document.getElementById('kxWaBtn');
-  const isOpen = panel.style.display === 'block';
-  panel.style.display = isOpen ? 'none' : 'block';
-  btn.setAttribute('aria-expanded', !isOpen);
-}
-
-// ── WhatsApp sender ──
-function sendWhatsAppES() {
-  const topic = document.getElementById('waTopicES').value;
-  const msgs = {
-    diagnostico: 'Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.',
-    arquitectura: 'Hola KRONIX, tengo una consulta sobre Arquitectura IA Empresarial.',
-    framework: 'Hola KRONIX, quiero conocer más sobre el Framework EAA™.',
-    info: 'Hola KRONIX, quiero más información sobre sus servicios.'
-  };
-  gtag('event','click_whatsapp',{event_category:'CTA',event_label:'FloatingWA_Home_ES_'+topic});
-  window.open('https://wa.me/573107397053?text=' + encodeURIComponent(msgs[topic] || msgs.info), '_blank');
-  document.getElementById('kxWaPanel').style.display = 'none';
-}
-
-// ── Form submit ──
-function handleFormSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('contact-form');
-  const success = document.getElementById('form-success');
-  const btnText = document.getElementById('btn-text');
-  const spinner = document.getElementById('btn-spinner');
-
-  const nombre = document.getElementById('nombre').value.trim();
-  const empresa = document.getElementById('empresa').value.trim();
-  const cargo = document.getElementById('cargo').value.trim();
-  const empleados = document.getElementById('empleados').value;
-  const dolor = document.getElementById('dolor').value.trim();
-
-  if (!nombre || !empresa || !cargo || !empleados || !dolor) {
-    alert('Por favor complete todos los campos requeridos.');
-    return;
-  }
-
-  // Show spinner
-  btnText.textContent = 'Enviando...';
-  spinner.classList.remove('hidden');
-
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'DiagnosticForm_Home_ES', { event_category: 'Lead', event_label: 'Diagnostico_Form_ES', company_size: empleados });
-  }
-
-  const message = `[LEAD ES - Home] Nueva Solicitud de Diagnóstico\n\nNombre: ${nombre}\n\nEmpresa: ${empresa}\n\nCargo: ${cargo}\n\nEmpleados: ${empleados}\n\nPrincipal dolor: ${dolor}`;
-
-  setTimeout(() => {
-    window.open('https://wa.me/573107397053?text=' + encodeURIComponent(message), '_blank');
-    form.classList.add('hidden');
-    success.classList.remove('hidden');
-  }, 500);
-}
-
-// ── Live validation — activa el botón solo cuando todos los campos están llenos ──
-(function(){
-  var form = document.getElementById('contact-form');
-  var submitBtn = document.getElementById('submit-btn');
-  if(!form || !submitBtn) return;
-  function checkForm(){
-    var ok = true;
-    form.querySelectorAll('[required]').forEach(function(el){ if(!el.value.trim()) ok = false; });
-    submitBtn.disabled = !ok;
-    submitBtn.style.opacity = ok ? '1' : '0.5';
-    submitBtn.style.cursor = ok ? 'pointer' : 'not-allowed';
-    form.querySelectorAll('select[required]').forEach(function(el){ el.style.color = el.value ? '#fff' : 'rgba(255,255,255,0.35)'; });
-  }
-  form.querySelectorAll('[required]').forEach(function(el){
-    el.addEventListener('input', checkForm);
-    el.addEventListener('change', checkForm);
-  });
-  checkForm();
-})();
-
-// ── Close WA panel on outside click ──
-document.addEventListener('click', function(e) {
-  const panel = document.getElementById('kxWaPanel');
-  const btn = document.getElementById('kxWaBtn');
-  if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) {
-    panel.style.display = 'none';
-    btn.setAttribute('aria-expanded', 'false');
-  }
-});
-</script>
 
 </body>
-</html>
+

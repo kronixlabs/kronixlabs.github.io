@@ -4,153 +4,153 @@
 
   <!-- Root -->
   <url>
-    <loc>https://kronixlabs.github.io/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <loc>https://kronixlabs.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/"/>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- ES Home -->
   <url>
-    <loc>https://kronixlabs.github.io/es/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <loc>https://kronixlabs.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/"/>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <!-- EN Home -->
   <url>
-    <loc>https://kronixlabs.github.io/en/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/"/>
+    <loc>https://kronixlabs.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/"/>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
   <!-- ES Consulting -->
   <url>
-    <loc>https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html"/>
+    <loc>https://kronixlabs.com/es/consultoria/arquitectura-ia-empresarial.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/consultoria/arquitectura-ia-empresarial.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/consulting/enterprise-ai-architecture.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- EN Consulting -->
   <url>
-    <loc>https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/consultoria/arquitectura-ia-empresarial.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/consulting/enterprise-ai-architecture.html"/>
+    <loc>https://kronixlabs.com/en/consulting/enterprise-ai-architecture.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/consultoria/arquitectura-ia-empresarial.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/consulting/enterprise-ai-architecture.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- ES Framework -->
   <url>
-    <loc>https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html"/>
+    <loc>https://kronixlabs.com/es/framework/arquitectura-empresarial-ia.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/framework/arquitectura-empresarial-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/framework/enterprise-ai-architecture-framework.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- EN Framework -->
   <url>
-    <loc>https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/framework/arquitectura-empresarial-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/framework/enterprise-ai-architecture-framework.html"/>
+    <loc>https://kronixlabs.com/en/framework/enterprise-ai-architecture-framework.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/framework/arquitectura-empresarial-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/framework/enterprise-ai-architecture-framework.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <!-- ES Industries -->
   <url>
-    <loc>https://kronixlabs.github.io/es/industries/distribucion.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/industries/distribucion.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html"/>
+    <loc>https://kronixlabs.com/es/industries/distribucion.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/industries/distribucion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/industries/distribution.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- EN Industries -->
   <url>
-    <loc>https://kronixlabs.github.io/en/industries/distribution.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/industries/distribucion.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/industries/distribution.html"/>
+    <loc>https://kronixlabs.com/en/industries/distribution.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/industries/distribucion.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/industries/distribution.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- ES Firm -->
   <url>
-    <loc>https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html"/>
+    <loc>https://kronixlabs.com/es/firm/consultora-estrategica-ia.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/firm/consultora-estrategica-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/firm/strategic-ai-consultancy.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- EN Firm -->
   <url>
-    <loc>https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/firm/consultora-estrategica-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/firm/strategic-ai-consultancy.html"/>
+    <loc>https://kronixlabs.com/en/firm/strategic-ai-consultancy.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/firm/consultora-estrategica-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/firm/strategic-ai-consultancy.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- ES Case Study -->
   <url>
-    <loc>https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html"/>
+    <loc>https://kronixlabs.com/es/case-study/sistema-multisede-ia.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/case-study/multi-site-ai-system.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- EN Case Study -->
   <url>
-    <loc>https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/case-study/sistema-multisede-ia.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/case-study/multi-site-ai-system.html"/>
+    <loc>https://kronixlabs.com/en/case-study/multi-site-ai-system.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/case-study/sistema-multisede-ia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/case-study/multi-site-ai-system.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- ES Insights -->
   <url>
-    <loc>https://kronixlabs.github.io/es/insights/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights/"/>
+    <loc>https://kronixlabs.com/es/insights/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/"/>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- EN Insights -->
   <url>
-    <loc>https://kronixlabs.github.io/en/insights/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights/"/>
+    <loc>https://kronixlabs.com/en/insights/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/"/>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- ES El Codigo del Exito -->
   <url>
-    <loc>https://kronixlabs.github.io/es/insights/el-codigo-del-exito.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights/el-codigo-del-exito.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights/the-success-code.html"/>
+    <loc>https://kronixlabs.com/es/insights/el-codigo-del-exito.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/el-codigo-del-exito.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/the-success-code.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <!-- EN The Success Code -->
   <url>
-    <loc>https://kronixlabs.github.io/en/insights/the-success-code.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.github.io/es/insights/el-codigo-del-exito.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.github.io/en/insights/the-success-code.html"/>
+    <loc>https://kronixlabs.com/en/insights/the-success-code.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://kronixlabs.com/es/insights/el-codigo-del-exito.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kronixlabs.com/en/insights/the-success-code.html"/>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
