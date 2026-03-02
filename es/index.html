@@ -1749,7 +1749,113 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
    Abrir WhatsApp →
   </button>
 </div>
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
+<!-- JAVASCRIPT -->
+<script>
+  // 1. Mobile menu toggle
+  (function(){
+    var btn=document.getElementById('menu-btn');
+    var menu=document.getElementById('mobile-menu');
+    if(!btn||!menu) return;
+    btn.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!menu.contains(e.target)){
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+
+  // 2. Scroll progress indicator
+  (function(){
+    var ind=document.getElementById('scrollIndicator');
+    if(!ind) return;
+    window.addEventListener('scroll',function(){
+      var h=document.documentElement;
+      var pct=(h.scrollTop||document.body.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+      ind.style.width=pct+'%';
+    },{passive:true});
+  })();
+
+  // 3. Fade-in on scroll animations
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){obs.observe(el);});
+  })();
+
+  // 4. WhatsApp floating button — show on scroll + avoid overlap
+  (function(){
+    var waBtn=document.getElementById('kxWaBtn');
+    if(!waBtn) return;
+    function checkScroll(){
+      if((document.documentElement.scrollTop||document.body.scrollTop)>300){
+        waBtn.classList.add('show');
+      } else {
+        waBtn.classList.remove('show');
+      }
+    }
+    window.addEventListener('scroll',checkScroll,{passive:true});
+    checkScroll();
+    function adjustWa(){
+      if(window.innerWidth<=768&&document.querySelector('.sticky-mobile-cta')){
+        waBtn.style.bottom='90px';
+      } else {
+        waBtn.style.bottom='';
+      }
+    }
+    adjustWa();
+    window.addEventListener('resize',adjustWa);
+  })();
+
+  // Formulario contacto (ES)
+  (function(){
+    var form=document.getElementById('contact-form');
+    var submitBtn=document.getElementById('submit-btn');
+    if(!form||!submitBtn) return;
+    function checkValidity(){
+      var valid=true;
+      form.querySelectorAll('[required]').forEach(function(el){if(!el.value.trim())valid=false;});
+      submitBtn.disabled=!valid;
+      submitBtn.style.opacity=valid?'1':'0.5';
+      submitBtn.style.cursor=valid?'pointer':'not-allowed';
+    }
+    form.addEventListener('input',checkValidity);
+    form.addEventListener('change',checkValidity);
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var n=form.querySelector('#name')?form.querySelector('#name').value:'';
+      var c=form.querySelector('#company')?form.querySelector('#company').value:'';
+      var em=form.querySelector('#email')?form.querySelector('#email').value:'';
+      var wa=form.querySelector('#whatsapp')?form.querySelector('#whatsapp').value:'';
+      var emp=form.querySelector('#employees')?form.querySelector('#employees').value:'';
+      var sec=form.querySelector('#sector')?form.querySelector('#sector').value:'';
+      var ch=form.querySelector('#challenge')?form.querySelector('#challenge').value:'';
+      var msg='Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.\n\nNombre: '+n+'\nEmpresa: '+c+'\nEmail: '+em+'\nWhatsApp: '+wa+'\nEmpleados: '+emp+'\nSector: '+sec+'\nDesafío: '+ch;
+      window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
+      var s=document.getElementById('form-success');if(s)s.classList.remove('hidden');
+      var err=document.getElementById('form-error');if(err)err.classList.add('hidden');
+    });
+  })();
+
+  // WhatsApp panel function
+  function sendWhatsAppES(){
+    var t=document.getElementById('waTopicES');
+    var v=t?t.value:'diagnostico';
+    var m={'diagnostico':'Hola KRONIX, quiero solicitar mi Diagnóstico de Madurez Operativa.','arquitectura':'Hola KRONIX, tengo consultas sobre Arquitectura IA Empresarial.','framework':'Hola KRONIX, tengo preguntas sobre el Framework EAA™.','info':'Hola KRONIX, quisiera más información sobre KRONIX Labs.'};
+    window.open('https://wa.me/573107397053?text='+encodeURIComponent(m[v]||m['diagnostico']),'_blank');
+  }
+  function toggleWaPanel(){
+    var p=document.getElementById('kxWaPanel');if(!p)return;
+    var show=p.style.display!=='block';p.style.display=show?'block':'none';
+    var btn=document.getElementById('kxWaBtn');if(btn)btn.setAttribute('aria-expanded',show);
+  }
+</script>
 </body>
+</html>

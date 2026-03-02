@@ -54,6 +54,22 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
 .kx-wa-btn { position:fixed; bottom:28px; right:28px; z-index:997; top:auto; background:#1FA2FF; color:#fff; padding:14px 20px; border-radius:14px; font-weight:600; font-size:14px; font-family:inherit; box-shadow:0 10px 40px rgba(31,162,255,.45); display:flex; align-items:center; gap:8px; cursor:pointer; opacity:0; transform:translateY(20px); transition:all .4s ease; border:none; }
 .kx-wa-btn.show { opacity:1; transform:translateY(0); }
 .kx-wa-btn:hover { transform:translateY(-3px); box-shadow:0 16px 50px rgba(31,162,255,.55); }
+
+.kx-wa-panel {
+  position:fixed; bottom:95px; right:28px; width:340px;
+  background:#070A1E; border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; padding:24px; z-index:10000;
+  display:none; box-shadow:0 15px 60px rgba(0,0,0,.55);
+}
+.kx-wa-panel h4 { color:#fff; font-size:15px; font-weight:600; margin-bottom:14px; }
+.kx-wa-panel select, .kx-wa-panel button {
+  width:100%; margin-bottom:12px; padding:11px; border-radius:8px; font-size:13px; font-family:inherit;
+}
+.kx-wa-panel select { background:#0B0F2B; color:#C7C9D3; border:1px solid rgba(255,255,255,.1); appearance:none; -webkit-appearance:none; }
+.kx-wa-panel button { background:#1FA2FF; color:white; font-weight:600; border:none; cursor:pointer; }
+@media (max-width:640px) {
+  .kx-wa-panel { right:12px; left:12px; width:auto; bottom:145px; top:auto; }
+}
 </style><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://www.googletagmanager.com" rel="preconnect"/><link as_="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="preload"/><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/></head>
 <body>
 <!-- Scroll progress -->
@@ -972,21 +988,108 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
     Open WhatsApp →
    </button>
 </div>
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
-  // Ensure WhatsApp button doesn't overlap sticky CTAs on mobile
-  <script>
-   (function(){
-  function adjustWa(){
-    var btn=document.getElementById('kxWaBtn'); if(!btn) return;
-    if(window.innerWidth<=768 && document.querySelector('.sticky-mobile-cta')){ btn.style.bottom='90px'; }
-    else { btn.style.bottom=''; }
+<!-- JAVASCRIPT -->
+<script>
+  // 1. Mobile menu toggle
+  (function(){
+    var btn=document.getElementById('menu-btn');
+    var menu=document.getElementById('mobile-menu');
+    if(!btn||!menu) return;
+    btn.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!menu.contains(e.target)){
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+
+  // 2. Scroll progress indicator
+  (function(){
+    var ind=document.getElementById('scrollIndicator');
+    if(!ind) return;
+    window.addEventListener('scroll',function(){
+      var h=document.documentElement;
+      var pct=(h.scrollTop||document.body.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+      ind.style.width=pct+'%';
+    },{passive:true});
+  })();
+
+  // 3. Fade-in on scroll animations
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){obs.observe(el);});
+  })();
+
+  // 4. WhatsApp floating button — show on scroll + avoid overlap
+  (function(){
+    var waBtn=document.getElementById('kxWaBtn');
+    if(!waBtn) return;
+    function checkScroll(){
+      if((document.documentElement.scrollTop||document.body.scrollTop)>300){
+        waBtn.classList.add('show');
+      } else {
+        waBtn.classList.remove('show');
+      }
+    }
+    window.addEventListener('scroll',checkScroll,{passive:true});
+    checkScroll();
+    function adjustWa(){
+      if(window.innerWidth<=768&&document.querySelector('.sticky-mobile-cta')){
+        waBtn.style.bottom='90px';
+      } else {
+        waBtn.style.bottom='';
+      }
+    }
+    adjustWa();
+    window.addEventListener('resize',adjustWa);
+  })();
+
+  // Form validation & submission (EN)
+  (function(){
+    var form=document.getElementById('contact-form');
+    var submitBtn=document.getElementById('submit-btn');
+    if(!form||!submitBtn) return;
+    function checkValidity(){
+      var valid=true;
+      form.querySelectorAll('[required]').forEach(function(el){if(!el.value.trim())valid=false;});
+      submitBtn.disabled=!valid;
+      submitBtn.style.opacity=valid?'1':'0.5';
+      submitBtn.style.cursor=valid?'pointer':'not-allowed';
+    }
+    form.addEventListener('input',checkValidity);
+    form.addEventListener('change',checkValidity);
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var n=form.querySelector('#name')?form.querySelector('#name').value:'';
+      var c=form.querySelector('#company')?form.querySelector('#company').value:'';
+      var em=form.querySelector('#email')?form.querySelector('#email').value:'';
+      var wa=form.querySelector('#whatsapp')?form.querySelector('#whatsapp').value:'';
+      var emp=form.querySelector('#employees')?form.querySelector('#employees').value:'';
+      var sec=form.querySelector('#sector')?form.querySelector('#sector').value:'';
+      var ch=form.querySelector('#challenge')?form.querySelector('#challenge').value:'';
+      var msg='Hello KRONIX, I want to request my Operational Maturity Diagnostic.\n\nName: '+n+'\nCompany: '+c+'\nEmail: '+em+'\nWhatsApp: '+wa+'\nEmployees: '+emp+'\nIndustry: '+sec+'\nChallenge: '+ch;
+      window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
+      var s=document.getElementById('form-success');if(s)s.classList.remove('hidden');
+      var err=document.getElementById('form-error');if(err)err.classList.add('hidden');
+    });
+  })();
+
+  // WhatsApp panel function
+  function sendWhatsAppEN(){
+    var t=document.getElementById('waTopicEN');
+    var v=t?t.value:'diagnostic';
+    var m={'diagnostic':'Hello KRONIX, I want to request my Operational Maturity Diagnostic.','architecture':'Hello KRONIX, I would like to learn more about your AI Architecture services.','framework':'Hello KRONIX, I have questions about the EAA Framework.','info':'Hello KRONIX, I would like more information.','pricing':'Hello KRONIX, I would like to discuss investment and pricing.','demo':'Hello KRONIX, I would like to schedule a demo.'};
+    window.open('https://wa.me/573107397053?text='+encodeURIComponent(m[v]||m['diagnostic']),'_blank');
   }
-  adjustWa();
-  window.addEventListener('resize',adjustWa);
-  document.addEventListener('DOMContentLoaded',adjustWa);
-})();
-  </script>
+</script>
 </body>
 </html>

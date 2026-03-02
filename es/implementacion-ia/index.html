@@ -1051,19 +1051,102 @@ body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-s
   cursor: pointer;
 }
   </style>
-<div class="kx-wa-btn" id="kx-wa-btn">
-<span id="kx-wa-text">
-</span>
+<div class="kx-wa-btn" id="kx-wa-btn" onclick="var p=document.getElementById('kx-wa-panel');var show=p.style.display!=='block';p.style.display=show?'block':'none';" style="cursor:pointer;">
+<span id="kx-wa-text">WhatsApp</span>
 </div>
 <div class="kx-wa-panel" id="kx-wa-panel">
-<h4 id="kx-wa-title">
-</h4>
-<select id="kx-sector">
-</select>
-<select id="kx-size">
-</select>
-<button id="kx-submit">
-</button>
+<h4 id="kx-wa-title">¿En qué le podemos ayudar?</h4>
+<select id="kx-sector"><option value="">Seleccione su sector</option>
+<option value="Distribución">Distribución y Logística</option>
+<option value="Manufactura">Manufactura e Industria</option>
+<option value="Salud">Salud y Clínicas</option>
+<option value="Construcción">Construcción e Inmobiliaria</option>
+<option value="Servicios">Servicios Profesionales</option>
+<option value="Comercio">Comercio y E-commerce</option>
+<option value="Tecnología">Tecnología</option>
+<option value="Otro">Otro</option></select>
+<select id="kx-size"><option value="">Tamaño de empresa</option>
+<option value="1-10 empleados">1–10 empleados</option>
+<option value="11-50 empleados">11–50 empleados</option>
+<option value="51-200 empleados">51–200 empleados</option>
+<option value="Más de 200 empleados">Más de 200 empleados</option></select>
+<button id="kx-submit">Continuar a WhatsApp →</button>
 </div>
+<!-- JAVASCRIPT -->
+<script>
+  // 1. Mobile menu toggle
+  (function(){
+    var btn=document.getElementById('menu-btn');
+    var menu=document.getElementById('mobile-menu');
+    if(!btn||!menu) return;
+    btn.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!menu.contains(e.target)){
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  })();
+
+  // 2. Scroll progress indicator
+  (function(){
+    var ind=document.getElementById('scrollIndicator');
+    if(!ind) return;
+    window.addEventListener('scroll',function(){
+      var h=document.documentElement;
+      var pct=(h.scrollTop||document.body.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+      ind.style.width=pct+'%';
+    },{passive:true});
+  })();
+
+  // 3. Fade-in on scroll animations
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-in-on-scroll').forEach(function(el){obs.observe(el);});
+  })();
+
+  // 4. WhatsApp floating button (System 2)
+  (function(){
+    var waBtn=document.getElementById('kx-wa-btn');
+    if(!waBtn) return;
+    function checkScroll(){
+      if((document.documentElement.scrollTop||document.body.scrollTop)>300){
+        waBtn.classList.add('show');
+      } else {
+        waBtn.classList.remove('show');
+      }
+    }
+    window.addEventListener('scroll',checkScroll,{passive:true});
+    checkScroll();
+    function adjustWa(){
+      if(window.innerWidth<=768&&document.querySelector('.sticky-mobile-cta')){
+        waBtn.style.bottom='90px';
+      } else {
+        waBtn.style.bottom='';
+      }
+    }
+    adjustWa();
+    window.addEventListener('resize',adjustWa);
+    
+    // Submit handler for system 2
+    var submitBtn=document.getElementById('kx-submit');
+    if(submitBtn){
+      submitBtn.addEventListener('click',function(){
+        var s=document.getElementById('kx-sector')?document.getElementById('kx-sector').value:'';
+        var sz=document.getElementById('kx-size')?document.getElementById('kx-size').value:'';
+        var msg='Hola KRONIX, empresa de sector '+(s||'servicios')+', '+(sz||'tamaño medio')+'. Quiero solicitar mi Diagnóstico de Madurez Operativa.';
+        window.open('https://wa.me/573107397053?text='+encodeURIComponent(msg),'_blank');
+      });
+    }
+  })();
+</script>
 </body>
 </html>
