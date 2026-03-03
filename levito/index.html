@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levito | MES System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: radial-gradient(circle at 20% 20%, #1f1f3a, #0d0d1a 60%);
+        font-family: 'Segoe UI', sans-serif;
+        color: #ffffff;
+        min-height: 100vh;
+    }
+
+    .navbar {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 15px 30px;
+    }
+
+    .logo-kronix { height: 35px; }
+    .logo-levito { height: 55px; }
+
+    .header-title {
+        font-weight: 600;
+        letter-spacing: 1px;
+        background: linear-gradient(90deg,#4facfe,#00f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .panel-box {
+        background: rgba(255,255,255,0.04);
+        border-radius: 20px;
+        padding: 30px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    }
+
+    .pin-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .pin-card {
+        height: 170px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .pin-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    /* Gradientes más tecnológicos */
+
+    .rojo { background: linear-gradient(135deg,#ff416c,#ff4b2b); }
+    .azul { background: linear-gradient(135deg,#2193b0,#6dd5ed); }
+    .verde { background: linear-gradient(135deg,#00b09b,#96c93d); }
+    .amarillo { background: linear-gradient(135deg,#f7971e,#ffd200); color:#1a1a1a; }
+    .blanco { background: linear-gradient(135deg,#e6e9f0,#eef1f5); color:#111; }
+    .negro { background: linear-gradient(135deg,#141E30,#243B55); }
+    .naranja { background: linear-gradient(135deg,#f12711,#f5af19); }
+    .morado { background: linear-gradient(135deg,#8e2de2,#4a00e0); }
+
+    .modal-content {
+        background: #111124;
+        color: white;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .form-control, .form-select {
+        background: #1e1e38;
+        border: 1px solid rgba(255,255,255,0.1);
+        color: white;
+    }
+
+    .form-control:focus {
+        background: #1e1e38;
+        color: white;
+        border-color: #4facfe;
+        box-shadow: 0 0 10px rgba(79,172,254,0.6);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg,#4facfe,#00f2fe);
+        border: none;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .btn-primary:hover {
+        opacity: 0.9;
+    }
+
+    .status-text {
+        font-size: 13px;
+        opacity: 0.8;
+    }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar d-flex justify-content-between align-items-center">
+    <img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-kronix.png" class="logo-kronix">
+    <h4 class="header-title">LEVITO • SISTEMA MES INDUSTRIAL</h4>
+    <img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-levito.png" class="logo-levito">
+</nav>
+
+<div class="container mt-5">
+    <div class="panel-box text-center">
+        <h5 class="mb-3">PANEL OPERATIVO DE PINES</h5>
+        <small style="opacity:.6">Seleccione el pin físico para iniciar lote</small>
+
+        <div class="pin-container">
+            <div class="pin-card rojo" onclick="abrirModal('ROJO')"><h3>ROJO</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card azul" onclick="abrirModal('AZUL')"><h3>AZUL</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card verde" onclick="abrirModal('VERDE')"><h3>VERDE</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card amarillo" onclick="abrirModal('AMARILLO')"><h3>AMARILLO</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card blanco" onclick="abrirModal('BLANCO')"><h3>BLANCO</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card negro" onclick="abrirModal('NEGRO')"><h3>NEGRO</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card naranja" onclick="abrirModal('NARANJA')"><h3>NARANJA</h3><span class="status-text">LIBRE</span></div>
+            <div class="pin-card morado" onclick="abrirModal('MORADO')"><h3>MORADO</h3><span class="status-text">LIBRE</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalLote">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="tituloPin">Nuevo Lote</h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+<form id="formLote">
+
+<div class="mb-3">
+<label>PIN Operario</label>
+<input type="password" id="operarioPin" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Producto</label>
+<select id="prodId" class="form-select">
+<option value="BRIO-MINI-A">Pan Brioche Mini</option>
+</select>
+</div>
+
+<hr>
+<p class="small text-center" style="opacity:.6">
+El sistema generará automáticamente el ID de Auditoría INVIMA.
+</p>
+
+<button type="submit" class="btn btn-primary w-100">
+INICIAR MOJADO
+</button>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const API_URL = "TU_URL_DE_APPS_SCRIPT_AQUI";
+let colorActivo = "";
+
+function abrirModal(color) {
+    colorActivo = color;
+    document.getElementById('tituloPin').innerText =
+        "PIN " + color + " • Nuevo Lote";
+    new bootstrap.Modal(document.getElementById('modalLote')).show();
+}
+
+document.getElementById('formLote').onsubmit = async (e) => {
+    e.preventDefault();
+    const pin = document.getElementById('operarioPin').value;
+
+    const data = {
+        action: "INICIAR_MOJADO",
+        pin: pin,
+        color_pin: colorActivo,
+        producto_id: "BRIO-MINI-A",
+        empaque: "Flowpack",
+        fecha_venc: "2026-03-15"
+    };
+
+    try {
+        const res = await fetch(API_URL, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if(result.status === "ok") {
+            alert("Lote creado: " + result.id_lote_unico);
+            location.reload();
+        } else {
+            alert("Error: " + result.message);
+        }
+
+    } catch (e) {
+        alert("Error de conexión con el servidor.");
+    }
+};
+</script>
+
+</body>
+</html>
