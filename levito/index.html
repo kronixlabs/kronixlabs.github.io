@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Levito | MES System</title>
+<title>Levito | Sistema MES</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -11,199 +11,229 @@
 body {
     background: radial-gradient(circle at 20% 20%, #1f1f3a, #0d0d1a 60%);
     font-family: 'Segoe UI', sans-serif;
-    color: #ffffff;
+    color: white;
 }
 
 .navbar {
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 15px 30px;
 }
 
-.header-title {
-    font-weight: 600;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg,#4facfe,#00f2fe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.nav-link {
+    color: rgba(255,255,255,0.6);
+    cursor:pointer;
 }
+
+.nav-link.active {
+    color:#00f2fe !important;
+    font-weight:600;
+}
+
+.section { display:none; padding:30px; }
+.section.active { display:block; }
 
 .panel-box {
-    background: rgba(255,255,255,0.04);
-    border-radius: 20px;
-    padding: 30px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.05);
+    border-radius:20px;
+    padding:25px;
 }
 
-.lote-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+/* LOTES */
+.lote-mini {
+    width:120px;
+    height:135px;
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.05);
+    transition:.3s;
 }
 
-.lote-card {
-    height: 170px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: 600;
-    background: linear-gradient(135deg,#141E30,#243B55);
-    border: 1px solid rgba(255,255,255,0.08);
+.lote-mini:hover {
+    background:rgba(255,255,255,0.1);
 }
 
-.lote-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+.indicador {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    margin-bottom:6px;
+}
+
+.gris { background:#7f8c8d; }
+.verde { background:#27ae60; }
+
+.lote-num {
+    font-weight:600;
+    font-size:15px;
+}
+
+.etapa-texto {
+    font-size:11px;
+    opacity:.7;
+}
+
+.operario-texto {
+    font-size:10px;
+    opacity:.5;
+}
+
+/* SEMÁFORO GENERAL */
+.semaforo-card {
+    height:120px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
 }
 
 .modal-content {
-    background: #111124;
-    color: white;
-    border-radius: 20px;
+    background:#111124;
+    color:white;
+    border-radius:20px;
 }
 
-.form-control, .form-select {
-    background: #1e1e38;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-}
+.loader { display:none; font-size:13px; opacity:.6; }
 
 .btn-primary {
     background: linear-gradient(90deg,#4facfe,#00f2fe);
-    border: none;
-    font-weight: 600;
+    border:none;
 }
 </style>
 </head>
 
 <body>
 
-<nav class="navbar d-flex justify-content-between align-items-center">
-    <h4 class="header-title">LEVITO • SISTEMA MES INDUSTRIAL</h4>
+<nav class="navbar navbar-expand-lg px-4">
+<span class="navbar-brand text-white">LEVITO MES</span>
+
+<ul class="navbar-nav ms-auto">
+<li class="nav-item">
+<span class="nav-link active" onclick="cambiarSeccion('produccion', this)">Producción</span>
+</li>
+<li class="nav-item">
+<span class="nav-link" onclick="cambiarSeccion('despacho', this)">Despacho</span>
+</li>
+<li class="nav-item">
+<span class="nav-link" onclick="cambiarSeccion('entrega', this)">Entrega</span>
+</li>
+<li class="nav-item">
+<span class="nav-link" onclick="cambiarSeccion('estado', this)">Estado</span>
+</li>
+</ul>
 </nav>
 
-<div class="container mt-5">
-    <div class="panel-box text-center">
-        <h5>PANEL DE LOTES ACTIVOS</h5>
-        <small style="opacity:.6">Seleccione el lote físico disponible</small>
-
-        <div class="lote-container">
-            <div class="lote-card" onclick="abrirModal('LOTE_1')">
-                <h3>LOTE 1</h3>
-                <span>LIBRE</span>
-            </div>
-
-            <div class="lote-card" onclick="abrirModal('LOTE_2')">
-                <h3>LOTE 2</h3>
-                <span>LIBRE</span>
-            </div>
-
-            <div class="lote-card" onclick="abrirModal('LOTE_3')">
-                <h3>LOTE 3</h3>
-                <span>LIBRE</span>
-            </div>
-
-            <div class="lote-card" onclick="abrirModal('LOTE_4')">
-                <h3>LOTE 4</h3>
-                <span>LIBRE</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalLote">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="tituloLote">Nuevo Lote</h5>
-<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-</div>
-
-<div class="modal-body">
-<form id="formLote">
-
-<div class="mb-3">
-<label>PIN Operario</label>
-<input type="password" id="operarioPin" class="form-control" required>
-</div>
-
-<div class="mb-3">
-<label>Producto</label>
-<select id="prodId" class="form-select">
-<option value="BRIO-MINI-A">Pan Brioche Mini</option>
-</select>
-</div>
-
-<hr>
-<p class="small text-center" style="opacity:.6">
-Se generará automáticamente el ID de auditoría.
-</p>
-
-<button type="submit" class="btn btn-primary w-100">
-INICIAR PRODUCCIÓN
-</button>
-
-</form>
+<!-- PRODUCCIÓN -->
+<div id="produccion" class="section active">
+<div class="panel-box">
+<h5 class="mb-4">Panel Operativo de Lotes</h5>
+<div id="contenedorLotes" class="d-flex justify-content-between flex-wrap gap-3"></div>
 </div>
 </div>
+
+<!-- DESPACHO -->
+<div id="despacho" class="section">
+<div class="panel-box">
+<h5>Módulo de Despacho</h5>
+<p>Contenido en desarrollo.</p>
+</div>
+</div>
+
+<!-- ENTREGA -->
+<div id="entrega" class="section">
+<div class="panel-box">
+<h5>Módulo de Entrega</h5>
+<p>Contenido en desarrollo.</p>
+</div>
+</div>
+
+<!-- ESTADO GENERAL -->
+<div id="estado" class="section">
+<div class="panel-box">
+<h5>Estado General de Lotes</h5>
+<div id="estadoSemaforo" class="row mt-3"></div>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzV368Wdxn16Ynn7NL9CNO18GPOyrZ6RZukPBI
-5mAKD6UQDd-ALnGQu9dfXpbFJKyI4/exeC";
-let loteActivo = "";
 
-function abrirModal(lote) {
-    loteActivo = lote;
-    document.getElementById('tituloLote').innerText =
-        lote.replace("_"," ") + " • Nuevo Proceso";
-    new bootstrap.Modal(document.getElementById('modalLote')).show();
+const API_URL = "https://script.google.com/macros/s/AKfycbzV368Wdxn16Ynn7NL9CNO18GPOyrZ6RZukPBI
+5mAKD6UQDd-ALnGQu9dfXpbFJKyI4/exec";
+
+function cambiarSeccion(id, element){
+document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+
+document.querySelectorAll(".nav-link").forEach(link=>link.classList.remove("active"));
+element.classList.add("active");
 }
 
-document.getElementById('formLote').onsubmit = async (e) => {
-    e.preventDefault();
-    const pin = document.getElementById('operarioPin').value;
+async function cargarEstados(){
 
-    const data = {
-        action: "INICIAR_MOJADO",
-        pin: pin,
-        color_pin: loteActivo,   // sigue funcionando con el backend
-        producto_id: "BRIO-MINI-A",
-        empaque: "Flowpack",
-        fecha_venc: "2026-03-15"
-    };
+try {
 
-    try {
-        const res = await fetch(API_URL, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
+const res = await fetch(API_URL);
+const data = await res.json();
 
-        const result = await res.json();
+const contenedor = document.getElementById("contenedorLotes");
+const estadoGeneral = document.getElementById("estadoSemaforo");
 
-        if(result.status === "ok") {
-            alert("Lote creado: " + result.id_lote_unico);
-            location.reload();
-        } else {
-            alert("Error: " + result.message);
-        }
+contenedor.innerHTML = "";
+estadoGeneral.innerHTML = "";
 
-    } catch (e) {
-        alert("Error de conexión con el servidor.");
-    }
-};
+const totalLotes = 7;
+
+for(let i=1; i<=totalLotes; i++){
+
+const loteNombre = "LOTE_" + i;
+
+const info = data.find(d => d.lote.includes(loteNombre));
+
+let color = "gris";
+let etapa = "No iniciado";
+let operario = "";
+
+if(info){
+color = "verde";
+etapa = info.etapa;
+operario = info.responsable || "";
+}
+
+contenedor.innerHTML += `
+<div class="lote-mini">
+<div class="indicador ${color}"></div>
+<div class="lote-num">L${i}</div>
+<div class="etapa-texto">${etapa}</div>
+<div class="operario-texto">${operario}</div>
+</div>
+`;
+
+estadoGeneral.innerHTML += `
+<div class="col-md-3 mb-3">
+<div class="semaforo-card ${color}">
+L${i}<br>${etapa}
+</div>
+</div>
+`;
+
+}
+
+} catch(error){
+console.error("Error cargando estados:", error);
+}
+
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+cargarEstados();
+setInterval(cargarEstados, 5000);
+});
+
 </script>
 
 </body>
