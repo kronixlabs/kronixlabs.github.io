@@ -1,1079 +1,397 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#7C3D12">
-  <title>LEVITO MES v10</title>
-  <style>
-    :root {
-      --primary:    #7C3D12;
-      --primary-h:  #6B3310;
-      --primary-lt: #FEF3C7;
-      --bg:         #FFFBF5;
-      --card:       #FFFFFF;
-      --text:       #1C1917;
-      --muted:      #78716C;
-      --border:     #E7E5E4;
-      --danger:     #EF4444;
-      --danger-bg:  #FEF2F2;
-      --warning:    #F59E0B;
-      --warning-bg: #FFFBEB;
-      --success:    #22C55E;
-      --r:          12px;
-      --sh:         0 1px 3px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.06);
-      --sh-lg:      0 10px 15px -3px rgba(0,0,0,.10), 0 4px 6px -2px rgba(0,0,0,.05);
-    }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+<title>KRONIX LABS | LEVITO MES</title>
 
-    .screen { display: none; min-height: 100vh; flex-direction: column; }
-    .screen.active { display: flex; }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    /* ─── PIN SCREEN ─── */
-    #screen-pin {
-      background: linear-gradient(135deg, #7C3D12 0%, #92400E 55%, #B45309 100%);
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
+<style>
 
-    .pin-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 32px 24px;
-      width: 100%;
-      max-width: 340px;
-      box-shadow: var(--sh-lg);
-      text-align: center;
-    }
+body{
+background:#020617;
+color:white;
+font-family:system-ui;
+}
 
-    .pin-logo  { font-size: 52px; margin-bottom: 6px; }
-    .pin-title { font-size: 22px; font-weight: 700; color: var(--primary); }
-    .pin-sub   { font-size: 13px; color: var(--muted); margin: 2px 0 22px; }
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+border-bottom:1px solid #1e293b;
+}
 
-    .pin-display {
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 30px;
-      letter-spacing: 14px;
-      min-height: 60px;
-      margin-bottom: 20px;
-      color: var(--primary);
-      font-weight: 700;
-      transition: border-color .2s;
-    }
+.logo{
+font-size:18px;
+font-weight:700;
+}
 
-    .pin-display.shake { border-color: var(--danger); animation: shake .35s ease; }
-    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.logo span{
+color:#38bdf8;
+}
 
-    .pin-pad { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.tabs{
+display:flex;
+gap:10px;
+padding:15px 25px;
+border-bottom:1px solid #1e293b;
+}
 
-    .pin-btn {
-      aspect-ratio: 1;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      background: #fff;
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-      transition: all .12s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-    }
+.tab{
+padding:8px 16px;
+border-radius:8px;
+cursor:pointer;
+background:#0f172a;
+border:1px solid #1e293b;
+}
 
-    .pin-btn:active { transform: scale(.93); }
-    .pin-btn:hover  { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .pin-btn.del    { border-color: var(--danger);  color: var(--danger); }
-    .pin-btn.del:hover { background: var(--danger);  color: #fff; }
-    .pin-btn.ok     { border-color: var(--success); color: var(--success); }
-    .pin-btn.ok:hover  { background: var(--success); color: #fff; }
+.tab.active{
+background:#1e293b;
+border-color:#38bdf8;
+}
 
-    /* ─── HEADER ─── */
-    header {
-      background: var(--primary);
-      color: #fff;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--sh);
-      flex-shrink: 0;
-    }
+.section{
+display:none;
+padding:25px;
+}
 
-    .h-brand { display: flex; align-items: center; gap: 8px; }
-    .h-logo  { font-size: 24px; }
-    .h-title { font-size: 18px; font-weight: 700; line-height: 1; }
-    .h-ver   { font-size: 10px; opacity: .65; }
-    .h-right { display: flex; align-items: center; gap: 8px; }
-    .h-oper  { font-size: 12px; opacity: .85; display: none; }
-    @media (min-width: 480px) { .h-oper { display: block; } }
-    #reloj   { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; opacity: .9; }
+.section.active{
+display:block;
+}
 
-    .ico-btn {
-      background: rgba(255,255,255,.18);
-      border: none;
-      color: #fff;
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 17px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background .15s;
-    }
+.grid-lotes{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:18px;
+}
 
-    .ico-btn:hover    { background: rgba(255,255,255,.3); }
-    .ico-btn.spinning { animation: spin 1s linear infinite; }
-    @keyframes spin   { to { transform: rotate(360deg); } }
+.lote-card{
+background:#0f172a;
+border:1px solid #1e293b;
+border-radius:14px;
+padding:18px;
+transition:.2s;
+cursor:pointer;
+}
 
-    /* ─── ALERTAS ─── */
-    #alertas-banner { padding: 0 12px; }
+.lote-card:hover{
+border-color:#38bdf8;
+transform:translateY(-3px);
+}
 
-    .alerta-item {
-      padding: 9px 14px;
-      border-radius: 8px;
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+.lote-title{
+font-weight:700;
+font-size:17px;
+}
 
-    .alerta-item.warning { background: var(--warning-bg); color: #92400E; border-left: 3px solid var(--warning); }
-    .alerta-item.danger  { background: var(--danger-bg);  color: #991B1B; border-left: 3px solid var(--danger);  }
+.producto{
+font-size:13px;
+color:#94a3b8;
+}
 
-    /* ─── MAIN ─── */
-    .main { flex: 1; padding: 12px; overflow-y: auto; }
+.etapa{
+font-weight:600;
+margin-top:8px;
+}
 
-    .sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .sec-title { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-    .sec-info  { font-size: 11px; color: var(--muted); }
+.operario{
+font-size:12px;
+color:#cbd5e1;
+}
 
-    /* ─── SLOTS GRID ─── */
-    .slots-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    @media (min-width: 560px)  { .slots-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (min-width: 860px)  { .slots-grid { grid-template-columns: repeat(3,1fr); } }
-    @media (min-width: 1160px) { .slots-grid { grid-template-columns: repeat(5,1fr); } }
+.tiempo{
+font-size:12px;
+color:#94a3b8;
+margin-bottom:10px;
+}
 
-    /* ─── SLOT CARD ─── */
-    .slot-card {
-      background: var(--card);
-      border-radius: var(--r);
-      padding: 16px;
-      box-shadow: var(--sh);
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: transform .18s, box-shadow .18s;
-      position: relative;
-      overflow: hidden;
-    }
+.progreso{
+font-size:18px;
+letter-spacing:4px;
+}
 
-    .slot-card:hover  { transform: translateY(-2px); box-shadow: var(--sh-lg); }
-    .slot-card:active { transform: translateY(0); }
-    .slot-card.alerta-warning { border-color: var(--warning); }
-    .slot-card.alerta-danger  { border-color: var(--danger); animation: pulse-d 2s infinite; }
-    @keyframes pulse-d { 0%,100%{box-shadow:var(--sh)} 50%{box-shadow:0 0 0 4px rgba(239,68,68,.22)} }
+.done{color:#22c55e;}
+.active-step{color:#4ade80;}
+.pending{color:#475569;}
 
-    .slot-card.empty {
-      border: 2px dashed var(--border);
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 130px;
-      color: var(--muted);
-    }
+.table{
+color:white;
+}
 
-    .slot-card.empty:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-lt); }
+input,select{
+background:#0f172a!important;
+color:white!important;
+border:1px solid #1e293b!important;
+}
 
-    .slot-num {
-      position: absolute; top: 10px; right: 12px;
-      width: 28px; height: 28px;
-      background: var(--primary); color: #fff;
-      border-radius: 50%;
-      font-size: 12px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-    }
+</style>
 
-    .slot-card.empty .slot-num { background: var(--border); color: var(--muted); }
-    .slot-plus      { font-size: 34px; opacity: .45; margin-bottom: 6px; }
-    .slot-empty-txt { font-size: 13px; font-weight: 600; }
-    .slot-id        { font-size: 11px; font-weight: 600; color: var(--muted); font-family: monospace; margin-bottom: 3px; }
-    .slot-prod      { font-size: 15px; font-weight: 700; margin-bottom: 8px; padding-right: 34px; line-height: 1.2; }
-
-    .etapa-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: 20px;
-      font-size: 12px; font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .slot-meta      { display: flex; justify-content: space-between; align-items: flex-end; }
-    .slot-info      { font-size: 11px; color: var(--muted); line-height: 1.65; }
-    .slot-time      { font-size: 13px; font-weight: 700; color: var(--muted); }
-    .slot-time.warning { color: #B45309; }
-    .slot-time.danger  { color: var(--danger); }
-    .slot-alert-ico { position: absolute; bottom: 12px; right: 12px; font-size: 18px; }
-
-    .e-mojado     { background: #E0F2FE; color: #0369A1; }
-    .e-porcionado { background: #FFF7ED; color: #C2410C; }
-    .e-levado     { background: #F0FDF4; color: #166534; }
-    .e-decorado   { background: #FDF2F8; color: #9D174D; }
-    .e-horneado   { background: #FEF2F2; color: #991B1B; }
-    .e-enfriado   { background: #ECFEFF; color: #155E75; }
-    .e-empaque    { background: #EEF2FF; color: #3730A3; }
-    .e-finalizado { background: #F0FDF4; color: #065F46; }
-
-    /* ─── MODALS ─── */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 200;
-      align-items: flex-end;
-      justify-content: center;
-      backdrop-filter: blur(3px);
-    }
-
-    .modal-overlay.open { display: flex; }
-    @media (min-width: 600px) { .modal-overlay { align-items: center; } }
-
-    .modal-box {
-      background: #fff;
-      border-radius: 20px 20px 0 0;
-      width: 100%; max-width: 560px; max-height: 92vh;
-      display: flex; flex-direction: column;
-      overflow: hidden;
-      animation: slideUp .22s ease;
-    }
-
-    @media (min-width: 600px) { .modal-box { border-radius: 20px; } }
-    @keyframes slideUp { from{transform:translateY(40px);opacity:0} to{transform:translateY(0);opacity:1} }
-
-    .modal-hdr {
-      padding: 16px 20px 12px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      flex-shrink: 0;
-    }
-
-    .modal-title { font-size: 17px; font-weight: 700; }
-    .modal-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-    .modal-close {
-      width: 32px; height: 32px;
-      background: var(--bg); border: none; border-radius: 8px;
-      font-size: 18px; cursor: pointer; color: var(--muted);
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .modal-close:hover { background: var(--danger-bg); color: var(--danger); }
-    .modal-body   { padding: 16px 20px; overflow-y: auto; flex: 1; }
-    .modal-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-shrink: 0; }
-
-    /* ─── FORMS ─── */
-    .fg     { margin-bottom: 14px; }
-    .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-
-    label {
-      display: block;
-      font-size: 11px; font-weight: 700;
-      color: var(--muted); text-transform: uppercase; letter-spacing: .05em;
-      margin-bottom: 4px;
-    }
-
-    input, select, textarea {
-      width: 100%; padding: 10px 12px;
-      border: 2px solid var(--border); border-radius: 8px;
-      font-size: 15px; color: var(--text); background: #fff;
-      transition: border-color .15s; font-family: inherit;
-    }
-
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
-    input[readonly] { background: var(--bg); cursor: default; }
-    textarea { resize: vertical; min-height: 68px; }
-
-    .form-sep { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
-    .form-sec { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 10px; }
-
-    .chk-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-
-    .chk-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 12px;
-      border: 2px solid var(--border); border-radius: 8px;
-      cursor: pointer; transition: all .15s;
-    }
-
-    .chk-item:hover { border-color: var(--primary); background: var(--primary-lt); }
-    .chk-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); flex-shrink: 0; }
-    .chk-item span { font-size: 13px; }
-
-    /* ─── BUTTONS ─── */
-    .btn {
-      padding: 12px 18px; border-radius: 10px;
-      font-size: 14px; font-weight: 600;
-      cursor: pointer; border: none;
-      transition: all .15s;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      flex: 1; font-family: inherit;
-    }
-
-    .btn:active  { transform: scale(.97); }
-    .btn:disabled { opacity: .6; cursor: not-allowed; }
-    .btn-primary          { background: var(--primary); color: #fff; }
-    .btn-primary:hover:not(:disabled) { background: var(--primary-h); }
-    .btn-secondary        { background: var(--bg); color: var(--muted); border: 2px solid var(--border); flex: 0; padding: 12px 14px; }
-    .btn-secondary:hover  { background: var(--border); }
-    .btn-warning          { background: var(--warning-bg); color: #92400E; border: 2px solid var(--warning); flex: 0; padding: 12px 14px; }
-    .btn-warning:hover    { background: var(--warning); color: #fff; }
-
-    /* ─── INFO CARD ─── */
-    .info-card {
-      background: var(--bg); border-radius: 10px;
-      padding: 12px 14px; margin-bottom: 14px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    }
-
-    .ic-lbl { font-size: 10px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
-    .ic-val { font-size: 14px; font-weight: 700; color: var(--text); }
-    .ic-val.warning { color: #B45309; }
-    .ic-val.danger  { color: var(--danger); }
-
-    .horno-ref {
-      background: #FEF3C7; border: 1px solid #F59E0B;
-      border-radius: 8px; padding: 10px 14px; margin-bottom: 14px;
-      display: flex; gap: 24px;
-    }
-
-    .hr-lbl { font-size: 10px; color: #92400E; text-transform: uppercase; font-weight: 700; }
-    .hr-val { font-size: 18px; font-weight: 700; color: #78350F; }
-
-    /* ─── FORMULA TABLE ─── */
-    .f-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px; }
-    .f-table thead th {
-      background: var(--bg); padding: 7px 10px; text-align: left;
-      font-size: 10px; text-transform: uppercase; color: var(--muted); font-weight: 700;
-      border-bottom: 2px solid var(--border);
-    }
-    .f-table tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
-    .f-table tbody tr:last-child td { border-bottom: none; }
-    .f-table .qty { font-weight: 700; color: var(--primary); }
-
-    /* ─── PROGRESS ─── */
-    .progress-etapas { display: flex; gap: 3px; margin-bottom: 14px; }
-    .progress-step         { flex: 1; height: 5px; border-radius: 3px; background: var(--border); }
-    .progress-step.done    { background: var(--success); }
-    .progress-step.current { background: var(--primary); }
-
-    /* ─── TOAST ─── */
-    #toast-wrap {
-      position: fixed; top: 16px; right: 16px;
-      z-index: 9999; display: flex; flex-direction: column; gap: 8px;
-      pointer-events: none;
-    }
-
-    .toast {
-      padding: 11px 14px; border-radius: 10px;
-      font-size: 13px; font-weight: 500;
-      max-width: 320px; box-shadow: var(--sh-lg);
-      animation: toastIn .2s ease;
-      display: flex; align-items: flex-start; gap: 8px;
-      pointer-events: all;
-    }
-
-    .toast-ico { flex-shrink: 0; font-size: 16px; }
-    .toast-msg { flex: 1; }
-    .toast.success { background: #DCFCE7; color: #166534; border-left: 3px solid var(--success); }
-    .toast.error   { background: var(--danger-bg); color: #991B1B; border-left: 3px solid var(--danger); }
-    .toast.info    { background: #EFF6FF; color: #1E40AF; border-left: 3px solid #3B82F6; }
-    @keyframes toastIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
-
-    /* ─── LOADING ─── */
-    #loading {
-      display: none; position: fixed; inset: 0;
-      background: rgba(255,255,255,.75); z-index: 500;
-      align-items: center; justify-content: center;
-      backdrop-filter: blur(2px);
-    }
-    #loading.on { display: flex; }
-    .loader { width: 44px; height: 44px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin .8s linear infinite; }
-
-    /* ─── EMPTY STATE ─── */
-    .empty-state { text-align: center; padding: 32px 20px; color: var(--muted); }
-    .empty-state .ico { font-size: 44px; margin-bottom: 10px; }
-    .empty-state p    { font-size: 14px; }
-  </style>
 </head>
+
 <body>
 
-<div id="loading"><div class="loader"></div></div>
-<div id="toast-wrap"></div>
+<div class="header">
 
-<!-- ═══════════════════════════════════════
-     SCREEN: PIN
-═══════════════════════════════════════ -->
-<div id="screen-pin" class="screen active">
-  <div class="pin-box">
-    <div class="pin-logo">🥐</div>
-    <div class="pin-title">LEVITO MES</div>
-    <div class="pin-sub">Ingresa tu PIN de operario</div>
-    <div class="pin-display" id="pin-display">—</div>
-    <div class="pin-pad">
-      <button class="pin-btn" onclick="pd(1)">1</button>
-      <button class="pin-btn" onclick="pd(2)">2</button>
-      <button class="pin-btn" onclick="pd(3)">3</button>
-      <button class="pin-btn" onclick="pd(4)">4</button>
-      <button class="pin-btn" onclick="pd(5)">5</button>
-      <button class="pin-btn" onclick="pd(6)">6</button>
-      <button class="pin-btn" onclick="pd(7)">7</button>
-      <button class="pin-btn" onclick="pd(8)">8</button>
-      <button class="pin-btn" onclick="pd(9)">9</button>
-      <button class="pin-btn del" onclick="pb()">⌫</button>
-      <button class="pin-btn"     onclick="pd(0)">0</button>
-      <button class="pin-btn ok"  onclick="pi()">✓</button>
-    </div>
-  </div>
+<div class="logo">
+KRONIX <span>LABS</span>
 </div>
 
-<!-- ═══════════════════════════════════════
-     SCREEN: DASHBOARD
-═══════════════════════════════════════ -->
-<div id="screen-dashboard" class="screen">
-  <header>
-    <div class="h-brand">
-      <span class="h-logo">🥐</span>
-      <div>
-        <div class="h-title">LEVITO MES</div>
-        <div class="h-ver">v10</div>
-      </div>
-    </div>
-    <div class="h-right">
-      <span class="h-oper" id="h-oper"></span>
-      <span id="reloj"></span>
-      <button class="ico-btn" id="btn-rf" onclick="recargar()" title="Actualizar">↻</button>
-      <button class="ico-btn" onclick="salir()" title="Salir">⎋</button>
-    </div>
-  </header>
-
-  <div id="alertas-banner"></div>
-
-  <div class="main">
-    <div class="sec-hdr">
-      <span class="sec-title">Lotes Activos</span>
-      <span class="sec-info" id="sec-info">Cargando...</span>
-    </div>
-    <div class="slots-grid" id="slots-grid"></div>
-  </div>
+<div>
+LEVITO MES
 </div>
 
-<!-- ═══════════════════════════════════════
-     MODAL: INICIAR LOTE
-═══════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-ini">
-  <div class="modal-box">
-    <div class="modal-hdr">
-      <div>
-        <div class="modal-title">🌊 Iniciar Lote — Mojado</div>
-        <div class="modal-sub" id="ini-slot-lbl">Slot —</div>
-      </div>
-      <button class="modal-close" onclick="cerrar('modal-ini')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="fg">
-        <label>Número de Lote</label>
-        <input type="text" id="ini-lote" readonly style="font-family:monospace;font-size:18px;font-weight:700;">
-      </div>
-      <div class="fg">
-        <label>Producto *</label>
-        <select id="ini-prod" onchange="cargarFormula(this.value)">
-          <option value="">Seleccionar producto...</option>
-        </select>
-      </div>
-
-      <div id="ini-formula-wrap" style="display:none">
-        <hr class="form-sep">
-        <div class="form-sec">📋 Fórmula de referencia</div>
-        <table class="f-table" id="ini-formula">
-          <thead><tr><th>Ingrediente</th><th>Cantidad</th><th>Unidad</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <hr class="form-sep">
-      <div class="form-sec">🌡️ Condiciones al Inicio</div>
-      <div class="fg-row">
-        <div>
-          <label>Temp Ambiente (°C) *</label>
-          <input type="number" id="ini-temp" step="0.1" min="0" max="50" placeholder="22.5">
-        </div>
-        <div>
-          <label>Humedad Amb (%) *</label>
-          <input type="number" id="ini-hum" step="1" min="0" max="100" placeholder="65">
-        </div>
-      </div>
-
-      <hr class="form-sep">
-      <div class="form-sec">🧂 Materias Primas Verificadas</div>
-      <div class="chk-group" id="ini-materias">
-        <div style="font-size:13px;color:var(--muted)">Cargando...</div>
-      </div>
-
-      <hr class="form-sep">
-      <div class="fg">
-        <label>Observaciones</label>
-        <textarea id="ini-obs" placeholder="Notas del lote (opcional)..."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="cerrar('modal-ini')">Cancelar</button>
-      <button class="btn btn-primary" onclick="submitIniciar()">🚀 Iniciar Lote</button>
-    </div>
-  </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     MODAL: AVANZAR ETAPA (contenido dinámico)
-═══════════════════════════════════════ -->
-<div class="modal-overlay" id="modal-etapa">
-  <div class="modal-box">
-    <div class="modal-hdr">
-      <div>
-        <div class="modal-title" id="etapa-titulo">Registrar Etapa</div>
-        <div class="modal-sub"   id="etapa-sub">—</div>
-      </div>
-      <button class="modal-close" onclick="cerrar('modal-etapa')">✕</button>
-    </div>
-    <div class="modal-body"   id="etapa-body"></div>
-    <div class="modal-footer" id="etapa-footer"></div>
-  </div>
+
+<div class="tabs">
+
+<div class="tab active" onclick="showTab('produccion')">
+Producción
 </div>
+
+<div class="tab" onclick="showTab('despacho')">
+Despacho
+</div>
+
+<div class="tab" onclick="showTab('entrega')">
+Entrega
+</div>
+
+</div>
+
+
+<!-- ====================== PRODUCCION ====================== -->
+
+<div id="produccion" class="section active">
+
+<h5 class="mb-4">Panel Operativo de Producción</h5>
+
+<div id="grid" class="grid-lotes"></div>
+
+</div>
+
+
+<!-- ====================== DESPACHO ====================== -->
+
+<div id="despacho" class="section">
+
+<h5 class="mb-4">Registro de Despachos</h5>
+
+<div class="row g-3 mb-3">
+
+<div class="col-md-3">
+<label>Fecha</label>
+<input type="date" id="d_fecha" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Producto</label>
+<input type="text" id="d_producto" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Lote</label>
+<input type="text" id="d_lote" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Cantidad</label>
+<input type="number" id="d_cantidad" class="form-control">
+</div>
+
+</div>
+
+<button class="btn btn-primary" onclick="registrarDespacho()">
+Registrar despacho
+</button>
+
+</div>
+
+
+<!-- ====================== ENTREGA ====================== -->
+
+<div id="entrega" class="section">
+
+<h5 class="mb-4">Registro de Entregas</h5>
+
+<div class="row g-3 mb-3">
+
+<div class="col-md-3">
+<label>Fecha</label>
+<input type="date" id="e_fecha" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Producto</label>
+<input type="text" id="e_producto" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Lote</label>
+<input type="text" id="e_lote" class="form-control">
+</div>
+
+<div class="col-md-3">
+<label>Cliente</label>
+<input type="text" id="e_cliente" class="form-control">
+</div>
+
+</div>
+
+<button class="btn btn-success" onclick="registrarEntrega()">
+Registrar entrega
+</button>
+
+</div>
+
+
 
 <script>
-"use strict";
 
-// ── CONFIG ──────────────────────────────────────────────────
-const API = "https://script.google.com/macros/s/AKfycbyMDuwLZ1N1ctNqwqahz00pBWUaLbWOhD9j3t_NVMI3ZUhpenCt6WmqpFcpomByR5ia/exec";
+const API="TU_API_URL";
 
-const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
+const ETAPAS=[
+"Mojado",
+"Porcionado",
+"Levado",
+"Decorado",
+"Horneado",
+"Enfriado",
+"Empaque"
+];
 
-const ETAPA_ICO = {
-  Mojado:"🌊", Porcionado:"✂️", Levado:"⏳", Decorado:"🎨",
-  Horneado:"🔥", Enfriado:"❄️", Empaque:"📦", Finalizado:"✅"
-};
+function showTab(id){
 
-const ETAPA_CSS = {
-  Mojado:"e-mojado", Porcionado:"e-porcionado", Levado:"e-levado",
-  Decorado:"e-decorado", Horneado:"e-horneado", Enfriado:"e-enfriado",
-  Empaque:"e-empaque", Finalizado:"e-finalizado"
-};
+document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+event.target.classList.add("active");
 
-// ── ESTADO ──────────────────────────────────────────────────
-const S = { pin:null, lotes:[], prods:[], mats:[], slot:null, lote:null, timer:null };
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 
-// ── API ─────────────────────────────────────────────────────
-async function GET(params) {
-  const r = await fetch(API + "?" + new URLSearchParams(params));
-  if (!r.ok) throw new Error("HTTP " + r.status);
-  return r.json();
 }
 
-async function POST(data) {
-  const r = await fetch(API, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ ...data, pin: S.pin })
-  });
-  if (!r.ok) throw new Error("HTTP " + r.status);
-  return r.json();
+async function cargarLotes(){
+
+const res=await fetch(API+"?action=GET_ALL_ACTIVOS");
+const data=await res.json();
+
+render(data);
+
 }
 
-// ── PIN ─────────────────────────────────────────────────────
-let pinBuf = "";
-const pd = n => { if (pinBuf.length >= 6) return; pinBuf += n; renderPin(); };
-const pb = ()  => { pinBuf = pinBuf.slice(0,-1); renderPin(); };
+function render(lotes){
 
-function renderPin() {
-  const el = document.getElementById("pin-display");
-  el.textContent = pinBuf ? "●".repeat(pinBuf.length) : "—";
+const grid=document.getElementById("grid");
+grid.innerHTML="";
+
+for(let i=1;i<=7;i++){
+
+let lote=lotes.find(l=>parseInt(l.slot)==i);
+
+if(!lote){
+
+grid.innerHTML+=`
+<div class="lote-card">
+
+<div class="lote-title">LOTE ${i}</div>
+
+<div class="producto">
+Disponible
+</div>
+
+<div class="progreso">
+<span class="pending">○ ○ ○ ○ ○ ○ ○</span>
+</div>
+
+</div>
+`;
+
+}else{
+
+grid.innerHTML+=crearLote(lote);
+
 }
 
-async function pi() {
-  if (!pinBuf) return;
-  load(true);
-  try {
-    await GET({ action: "PING" });
-    S.pin = pinBuf;
-    const [prods, mats] = await Promise.all([
-      GET({ action: "GET_PRODUCTOS" }),
-      GET({ action: "GET_MATERIAS_DECORADO" })
-    ]);
-    S.prods = prods || [];
-    S.mats  = mats  || [];
-    mostrarDash();
-    toast("Sesión iniciada correctamente", "success");
-  } catch (e) {
-    const el = document.getElementById("pin-display");
-    el.classList.add("shake");
-    setTimeout(() => { el.classList.remove("shake"); pinBuf = ""; renderPin(); }, 500);
-    toast("No se pudo conectar. Verifica tu conexión.", "error");
-  } finally {
-    load(false);
-  }
 }
 
-document.addEventListener("keydown", e => {
-  if (!document.getElementById("screen-pin").classList.contains("active")) return;
-  if (e.key >= "0" && e.key <= "9") pd(parseInt(e.key));
-  else if (e.key === "Backspace") pb();
-  else if (e.key === "Enter")     pi();
+}
+
+function crearLote(lote){
+
+let index=ETAPAS.indexOf(lote.etapa_actual);
+
+let progreso="";
+
+ETAPAS.forEach((e,i)=>{
+
+if(i<index)
+progreso+='<span class="done">●</span> ';
+
+else if(i==index)
+progreso+='<span class="active-step">●</span> ';
+
+else
+progreso+='<span class="pending">○</span> ';
+
 });
 
-// ── DASHBOARD ───────────────────────────────────────────────
-function mostrarDash() {
-  document.getElementById("screen-pin").classList.remove("active");
-  document.getElementById("screen-dashboard").classList.add("active");
-  reloj();
-  recargar();
-  S.timer = setInterval(recargar, 90000);
+return`
+
+<div class="lote-card">
+
+<div class="lote-title">
+LOTE ${lote.slot}
+</div>
+
+<div class="producto">
+${lote.producto}
+</div>
+
+<div class="etapa">
+${lote.etapa_actual}
+</div>
+
+<div class="operario">
+${lote.operario}
+</div>
+
+<div class="tiempo">
+${lote.tiempo_etapa}
+</div>
+
+<div class="progreso">
+${progreso}
+</div>
+
+</div>
+
+`;
+
 }
 
-function salir() {
-  if (!confirm("¿Cerrar sesión?")) return;
-  clearInterval(S.timer);
-  S.pin = null; pinBuf = ""; renderPin();
-  document.getElementById("screen-dashboard").classList.remove("active");
-  document.getElementById("screen-pin").classList.add("active");
+
+function registrarDespacho(){
+
+alert("Conectar con API despacho");
+
 }
 
-function reloj() {
-  const tick = () => {
-    document.getElementById("reloj").textContent =
-      new Date().toLocaleTimeString("es-CO", { hour:"2-digit", minute:"2-digit" });
-  };
-  tick();
-  setInterval(tick, 10000);
+function registrarEntrega(){
+
+alert("Conectar con API entrega");
+
 }
 
-async function recargar() {
-  const btn = document.getElementById("btn-rf");
-  btn.classList.add("spinning");
-  try {
-    S.lotes = (await GET({ action: "GET_ALL_ACTIVOS" })) || [];
-    renderSlots();
-    renderAlertas();
-    document.getElementById("sec-info").textContent =
-      "Act. " + new Date().toLocaleTimeString("es-CO", { hour:"2-digit", minute:"2-digit" });
-  } catch (e) {
-    toast("Error al cargar lotes: " + e.message, "error");
-    document.getElementById("sec-info").textContent = "Error al cargar";
-  } finally {
-    btn.classList.remove("spinning");
-  }
-}
 
-// ── RENDER SLOTS ────────────────────────────────────────────
-function renderSlots() {
-  const grid = document.getElementById("slots-grid");
-  const map  = {};
-  S.lotes.forEach(l => { map[l.slot] = l; });
-  let html = "";
-  for (let s = 1; s <= 5; s++) {
-    const l = map[s];
-    html += l ? cardActivo(l) : cardVacio(s);
-  }
-  grid.innerHTML = html;
-}
+cargarLotes();
 
-const cardVacio = s => `
-  <div class="slot-card empty" onclick="abrirIniciar(${s})">
-    <span class="slot-num">${s}</span>
-    <div class="slot-plus">+</div>
-    <div class="slot-empty-txt">Iniciar Lote</div>
-  </div>`;
+setInterval(cargarLotes,15000);
 
-function cardActivo(l) {
-  const ac  = l.alerta ? "alerta-" + l.alerta : "";
-  const tc  = l.alerta || "";
-  const ico = ETAPA_ICO[l.etapa_actual] || "▶";
-  const css = ETAPA_CSS[l.etapa_actual] || "";
-  return `
-  <div class="slot-card ${ac}" data-slot="${l.slot}" onclick="abrirEtapa(${l.slot})">
-    <span class="slot-num">${l.slot}</span>
-    <div class="slot-id">${l.id_lote}</div>
-    <div class="slot-prod">${l.producto}</div>
-    <div class="etapa-badge ${css}">${ico} ${l.etapa_actual}</div>
-    <div class="slot-meta">
-      <div class="slot-info">${l.operario}<br>Inicio: ${l.hora_inicio}</div>
-      <div class="slot-time ${tc}">${l.tiempo_etapa}</div>
-    </div>
-    ${l.alerta ? `<div class="slot-alert-ico">${l.alerta==="danger"?"🔴":"🟡"}</div>` : ""}
-  </div>`;
-}
-
-function renderAlertas() {
-  const b = document.getElementById("alertas-banner");
-  const a = S.lotes.filter(l => l.alerta);
-  b.innerHTML = a.map(l =>
-    `<div class="alerta-item ${l.alerta}">
-       ${l.alerta==="danger"?"🔴":"🟡"}
-       <strong>Slot ${l.slot} — ${l.id_lote}:</strong>&nbsp;${l.mensaje_alerta}
-     </div>`
-  ).join("");
-}
-
-// ── INICIAR LOTE ────────────────────────────────────────────
-async function abrirIniciar(slot) {
-  S.slot = slot;
-  document.getElementById("ini-slot-lbl").textContent = "Slot " + slot;
-  document.getElementById("ini-lote").value = "Cargando...";
-  document.getElementById("ini-prod").value = "";
-  document.getElementById("ini-temp").value = "";
-  document.getElementById("ini-hum").value  = "";
-  document.getElementById("ini-obs").value  = "";
-  document.getElementById("ini-formula-wrap").style.display = "none";
-
-  const sel = document.getElementById("ini-prod");
-  sel.innerHTML = '<option value="">Seleccionar producto...</option>' +
-    S.prods.map(p => `<option value="${p.codigo}">${p.nombre} — ${p.empaque}</option>`).join("");
-
-  document.getElementById("ini-materias").innerHTML =
-    S.mats.length
-      ? S.mats.map(m => `<label class="chk-item">
-          <input type="checkbox" name="mat" value="${m.nombre}">
-          <span>${m.nombre}</span></label>`).join("")
-      : '<div style="font-size:13px;color:var(--muted)">Sin materias configuradas</div>';
-
-  abrir("modal-ini");
-  load(true);
-  try {
-    const r = await GET({ action: "GET_PROXIMO_LOTE" });
-    document.getElementById("ini-lote").value = r.lote;
-  } catch (e) {
-    document.getElementById("ini-lote").value = "Error";
-  } finally {
-    load(false);
-  }
-}
-
-async function cargarFormula(prod_id) {
-  if (!prod_id) { document.getElementById("ini-formula-wrap").style.display = "none"; return; }
-  load(true);
-  try {
-    const f = await GET({ action:"GET_FORMULA", producto_id: prod_id });
-    if (f && f.length) {
-      document.querySelector("#ini-formula tbody").innerHTML =
-        f.map(r => `<tr><td>${r.ingrediente}</td><td class="qty">${r.cantidad_base}</td><td>${r.unidad}</td></tr>`).join("");
-      document.getElementById("ini-formula-wrap").style.display = "block";
-    } else {
-      document.getElementById("ini-formula-wrap").style.display = "none";
-    }
-  } catch(e) { /* silencioso */ } finally { load(false); }
-}
-
-async function submitIniciar() {
-  const prod_id = document.getElementById("ini-prod").value;
-  const temp    = document.getElementById("ini-temp").value;
-  const hum     = document.getElementById("ini-hum").value;
-  const obs     = document.getElementById("ini-obs").value;
-
-  if (!prod_id) return toast("Selecciona un producto.", "error");
-  if (!temp)    return toast("Ingresa la temperatura ambiente.", "error");
-  if (!hum)     return toast("Ingresa la humedad ambiente.", "error");
-
-  const materias = [...document.querySelectorAll('input[name="mat"]:checked')].map(c => c.value);
-  load(true);
-  try {
-    const r = await POST({
-      action:"INICIAR_LOTE", slot:S.slot, producto_id:prod_id,
-      cantidad:1, temp_amb:parseFloat(temp), hum_amb:parseFloat(hum),
-      materias_primas:materias, obs
-    });
-    if (r.status === "error") throw new Error(r.message);
-    cerrar("modal-ini");
-    toast("✅ " + r.message, "success");
-    await recargar();
-  } catch(e) { toast("Error: " + e.message, "error"); } finally { load(false); }
-}
-
-// ── AVANZAR ETAPA ───────────────────────────────────────────
-async function abrirEtapa(slot) {
-  const lote = S.lotes.find(l => parseInt(l.slot) === parseInt(slot));
-  if (!lote) return;
-  S.lote = lote;
-
-  const { etapa_actual:etapa, id_lote, producto, producto_id, operario, tiempo_etapa, alerta } = lote;
-  const ico  = ETAPA_ICO[etapa] || "▶";
-  const eIdx = ETAPAS.indexOf(etapa);
-
-  document.getElementById("etapa-titulo").textContent = ico + " " + etapa + " — Registrar";
-  document.getElementById("etapa-sub").textContent    = id_lote + " · " + producto + " · Slot " + slot;
-
-  const prog = `<div class="progress-etapas">
-    ${ETAPAS.map((e,i) => `<div class="progress-step ${i<eIdx?"done":i===eIdx?"current":""}"></div>`).join("")}
-  </div>`;
-
-  const info = `<div class="info-card">
-    <div><div class="ic-lbl">Lote</div><div class="ic-val" style="font-family:monospace">${id_lote}</div></div>
-    <div><div class="ic-lbl">Producto</div><div class="ic-val">${producto}</div></div>
-    <div><div class="ic-lbl">Operario</div><div class="ic-val">${operario}</div></div>
-    <div><div class="ic-lbl">Tiempo en etapa</div><div class="ic-val ${alerta||""}">${tiempo_etapa}</div></div>
-  </div>`;
-
-  let footer = `<button class="btn btn-secondary" onclick="cerrar('modal-etapa')">Cancelar</button>
-                <button class="btn btn-primary" onclick="submitAvanzar()">✅ Registrar y Avanzar</button>`;
-  let form = "";
-
-  switch (etapa) {
-    case "Mojado":
-      form = `<div class="empty-state">
-        <div class="ico">ℹ️</div>
-        <p>El Mojado fue registrado al iniciar el lote.<br>Cuando la masa esté lista, avanza a Porcionado.</p>
-      </div>`;
-      footer = `<button class="btn btn-secondary" onclick="cerrar('modal-etapa')">Cancelar</button>
-                <button class="btn btn-primary" onclick="submitMojadoOk()">▶ Avanzar a Porcionado</button>`;
-      break;
-
-    case "Porcionado":
-      form = `<div class="form-sec">✂️ Datos de Porcionado</div>
-        <div class="fg-row">
-          <div><label>Peso por Unidad (g) *</label>
-               <input type="number" id="f-peso" step="0.1" min="0" placeholder="85.0"></div>
-          <div><label>Nº de Porciones *</label>
-               <input type="number" id="f-porciones" min="1" placeholder="48"></div>
-        </div>
-        <div class="fg-row">
-          <div><label>Nº de Latas *</label>
-               <input type="number" id="f-latas" min="1" placeholder="6"></div>
-          <div><label>Unidades por Lata</label>
-               <input type="number" id="f-unid-lata" min="1" placeholder="8"></div>
-        </div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Notas del porcionado..."></textarea></div>`;
-      break;
-
-    case "Levado":
-      form = `<div class="form-sec">⏳ Datos de Levado</div>
-        <div class="fg"><label>Cámara de Levado</label>
-          <select id="f-camara">
-            <option>Cámara 1</option>
-            <option>Cámara 2</option>
-            <option>Temperatura ambiente</option>
-          </select></div>
-        <div class="fg-row">
-          <div><label>Temp Cámara (°C)</label>
-               <input type="number" id="f-temp-cam" step="0.1" min="0" max="50" placeholder="30.0"></div>
-          <div><label>Humedad Cámara (%)</label>
-               <input type="number" id="f-hum-cam" step="1" min="0" max="100" placeholder="80"></div>
-        </div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Comportamiento de la masa, tiempo..."></textarea></div>`;
-      break;
-
-    case "Decorado":
-      form = `<div class="form-sec">🎨 Materias de Decorado Usadas</div>
-        <div class="chk-group">${
-          S.mats.length
-            ? S.mats.map(m => `<label class="chk-item">
-                <input type="checkbox" name="dec" value="${m.nombre}">
-                <span>${m.nombre}</span></label>`).join("")
-            : '<div style="font-size:13px;color:var(--muted)">Sin materias configuradas</div>'
-        }</div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Detalles del decorado..."></textarea></div>`;
-      footer = `<button class="btn btn-secondary" onclick="cerrar('modal-etapa')">Cancelar</button>
-                <button class="btn btn-warning" onclick="submitSaltar()">⏭ Omitir</button>
-                <button class="btn btn-primary" onclick="submitAvanzar()">✅ Registrar y Avanzar</button>`;
-      break;
-
-    case "Horneado":
-      load(true);
-      let tempRef = "", tiempoRef = "";
-      try {
-        const h = await GET({ action:"GET_TEMP_HORNO", producto_id });
-        tempRef   = h.temp_horno  || "";
-        tiempoRef = h.tiempo_min  || "";
-      } catch(e) { /* silencioso */ } finally { load(false); }
-
-      const refHtml = (tempRef || tiempoRef) ? `<div class="horno-ref">
-        ${tempRef   ? `<div><div class="hr-lbl">🌡️ Temp Referencia</div><div class="hr-val">${tempRef}°C</div></div>` : ""}
-        ${tiempoRef ? `<div><div class="hr-lbl">⏱️ Tiempo Referencia</div><div class="hr-val">${tiempoRef} min</div></div>` : ""}
-      </div>` : "";
-
-      form = refHtml + `<div class="form-sec">🔥 Datos de Horneado</div>
-        <div class="fg-row">
-          <div><label>Unidades al Horno *</label>
-               <input type="number" id="f-unid-horno" min="1" placeholder="48"></div>
-          <div><label>Temp Real Horno (°C) *</label>
-               <input type="number" id="f-temp-horno" step="1" min="100" max="400"
-                      value="${tempRef}" placeholder="${tempRef||180}"></div>
-        </div>
-        <div class="fg-row">
-          <div><label>Tiempo Real (min) *</label>
-               <input type="number" id="f-tiempo-horno" step="1" min="1"
-                      value="${tiempoRef}" placeholder="${tiempoRef||18}"></div>
-          <div><label>Temp Interna (°C)</label>
-               <input type="number" id="f-temp-interna" step="0.1" min="50" max="110" placeholder="92.0"></div>
-        </div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Color, dorado, incidentes..."></textarea></div>`;
-      break;
-
-    case "Enfriado":
-      form = `<div class="form-sec">❄️ Registro de Enfriado</div>
-        <div class="fg-row">
-          <div><label>Temp Ambiente (°C)</label>
-               <input type="number" id="f-temp-enf" step="0.1" min="0" max="40" placeholder="22.0"></div>
-          <div><label>Humedad Ambiente (%)</label>
-               <input type="number" id="f-hum-enf" step="1" min="0" max="100" placeholder="65"></div>
-        </div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Tiempo de enfriado, notas..."></textarea></div>`;
-      break;
-
-    case "Empaque":
-      form = `<div class="form-sec">📦 Datos de Empaque</div>
-        <div class="fg-row">
-          <div><label>Unidades Finales *</label>
-               <input type="number" id="f-unid-fin" min="0" placeholder="46"></div>
-          <div><label>Unidades NC</label>
-               <input type="number" id="f-unid-nc" min="0" value="0" placeholder="0"></div>
-        </div>
-        <div class="fg"><label>Nº Lote Empaque</label>
-             <input type="text" id="f-lote-emp" placeholder="EMP-2024-001"></div>
-        <div class="fg"><label>Observaciones</label>
-             <textarea id="f-obs" placeholder="Calidad, sellado, etiquetado..."></textarea></div>`;
-      break;
-
-    default:
-      form = `<div class="empty-state"><p>Etapa no reconocida: ${etapa}</p></div>`;
-  }
-
-  document.getElementById("etapa-body").innerHTML   = prog + info + form;
-  document.getElementById("etapa-footer").innerHTML = footer;
-  abrir("modal-etapa");
-}
-
-// ── SUBMIT ──────────────────────────────────────────────────
-async function submitAvanzar() {
-  const l     = S.lote;
-  const etapa = l.etapa_actual;
-  let datos   = {};
-
-  switch (etapa) {
-    case "Porcionado":
-      datos.peso_unidad   = reqF("f-peso",     "Peso por unidad"); if (isNaN(datos.peso_unidad)) return;
-      datos.num_porciones = reqI("f-porciones","Nº de porciones"); if (isNaN(datos.num_porciones)) return;
-      datos.num_latas     = reqI("f-latas",    "Nº de latas");     if (isNaN(datos.num_latas)) return;
-      datos.unid_por_lata = parseInt(v("f-unid-lata")) || 0;
-      datos.obs           = v("f-obs");
-      break;
-    case "Levado":
-      datos.camara = v("f-camara");
-      datos.temp_camara = parseFloat(v("f-temp-cam")) || null;
-      datos.hum_camara  = parseFloat(v("f-hum-cam"))  || null;
-      datos.obs = v("f-obs");
-      break;
-    case "Decorado":
-      datos.materias_decorado = [...document.querySelectorAll('input[name="dec"]:checked')].map(c => c.value);
-      datos.obs = v("f-obs");
-      break;
-    case "Horneado":
-      datos.unid_horno   = reqI("f-unid-horno",  "Unidades al horno");   if (isNaN(datos.unid_horno)) return;
-      datos.temp_horno   = reqF("f-temp-horno",  "Temperatura de horno"); if (isNaN(datos.temp_horno)) return;
-      datos.tiempo_horno = reqF("f-tiempo-horno","Tiempo de horneado");   if (isNaN(datos.tiempo_horno)) return;
-      datos.temp_interna = parseFloat(v("f-temp-interna")) || null;
-      datos.obs = v("f-obs");
-      break;
-    case "Enfriado":
-      datos.temp_amb = parseFloat(v("f-temp-enf")) || null;
-      datos.hum_amb  = parseFloat(v("f-hum-enf"))  || null;
-      datos.obs = v("f-obs");
-      break;
-    case "Empaque":
-      datos.unid_finales = reqI("f-unid-fin","Unidades finales"); if (isNaN(datos.unid_finales)) return;
-      datos.unid_nc      = parseInt(v("f-unid-nc")) || 0;
-      datos.lote_empaque = v("f-lote-emp");
-      datos.obs = v("f-obs");
-      break;
-  }
-
-  load(true);
-  try {
-    const r = await POST({ action:"AVANZAR_ETAPA", id_lote:l.id_lote, slot:l.slot, etapa, ...datos });
-    if (r.status === "error") throw new Error(r.message);
-    cerrar("modal-etapa");
-    toast(r.finalizado ? "🎉 Lote " + l.id_lote + " FINALIZADO." : "✅ " + r.message, "success");
-    await recargar();
-  } catch(e) { toast("Error: " + e.message, "error"); } finally { load(false); }
-}
-
-async function submitMojadoOk() {
-  load(true);
-  try {
-    const r = await POST({ action:"AVANZAR_ETAPA", id_lote:S.lote.id_lote, slot:S.lote.slot, etapa:"Mojado" });
-    if (r.status === "error") throw new Error(r.message);
-    cerrar("modal-etapa");
-    toast("✅ " + r.message, "success");
-    await recargar();
-  } catch(e) { toast("Error: " + e.message, "error"); } finally { load(false); }
-}
-
-async function submitSaltar() {
-  if (!confirm("¿Omitir Decorado para el lote " + S.lote.id_lote + "?\n\nQuedará registrado en la bitácora.")) return;
-  load(true);
-  try {
-    const r = await POST({ action:"SALTAR_ETAPA", id_lote:S.lote.id_lote, slot:S.lote.slot, etapa:"Decorado", motivo:"No aplica" });
-    if (r.status === "error") throw new Error(r.message);
-    cerrar("modal-etapa");
-    toast("⏭ Decorado omitido. Siguiente: " + r.etapa_siguiente, "info");
-    await recargar();
-  } catch(e) { toast("Error: " + e.message, "error"); } finally { load(false); }
-}
-
-// ── FORM HELPERS ────────────────────────────────────────────
-const v    = id  => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
-const reqF = (id, lbl) => { const n = parseFloat(v(id)); if (!n || n <= 0) { toast("Campo requerido: " + lbl, "error"); return NaN; } return n; };
-const reqI = (id, lbl) => { const n = parseInt(v(id));   if (!n || n <= 0) { toast("Campo requerido: " + lbl, "error"); return NaN; } return n; };
-
-// ── MODALS ──────────────────────────────────────────────────
-const abrir  = id => document.getElementById(id).classList.add("open");
-const cerrar = id => document.getElementById(id).classList.remove("open");
-
-document.querySelectorAll(".modal-overlay").forEach(o => {
-  o.addEventListener("click", e => { if (e.target === o) o.classList.remove("open"); });
-});
-
-// ── UI HELPERS ──────────────────────────────────────────────
-const load = on => document.getElementById("loading").classList.toggle("on", on);
-
-function toast(msg, type = "info") {
-  const icons = { success:"✅", error:"❌", info:"ℹ️" };
-  const d = document.createElement("div");
-  d.className = "toast " + type;
-  d.innerHTML = `<span class="toast-ico">${icons[type]}</span><span class="toast-msg">${msg}</span>`;
-  document.getElementById("toast-wrap").appendChild(d);
-  setTimeout(() => d.remove(), type === "error" ? 5500 : 3200);
-}
 </script>
+
 </body>
 </html>
