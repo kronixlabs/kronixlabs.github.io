@@ -3,48 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVITO MES | Kronix Labs</title>
+    <title>LEVITO MES | Calculadora Industrial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: radial-gradient(circle at 20% 20%, #0f172a, #020617 70%); color: white; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
         .navbar { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 30px; }
         .brand-title { font-weight: 600; color: #38bdf8; }
-        .lote-card {
-            width: 160px; height: 180px; border-radius: 20px; background: rgba(255,255,255,0.05);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            cursor: pointer; transition: .3s; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .lote-card.activo { border-color: #22c55e; background: rgba(34, 197, 94, 0.15); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
-        .indicador { width: 14px; height: 14px; border-radius: 50%; margin-bottom: 10px; }
+        .panel-box { background: rgba(255,255,255,0.04); border-radius: 20px; padding: 30px; }
+        .lote-card { width: 160px; height: 180px; border-radius: 20px; background: rgba(255,255,255,0.05); display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: .3s; border: 1px solid rgba(255,255,255,0.1); }
+        .lote-card.activo { border-color: #22c55e; background: rgba(34, 197, 94, 0.15); }
+        .indicador { width: 12px; height: 12px; border-radius: 50%; margin-bottom: 8px; }
         .gris { background: #64748b; }
         .verde { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
         .modal-content { background: #0f172a; border: 1px solid #38bdf8; border-radius: 20px; }
-        .form-control { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; }
-        .scroll-trazabilidad { max-height: 350px; overflow-y: auto; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 10px; }
+        .form-control { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .scroll-trazabilidad { max-height: 400px; overflow-y: auto; background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; }
+        .ingrediente-row { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px 0; }
+        .calc-badge { background: #38bdf8; color: #000; font-weight: bold; padding: 2px 6px; border-radius: 5px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <nav class="navbar d-flex justify-content-between align-items-center">
     <div class="brand-title">KRONIX LABS • LEVITO MES</div>
-    <div id="status" class="small opacity-50">Sincronizando...</div>
+    <div id="status" class="small opacity-50">Sincronizado</div>
 </nav>
 
 <div class="container mt-5">
-    <div id="contenedorLotes" class="d-flex flex-wrap gap-4 justify-content-center"></div>
+    <div class="panel-box text-center">
+        <h5 class="mb-4">Panel de Control de Mojado</h5>
+        <div id="contenedorLotes" class="d-flex flex-wrap gap-4 justify-content-center"></div>
+    </div>
 </div>
 
 <div class="modal fade" id="modalLote" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tituloModal">Gestión de Lote</h5>
+                <h5 class="modal-title" id="tituloModal">Configuración de Proceso</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="formAccion">
-                    <div id="cuerpoModal"></div>
-                    <button type="submit" class="btn btn-primary w-100 mt-3 p-3 fw-bold" id="btnAccion">CONFIRMAR</button>
+                    <div id="cuerpoInicio">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="small">PIN Operario</label>
+                                <input type="password" id="pin" class="form-control" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="small">Producto</label>
+                                <select id="productoId" class="form-select" onchange="actualizarCalculos()">
+                                    <option value="0903-1">PAN BRIOCHE MINI (0903-1)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="small">Cant. a Producir</label>
+                                <input type="number" id="cantProducir" class="form-control" value="1" min="1" oninput="actualizarCalculos()">
+                            </div>
+                        </div>
+
+                        <h6 class="text-info small mb-3">LISTA DE PESAJE Y TRAZABILIDAD</h6>
+                        <div class="scroll-trazabilidad" id="listaFormula">
+                            </div>
+                    </div>
+
+                    <div id="cuerpoAvance" class="text-center d-none p-4">
+                        <h3 id="etapaActual" class="text-success"></h3>
+                        <div class="my-3">⬇ SIGUIENTE ETAPA ⬇</div>
+                        <h4 id="proximaEtapa" class="text-info"></h4>
+                        <input type="password" id="pinAvance" class="form-control mt-4 text-center" placeholder="PIN CONFIRMACIÓN">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-4 p-3 fw-bold" id="btnAccion">PROCESAR</button>
                 </form>
             </div>
         </div>
@@ -54,111 +85,111 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbxNH0gMANa6IhRE6v8mn9W8y5Age5qSOg8hS1bircMF65I_hGLRNPvA-Hf0uaefjSQ/exec"; // <--- PON TU URL AQUÍ
-    let modal;
-    let loteSeleccionado = "";
-    let dataActiva = null;
-
-    const ingredientes = ["HARINA", "AGUA", "AZÚCAR", "GRASA", "HUEVO", "LECHE EN POLVO", "LEVADURA", "SAL", "ESENCIA MANTEQUILLA", "PROPIONATO CALCIO", "DIMODAN", "ÁCIDO ACÉTICO", "9740", "7200", "COLOR AMARILLO"];
+    const API_URL = "https://script.google.com/macros/s/AKfycbyiSTeAwxBsh-LMnGMiuQ0_I2gyHw_m5z6Z2bTJ3lOmsOlwOcntydoTrWl9MzSEIvci/exec";
+    let modal, loteSeleccionado, dataActiva;
+    let formulaBase = [];
     const etapas = ["Mojado", "Levado", "Horneo", "Empaque", "Finalizado"];
 
     document.addEventListener("DOMContentLoaded", () => {
         modal = new bootstrap.Modal(document.getElementById('modalLote'));
         cargarEstados();
-        setInterval(cargarEstados, 10000);
     });
 
     async function cargarEstados() {
-        try {
-            const res = await fetch(API_URL + "?action=GET_ALL_ACTIVOS");
-            const activos = await res.json();
-            const cont = document.getElementById("contenedorLotes");
-            cont.innerHTML = "";
+        const res = await fetch(API_URL + "?action=GET_ALL_ACTIVOS");
+        const activos = await res.json();
+        const cont = document.getElementById("contenedorLotes");
+        cont.innerHTML = "";
 
-            for (let i = 1; i <= 8; i++) {
-                const idPin = `LOTE_${i}`;
-                const loteInfo = activos.find(a => a.id_lote_pin === idPin);
-                
-                // LÓGICA DE COLOR: Verde si hay info, Gris si está vacío
-                const claseActivo = loteInfo ? "activo" : "";
-                const claseIndicador = loteInfo ? "verde" : "gris";
-                const textoEtapa = loteInfo ? loteInfo.etapa_actual : "Libre";
-                const subTexto = loteInfo ? `${loteInfo.responsable} | ${loteInfo.hora_inicio}` : "";
-
-                cont.innerHTML += `
-                    <div class="lote-card ${claseActivo}" onclick="gestionar('${idPin}', ${loteInfo ? JSON.stringify(loteInfo).replace(/"/g, '&quot;') : 'null'})">
-                        <div class="indicador ${claseIndicador}"></div>
-                        <div class="lote-num">LOTE ${i}</div>
-                        <div class="small opacity-75">${textoEtapa}</div>
-                        <div class="small opacity-50" style="font-size:0.6rem">${subTexto}</div>
-                    </div>`;
-            }
-            document.getElementById("status").innerText = "En línea ✓";
-        } catch (e) { document.getElementById("status").innerText = "Error conexión"; }
+        for (let i = 1; i <= 8; i++) {
+            const idPin = `LOTE_${i}`;
+            const info = activos.find(a => a.id_lote_pin === idPin);
+            cont.innerHTML += `
+                <div class="lote-card ${info ? 'activo' : ''}" onclick="abrirGestion('${idPin}', ${info ? JSON.stringify(info).replace(/"/g, '&quot;') : 'null'})">
+                    <div class="indicador ${info ? 'verde' : 'gris'}"></div>
+                    <div class="lote-num">LOTE ${i}</div>
+                    <div class="small opacity-75">${info ? info.etapa_actual : 'Libre'}</div>
+                </div>`;
+        }
     }
 
-    function gestionar(idPin, info) {
+    async function abrirGestion(idPin, info) {
         loteSeleccionado = idPin;
         dataActiva = info;
-        const cuerpo = document.getElementById("cuerpoModal");
-
-        if (!dataActiva) {
-            // MOSTRAR FORMULARIO DE INICIO (GRIS -> VERDE)
-            document.getElementById("tituloModal").innerText = "Iniciar Nuevo Lote: " + idPin;
-            cuerpo.innerHTML = `
-                <div class="mb-3"><label class="small">PIN Operario</label><input type="password" id="pin" class="form-control" required></div>
-                <div class="scroll-trazabilidad">
-                    <h6 class="small text-info mb-3">Trazabilidad de Materia Prima (Escriba fecha o use selector)</h6>
-                    ${ingredientes.map(ing => `
-                        <div class="row mb-2 g-2">
-                            <div class="col-4 small d-flex align-items-center">${ing}</div>
-                            <div class="col-4"><input type="text" placeholder="Lote" class="form-control form-control-sm mp-lote" data-ing="${ing}" required></div>
-                            <div class="col-4"><input type="date" class="form-control form-control-sm mp-vence" required></div>
-                        </div>`).join('')}
-                </div>`;
-            document.getElementById("btnAccion").innerText = "EMPEZAR MOJADO";
+        
+        if (!info) {
+            document.getElementById("cuerpoInicio").classList.remove("d-none");
+            document.getElementById("cuerpoAvance").classList.add("d-none");
+            document.getElementById("btnAccion").innerText = "INICIAR MOJADO";
+            await actualizarCalculos();
         } else {
-            // MOSTRAR AVANCE DE ETAPA (VERDE -> ... -> GRIS)
-            const idxActual = etapas.indexOf(dataActiva.etapa_actual);
-            const proxima = etapas[idxActual + 1];
-            document.getElementById("tituloModal").innerText = "Avanzar Proceso: " + dataActiva.id_lote_unico;
-            cuerpo.innerHTML = `
-                <div class="text-center p-4">
-                    <h2 class="text-success mb-0">${dataActiva.etapa_actual}</h2>
-                    <div class="my-2">⬇</div>
-                    <h4 class="text-info">${proxima}</h4>
-                    <input type="password" id="pin" class="form-control mt-4 text-center" placeholder="PIN de Seguridad" required>
-                </div>`;
-            document.getElementById("btnAccion").innerText = proxima === "Finalizado" ? "FINALIZAR Y LIBERAR PIN" : "PASAR A " + proxima.toUpperCase();
+            document.getElementById("cuerpoInicio").classList.add("d-none");
+            document.getElementById("cuerpoAvance").classList.remove("d-none");
+            document.getElementById("etapaActual").innerText = info.etapa_actual;
+            const proxima = etapas[etapas.indexOf(info.etapa_actual) + 1];
+            document.getElementById("proximaEtapa").innerText = proxima;
+            document.getElementById("btnAccion").innerText = "CONFIRMAR PASO A " + proxima.toUpperCase();
         }
         modal.show();
     }
 
+    async function actualizarCalculos() {
+        const prodId = document.getElementById("productoId").value;
+        const factor = document.getElementById("cantProducir").value || 1;
+        
+        // Pedimos la fórmula al Excel
+        const res = await fetch(`${API_URL}?action=GET_FORMULA&producto_id=${prodId}`);
+        formulaBase = await res.json();
+        
+        const lista = document.getElementById("listaFormula");
+        lista.innerHTML = "";
+
+        formulaBase.forEach(item => {
+            const pesoFinal = (item.cantidad_g * factor).toLocaleString();
+            lista.innerHTML += `
+                <div class="ingrediente-row row align-items-center">
+                    <div class="col-4">
+                        <span class="small fw-bold">${item.ingrediente}</span><br>
+                        <span class="calc-badge">${pesoFinal} g</span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control form-control-sm mp-lote" data-ing="${item.ingrediente}" placeholder="Lote" required>
+                    </div>
+                    <div class="col-4">
+                        <input type="date" class="form-control form-control-sm mp-vence" required>
+                    </div>
+                </div>`;
+        });
+    }
+
     document.getElementById("formAccion").onsubmit = async (e) => {
         e.preventDefault();
-        const pin = document.getElementById("pin").value;
-        let payload = { pin: pin, color_pin: loteSeleccionado };
+        let payload = { color_pin: loteSeleccionado };
 
         if (!dataActiva) {
             payload.action = "INICIAR_MOJADO";
-            payload.producto_id = "0903-1";
+            payload.pin = document.getElementById("pin").value;
+            payload.producto_id = document.getElementById("productoId").value;
             payload.materias_primas = {};
             document.querySelectorAll(".mp-lote").forEach((el, i) => {
-                payload.materias_primas[el.dataset.ing] = { lote: el.value, vence: document.querySelectorAll(".mp-vence")[i].value };
+                payload.materias_primas[el.dataset.ing] = { 
+                    lote: el.value, 
+                    vence: document.querySelectorAll(".mp-vence")[i].value 
+                };
             });
         } else {
             payload.action = "AVANZAR_ETAPA";
+            payload.pin = document.getElementById("pinAvance").value;
             payload.id_lote_unico = dataActiva.id_lote_unico;
             payload.proxima_etapa = etapas[etapas.indexOf(dataActiva.etapa_actual) + 1];
         }
 
-        document.getElementById("btnAccion").disabled = true;
-        try {
-            await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
+        const res = await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
+        const r = await res.json();
+        if (r.status === "ok") {
             modal.hide();
             cargarEstados();
-        } catch (error) { alert("Error al procesar el lote."); }
-        document.getElementById("btnAccion").disabled = false;
+        } else { alert(r.message); }
     };
 </script>
 </body>
