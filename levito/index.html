@@ -3,140 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVITO MES | Kronix Labs</title>
+    <title>LEVITO MES | Trazabilidad MP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background: radial-gradient(circle at 20% 20%, #0f172a, #020617 70%);
-            font-family: 'Segoe UI', sans-serif;
-            color: white;
-            min-height: 100vh;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            padding: 15px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .brand-title {
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: #38bdf8;
-        }
-
-        /* PANEL */
-        .panel-box {
-            background: rgba(255,255,255,0.04);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.4);
-        }
-
-        /* CARDS DE LOTES */
-        .lote-card {
-            width: 150px;
-            height: 160px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: .3s;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .lote-card:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-4px);
-        }
-
-        .lote-card.activo {
-            border-color: #22c55e;
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        .indicador {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            margin-bottom: 8px;
-            transition: 0.3s;
-        }
-
-        .gris { background: #64748b; }
-        .verde { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
-
-        .lote-num { font-size: 16px; font-weight: 600; }
-        .etapa-texto { font-size: 12px; opacity: .8; text-align: center; margin-top: 4px; }
-
-        /* MODAL */
-        .modal-content {
-            background: #0f172a;
-            color: white;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .form-control, .form-select {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .form-control:focus, .form-select:focus {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-color: #38bdf8;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg,#2563eb,#38bdf8);
-            border: none;
-            padding: 10px;
-            font-weight: 600;
-        }
+        body { background: #020617; color: white; font-family: 'Segoe UI', sans-serif; }
+        .panel-box { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 25px; }
+        .lote-card { width: 140px; height: 140px; border-radius: 15px; background: rgba(255,255,255,0.1); cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
+        .modal-content { background: #0f172a; border-radius: 20px; border: 1px solid #38bdf8; }
+        .form-section { background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px; }
+        label { font-size: 0.8rem; color: #38bdf8; }
     </style>
 </head>
 <body>
 
-<nav class="navbar d-flex justify-content-between align-items-center">
-    <div class="brand-title">KRONIX LABS • LEVITO MES</div>
-    <div id="estadoConexion" class="small opacity-50">Sincronizando...</div>
-</nav>
-
 <div class="container mt-5">
     <div class="panel-box">
-        <h5 class="mb-4 text-center">Panel Operativo de Trazabilidad</h5>
-        <div id="contenedorLotes" class="d-flex flex-wrap gap-4 justify-content-center">
-            </div>
+        <h4 class="text-center mb-4">SISTEMA DE MOJADO - LEVITO</h4>
+        <div id="contenedorLotes" class="d-flex flex-wrap gap-3 justify-content-center"></div>
     </div>
 </div>
 
-<div class="modal fade" id="modalLote" tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalLote">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tituloLote">Configurar Lote</h5>
+                <h5 class="modal-title" id="tituloLote">Registro de Mojado</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="formLote">
-                    <div class="mb-3">
-                        <label class="form-label small">Producto</label>
-                        <select id="productoId" class="form-select">
-                            <option value="BRIO-MINI-A">Pan Brioche Mini (0903-1)</option>
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>PIN Operario</label>
+                            <input type="password" id="operarioPin" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Producto</label>
+                            <select id="productoId" class="form-select">
+                                <option value="BRIO-MINI-A">Pan Brioche Mini</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small">PIN de Seguridad (Operario)</label>
-                        <input type="password" id="operarioPin" class="form-control" placeholder="****" required>
+
+                    <div class="form-section">
+                        <h6>Trazabilidad de Materia Prima</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label>Lote HARINA</label>
+                                <input type="text" id="lote_harina" class="form-control form-control-sm" placeholder="Ej: H-9982" required>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <label>Vence HARINA</label>
+                                <input type="date" id="vence_harina" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Lote LEVADURA</label>
+                                <input type="text" id="lote_levadura" class="form-control form-control-sm" placeholder="Ej: L-443" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Vence LEVADURA</label>
+                                <input type="date" id="vence_levadura" class="form-control form-control-sm" required>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mt-2">REGISTRAR INICIO MOJADO</button>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-4">INICIAR MOJADO Y GUARDAR MP</button>
                 </form>
             </div>
         </div>
@@ -144,110 +75,49 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-    // URL DE TU NUEVA IMPLEMENTACIÓN V3
     const API_URL = "https://script.google.com/macros/s/AKfycbzwSrSO6w2kACu74d9unwaL7equ8poqpioPYi88E4-XWamW7eSswLqUFSsqt8EjJCcr/exec";
-    
     let modal;
     let loteSeleccionado = "";
 
     document.addEventListener("DOMContentLoaded", function() {
         modal = new bootstrap.Modal(document.getElementById('modalLote'));
-        dibujarLotes();
-        cargarEstados();
-        // Actualizar estados cada 10 segundos
-        setInterval(cargarEstados, 10000);
+        const contenedor = document.getElementById("contenedorLotes");
+        for (let i = 1; i <= 8; i++) {
+            contenedor.innerHTML += `<div class="lote-card" onclick="abrirModal('LOTE_${i}')"><b>LOTE ${i}</b><small>Libre</small></div>`;
+        }
     });
 
-    function dibujarLotes() {
-        const contenedor = document.getElementById("contenedorLotes");
-        contenedor.innerHTML = "";
-        for (let i = 1; i <= 7; i++) {
-            const idLote = `LOTE_${i}`;
-            contenedor.innerHTML += `
-                <div class="lote-card" id="card-${idLote}" onclick="abrirAccion('${idLote}')">
-                    <div class="indicador gris" id="ind-${idLote}"></div>
-                    <div class="lote-num">LOTE ${i}</div>
-                    <div class="etapa-texto" id="txt-${idLote}">Libre</div>
-                </div>
-            `;
-        }
-    }
-
-    function abrirAccion(loteId) {
-        loteSeleccionado = loteId;
-        document.getElementById("tituloLote").innerText = `Iniciar ${loteId.replace('_',' ')}`;
+    function abrirModal(lote) {
+        loteSeleccionado = lote;
+        document.getElementById("tituloLote").innerText = "Registro Mojado: " + lote;
         modal.show();
     }
 
     document.getElementById("formLote").addEventListener("submit", async function(e) {
         e.preventDefault();
         
-        const pin = document.getElementById("operarioPin").value;
-        const prod = document.getElementById("productoId").value;
-
         const payload = {
             action: "INICIAR_MOJADO",
-            pin: pin,
+            pin: document.getElementById("operarioPin").value,
             color_pin: loteSeleccionado,
-            producto_id: prod,
-            empaque: "Bolsa Flowpack",
-            fecha_venc: "2026-03-15"
+            producto_id: document.getElementById("productoId").value,
+            materias_primas: {
+                harina: { lote: document.getElementById("lote_harina").value, vence: document.getElementById("vence_harina").value },
+                levadura: { lote: document.getElementById("lote_levadura").value, vence: document.getElementById("vence_levadura").value }
+            }
         };
 
         try {
-            // Usamos POST para enviar los datos
-            const response = await fetch(API_URL, {
-                method: "POST",
-                body: JSON.stringify(payload)
-            });
-
-            const res = await response.json();
-
-            if (res.status === "ok") {
-                alert("Lote Iniciado: " + res.id_lote_unico);
+            const res = await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
+            const result = await res.json();
+            if(result.status === "ok") {
+                alert("Lote e Ingredientes Guardados correctamente.");
                 modal.hide();
-                document.getElementById("formLote").reset();
-                cargarEstados();
-            } else {
-                alert("Error: " + res.message);
-            }
-        } catch (error) {
-            console.error(error);
-            alert("El sistema recibió el comando. Verificando en base de datos...");
-            modal.hide();
-            setTimeout(cargarEstados, 2000);
-        }
+                location.reload();
+            } else { alert(result.message); }
+        } catch (error) { alert("Error al guardar. Verifique conexión."); }
     });
-
-    async function cargarEstados() {
-        try {
-            // El script debe tener habilitado el GET para devolver la lista de activos
-            const res = await fetch(API_URL + "?action=GET_ALL"); 
-            const activos = await res.json();
-            
-            document.getElementById("estadoConexion").innerText = "Sincronizado ✓";
-
-            // Limpiar estados antes de marcar activos
-            dibujarLotes(); 
-
-            activos.forEach(lote => {
-                const card = document.getElementById(`card-${lote.color_pin}`);
-                const ind = document.getElementById(`ind-${lote.color_pin}`);
-                const txt = document.getElementById(`txt-${lote.color_pin}`);
-
-                if (card) {
-                    card.classList.add('activo');
-                    ind.className = "indicador verde";
-                    txt.innerText = lote.etapa;
-                }
-            });
-        } catch (e) {
-            document.getElementById("estadoConexion").innerText = "Offline";
-        }
-    }
 </script>
-
 </body>
 </html>
