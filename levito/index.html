@@ -17,6 +17,7 @@ body{
   position:relative;
   overflow-x:hidden;
 }
+.btn{min-height:44px;font-weight:600}
 body::before{
   content:"";
   position:fixed;
@@ -62,6 +63,10 @@ body::after{
 .tag-gray{background:#334155;color:#cbd5e1;padding:2px 8px;border-radius:999px;font-size:11px}
 input,select{background:#0f172a!important;color:#fff!important;border:1px solid #1e293b!important}
 .table{color:#fff}
+.table th,.table td{vertical-align:middle}
+.table-dark.table-striped>tbody>tr:nth-of-type(odd)>*{background:#162033}
+.table-dark.table-striped>tbody>tr:nth-of-type(even)>*{background:#0f172a}
+.table-dark>thead>tr>th{background:#1f2937;color:#e2e8f0;font-weight:700}
 .panel{background:#0b1220;border:1px solid #1e293b;border-radius:14px;padding:16px}
 .status-line{font-size:12px;color:#94a3b8;margin-top:8px;min-height:18px}
 #pinModal .form-control{font-size:14px;padding:6px 10px}
@@ -74,6 +79,63 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 .flow-step.done{background:#14532d;border-color:#22c55e}
 .flow-step.current{background:#7f1d1d;border-color:#ef4444}
 .flow-step.pending{background:#1f2937;border-color:#475569}
+@media (max-width: 992px){
+  .header{padding:12px 14px;gap:10px;align-items:flex-start}
+  .brand-logos{width:100%;justify-content:space-between}
+  .brand-logos img{height:38px;max-width:48%}
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:3;
+    background:rgba(2,6,23,.96);
+    backdrop-filter:blur(8px);
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    padding:10px 10px;
+    gap:8px;
+  }
+  .tab{
+    white-space:nowrap;
+    flex:0 0 auto;
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    font-size:14px;
+  }
+  .section{padding:14px}
+  .grid-lotes{grid-template-columns:1fr;gap:12px}
+  .lote-card{padding:14px;min-height:140px}
+  .lote-title{font-size:18px}
+  .pin-status,.producto{font-size:14px}
+
+  .modal-dialog.modal-xl{
+    margin:0;
+    max-width:100%;
+    width:100%;
+    height:100%;
+  }
+  .modal-content{
+    min-height:100vh;
+    border-radius:0;
+  }
+  #pinModal .modal-header{position:sticky;top:0;background:#0b1220;z-index:2}
+  #pinModal .panel{padding:12px}
+  #pinModal .form-control{font-size:16px;min-height:44px}
+  #pinModal label{font-size:13px}
+  #pinModal .btn{min-height:44px}
+  #pinModal .d-flex.gap-2.mt-3{flex-direction:column}
+  #pinModal .d-flex.gap-2.mt-3 .btn{width:100%}
+
+  .table-responsive{
+    border:1px solid #1e293b;
+    border-radius:10px;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .table{min-width:760px;margin-bottom:0}
+  #pinModal .table{min-width:980px}
+  #pinModal .table th,#pinModal .table td{padding:10px 8px}
+}
 </style>
 </head>
 <body>
