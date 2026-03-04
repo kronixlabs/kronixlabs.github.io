@@ -128,6 +128,31 @@ color:white!important;
 border:1px solid #1e293b!important;
 }
 
+.panel{
+background:#0b1220;
+border:1px solid #1e293b;
+border-radius:14px;
+padding:16px;
+margin-top:18px;
+}
+
+.panel h6{
+margin-bottom:14px;
+font-weight:700;
+}
+
+.status-line{
+font-size:12px;
+color:#94a3b8;
+margin-top:8px;
+min-height:18px;
+}
+
+.lote-card.selected{
+border-color:#22c55e;
+box-shadow:0 0 0 1px #22c55e inset;
+}
+
 </style>
 
 </head>
@@ -171,6 +196,79 @@ Entrega
 <h5 class="mb-4">Panel Operativo de Producción</h5>
 
 <div id="grid" class="grid-lotes"></div>
+
+<div class="row g-3">
+<div class="col-lg-6">
+<div class="panel">
+<h6>Iniciar Lote</h6>
+<div class="row g-2">
+<div class="col-md-6">
+<label>Slot</label>
+<select id="p_slot" class="form-control"></select>
+</div>
+<div class="col-md-6">
+<label>Producto</label>
+<select id="p_producto" class="form-control"></select>
+</div>
+<div class="col-md-6">
+<label>Cantidad</label>
+<input type="number" id="p_cantidad" class="form-control" min="1" step="1">
+</div>
+<div class="col-md-6">
+<label>Temp ambiente (C)</label>
+<input type="number" id="p_temp_amb" class="form-control" step="0.1">
+</div>
+<div class="col-md-6">
+<label>Humedad ambiente (%)</label>
+<input type="number" id="p_hum_amb" class="form-control" step="0.1">
+</div>
+<div class="col-md-6">
+<label>PIN operario</label>
+<input type="password" id="p_pin_inicio" class="form-control" maxlength="10">
+</div>
+<div class="col-12">
+<label>Observaciones</label>
+<input type="text" id="p_obs" class="form-control">
+</div>
+</div>
+<button class="btn btn-primary mt-3" onclick="iniciarLoteDesdeUI()">Iniciar lote</button>
+<div id="p_status_inicio" class="status-line"></div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="panel">
+<h6>Control de Etapa</h6>
+<div class="row g-2">
+<div class="col-md-6">
+<label>ID Lote</label>
+<input type="text" id="p_id_lote" class="form-control" readonly>
+</div>
+<div class="col-md-6">
+<label>Etapa actual</label>
+<input type="text" id="p_etapa_actual" class="form-control" readonly>
+</div>
+<div class="col-md-6">
+<label>Slot</label>
+<input type="text" id="p_slot_actual" class="form-control" readonly>
+</div>
+<div class="col-md-6">
+<label>PIN operario</label>
+<input type="password" id="p_pin_etapa" class="form-control" maxlength="10">
+</div>
+<div class="col-12">
+<label>Observaciones etapa</label>
+<input type="text" id="p_obs_etapa" class="form-control">
+</div>
+</div>
+<div class="d-flex gap-2 mt-3">
+<button class="btn btn-success" onclick="avanzarEtapaDesdeUI()">Avanzar etapa</button>
+<button class="btn btn-warning" onclick="omitirDecoradoDesdeUI()">Omitir decorado</button>
+</div>
+<div id="p_status_etapa" class="status-line"></div>
+</div>
+</div>
+</div>
 
 </div>
 
@@ -256,227 +354,328 @@ Registrar entrega
 
 
 <script>
+const API = "https://script.google.com/macros/s/AKfycbx3sH7rm-jBQZOLOLEh8gPVFsIpAXVOp4mWZ8l-wl4DAAeF7nF36QYGqzy1LPP4FhGp/exec";
 
-const API="https://script.google.com/macros/s/AKfycbw1OjS5q0EndaP7ZKqr2bq6YbeUn4Lr0Yp4xAaqDyiJSyB_srAZ2udtajpPcUk3WOZd/exec";
+const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
+const state = {
+  lotes: [],
+  productos: [],
+  selectedLoteId: "",
+  lastLotesSignature: "",
+  loadingLotes: false
+};
 
-const ETAPAS=[
-"Mojado",
-"Porcionado",
-"Levado",
-"Decorado",
-"Horneado",
-"Enfriado",
-"Empaque"
-];
-
-function showTab(id,el){
-
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-el.classList.add("active");
-
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-
+function showTab(id, el){
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  if (id === "produccion") cargarLotes(true);
 }
 
-async function cargarLotes(){
-
-const res=await fetch(API+"?action=GET_ALL_ACTIVOS");
-const data=await res.json();
-
-render(data);
-
+function setStatus(id, msg, isError){
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.color = isError ? "#fca5a5" : "#86efac";
+  el.textContent = msg || "";
 }
 
-function render(lotes){
+async function apiGet(action, params){
+  const q = new URLSearchParams({ action, ...(params || {}) });
+  const res = await fetch(`${API}?${q.toString()}`);
+  return res.json();
+}
 
-const grid=document.getElementById("grid");
-grid.innerHTML="";
+async function apiPost(payload){
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  return res.json();
+}
 
-for(let i=1;i<=7;i++){
+function getLoteById(id){
+  return state.lotes.find(l => l.id_lote === id) || null;
+}
 
-let lote=lotes.find(l=>parseInt(l.slot)==i);
+function fillControlEtapa(lote){
+  document.getElementById("p_id_lote").value = lote ? lote.id_lote : "";
+  document.getElementById("p_etapa_actual").value = lote ? lote.etapa_actual : "";
+  document.getElementById("p_slot_actual").value = lote ? lote.slot : "";
+}
 
-if(!lote){
+function selectLote(id){
+  state.selectedLoteId = id;
+  const lote = getLoteById(id);
+  fillControlEtapa(lote);
+  renderLotes(state.lotes, true);
+}
 
-grid.innerHTML+=`
+function crearProgreso(etapaActual){
+  const idx = ETAPAS.indexOf(etapaActual);
+  let progreso = "";
+  ETAPAS.forEach((_, i) => {
+    if (i < idx) progreso += '<span class="done">●</span> ';
+    else if (i === idx) progreso += '<span class="active-step">●</span> ';
+    else progreso += '<span class="pending">○</span> ';
+  });
+  return progreso;
+}
+
+function crearCardLote(lote){
+  const selectedClass = lote.id_lote === state.selectedLoteId ? " selected" : "";
+  const alerta = lote.mensaje_alerta
+    ? `<div class="status-line" style="color:${lote.alerta==="danger"?"#fca5a5":"#fde68a"}">${lote.mensaje_alerta}</div>`
+    : "";
+  return `
+<div class="lote-card${selectedClass}" onclick="selectLote('${lote.id_lote}')">
+  <div class="lote-title">LOTE ${lote.slot}</div>
+  <div class="producto">${lote.producto}</div>
+  <div class="etapa">${lote.etapa_actual}</div>
+  <div class="operario">${lote.operario || "Sin operario"}</div>
+  <div class="tiempo">${lote.tiempo_etapa || "0 min"}</div>
+  <div class="progreso">${crearProgreso(lote.etapa_actual)}</div>
+  ${alerta}
+</div>`;
+}
+
+function renderLotes(lotes, force){
+  const signature = JSON.stringify(lotes);
+  if (!force && signature === state.lastLotesSignature) return;
+  state.lastLotesSignature = signature;
+
+  const grid = document.getElementById("grid");
+  const bySlot = new Map(lotes.map(l => [parseInt(l.slot, 10), l]));
+  let html = "";
+  for (let i = 1; i <= 7; i++) {
+    const lote = bySlot.get(i);
+    if (!lote) {
+      html += `
 <div class="lote-card">
-
-<div class="lote-title">LOTE ${i}</div>
-
-<div class="producto">
-Disponible
-</div>
-
-<div class="progreso">
-<span class="pending">○ ○ ○ ○ ○ ○ ○</span>
-</div>
-
-</div>
-`;
-
-}else{
-
-grid.innerHTML+=crearLote(lote);
-
+  <div class="lote-title">LOTE ${i}</div>
+  <div class="producto">Disponible</div>
+  <div class="progreso"><span class="pending">○ ○ ○ ○ ○ ○ ○</span></div>
+</div>`;
+    } else {
+      html += crearCardLote(lote);
+    }
+  }
+  grid.innerHTML = html;
+  actualizarSlotsDisponibles();
 }
 
+function actualizarSlotsDisponibles(){
+  const select = document.getElementById("p_slot");
+  const ocupados = new Set(state.lotes.map(l => String(l.slot)));
+  let html = "";
+  for (let i = 1; i <= 7; i++) {
+    const val = String(i);
+    const disabled = ocupados.has(val) ? "disabled" : "";
+    html += `<option value="${val}" ${disabled}>Slot ${val}${disabled?" (ocupado)":""}</option>`;
+  }
+  select.innerHTML = html;
 }
 
+async function cargarProductos(){
+  try {
+    state.productos = await apiGet("GET_PRODUCTOS");
+    const select = document.getElementById("p_producto");
+    select.innerHTML = state.productos.map(p =>
+      `<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`
+    ).join("");
+  } catch (err) {
+    console.error(err);
+    setStatus("p_status_inicio", "No se pudieron cargar productos.", true);
+  }
 }
 
-function crearLote(lote){
-
-let index=ETAPAS.indexOf(lote.etapa_actual);
-
-let progreso="";
-
-ETAPAS.forEach((e,i)=>{
-
-if(i<index)
-progreso+='<span class="done">●</span> ';
-
-else if(i==index)
-progreso+='<span class="active-step">●</span> ';
-
-else
-progreso+='<span class="pending">○</span> ';
-
-});
-
-return`
-
-<div class="lote-card">
-
-<div class="lote-title">
-LOTE ${lote.slot}
-</div>
-
-<div class="producto">
-${lote.producto}
-</div>
-
-<div class="etapa">
-${lote.etapa_actual}
-</div>
-
-<div class="operario">
-${lote.operario}
-</div>
-
-<div class="tiempo">
-${lote.tiempo_etapa}
-</div>
-
-<div class="progreso">
-${progreso}
-</div>
-
-</div>
-
-`;
-
+async function cargarLotes(force){
+  if (state.loadingLotes) return;
+  state.loadingLotes = true;
+  try {
+    const data = await apiGet("GET_ALL_ACTIVOS");
+    state.lotes = Array.isArray(data) ? data : [];
+    renderLotes(state.lotes, force);
+    if (state.selectedLoteId) fillControlEtapa(getLoteById(state.selectedLoteId));
+  } catch (err) {
+    console.error(err);
+    setStatus("p_status_etapa", "No se pudo actualizar tablero.", true);
+  } finally {
+    state.loadingLotes = false;
+  }
 }
 
+async function iniciarLoteDesdeUI(){
+  const slot = parseInt(document.getElementById("p_slot").value, 10);
+  const producto_id = document.getElementById("p_producto").value;
+  const cantidad = parseFloat(document.getElementById("p_cantidad").value || "0");
+  const temp_amb = parseFloat(document.getElementById("p_temp_amb").value || "0");
+  const hum_amb = parseFloat(document.getElementById("p_hum_amb").value || "0");
+  const obs = document.getElementById("p_obs").value.trim();
+  const pin = document.getElementById("p_pin_inicio").value.trim();
 
-function registrarDespacho(){
-const fecha=document.getElementById("d_fecha").value;
-const producto=document.getElementById("d_producto").value.trim();
-const id_lote=document.getElementById("d_lote").value.trim();
-const cantidad=parseFloat(document.getElementById("d_cantidad").value);
+  if (!slot || !producto_id || !pin || !Number.isFinite(cantidad) || cantidad <= 0) {
+    setStatus("p_status_inicio", "Completa slot, producto, cantidad y PIN.", true);
+    return;
+  }
 
-if(!fecha||!producto||!id_lote||!Number.isFinite(cantidad)||cantidad<=0){
-alert("Completa los datos de despacho correctamente.");
-return;
+  setStatus("p_status_inicio", "Registrando lote...", false);
+  const result = await apiPost({
+    action: "INICIAR_LOTE",
+    pin,
+    slot,
+    producto_id,
+    cantidad,
+    temp_amb,
+    hum_amb,
+    obs,
+    materias_primas: []
+  });
+
+  if (result.status === "error") {
+    setStatus("p_status_inicio", result.message || "No se pudo iniciar lote.", true);
+    return;
+  }
+
+  setStatus("p_status_inicio", result.message || "Lote iniciado.", false);
+  document.getElementById("p_pin_inicio").value = "";
+  document.getElementById("p_obs").value = "";
+  await cargarLotes(true);
 }
 
-const pin=prompt("Ingresa PIN de operario:");
-if(!pin) return;
+async function avanzarEtapaDesdeUI(){
+  const id_lote = document.getElementById("p_id_lote").value.trim();
+  const etapa = document.getElementById("p_etapa_actual").value.trim();
+  const slot = parseInt(document.getElementById("p_slot_actual").value, 10);
+  const pin = document.getElementById("p_pin_etapa").value.trim();
+  const obs = document.getElementById("p_obs_etapa").value.trim();
 
-postAction({
-action:"REGISTRAR_DESPACHO",
-pin:pin.trim(),
-fecha,
-producto,
-id_lote,
-cantidad
-});
+  if (!id_lote || !etapa || !slot || !pin) {
+    setStatus("p_status_etapa", "Selecciona un lote e ingresa PIN.", true);
+    return;
+  }
 
+  setStatus("p_status_etapa", "Avanzando etapa...", false);
+  const result = await apiPost({
+    action: "AVANZAR_ETAPA",
+    pin,
+    id_lote,
+    slot,
+    etapa,
+    obs
+  });
+
+  if (result.status === "error") {
+    setStatus("p_status_etapa", result.message || "No se pudo avanzar etapa.", true);
+    return;
+  }
+
+  setStatus("p_status_etapa", result.message || "Etapa registrada.", false);
+  document.getElementById("p_pin_etapa").value = "";
+  document.getElementById("p_obs_etapa").value = "";
+  await cargarLotes(true);
 }
 
-function registrarEntrega(){
-const fecha=document.getElementById("e_fecha").value;
-const producto=document.getElementById("e_producto").value.trim();
-const id_lote=document.getElementById("e_lote").value.trim();
-const cliente=document.getElementById("e_cliente").value.trim();
-const cantidad=parseFloat(document.getElementById("e_cantidad").value);
+async function omitirDecoradoDesdeUI(){
+  const id_lote = document.getElementById("p_id_lote").value.trim();
+  const etapa = document.getElementById("p_etapa_actual").value.trim();
+  const slot = parseInt(document.getElementById("p_slot_actual").value, 10);
+  const pin = document.getElementById("p_pin_etapa").value.trim();
+  const motivo = document.getElementById("p_obs_etapa").value.trim() || "No aplica para este lote";
 
-if(!fecha||!producto||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0){
-alert("Completa los datos de entrega correctamente.");
-return;
+  if (!id_lote || !slot || !pin) {
+    setStatus("p_status_etapa", "Selecciona un lote e ingresa PIN.", true);
+    return;
+  }
+  if (etapa !== "Decorado") {
+    setStatus("p_status_etapa", "Solo se puede omitir cuando la etapa actual es Decorado.", true);
+    return;
+  }
+
+  setStatus("p_status_etapa", "Omitiendo decorado...", false);
+  const result = await apiPost({
+    action: "SALTAR_ETAPA",
+    pin,
+    id_lote,
+    slot,
+    etapa: "Decorado",
+    motivo
+  });
+
+  if (result.status === "error") {
+    setStatus("p_status_etapa", result.message || "No se pudo omitir etapa.", true);
+    return;
+  }
+
+  setStatus("p_status_etapa", result.message || "Etapa omitida.", false);
+  document.getElementById("p_pin_etapa").value = "";
+  document.getElementById("p_obs_etapa").value = "";
+  await cargarLotes(true);
 }
 
-const pin=prompt("Ingresa PIN de operario:");
-if(!pin) return;
-
-postAction({
-action:"REGISTRAR_ENTREGA",
-pin:pin.trim(),
-fecha,
-producto,
-id_lote,
-cliente,
-cantidad
-});
-
+async function registrarDespacho(){
+  const fecha = document.getElementById("d_fecha").value;
+  const producto = document.getElementById("d_producto").value.trim();
+  const id_lote = document.getElementById("d_lote").value.trim();
+  const cantidad = parseFloat(document.getElementById("d_cantidad").value);
+  if (!fecha || !producto || !id_lote || !Number.isFinite(cantidad) || cantidad <= 0) {
+    alert("Completa los datos de despacho correctamente.");
+    return;
+  }
+  const pin = prompt("Ingresa PIN de operario:");
+  if (!pin) return;
+  const data = await apiPost({ action:"REGISTRAR_DESPACHO", pin:pin.trim(), fecha, producto, id_lote, cantidad });
+  if (data.status === "error") return alert(data.message || "Error en despacho.");
+  alert(data.message || "Despacho registrado.");
+  limpiarFormulario("REGISTRAR_DESPACHO");
 }
 
-async function postAction(payload){
-try{
-const res=await fetch(API,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(payload)
-});
-const data=await res.json();
-
-if(data.status==="error"){
-alert(data.message||"Error en la operación.");
-return;
-}
-
-alert(data.message||"Operación registrada.");
-limpiarFormulario(payload.action);
-}catch(err){
-alert("No se pudo conectar con la API.");
-console.error(err);
-}
+async function registrarEntrega(){
+  const fecha = document.getElementById("e_fecha").value;
+  const producto = document.getElementById("e_producto").value.trim();
+  const id_lote = document.getElementById("e_lote").value.trim();
+  const cliente = document.getElementById("e_cliente").value.trim();
+  const cantidad = parseFloat(document.getElementById("e_cantidad").value);
+  if (!fecha || !producto || !id_lote || !cliente || !Number.isFinite(cantidad) || cantidad <= 0) {
+    alert("Completa los datos de entrega correctamente.");
+    return;
+  }
+  const pin = prompt("Ingresa PIN de operario:");
+  if (!pin) return;
+  const data = await apiPost({ action:"REGISTRAR_ENTREGA", pin:pin.trim(), fecha, producto, id_lote, cliente, cantidad });
+  if (data.status === "error") return alert(data.message || "Error en entrega.");
+  alert(data.message || "Entrega registrada.");
+  limpiarFormulario("REGISTRAR_ENTREGA");
 }
 
 function limpiarFormulario(action){
-if(action==="REGISTRAR_DESPACHO"){
-document.getElementById("d_producto").value="";
-document.getElementById("d_lote").value="";
-document.getElementById("d_cantidad").value="";
-return;
+  if(action === "REGISTRAR_DESPACHO"){
+    document.getElementById("d_producto").value = "";
+    document.getElementById("d_lote").value = "";
+    document.getElementById("d_cantidad").value = "";
+    return;
+  }
+  if(action === "REGISTRAR_ENTREGA"){
+    document.getElementById("e_producto").value = "";
+    document.getElementById("e_lote").value = "";
+    document.getElementById("e_cliente").value = "";
+    document.getElementById("e_cantidad").value = "";
+  }
 }
 
-if(action==="REGISTRAR_ENTREGA"){
-document.getElementById("e_producto").value="";
-document.getElementById("e_lote").value="";
-document.getElementById("e_cliente").value="";
-document.getElementById("e_cantidad").value="";
+async function init(){
+  const hoy = new Date().toISOString().slice(0,10);
+  document.getElementById("d_fecha").value = hoy;
+  document.getElementById("e_fecha").value = hoy;
+  await Promise.all([cargarProductos(), cargarLotes(true)]);
+  setInterval(() => {
+    const produccionActiva = document.getElementById("produccion").classList.contains("active");
+    if (produccionActiva) cargarLotes(false);
+  }, 10000);
 }
-}
 
-
-cargarLotes();
-
-setInterval(cargarLotes,15000);
-
-const hoy=new Date().toISOString().slice(0,10);
-document.getElementById("d_fecha").value=hoy;
-document.getElementById("e_fecha").value=hoy;
+init();
 
 </script>
 
