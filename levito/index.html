@@ -3,104 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Levito | Sistema MES</title>
+<title>Levito MES</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 body {
-    background: radial-gradient(circle at 20% 20%, #1f1f3a, #0d0d1a 60%);
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
+background: radial-gradient(circle at 20% 20%, #1f1f3a, #0d0d1a 60%);
+font-family: 'Segoe UI', sans-serif;
+color:white;
 }
 
 .navbar {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
 }
 
 .nav-link {
-    color: rgba(255,255,255,0.6);
-    cursor:pointer;
+color: rgba(255,255,255,0.6);
+cursor:pointer;
 }
 
 .nav-link.active {
-    color:#00f2fe !important;
-    font-weight:600;
+color:#00f2fe !important;
+font-weight:600;
 }
 
 .section { display:none; padding:30px; }
 .section.active { display:block; }
 
 .panel-box {
-    background: rgba(255,255,255,0.05);
-    border-radius:20px;
-    padding:25px;
+background: rgba(255,255,255,0.05);
+border-radius:20px;
+padding:25px;
 }
 
 /* LOTES */
 .lote-mini {
-    width:120px;
-    height:135px;
-    border-radius:15px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    background:rgba(255,255,255,0.05);
-    transition:.3s;
+width:115px;
+height:135px;
+border-radius:15px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.05);
+cursor:pointer;
+transition:.3s;
 }
 
 .lote-mini:hover {
-    background:rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.1);
 }
 
 .indicador {
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    margin-bottom:6px;
+width:18px;
+height:18px;
+border-radius:50%;
+margin-bottom:6px;
 }
 
 .gris { background:#7f8c8d; }
 .verde { background:#27ae60; }
 
-.lote-num {
-    font-weight:600;
-    font-size:15px;
-}
+.lote-num { font-weight:600; }
+.etapa-texto { font-size:11px; opacity:.7; text-align:center; }
+.operario-texto { font-size:10px; opacity:.5; text-align:center; }
 
-.etapa-texto {
-    font-size:11px;
-    opacity:.7;
-}
-
-.operario-texto {
-    font-size:10px;
-    opacity:.5;
-}
-
-/* SEMÁFORO GENERAL */
+/* SEMAFORO */
 .semaforo-card {
-    height:120px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:600;
+height:120px;
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
 }
 
 .modal-content {
-    background:#111124;
-    color:white;
-    border-radius:20px;
+background:#111124;
+color:white;
+border-radius:20px;
 }
 
-.loader { display:none; font-size:13px; opacity:.6; }
-
 .btn-primary {
-    background: linear-gradient(90deg,#4facfe,#00f2fe);
-    border:none;
+background: linear-gradient(90deg,#4facfe,#00f2fe);
+border:none;
 }
 </style>
 </head>
@@ -130,7 +118,7 @@ body {
 <div id="produccion" class="section active">
 <div class="panel-box">
 <h5 class="mb-4">Panel Operativo de Lotes</h5>
-<div id="contenedorLotes" class="d-flex justify-content-between flex-wrap gap-3"></div>
+<div id="contenedorLotes" class="d-flex flex-wrap gap-3"></div>
 </div>
 </div>
 
@@ -138,7 +126,7 @@ body {
 <div id="despacho" class="section">
 <div class="panel-box">
 <h5>Módulo de Despacho</h5>
-<p>Contenido en desarrollo.</p>
+<p>En desarrollo.</p>
 </div>
 </div>
 
@@ -146,11 +134,11 @@ body {
 <div id="entrega" class="section">
 <div class="panel-box">
 <h5>Módulo de Entrega</h5>
-<p>Contenido en desarrollo.</p>
+<p>En desarrollo.</p>
 </div>
 </div>
 
-<!-- ESTADO GENERAL -->
+<!-- ESTADO -->
 <div id="estado" class="section">
 <div class="panel-box">
 <h5>Estado General de Lotes</h5>
@@ -158,12 +146,48 @@ body {
 </div>
 </div>
 
+<!-- MODAL -->
+<div class="modal fade" id="modalLote">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="tituloLote"></h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+<form>
+<div class="mb-3">
+<label>Producto</label>
+<select class="form-select">
+<option>Pan Brioche Mini</option>
+</select>
+</div>
+<div class="mb-3">
+<label>PIN Operario</label>
+<input type="password" class="form-control">
+</div>
+<button type="button" class="btn btn-primary w-100">
+Iniciar Proceso
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzV368Wdxn16Ynn7NL9CNO18GPOyrZ6RZukPBI
-5mAKD6UQDd-ALnGQu9dfXpbFJKyI4/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzQO295YoshhzK24rsucjWfOJE6wxzCJB-69GqT0IqdxvxaiY1chfK4AUrHK_P5qidx/exec";
+
+let modal;
+
+document.addEventListener("DOMContentLoaded", function(){
+modal = new bootstrap.Modal(document.getElementById('modalLote'));
+cargarEstados();
+setInterval(cargarEstados, 5000);
+});
 
 function cambiarSeccion(id, element){
 document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active"));
@@ -173,12 +197,12 @@ document.querySelectorAll(".nav-link").forEach(link=>link.classList.remove("acti
 element.classList.add("active");
 }
 
+function abrirModal(lote){
+document.getElementById("tituloLote").innerText = lote;
+modal.show();
+}
+
 async function cargarEstados(){
-
-try {
-
-const res = await fetch(API_URL);
-const data = await res.json();
 
 const contenedor = document.getElementById("contenedorLotes");
 const estadoGeneral = document.getElementById("estadoSemaforo");
@@ -188,51 +212,58 @@ estadoGeneral.innerHTML = "";
 
 const totalLotes = 7;
 
+/* 🔹 Dibujar base en gris */
 for(let i=1; i<=totalLotes; i++){
 
-const loteNombre = "LOTE_" + i;
-
-const info = data.find(d => d.lote.includes(loteNombre));
-
-let color = "gris";
-let etapa = "No iniciado";
-let operario = "";
-
-if(info){
-color = "verde";
-etapa = info.etapa;
-operario = info.responsable || "";
-}
-
 contenedor.innerHTML += `
-<div class="lote-mini">
-<div class="indicador ${color}"></div>
+<div class="lote-mini" onclick="abrirModal('LOTE_${i}')">
+<div class="indicador gris"></div>
 <div class="lote-num">L${i}</div>
-<div class="etapa-texto">${etapa}</div>
-<div class="operario-texto">${operario}</div>
+<div class="etapa-texto">No iniciado</div>
+<div class="operario-texto"></div>
 </div>
 `;
 
 estadoGeneral.innerHTML += `
 <div class="col-md-3 mb-3">
-<div class="semaforo-card ${color}">
-L${i}<br>${etapa}
+<div class="semaforo-card gris">
+L${i}<br>No iniciado
 </div>
 </div>
 `;
 
 }
 
-} catch(error){
-console.error("Error cargando estados:", error);
-}
+/* 🔹 Intentar actualizar desde backend */
+try {
 
-}
+const res = await fetch(API_URL);
+const data = await res.json();
 
-document.addEventListener("DOMContentLoaded", function(){
-cargarEstados();
-setInterval(cargarEstados, 5000);
+data.forEach(info => {
+
+const match = info.lote.match(/LOTE_(\d+)/);
+if(!match) return;
+
+const num = match[1];
+
+const loteCards = document.querySelectorAll(".lote-mini");
+const semaforos = document.querySelectorAll(".semaforo-card");
+
+loteCards[num-1].querySelector(".indicador").className = "indicador verde";
+loteCards[num-1].querySelector(".etapa-texto").innerText = info.etapa;
+loteCards[num-1].querySelector(".operario-texto").innerText = info.responsable || "";
+
+semaforos[num-1].className = "semaforo-card verde";
+semaforos[num-1].innerHTML = `L${num}<br>${info.etapa}`;
+
 });
+
+} catch(error){
+console.log("Backend no disponible. Mostrando estado base.");
+}
+
+}
 
 </script>
 
