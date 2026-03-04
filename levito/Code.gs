@@ -19,7 +19,8 @@ const SHEETS = {
   MATERIAS_DECORADO:"DB_MATERIAS_DECORADO",
   CONSECUTIVO:      "DB_CONSECUTIVO",
   DESPACHO:         "DB_DESPACHO",
-  ENTREGA:          "DB_ENTREGA"
+  ENTREGA:          "DB_ENTREGA",
+  BITACORA_DETALLE: "DB_BITACORA_DETALLE"
 };
 
 const ETAPAS = [
@@ -81,6 +82,9 @@ function doGet(e) {
       case "GET_ENTREGAS":
         return jsonOk(getEntregas(parseInt(e.parameter.limit || "100", 10)));
 
+      case "GET_LOTE_ESTADO":
+        return jsonOk(getLoteEstado(e.parameter.id_lote));
+
       case "PING":
         return jsonOk({ status: "ok", timestamp: new Date().toISOString() });
 
@@ -126,6 +130,12 @@ function doPost(e) {
 
       case "REGISTRAR_ENTREGA":
         return jsonOk(registrarEntrega(data, operario));
+
+      case "PRE_GUARDAR_MOJADO":
+        return jsonOk(preGuardarMojado(data, operario));
+
+      case "PASAR_ETAPA_DESDE_MODAL":
+        return jsonOk(pasarEtapaDesdeModal(data, operario));
 
       default:
         return jsonError("Acción POST no reconocida: " + action);
@@ -378,6 +388,40 @@ function getEntregas(limit) {
 }
 
 // ============================================================
+// GET — ESTADO DETALLADO DE LOTE (MODO MODAL MULTI-DISPOSITIVO)
+// ============================================================
+
+function getLoteEstado(id_lote) {
+  if (!id_lote) return { status: "error", message: "id_lote requerido." };
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shLotes = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
+  if (!shLotes || shLotes.getLastRow() < 2) {
+    return { status: "error", message: "No hay lotes activos." };
+  }
+
+  const { fila } = buscarLote(shLotes, id_lote);
+  if (!fila) return { status: "error", message: "Lote no encontrado." };
+
+  const detalle = getUltimoDetalleByLote_(ss, id_lote, fila[4]) || {};
+
+  return {
+    status: "ok",
+    lote: {
+      slot: fila[0],
+      id_lote: fila[1],
+      producto_id: fila[2],
+      producto: fila[3],
+      etapa_actual: fila[4],
+      operario: fila[5],
+      hora_inicio: fila[6],
+      hora_etapa: fila[7]
+    },
+    detalle: detalle
+  };
+}
+
+// ============================================================
 // POST — INICIAR LOTE (Etapa: Mojado)
 // ============================================================
 
@@ -619,6 +663,74 @@ function registrarEntrega(data, operario) {
 }
 
 // ============================================================
+// POST — PRE-GUARDAR MOJADO (sin avanzar etapa)
+// Guarda JSON detalle en columna I y total_gramos_masa en J
+// ============================================================
+
+function preGuardarMojado(data, operario) {
+  if (!data.id_lote || !data.pin) {
+    return { status: "error", message: "id_lote y PIN requeridos." };
+  }
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shLotes = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
+  const { fila } = buscarLote(shLotes, data.id_lote);
+  if (!fila) return { status: "error", message: "Lote no encontrado." };
+
+  if (fila[4] !== "Mojado") {
+    return { status: "error", message: "Pre-guardado solo permitido en Mojado." };
+  }
+
+  const detalle = buildDetallePayload_(data);
+  const total = Number(data.total_gramos_masa || 0);
+  saveBitacoraDetalle_(ss, {
+    id_lote: data.id_lote,
+    slot: data.slot || fila[0],
+    etapa: "Mojado",
+    producto_id: data.producto_id || fila[2],
+    pin: data.pin,
+    operario: operario.nombre,
+    detalle: detalle,
+    total_gramos_masa: total
+  });
+
+  return { status: "ok", message: "Datos pre-guardados.", total_gramos_masa: total };
+}
+
+// ============================================================
+// POST — PASAR ETAPA DESDE MODAL
+// Si etapa actual es Mojado, primero persiste detalle y total
+// ============================================================
+
+function pasarEtapaDesdeModal(data, operario) {
+  if (!data.id_lote || !data.etapa || !data.slot) {
+    return { status: "error", message: "Datos incompletos para avanzar etapa." };
+  }
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shLotes = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
+  const { fila } = buscarLote(shLotes, data.id_lote);
+  if (!fila) return { status: "error", message: "Lote no encontrado." };
+
+  if (data.etapa === "Mojado") {
+    const detalle = buildDetallePayload_(data);
+    const total = Number(data.total_gramos_masa || 0);
+    saveBitacoraDetalle_(ss, {
+      id_lote: data.id_lote,
+      slot: data.slot || fila[0],
+      etapa: "Mojado",
+      producto_id: data.producto_id || fila[2],
+      pin: data.pin,
+      operario: operario.nombre,
+      detalle: detalle,
+      total_gramos_masa: total
+    });
+  }
+
+  return avanzarEtapa(data, operario);
+}
+
+// ============================================================
 // HELPERS INTERNOS
 // ============================================================
 
@@ -700,6 +812,62 @@ function getTiemposPromedioMap() {
   });
 
   return map;
+}
+
+function ensureBitacoraDetalleSheet_(ss) {
+  let sh = ss.getSheetByName(SHEETS.BITACORA_DETALLE);
+  if (!sh) {
+    sh = ss.insertSheet(SHEETS.BITACORA_DETALLE);
+    sh.appendRow([
+      "id_detalle", "id_lote", "slot", "etapa", "producto_id",
+      "timestamp_registro", "pin", "operario", "detalle_json", "total_gramos_masa"
+    ]);
+  }
+  return sh;
+}
+
+function saveBitacoraDetalle_(ss, payload) {
+  const sh = ensureBitacoraDetalleSheet_(ss);
+  sh.appendRow([
+    Utilities.getUuid(),
+    payload.id_lote,
+    payload.slot,
+    payload.etapa,
+    payload.producto_id,
+    new Date().toISOString(),
+    payload.pin,
+    payload.operario,
+    JSON.stringify(payload.detalle || {}),  // Columna I
+    Number(payload.total_gramos_masa || 0) // Columna J
+  ]);
+}
+
+function getUltimoDetalleByLote_(ss, id_lote, etapa) {
+  const sh = ss.getSheetByName(SHEETS.BITACORA_DETALLE);
+  if (!sh || sh.getLastRow() < 2) return null;
+
+  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 10).getValues();
+  for (let i = datos.length - 1; i >= 0; i--) {
+    const row = datos[i];
+    if (row[1] === id_lote && (!etapa || row[3] === etapa)) {
+      let detalle = {};
+      try {
+        detalle = row[8] ? JSON.parse(row[8]) : {};
+      } catch (e) {
+        detalle = {};
+      }
+      detalle.total_gramos_masa = Number(row[9] || 0);
+      return detalle;
+    }
+  }
+  return null;
+}
+
+function buildDetallePayload_(data) {
+  return {
+    cantidad: Number(data.cantidad || 0),
+    rows: Array.isArray(data.rows) ? data.rows : []
+  };
 }
 
 /**
