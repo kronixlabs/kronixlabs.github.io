@@ -381,7 +381,11 @@ async function apiGet(action, params){
 }
 
 async function apiPost(payload){
-  const r = await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const r = await fetch(API,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload)
+  });
   const txt = await r.text();
   try {
     return JSON.parse(txt);
@@ -511,7 +515,7 @@ async function iniciarMojado(){
     await cargarLotes();
   } catch (err) {
     console.error(err);
-    setStatus("m_status_inicio","No se pudo iniciar. Revisa permisos del Web App y despliegue.",true);
+    setStatus("m_status_inicio","No se pudo iniciar: " + (err.message || "error de red/permisos"),true);
   }
 }
 
