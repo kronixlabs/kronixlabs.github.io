@@ -149,15 +149,15 @@ LEVITO MES
 
 <div class="tabs">
 
-<div class="tab active" onclick="showTab('produccion')">
+<div class="tab active" onclick="showTab('produccion', this)">
 Producción
 </div>
 
-<div class="tab" onclick="showTab('despacho')">
+<div class="tab" onclick="showTab('despacho', this)">
 Despacho
 </div>
 
-<div class="tab" onclick="showTab('entrega')">
+<div class="tab" onclick="showTab('entrega', this)">
 Entrega
 </div>
 
@@ -240,6 +240,11 @@ Registrar despacho
 <input type="text" id="e_cliente" class="form-control">
 </div>
 
+<div class="col-md-3">
+<label>Cantidad</label>
+<input type="number" id="e_cantidad" class="form-control">
+</div>
+
 </div>
 
 <button class="btn btn-success" onclick="registrarEntrega()">
@@ -264,10 +269,10 @@ const ETAPAS=[
 "Empaque"
 ];
 
-function showTab(id){
+function showTab(id,el){
 
 document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-event.target.classList.add("active");
+el.classList.add("active");
 
 document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
@@ -375,21 +380,103 @@ ${progreso}
 
 
 function registrarDespacho(){
+const fecha=document.getElementById("d_fecha").value;
+const producto=document.getElementById("d_producto").value.trim();
+const id_lote=document.getElementById("d_lote").value.trim();
+const cantidad=parseFloat(document.getElementById("d_cantidad").value);
 
-alert("Conectar con API despacho");
+if(!fecha||!producto||!id_lote||!Number.isFinite(cantidad)||cantidad<=0){
+alert("Completa los datos de despacho correctamente.");
+return;
+}
+
+const pin=prompt("Ingresa PIN de operario:");
+if(!pin) return;
+
+postAction({
+action:"REGISTRAR_DESPACHO",
+pin:pin.trim(),
+fecha,
+producto,
+id_lote,
+cantidad
+});
 
 }
 
 function registrarEntrega(){
+const fecha=document.getElementById("e_fecha").value;
+const producto=document.getElementById("e_producto").value.trim();
+const id_lote=document.getElementById("e_lote").value.trim();
+const cliente=document.getElementById("e_cliente").value.trim();
+const cantidad=parseFloat(document.getElementById("e_cantidad").value);
 
-alert("Conectar con API entrega");
+if(!fecha||!producto||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0){
+alert("Completa los datos de entrega correctamente.");
+return;
+}
 
+const pin=prompt("Ingresa PIN de operario:");
+if(!pin) return;
+
+postAction({
+action:"REGISTRAR_ENTREGA",
+pin:pin.trim(),
+fecha,
+producto,
+id_lote,
+cliente,
+cantidad
+});
+
+}
+
+async function postAction(payload){
+try{
+const res=await fetch(API,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(payload)
+});
+const data=await res.json();
+
+if(data.status==="error"){
+alert(data.message||"Error en la operación.");
+return;
+}
+
+alert(data.message||"Operación registrada.");
+limpiarFormulario(payload.action);
+}catch(err){
+alert("No se pudo conectar con la API.");
+console.error(err);
+}
+}
+
+function limpiarFormulario(action){
+if(action==="REGISTRAR_DESPACHO"){
+document.getElementById("d_producto").value="";
+document.getElementById("d_lote").value="";
+document.getElementById("d_cantidad").value="";
+return;
+}
+
+if(action==="REGISTRAR_ENTREGA"){
+document.getElementById("e_producto").value="";
+document.getElementById("e_lote").value="";
+document.getElementById("e_cliente").value="";
+document.getElementById("e_cantidad").value="";
+}
 }
 
 
 cargarLotes();
 
 setInterval(cargarLotes,15000);
+
+const hoy=new Date().toISOString().slice(0,10);
+document.getElementById("d_fecha").value=hoy;
+document.getElementById("e_fecha").value=hoy;
 
 </script>
 

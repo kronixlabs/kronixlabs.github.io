@@ -17,7 +17,9 @@ const SHEETS = {
   TIEMPOS:          "DB_TIEMPOS_PROMEDIO",
   CONFIG_HORNO:     "DB_CONFIG_HORNO",
   MATERIAS_DECORADO:"DB_MATERIAS_DECORADO",
-  CONSECUTIVO:      "DB_CONSECUTIVO"
+  CONSECUTIVO:      "DB_CONSECUTIVO",
+  DESPACHO:         "DB_DESPACHO",
+  ENTREGA:          "DB_ENTREGA"
 };
 
 const ETAPAS = [
@@ -73,6 +75,12 @@ function doGet(e) {
       case "GET_TEMP_HORNO":
         return jsonOk(getTempHorno(e.parameter.producto_id));
 
+      case "GET_DESPACHOS":
+        return jsonOk(getDespachos(parseInt(e.parameter.limit || "100", 10)));
+
+      case "GET_ENTREGAS":
+        return jsonOk(getEntregas(parseInt(e.parameter.limit || "100", 10)));
+
       case "PING":
         return jsonOk({ status: "ok", timestamp: new Date().toISOString() });
 
@@ -112,6 +120,12 @@ function doPost(e) {
 
       case "SALTAR_ETAPA":
         return jsonOk(saltarEtapa(data, operario));
+
+      case "REGISTRAR_DESPACHO":
+        return jsonOk(registrarDespacho(data, operario));
+
+      case "REGISTRAR_ENTREGA":
+        return jsonOk(registrarEntrega(data, operario));
 
       default:
         return jsonError("Acción POST no reconocida: " + action);
@@ -309,10 +323,69 @@ function getTempHorno(producto_id) {
 }
 
 // ============================================================
+// GET — DESPACHOS
+// ============================================================
+
+function getDespachos(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.DESPACHO);
+  if (!sh || sh.getLastRow() < 2) return [];
+
+  const maxRows = Math.max(1, Math.min(limit || 100, 500));
+  const totalRows = sh.getLastRow() - 1;
+  const rowsToRead = Math.min(maxRows, totalRows);
+  const startRow = sh.getLastRow() - rowsToRead + 1;
+  const datos = sh.getRange(startRow, 1, rowsToRead, 8).getValues();
+
+  return datos.reverse().map(r => ({
+    id_registro: r[0],
+    fecha: r[1],
+    producto: r[2],
+    id_lote: r[3],
+    cantidad: r[4],
+    pin: r[5],
+    operario: r[6],
+    timestamp_registro: r[7]
+  }));
+}
+
+// ============================================================
+// GET — ENTREGAS
+// ============================================================
+
+function getEntregas(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.ENTREGA);
+  if (!sh || sh.getLastRow() < 2) return [];
+
+  const maxRows = Math.max(1, Math.min(limit || 100, 500));
+  const totalRows = sh.getLastRow() - 1;
+  const rowsToRead = Math.min(maxRows, totalRows);
+  const startRow = sh.getLastRow() - rowsToRead + 1;
+  const datos = sh.getRange(startRow, 1, rowsToRead, 9).getValues();
+
+  return datos.reverse().map(r => ({
+    id_registro: r[0],
+    fecha: r[1],
+    producto: r[2],
+    id_lote: r[3],
+    cliente: r[4],
+    cantidad: r[5],
+    pin: r[6],
+    operario: r[7],
+    timestamp_registro: r[8]
+  }));
+}
+
+// ============================================================
 // POST — INICIAR LOTE (Etapa: Mojado)
 // ============================================================
 
 function iniciarLote(data, operario) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+
+  try {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
   // 1. Generar número de lote y actualizar consecutivo
@@ -373,6 +446,9 @@ function iniciarLote(data, operario) {
     id_lote: id_lote,
     message: "Lote " + id_lote + " iniciado correctamente en Slot " + data.slot
   };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // ============================================================
@@ -472,6 +548,74 @@ function saltarEtapa(data, operario) {
     etapa_siguiente: etapa_siguiente,
     message:         etapa_saltada + " omitida. Continuando con: " + etapa_siguiente
   };
+}
+
+// ============================================================
+// POST — REGISTRAR DESPACHO
+// ============================================================
+
+function registrarDespacho(data, operario) {
+  const fecha = String(data.fecha || "").trim();
+  const producto = String(data.producto || "").trim();
+  const id_lote = String(data.id_lote || "").trim();
+  const cantidad = Number(data.cantidad);
+
+  if (!fecha || !producto || !id_lote || !Number.isFinite(cantidad) || cantidad <= 0) {
+    return { status: "error", message: "Datos inválidos para despacho." };
+  }
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.DESPACHO);
+  if (!sh) return { status: "error", message: "No existe la hoja DB_DESPACHO." };
+
+  const now = new Date().toISOString();
+  sh.appendRow([
+    Utilities.getUuid(),
+    fecha,
+    producto,
+    id_lote,
+    cantidad,
+    data.pin,
+    operario.nombre,
+    now
+  ]);
+
+  return { status: "ok", message: "Despacho registrado correctamente." };
+}
+
+// ============================================================
+// POST — REGISTRAR ENTREGA
+// ============================================================
+
+function registrarEntrega(data, operario) {
+  const fecha = String(data.fecha || "").trim();
+  const producto = String(data.producto || "").trim();
+  const id_lote = String(data.id_lote || "").trim();
+  const cliente = String(data.cliente || "").trim();
+  const cantidad = Number(data.cantidad);
+
+  if (!fecha || !producto || !id_lote || !cliente || !Number.isFinite(cantidad) || cantidad <= 0) {
+    return { status: "error", message: "Datos inválidos para entrega." };
+  }
+
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.ENTREGA);
+  if (!sh) return { status: "error", message: "No existe la hoja DB_ENTREGA." };
+
+  const now = new Date().toISOString();
+  sh.appendRow([
+    Utilities.getUuid(),
+    fecha,
+    producto,
+    id_lote,
+    cliente,
+    cantidad,
+    data.pin,
+    operario.nombre,
+    now
+  ]);
+
+  return { status: "ok", message: "Entrega registrada correctamente." };
 }
 
 // ============================================================

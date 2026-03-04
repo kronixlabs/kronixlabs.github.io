@@ -17,9 +17,11 @@ function setupDatabase() {
   crearHoja_ConfigHorno(ss);
   crearHoja_MateriasDecorado(ss);
   crearHoja_Consecutivo(ss);
+  crearHoja_Despacho(ss);
+  crearHoja_Entrega(ss);
 
   Logger.log("✅ Base de datos configurada correctamente.");
-  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 9 hojas con datos de ejemplo.");
+  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 11 hojas con datos de ejemplo.");
 }
 
 // ============================================================
@@ -337,6 +339,59 @@ function crearHoja_Consecutivo(ss) {
 }
 
 // ============================================================
+// DB_DESPACHO
+// Registro de salida de producto terminado desde planta
+// Columnas: id_registro | fecha | producto | id_lote | cantidad |
+//           pin | operario | timestamp_registro
+// ============================================================
+function crearHoja_Despacho(ss) {
+  const sh = getOrCreateSheet(ss, "DB_DESPACHO");
+  const headers = [
+    "id_registro", "fecha", "producto", "id_lote", "cantidad",
+    "pin", "operario", "timestamp_registro"
+  ];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 110);
+  sh.setColumnWidth(3, 180);
+  sh.setColumnWidth(4, 110);
+  sh.setColumnWidth(5, 90);
+  sh.setColumnWidth(6, 70);
+  sh.setColumnWidth(7, 130);
+  sh.setColumnWidth(8, 170);
+  Logger.log("DB_DESPACHO: lista para registros.");
+}
+
+// ============================================================
+// DB_ENTREGA
+// Registro de entrega al cliente final
+// Columnas: id_registro | fecha | producto | id_lote | cliente |
+//           cantidad | pin | operario | timestamp_registro
+// ============================================================
+function crearHoja_Entrega(ss) {
+  const sh = getOrCreateSheet(ss, "DB_ENTREGA");
+  const headers = [
+    "id_registro", "fecha", "producto", "id_lote", "cliente",
+    "cantidad", "pin", "operario", "timestamp_registro"
+  ];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 110);
+  sh.setColumnWidth(3, 180);
+  sh.setColumnWidth(4, 110);
+  sh.setColumnWidth(5, 180);
+  sh.setColumnWidth(6, 90);
+  sh.setColumnWidth(7, 70);
+  sh.setColumnWidth(8, 130);
+  sh.setColumnWidth(9, 170);
+  Logger.log("DB_ENTREGA: lista para registros.");
+}
+
+// ============================================================
 // FUNCIÓN AUXILIAR: Mostrar resumen de hojas creadas
 // ============================================================
 function verificarBaseDeDatos() {
@@ -344,7 +399,8 @@ function verificarBaseDeDatos() {
   const hojas = [
     "DB_OPERARIOS", "DB_PRODUCTOS", "DB_FORMULA",
     "DB_LOTES_ACTIVOS", "DB_BITACORA", "DB_TIEMPOS_PROMEDIO",
-    "DB_CONFIG_HORNO", "DB_MATERIAS_DECORADO", "DB_CONSECUTIVO"
+    "DB_CONFIG_HORNO", "DB_MATERIAS_DECORADO", "DB_CONSECUTIVO",
+    "DB_DESPACHO", "DB_ENTREGA"
   ];
 
   let reporte = "VERIFICACIÓN DE BASE DE DATOS LEVITO MES\n";
