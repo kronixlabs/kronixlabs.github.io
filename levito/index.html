@@ -3,141 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Levito | Control de Producción</title>
+<title>LEVITO | MES Industrial</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
-.navbar { background: white; border-bottom: 3px solid #e67e22; padding: 10px 20px; }
-.logo-kronix { height: 40px; }
-.logo-levito { height: 60px; }
-.header-title { font-weight: bold; color: #2c3e50; margin: 0; }
-
-.pin-container {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-gap: 20px;
-padding: 20px;
+body {
+background: radial-gradient(circle at 20% 20%, #1b1f3a, #0d0f1c 70%);
+font-family: 'Segoe UI', sans-serif;
+color:white;
 }
 
-.pin-card {
-height: 160px;
-border-radius: 20px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-color: white;
-cursor: pointer;
-transition: 0.3s;
-border: none;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+/* NAVBAR */
+.navbar {
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+padding:15px 30px;
 }
 
-.pin-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+.brand-title {
+font-weight:600;
+letter-spacing:1px;
 }
 
-.ocupado {
-opacity: 0.7;
+/* PANEL */
+.panel-box {
+background: rgba(255,255,255,0.05);
+border-radius:20px;
+padding:30px;
+box-shadow: 0 0 40px rgba(0,0,0,0.3);
 }
 
-/* Colores */
-.rojo { background: linear-gradient(145deg, #ff4b2b, #ff416c); }
-.azul { background: linear-gradient(145deg, #2193b0, #6dd5ed); }
-.verde { background: linear-gradient(145deg, #11998e, #38ef7d); }
-.amarillo { background: linear-gradient(145deg, #fbb034, #ffdd00); color: #333; }
-.blanco { background: #ffffff; color: #333; border: 1px solid #ddd; }
-.negro { background: #232526; }
-.naranja { background: linear-gradient(145deg, #f12711, #f5af19); }
-.morado { background: linear-gradient(145deg, #8e2de2, #4a00e0); }
+/* LOTES */
+.lote-card {
+width:140px;
+height:150px;
+border-radius:18px;
+background: rgba(255,255,255,0.05);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.lote-card:hover {
+background: rgba(255,255,255,0.1);
+transform: translateY(-4px);
+}
+
+.indicador {
+width:20px;
+height:20px;
+border-radius:50%;
+margin-bottom:8px;
+}
+
+.gris { background:#7f8c8d; }
+.verde { background:#2ecc71; }
+
+.lote-num {
+font-size:16px;
+font-weight:600;
+}
+
+.etapa-texto {
+font-size:12px;
+opacity:.8;
+text-align:center;
+}
+
+.operario-texto {
+font-size:11px;
+opacity:.5;
+text-align:center;
+}
+
+/* MODAL */
+.modal-content {
+background:#111428;
+color:white;
+border-radius:20px;
+}
+
+.btn-primary {
+background: linear-gradient(90deg,#00c6ff,#0072ff);
+border:none;
+}
 </style>
 </head>
 
 <body>
 
 <nav class="navbar d-flex justify-content-between align-items-center">
-<img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-kronix.png" class="logo-kronix">
-<h3 class="header-title">LEVITO - MES SYSTEM</h3>
-<img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-levito.png" class="logo-levito">
+<div class="brand-title">LEVITO MES • Sistema Industrial</div>
+<div id="estadoConexion" style="font-size:12px; opacity:.6;">
+Conectando...
+</div>
 </nav>
 
-<div class="container mt-4">
-<div class="alert alert-dark text-center">PANEL DE CONTROL DE LOTES</div>
+<div class="container mt-5">
+<div class="panel-box">
 
-<div class="pin-container">
+<h5 class="mb-4">Panel Operativo de Lotes</h5>
 
-<div class="pin-card rojo" id="Rojo" onclick="abrirModal('Rojo')">
-<h3>Rojo</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card azul" id="Azul" onclick="abrirModal('Azul')">
-<h3>Azul</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card verde" id="Verde" onclick="abrirModal('Verde')">
-<h3>Verde</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card amarillo" id="Amarillo" onclick="abrirModal('Amarillo')">
-<h3>Amarillo</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card blanco" id="Blanco" onclick="abrirModal('Blanco')">
-<h3>Blanco</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card negro" id="Negro" onclick="abrirModal('Negro')">
-<h3>Negro</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card naranja" id="Naranja" onclick="abrirModal('Naranja')">
-<h3>Naranja</h3>
-<span class="estado">LIBRE</span>
-</div>
-
-<div class="pin-card morado" id="Morado" onclick="abrirModal('Morado')">
-<h3>Morado</h3>
-<span class="estado">LIBRE</span>
-</div>
+<div id="contenedorLotes" class="d-flex flex-wrap gap-4 justify-content-center"></div>
 
 </div>
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="modalLote" tabindex="-1">
+<div class="modal fade" id="modalLote">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title" id="tituloPin"></h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<h5 class="modal-title" id="tituloLote"></h5>
+<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
 </div>
+
 <div class="modal-body">
 
 <form id="formLote">
+
+<div class="mb-3">
+<label>Producto</label>
+<select class="form-select">
+<option value="BRIO-MINI-A">Pan Brioche Mini</option>
+</select>
+</div>
 
 <div class="mb-3">
 <label>PIN Operario</label>
 <input type="password" id="operarioPin" class="form-control" required>
 </div>
 
-<div class="mb-3">
-<label>Producto</label>
-<select id="prodId" class="form-select">
-<option value="BRIO-MINI-A">Pan Brioche Mini</option>
-</select>
-</div>
-
 <button type="submit" class="btn btn-primary w-100">
-INICIAR MOJADO
+INICIAR PROCESO
 </button>
 
 </form>
@@ -151,51 +153,68 @@ INICIAR MOJADO
 
 <script>
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzQO295YoshhzK24rsucjWfOJE6wxzCJB-69GqT0IqdxvxaiY1chfK4AUrHK_P5qidx/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwfqQMKFffpmbOORvnBn_dkPhtdQPbaTtYv5Levdqm78rRBVdGf6vIRYlkkFNElzN-t/exec";
 
-let colorActivo = "";
-let modal = new bootstrap.Modal(document.getElementById('modalLote'));
+let modal;
+let loteSeleccionado = "";
 
-function abrirModal(color){
-colorActivo = color;
-document.getElementById('tituloPin').innerText = "Pin " + color + " - Nuevo Lote";
+document.addEventListener("DOMContentLoaded", function(){
+modal = new bootstrap.Modal(document.getElementById('modalLote'));
+dibujarBase();
+cargarEstados();
+setInterval(cargarEstados, 5000);
+});
+
+function dibujarBase(){
+
+const contenedor = document.getElementById("contenedorLotes");
+contenedor.innerHTML = "";
+
+for(let i=1;i<=7;i++){
+contenedor.innerHTML += `
+<div class="lote-card" onclick="abrirModal('LOTE_${i}')">
+<div class="indicador gris"></div>
+<div class="lote-num">L${i}</div>
+<div class="etapa-texto">No iniciado</div>
+<div class="operario-texto"></div>
+</div>
+`;
+}
+
+}
+
+function abrirModal(lote){
+loteSeleccionado = lote;
+document.getElementById("tituloLote").innerText = lote.replace("_"," ");
 modal.show();
 }
 
-document.getElementById('formLote').addEventListener('submit', async function(e){
+document.getElementById("formLote").addEventListener("submit", async function(e){
 
 e.preventDefault();
 
-const pin = document.getElementById('operarioPin').value;
-
-const data = {
-action: "INICIAR_MOJADO",
-pin: pin,
-color_pin: colorActivo,
-producto_id: "BRIO-MINI-A",
-empaque: "Flowpack",
-fecha_venc: "2026-03-15"
-};
+const pin = document.getElementById("operarioPin").value;
 
 try {
 
-const res = await fetch(API_URL, {
-method: 'POST',
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify(data)
+const res = await fetch(API_URL,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+action:"INICIAR_MOJADO",
+pin: pin,
+color_pin: loteSeleccionado,
+producto_id:"BRIO-MINI-A",
+empaque:"Flowpack",
+fecha_venc:"2026-03-15"
+})
 });
 
 const result = await res.json();
 
-if(result.status === "ok"){
-
-alert("Lote creado: " + result.id_lote_unico);
-
-document.getElementById(colorActivo).classList.add("ocupado");
-document.querySelector("#"+colorActivo+" .estado").innerText = "OCUPADO";
-
+if(result.status==="ok"){
 modal.hide();
-
+cargarEstados();
 } else {
 alert(result.message);
 }
@@ -206,6 +225,37 @@ console.error(error);
 }
 
 });
+
+async function cargarEstados(){
+
+try {
+
+const res = await fetch(API_URL);
+const data = await res.json();
+
+document.getElementById("estadoConexion").innerText = "Conectado ✓";
+
+const cards = document.querySelectorAll(".lote-card");
+
+data.forEach(info => {
+
+const match = info.lote.match(/LOTE_(\d+)/);
+if(!match) return;
+
+const index = match[1] - 1;
+
+cards[index].querySelector(".indicador").className = "indicador verde";
+cards[index].querySelector(".etapa-texto").innerText = info.etapa;
+cards[index].querySelector(".operario-texto").innerText = info.responsable;
+
+});
+
+} catch(error){
+document.getElementById("estadoConexion").innerText = "Sin conexión";
+console.error(error);
+}
+
+}
 
 </script>
 
