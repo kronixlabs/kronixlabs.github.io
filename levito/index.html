@@ -372,12 +372,22 @@ function showTab(id, el){
 async function apiGet(action, params){
   const q = new URLSearchParams({ action, ...(params||{}) });
   const r = await fetch(`${API}?${q.toString()}`);
-  return r.json();
+  const txt = await r.text();
+  try {
+    return JSON.parse(txt);
+  } catch (e) {
+    throw new Error("Respuesta no JSON en GET " + action + ": " + txt.slice(0, 120));
+  }
 }
 
 async function apiPost(payload){
   const r = await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-  return r.json();
+  const txt = await r.text();
+  try {
+    return JSON.parse(txt);
+  } catch (e) {
+    throw new Error("Respuesta no JSON en POST " + payload.action + ": " + txt.slice(0, 120));
+  }
 }
 
 function setStatus(id,msg,isError){
@@ -429,21 +439,26 @@ function nombreBotonPaso(etapa){
 }
 
 async function onPinClick(slot){
-  state.activePin = slot;
-  await cargarLotes();
-  const lote = state.lotes.find(l => parseInt(l.slot,10) === slot) || null;
-  state.activeLote = lote;
-  document.getElementById("pinModalTitle").textContent = lote ? `${lote.producto} | ${lote.id_lote}` : `LOTE ${slot} | DISPONIBLE`;
-  document.getElementById("pinViewDisponible").style.display = lote ? "none" : "block";
-  document.getElementById("pinViewProceso").style.display = lote ? "block" : "none";
-  setStatus("m_status_inicio","",false);
-  setStatus("m_status_etapa","",false);
-  if(!lote){
-    await fillProductosModal();
-  }else{
-    await cargarPantallaEtapa(lote);
+  try {
+    state.activePin = slot;
+    await cargarLotes();
+    const lote = state.lotes.find(l => parseInt(l.slot,10) === slot) || null;
+    state.activeLote = lote;
+    document.getElementById("pinModalTitle").textContent = lote ? `${lote.producto} | ${lote.id_lote}` : `LOTE ${slot} | DISPONIBLE`;
+    document.getElementById("pinViewDisponible").style.display = lote ? "none" : "block";
+    document.getElementById("pinViewProceso").style.display = lote ? "block" : "none";
+    setStatus("m_status_inicio","",false);
+    setStatus("m_status_etapa","",false);
+    if(!lote){
+      await fillProductosModal();
+    }else{
+      await cargarPantallaEtapa(lote);
+    }
+    state.modal.show();
+  } catch (err) {
+    console.error(err);
+    alert("No se pudo abrir el flujo del pin. Verifica despliegue/API.");
   }
-  state.modal.show();
 }
 
 async function fillProductosModal(){
@@ -472,27 +487,32 @@ function calcTotalGramos(rows){
 }
 
 async function iniciarMojado(){
-  const payload = {
-    action:"INICIAR_LOTE",
-    slot: state.activePin,
-    producto_id: document.getElementById("m_producto").value,
-    cantidad: Number(document.getElementById("m_cantidad").value || "0"),
-    temp_amb: Number(document.getElementById("m_temp").value || "0"),
-    hum_amb: Number(document.getElementById("m_hum").value || "0"),
-    pin: document.getElementById("m_pin_inicio").value.trim(),
-    materias_primas:[]
-  };
-  if(!payload.producto_id || !payload.cantidad || !payload.pin){
-    setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);
-    return;
+  try {
+    const payload = {
+      action:"INICIAR_LOTE",
+      slot: state.activePin,
+      producto_id: document.getElementById("m_producto").value,
+      cantidad: Number(document.getElementById("m_cantidad").value || "0"),
+      temp_amb: Number(document.getElementById("m_temp").value || "0"),
+      hum_amb: Number(document.getElementById("m_hum").value || "0"),
+      pin: document.getElementById("m_pin_inicio").value.trim(),
+      materias_primas:[]
+    };
+    if(!payload.producto_id || !payload.cantidad || !payload.pin){
+      setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);
+      return;
+    }
+    const r = await apiPost(payload);
+    if(r.status==="error"){
+      setStatus("m_status_inicio",r.message || "Error al iniciar mojado.",true);
+      return;
+    }
+    state.modal.hide();
+    await cargarLotes();
+  } catch (err) {
+    console.error(err);
+    setStatus("m_status_inicio","No se pudo iniciar. Revisa permisos del Web App y despliegue.",true);
   }
-  const r = await apiPost(payload);
-  if(r.status==="error"){
-    setStatus("m_status_inicio",r.message || "Error al iniciar mojado.",true);
-    return;
-  }
-  state.modal.hide();
-  await cargarLotes();
 }
 
 async function cargarPantallaEtapa(lote){
@@ -605,9 +625,14 @@ async function pasarEtapa(){
 }
 
 async function cargarLotes(){
-  const data = await apiGet("GET_ALL_ACTIVOS");
-  state.lotes = Array.isArray(data) ? data : [];
-  renderPines();
+  try {
+    const data = await apiGet("GET_ALL_ACTIVOS");
+    state.lotes = Array.isArray(data) ? data : [];
+    renderPines();
+  } catch (err) {
+    console.error(err);
+    alert("Error cargando tablero de pines.");
+  }
 }
 
 async function registrarDespacho(){

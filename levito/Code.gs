@@ -166,7 +166,7 @@ function getAllActivos() {
     .map(r => {
       const slot          = parseInt(r[0]);
       const id_lote       = r[1];
-      const producto_id   = r[2];
+      const producto_id   = normalizeProductId_(r[2]);
       const producto      = r[3];
       const etapa_actual  = r[4];
       const operario      = r[5];
@@ -243,7 +243,7 @@ function getProductos() {
   return datos
     .filter(r => r[0] !== "" && r[5] === true)
     .map(r => ({
-      codigo:        r[0],
+      codigo:        normalizeProductId_(r[0]),
       nombre:        r[1],
       empaque:       r[2],
       peso_neto:     r[3],
@@ -267,7 +267,7 @@ function getFormula(producto_id) {
   const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues();
 
   return datos
-    .filter(r => r[0] === producto_id)
+    .filter(r => normalizeProductId_(r[0]) === normalizeProductId_(producto_id))
     .map(r => ({
       ingrediente:    r[1],
       cantidad_base:  parseFloat(r[2]),
@@ -322,7 +322,7 @@ function getTempHorno(producto_id) {
   if (!sh || sh.getLastRow() < 2) return {};
 
   const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues();
-  const fila  = datos.find(r => r[0] === producto_id && r[3] === true);
+  const fila  = datos.find(r => normalizeProductId_(r[0]) === normalizeProductId_(producto_id) && r[3] === true);
 
   if (!fila) return {};
 
@@ -779,7 +779,7 @@ function getProductoPorId(ss, codigo) {
   if (!sh || sh.getLastRow() < 2) return null;
 
   const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 6).getValues();
-  const fila  = datos.find(r => r[0] === codigo);
+  const fila  = datos.find(r => normalizeProductId_(r[0]) === normalizeProductId_(codigo));
 
   if (!fila) return null;
 
@@ -807,7 +807,7 @@ function getTiemposPromedioMap() {
 
   datos.forEach(r => {
     if (r[0] && r[1] && r[3] === true) {
-      map[r[0] + "_" + r[1]] = parseFloat(r[2]);
+      map[normalizeProductId_(r[0]) + "_" + r[1]] = parseFloat(r[2]);
     }
   });
 
@@ -868,6 +868,14 @@ function buildDetallePayload_(data) {
     cantidad: Number(data.cantidad || 0),
     rows: Array.isArray(data.rows) ? data.rows : []
   };
+}
+
+function normalizeProductId_(value) {
+  if (value === null || value === undefined) return "";
+  if (Object.prototype.toString.call(value) === "[object Date]") {
+    return value.toISOString();
+  }
+  return String(value).trim();
 }
 
 /**
