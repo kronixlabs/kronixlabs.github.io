@@ -64,6 +64,12 @@ body::after{
 .pin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .tag-gray{background:#334155;color:#cbd5e1;padding:2px 8px;border-radius:999px;font-size:11px}
 input,select{background:#0f172a!important;color:#fff!important;border:1px solid #1e293b!important}
+input[type="date"]{color-scheme:dark}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  filter: invert(1) brightness(1.2);
+  opacity: .95;
+  cursor: pointer;
+}
 .table{color:#fff}
 .table th,.table td{vertical-align:middle}
 .table-dark.table-striped>tbody>tr:nth-of-type(odd)>*{background:#162033}
@@ -689,7 +695,7 @@ function renderDecoradoRows(rows){
     <tr>
       <td><select class="form-control dec-materia"><option value="">Seleccionar</option>${opts}</select></td>
       <td><input class="form-control dec-lote" value="${r.lote || ""}"></td>
-      <td><input type="date" class="form-control dec-venc" value="${r.vencimiento || ""}"></td>
+      <td><input type="date" class="form-control dec-venc js-date" value="${r.vencimiento || ""}" onclick="tryShowPicker(this)" onfocus="tryShowPicker(this)"></td>
     </tr>
   `).join("");
   const selects = document.querySelectorAll(".dec-materia");
@@ -697,9 +703,12 @@ function renderDecoradoRows(rows){
 }
 
 function renderFormulaRows(rows){
-  document.getElementById("m_formula_body").innerHTML = rows.map(r=>`<tr data-ingrediente="${r.ingrediente||""}" data-gramos="${Number(r.gramos||0)}"><td>${r.ingrediente||""}</td><td>${Number(r.gramos||0).toFixed(2)}</td><td><input class="form-control in-lote" value="${r.lote_materia_prima||""}"></td><td><input type="date" class="form-control in-venc" value="${r.fecha_vencimiento||""}"></td></tr>`).join("");
+  document.getElementById("m_formula_body").innerHTML = rows.map(r=>`<tr data-ingrediente="${r.ingrediente||""}" data-gramos="${Number(r.gramos||0)}"><td>${r.ingrediente||""}</td><td>${Number(r.gramos||0).toFixed(2)}</td><td><input class="form-control in-lote" value="${r.lote_materia_prima||""}"></td><td><input type="date" class="form-control in-venc js-date" value="${r.fecha_vencimiento||""}" onclick="tryShowPicker(this)" onfocus="tryShowPicker(this)"></td></tr>`).join("");
 }
 function openDatePicker(btn){const txt=btn.parentElement.querySelector(".in-venc");const p=document.createElement("input");p.type="date";p.style.position="fixed";p.style.left="-9999px";p.onchange=()=>{txt.value=p.value};document.body.appendChild(p);if(p.showPicker)p.showPicker();else p.click();setTimeout(()=>p.remove(),1200);}
+function tryShowPicker(el){
+  try{ if(el && typeof el.showPicker === "function") el.showPicker(); }catch(_){}
+}
 
 async function finalizarProcesoManual(){
   const lote=state.activeLote;if(!lote){setStatus("m_status_etapa","No hay lote activo.",true);return;}
@@ -840,6 +849,10 @@ async function init(){
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
+  document.querySelectorAll('input[type="date"]').forEach(el=>{
+    el.addEventListener("focus",()=>tryShowPicker(el));
+    el.addEventListener("click",()=>tryShowPicker(el));
+  });
   const tabsRoot = document.querySelector(".tabs");
   if(tabsRoot){
     tabsRoot.addEventListener("pointerdown",()=>clearUiLocks());
