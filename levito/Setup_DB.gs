@@ -7,6 +7,7 @@
 function setupDatabase() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   Logger.log("Iniciando configuración de base de datos LEVITO MES...");
+  prepararEstructuraExacta_(ss);
 
   crearHoja_Operarios(ss);
   crearHoja_Productos(ss);
@@ -19,9 +20,12 @@ function setupDatabase() {
   crearHoja_Consecutivo(ss);
   crearHoja_Despacho(ss);
   crearHoja_Entrega(ss);
+  crearHoja_InventarioProducto(ss);
+  crearHoja_MovInventario(ss);
+  eliminarHojaTemporal_(ss);
 
   Logger.log("✅ Base de datos configurada correctamente.");
-  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 11 hojas con datos de ejemplo.");
+  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 13 hojas con datos de ejemplo.");
 }
 
 // ============================================================
@@ -47,6 +51,53 @@ function formatHeader(sh, numCols) {
   header.setFontWeight("bold");
   header.setFontSize(10);
   sh.setFrozenRows(1);
+}
+
+// Deja solo las hojas DB del sistema y elimina pestañas antiguas/no usadas.
+function prepararEstructuraExacta_(ss) {
+  const hojasObjetivo = new Set([
+    "DB_OPERARIOS",
+    "DB_PRODUCTOS",
+    "DB_FORMULA",
+    "DB_LOTES_ACTIVOS",
+    "DB_BITACORA",
+    "DB_TIEMPOS_PROMEDIO",
+    "DB_CONFIG_HORNO",
+    "DB_MATERIAS_DECORADO",
+    "DB_CONSECUTIVO",
+    "DB_DESPACHO",
+    "DB_ENTREGA",
+    "DB_INVENTARIO_PRODUCTO",
+    "DB_MOV_INVENTARIO",
+    "DB_BITACORA_DETALLE"
+  ]);
+
+  const hojas = ss.getSheets();
+  if (!hojas.length) return;
+
+  // Si hay solo 1 hoja y no es objetivo, mantenerla temporalmente
+  // hasta crear las DB y evitar error de "no se puede eliminar última hoja".
+  let hojaTemporal = null;
+  if (hojas.length === 1 && !hojasObjetivo.has(hojas[0].getName())) {
+    hojaTemporal = hojas[0];
+    hojaTemporal.setName("TMP_SETUP_LEVITO");
+  }
+
+  ss.getSheets().forEach(sh => {
+    const nombre = sh.getName();
+    if (!hojasObjetivo.has(nombre) && nombre !== "TMP_SETUP_LEVITO") {
+      ss.deleteSheet(sh);
+      Logger.log("Eliminada hoja legacy: " + nombre);
+    }
+  });
+}
+
+function eliminarHojaTemporal_(ss) {
+  const tmp = ss.getSheetByName("TMP_SETUP_LEVITO");
+  if (tmp && ss.getSheets().length > 1) {
+    ss.deleteSheet(tmp);
+    Logger.log("Eliminada hoja temporal de setup.");
+  }
 }
 
 // ============================================================
@@ -86,6 +137,7 @@ function crearHoja_Productos(ss) {
   const headers = ["codigo", "nombre", "empaque", "peso_neto", "unidades_caja", "activo"];
   sh.appendRow(headers);
   formatHeader(sh, headers.length);
+  sh.getRange("A:A").setNumberFormat("@");
 
   const datos = [
     ["0903-1", "BRIOCHE MINI",      "Bolsa 8x18 x 10 unidades", "350g",  10, true],
@@ -93,6 +145,7 @@ function crearHoja_Productos(ss) {
     ["0904-1", "PAN DE LECHE",      "Bolsa 8x18 x 8 unidades",   "280g",  8,  true],
     ["0905-1", "CROISSANT SIMPLE",  "Bolsa 8x18 x 6 unidades",   "240g",  6,  true],
     ["0906-1", "CROISSANT RELLENO", "Bolsa 10x18 x 4 unidades",  "320g",  4,  true],
+    ["PAN-HB-1", "PAN HAMBURGUESA BRIOCHE", "Bolsa x 6 unidades", "420g", 6, true],
   ];
   datos.forEach(r => sh.appendRow(r));
 
@@ -111,9 +164,10 @@ function crearHoja_Productos(ss) {
 // ============================================================
 function crearHoja_Formula(ss) {
   const sh = getOrCreateSheet(ss, "DB_FORMULA");
-  const headers = ["producto_id", "ingrediente", "cantidad_base_g", "unidad"];
+  const headers = ["producto_id", "ingrediente", "cantidad_base_g", "unidad", "porcentaje_panadero"];
   sh.appendRow(headers);
   formatHeader(sh, headers.length);
+  sh.getRange("A:A").setNumberFormat("@");
 
   // BRIOCHE MINI (0903-1) — valores por unidad (10 unidades = 1 bolsa)
   const formula_0903_1 = [
@@ -150,12 +204,32 @@ function crearHoja_Formula(ss) {
     ["0904-1", "Agua",              9.0,   "g"],
   ];
 
-  [...formula_0903_1, ...formula_0903_2, ...formula_0904_1].forEach(r => sh.appendRow(r));
+  // PAN HAMBURGUESA BRIOCHE (PAN-HB-1) — fórmula base por lote con % panadero
+  const formula_pan_hamburguesa = [
+    ["PAN-HB-1", "Harina",               5500, "g", 100],
+    ["PAN-HB-1", "Agua",                 2915, "g", 53],
+    ["PAN-HB-1", "Azúcar",                440, "g", 8],
+    ["PAN-HB-1", "Grasa",                 330, "g", 6],
+    ["PAN-HB-1", "Huevo",                 110, "g", 2],
+    ["PAN-HB-1", "Leche en polvo",        110, "g", 2],
+    ["PAN-HB-1", "Levadura",              110, "g", 2],
+    ["PAN-HB-1", "Sal",                   110, "g", 2],
+    ["PAN-HB-1", "Esencia mantequilla",    55, "g", 1],
+    ["PAN-HB-1", "Propionato calcio",      28, "g", 0.5],
+    ["PAN-HB-1", "Dimodan",                17, "g", 0.3],
+    ["PAN-HB-1", "Ácido acético",           4, "g", 0.07],
+    ["PAN-HB-1", "9740",                    1, "g", 0.02],
+    ["PAN-HB-1", "7200",                    1, "g", 0.02],
+    ["PAN-HB-1", "Color amarillo",          1, "g", 0.02],
+  ];
+
+  [...formula_0903_1, ...formula_0903_2, ...formula_0904_1, ...formula_pan_hamburguesa].forEach(r => sh.appendRow(r));
 
   sh.setColumnWidth(1, 100);
   sh.setColumnWidth(2, 160);
   sh.setColumnWidth(3, 140);
   sh.setColumnWidth(4, 70);
+  sh.setColumnWidth(5, 140);
   Logger.log("DB_FORMULA: fórmulas cargadas.");
 }
 
@@ -392,6 +466,80 @@ function crearHoja_Entrega(ss) {
 }
 
 // ============================================================
+// DB_INVENTARIO_PRODUCTO
+// Inventario consolidado por producto
+// stock_actual = inventario_inicial + producido_acum - entregado_acum
+// ============================================================
+function crearHoja_InventarioProducto(ss) {
+  const sh = getOrCreateSheet(ss, "DB_INVENTARIO_PRODUCTO");
+  const headers = [
+    "producto_id", "producto_nombre", "inventario_inicial",
+    "producido_acum", "entregado_acum", "stock_actual",
+    "ultima_actualizacion", "activo"
+  ];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  sh.getRange("A:A").setNumberFormat("@");
+
+  const productosSh = ss.getSheetByName("DB_PRODUCTOS");
+  if (productosSh && productosSh.getLastRow() > 1) {
+    const rows = productosSh.getRange(2, 1, productosSh.getLastRow() - 1, 6).getValues();
+    rows
+      .filter(r => r[0] !== "" && r[5] === true)
+      .forEach(r => {
+        sh.appendRow([
+          String(r[0]),
+          r[1],
+          0,
+          0,
+          0,
+          0,
+          new Date().toISOString(),
+          true
+        ]);
+      });
+  }
+
+  sh.setColumnWidth(1, 120);
+  sh.setColumnWidth(2, 220);
+  sh.setColumnWidth(3, 130);
+  sh.setColumnWidth(4, 120);
+  sh.setColumnWidth(5, 120);
+  sh.setColumnWidth(6, 110);
+  sh.setColumnWidth(7, 180);
+  sh.setColumnWidth(8, 70);
+  Logger.log("DB_INVENTARIO_PRODUCTO: inicializado.");
+}
+
+// ============================================================
+// DB_MOV_INVENTARIO
+// Historial de movimientos de inventario
+// ============================================================
+function crearHoja_MovInventario(ss) {
+  const sh = getOrCreateSheet(ss, "DB_MOV_INVENTARIO");
+  const headers = [
+    "id_mov", "timestamp", "tipo_mov", "producto_id", "producto_nombre",
+    "cantidad", "id_lote", "ref_modulo", "operario", "stock_resultante", "obs"
+  ];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  sh.getRange("D:D").setNumberFormat("@");
+
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 180);
+  sh.setColumnWidth(3, 110);
+  sh.setColumnWidth(4, 120);
+  sh.setColumnWidth(5, 220);
+  sh.setColumnWidth(6, 90);
+  sh.setColumnWidth(7, 120);
+  sh.setColumnWidth(8, 130);
+  sh.setColumnWidth(9, 130);
+  sh.setColumnWidth(10, 110);
+  sh.setColumnWidth(11, 220);
+  Logger.log("DB_MOV_INVENTARIO: inicializado.");
+}
+
+// ============================================================
 // FUNCIÓN AUXILIAR: Mostrar resumen de hojas creadas
 // ============================================================
 function verificarBaseDeDatos() {
@@ -400,7 +548,8 @@ function verificarBaseDeDatos() {
     "DB_OPERARIOS", "DB_PRODUCTOS", "DB_FORMULA",
     "DB_LOTES_ACTIVOS", "DB_BITACORA", "DB_TIEMPOS_PROMEDIO",
     "DB_CONFIG_HORNO", "DB_MATERIAS_DECORADO", "DB_CONSECUTIVO",
-    "DB_DESPACHO", "DB_ENTREGA"
+    "DB_DESPACHO", "DB_ENTREGA",
+    "DB_INVENTARIO_PRODUCTO", "DB_MOV_INVENTARIO"
   ];
 
   let reporte = "VERIFICACIÓN DE BASE DE DATOS LEVITO MES\n";

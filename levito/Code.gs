@@ -20,7 +20,9 @@ const SHEETS = {
   CONSECUTIVO:      "DB_CONSECUTIVO",
   DESPACHO:         "DB_DESPACHO",
   ENTREGA:          "DB_ENTREGA",
-  BITACORA_DETALLE: "DB_BITACORA_DETALLE"
+  BITACORA_DETALLE: "DB_BITACORA_DETALLE",
+  INVENTARIO:       "DB_INVENTARIO_PRODUCTO",
+  MOV_INVENTARIO:   "DB_MOV_INVENTARIO"
 };
 
 const ETAPAS = [
@@ -84,6 +86,9 @@ function doGet(e) {
 
       case "GET_LOTE_ESTADO":
         return jsonOk(getLoteEstado(e.parameter.id_lote));
+
+      case "GET_INVENTARIO":
+        return jsonOk(getInventario());
 
       case "PING":
         return jsonOk({ status: "ok", timestamp: new Date().toISOString() });
@@ -264,14 +269,15 @@ function getFormula(producto_id) {
 
   if (!sh || sh.getLastRow() < 2) return [];
 
-  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues();
+  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 5).getValues();
 
   return datos
     .filter(r => normalizeProductId_(r[0]) === normalizeProductId_(producto_id))
     .map(r => ({
       ingrediente:    r[1],
       cantidad_base:  parseFloat(r[2]),
-      unidad:         r[3]
+      unidad:         r[3],
+      porcentaje_panadero: r[4] !== "" && r[4] !== null ? parseFloat(r[4]) : null
     }));
 }
 
@@ -385,6 +391,29 @@ function getEntregas(limit) {
     operario: r[7],
     timestamp_registro: r[8]
   }));
+}
+
+// ============================================================
+// GET — INVENTARIO CONSOLIDADO
+// ============================================================
+
+function getInventario() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.INVENTARIO);
+  if (!sh || sh.getLastRow() < 2) return [];
+
+  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 8).getValues();
+  return datos
+    .filter(r => r[0] !== "" && r[7] === true)
+    .map(r => ({
+      producto_id: r[0],
+      producto_nombre: r[1],
+      inventario_inicial: Number(r[2] || 0),
+      producido_acum: Number(r[3] || 0),
+      entregado_acum: Number(r[4] || 0),
+      stock_actual: Number(r[5] || 0),
+      ultima_actualizacion: r[6]
+    }));
 }
 
 // ============================================================
@@ -522,6 +551,16 @@ function avanzarEtapa(data, operario) {
   registrarBitacora(ss, data.id_lote, data.slot, etapa_registrada, data.pin, operario.nombre, now, datosStr);
 
   if (etapa_siguiente === "Finalizado") {
+    const cantidadProducida = getCantidadProducidaFinal_(data, fila);
+    actualizarInventarioProduccion_(
+      ss,
+      normalizeProductId_(fila[2]),
+      fila[3],
+      cantidadProducida,
+      data.id_lote,
+      operario.nombre
+    );
+
     // --- FINALIZAR LOTE ---
     // Registrar evento Finalizado
     registrarBitacora(ss, data.id_lote, data.slot, "Finalizado", data.pin, operario.nombre, now, "{}");
@@ -646,6 +685,16 @@ function registrarEntrega(data, operario) {
   const sh = ss.getSheetByName(SHEETS.ENTREGA);
   if (!sh) return { status: "error", message: "No existe la hoja DB_ENTREGA." };
 
+  const stockResult = actualizarInventarioEntrega_(
+    ss,
+    normalizeProductId_(data.producto_id || producto),
+    producto,
+    cantidad,
+    id_lote,
+    operario.nombre
+  );
+  if (stockResult.status === "error") return stockResult;
+
   const now = new Date().toISOString();
   sh.appendRow([
     Utilities.getUuid(),
@@ -659,7 +708,11 @@ function registrarEntrega(data, operario) {
     now
   ]);
 
-  return { status: "ok", message: "Entrega registrada correctamente." };
+  return {
+    status: "ok",
+    message: "Entrega registrada correctamente.",
+    stock_actual: stockResult.stock_actual
+  };
 }
 
 // ============================================================
@@ -868,6 +921,159 @@ function buildDetallePayload_(data) {
     cantidad: Number(data.cantidad || 0),
     rows: Array.isArray(data.rows) ? data.rows : []
   };
+}
+
+function getCantidadProducidaFinal_(data, filaLote) {
+  if (Number(data.unid_finales || 0) > 0) return Number(data.unid_finales);
+  if (Number(data.cantidad || 0) > 0) return Number(data.cantidad);
+
+  try {
+    const base = filaLote && filaLote[8] ? JSON.parse(filaLote[8]) : {};
+    if (Number(base.unid_finales || 0) > 0) return Number(base.unid_finales);
+    if (Number(base.cantidad || 0) > 0) return Number(base.cantidad);
+  } catch (e) {
+    // no-op
+  }
+  return 0;
+}
+
+function ensureInventarioRow_(ss, producto_id, producto_nombre) {
+  const sh = ss.getSheetByName(SHEETS.INVENTARIO);
+  if (!sh) throw new Error("No existe DB_INVENTARIO_PRODUCTO.");
+
+  const pid = normalizeProductId_(producto_id);
+  const last = sh.getLastRow();
+  if (last < 2) {
+    sh.appendRow([pid, producto_nombre || pid, 0, 0, 0, 0, new Date().toISOString(), true]);
+    return { rowIdx: 2, stock_actual: 0 };
+  }
+
+  const rows = sh.getRange(2, 1, last - 1, 8).getValues();
+  for (let i = 0; i < rows.length; i++) {
+    if (normalizeProductId_(rows[i][0]) === pid) {
+      return { rowIdx: i + 2, stock_actual: Number(rows[i][5] || 0) };
+    }
+  }
+
+  // Fallback: si no coincide por ID, intentar por nombre de producto.
+  for (let i = 0; i < rows.length; i++) {
+    if (String(rows[i][1] || "").trim().toUpperCase() === String(producto_nombre || "").trim().toUpperCase()) {
+      return { rowIdx: i + 2, stock_actual: Number(rows[i][5] || 0) };
+    }
+  }
+
+  sh.appendRow([pid, producto_nombre || pid, 0, 0, 0, 0, new Date().toISOString(), true]);
+  return { rowIdx: sh.getLastRow(), stock_actual: 0 };
+}
+
+function registrarMovInventario_(ss, data) {
+  const sh = ss.getSheetByName(SHEETS.MOV_INVENTARIO);
+  if (!sh) return;
+  sh.appendRow([
+    Utilities.getUuid(),
+    new Date().toISOString(),
+    data.tipo_mov,
+    data.producto_id,
+    data.producto_nombre || data.producto_id,
+    Number(data.cantidad || 0),
+    data.id_lote || "",
+    data.ref_modulo || "",
+    data.operario || "",
+    Number(data.stock_resultante || 0),
+    data.obs || ""
+  ]);
+}
+
+function actualizarInventarioProduccion_(ss, producto_id, producto_nombre, cantidad, id_lote, operario) {
+  const qty = Number(cantidad || 0);
+  if (qty <= 0) return;
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const sh = ss.getSheetByName(SHEETS.INVENTARIO);
+    const pos = ensureInventarioRow_(ss, producto_id, producto_nombre);
+    const row = sh.getRange(pos.rowIdx, 1, 1, 8).getValues()[0];
+
+    const inventarioInicial = Number(row[2] || 0);
+    const producidoAcum = Number(row[3] || 0) + qty;
+    const entregadoAcum = Number(row[4] || 0);
+    const stockActual = inventarioInicial + producidoAcum - entregadoAcum;
+
+    sh.getRange(pos.rowIdx, 3, 1, 5).setValues([[
+      inventarioInicial,
+      producidoAcum,
+      entregadoAcum,
+      stockActual,
+      new Date().toISOString()
+    ]]);
+
+    registrarMovInventario_(ss, {
+      tipo_mov: "PRODUCCION",
+      producto_id: normalizeProductId_(producto_id),
+      producto_nombre: producto_nombre,
+      cantidad: qty,
+      id_lote: id_lote,
+      ref_modulo: "PRODUCCION",
+      operario: operario,
+      stock_resultante: stockActual,
+      obs: "Ingreso por finalizacion de lote"
+    });
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function actualizarInventarioEntrega_(ss, producto_id, producto_nombre, cantidad, id_lote, operario) {
+  const qty = Number(cantidad || 0);
+  if (qty <= 0) return { status: "error", message: "Cantidad de entrega invalida." };
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const sh = ss.getSheetByName(SHEETS.INVENTARIO);
+    const pos = ensureInventarioRow_(ss, producto_id, producto_nombre);
+    const row = sh.getRange(pos.rowIdx, 1, 1, 8).getValues()[0];
+
+    const inventarioInicial = Number(row[2] || 0);
+    const producidoAcum = Number(row[3] || 0);
+    const entregadoAcum = Number(row[4] || 0);
+    const stockActual = Number(row[5] || 0);
+
+    if (qty > stockActual) {
+      return {
+        status: "error",
+        message: "Stock insuficiente. Disponible: " + stockActual + ", solicitado: " + qty
+      };
+    }
+
+    const nuevoEntregado = entregadoAcum + qty;
+    const nuevoStock = inventarioInicial + producidoAcum - nuevoEntregado;
+
+    sh.getRange(pos.rowIdx, 3, 1, 5).setValues([[
+      inventarioInicial,
+      producidoAcum,
+      nuevoEntregado,
+      nuevoStock,
+      new Date().toISOString()
+    ]]);
+
+    registrarMovInventario_(ss, {
+      tipo_mov: "ENTREGA",
+      producto_id: normalizeProductId_(producto_id),
+      producto_nombre: producto_nombre,
+      cantidad: qty,
+      id_lote: id_lote,
+      ref_modulo: "ENTREGA",
+      operario: operario,
+      stock_resultante: nuevoStock,
+      obs: "Salida por entrega"
+    });
+
+    return { status: "ok", stock_actual: nuevoStock };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function normalizeProductId_(value) {
