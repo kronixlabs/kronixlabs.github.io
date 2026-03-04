@@ -379,6 +379,9 @@ const TOTAL_PINES = 8;
 const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0};
 const toArr = (v)=>Array.isArray(v)?v:[];
 const runSafe = (fn)=>Promise.resolve().then(fn).catch(e=>console.warn(e?.message||e));
+const API_TIMEOUT_MS = 8000;
+state.loadingLotesPromise = null;
+state.prefetchDone = false;
 function clearUiLocks(){
   document.querySelectorAll(".modal-backdrop").forEach(x=>x.remove());
   document.body.classList.remove("modal-open");
@@ -414,7 +417,10 @@ function toRpcArgs(obj){
 }
 async function gasGet(action, params){
   const q = new URLSearchParams({action,...(params||{})});
-  const r = await fetch(`${GAS_API}?${q.toString()}`);
+  const c = new AbortController();
+  const t = setTimeout(()=>c.abort(), API_TIMEOUT_MS);
+  const r = await fetch(`${GAS_API}?${q.toString()}`, {signal:c.signal});
+  clearTimeout(t);
   const txt = await r.text();
   try{
     return JSON.parse(txt);
@@ -423,7 +429,10 @@ async function gasGet(action, params){
   }
 }
 async function gasPost(payload){
-  const r = await fetch(GAS_API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  const c = new AbortController();
+  const t = setTimeout(()=>c.abort(), API_TIMEOUT_MS);
+  const r = await fetch(GAS_API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload),signal:c.signal});
+  clearTimeout(t);
   const txt = await r.text();
   try{
     return JSON.parse(txt);
@@ -547,7 +556,46 @@ function renderPines(){
 }
 function nombreBotonPaso(etapa){const idx=ETAPAS.indexOf(etapa);const n=ETAPAS[idx+1];return n?`PASAR A ${n.toUpperCase()}`:"PRODUCCION FINALIZADA";}
 
-async function cargarLotes(){try{const d=await apiGet("GET_ALL_ACTIVOS");state.lotes=Array.isArray(d)?d:[];state.lastLotesFetchTs=Date.now();renderPines();}catch(e){alert("Error cargando tablero de pines: "+(e.message||"sin detalle"));}}
+async function cargarLotes(force=false){
+  const now = Date.now();
+  if(!force && state.lotes.length && (now - state.lastLotesFetchTs) < 3500){
+    renderPines();
+    return;
+  }
+  if(state.loadingLotesPromise && !force){
+    return state.loadingLotesPromise;
+  }
+
+  state.loadingLotesPromise = (async()=>{
+    try{
+      const d = await apiGet("GET_ALL_ACTIVOS");
+      state.lotes = Array.isArray(d) ? d : [];
+      state.lastLotesFetchTs = Date.now();
+      try{
+        localStorage.setItem("LEVITO_CACHE_LOTES", JSON.stringify({ts:state.lastLotesFetchTs, data:state.lotes}));
+      }catch(_){}
+      renderPines();
+    }catch(e){
+      try{
+        const raw = localStorage.getItem("LEVITO_CACHE_LOTES");
+        if(raw){
+          const cache = JSON.parse(raw);
+          if(Array.isArray(cache?.data)){
+            state.lotes = cache.data;
+            renderPines();
+            return;
+          }
+        }
+      }catch(_){}
+      document.getElementById("grid").innerHTML = `<div class="lote-card">Sin conexión temporal. Reintentando...</div>`;
+      console.warn("Error cargando tablero de pines:", e?.message || e);
+    }finally{
+      state.loadingLotesPromise = null;
+    }
+  })();
+
+  return state.loadingLotesPromise;
+}
 async function fillProductosModal(){if(!state.productos.length)state.productos=toArr(await apiGet("GET_PRODUCTOS"));document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
@@ -807,13 +855,17 @@ async function init(){
   await Promise.allSettled([
     cargarCatalogosDespachoEntrega(),
     cargarAuditoriaCatalogos(),
-    cargarLotes(),
-    cargarInventario(),
-    cargarTrazabilidad(),
-    cargarSeguimientoProduccion(),
-    cargarHistorialSemanal()
+    cargarLotes(true)
   ]);
   if(!state.lotes.length) renderPines();
+  setTimeout(()=>{
+    if(state.prefetchDone) return;
+    state.prefetchDone = true;
+    runSafe(()=>cargarInventario());
+    runSafe(()=>cargarTrazabilidad());
+    runSafe(()=>cargarSeguimientoProduccion());
+    runSafe(()=>cargarHistorialSemanal());
+  }, 1500);
   setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await runSafe(()=>cargarLotes());},10000);
   setInterval(()=>clearUiLocks(), 3000);
 }
