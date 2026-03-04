@@ -409,8 +409,11 @@ function toRpcName(action){
 }
 function toRpcArgs(obj){
   const out = {};
+  const action = String(obj?.action || "").toUpperCase();
   Object.entries(obj || {}).forEach(([k,v])=>{
     if(k === "action" || v === undefined) return;
+    // Evita romper RPC iniciar_lote en Supabase si la función no recibe este campo.
+    if(action === "INICIAR_LOTE" && k === "materias_primas") return;
     out[`p_${k}`] = v;
   });
   return out;
@@ -590,7 +593,15 @@ async function cargarLotes(force=false){
 async function fillProductosModal(){if(!state.productos.length)state.productos=toArr(await apiGet("GET_PRODUCTOS"));document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
-  if(Date.now()-state.lastLotesFetchTs>20000) runSafe(()=>cargarLotes(true)); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
+  if(Date.now()-state.lastLotesFetchTs>20000){
+    try{
+      await Promise.race([
+        cargarLotes(true),
+        new Promise(resolve=>setTimeout(resolve, 1200))
+      ]);
+    }catch(_){}
+  }
+  state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
   const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
   document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
   document.getElementById("pinViewProceso").style.display=lote?"block":"none";
@@ -621,22 +632,27 @@ function fechaNoMenorAHoy(value){
 }
 
 async function iniciarMojado(){
-  const p={action:"INICIAR_LOTE",slot:state.activePin,producto_id:document.getElementById("m_producto").value,cantidad:Number(document.getElementById("m_cantidad").value||0),temp_amb:Number(document.getElementById("m_temp").value||0),hum_amb:Number(document.getElementById("m_hum").value||0),pin:document.getElementById("m_pin_inicio").value.trim(),materias_primas:[]};
-  if(!p.producto_id||!p.cantidad||!p.pin){setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);return;}
-  const r=await apiPost(p); if(r.status==="error"){setStatus("m_status_inicio",r.message||"Error al iniciar mojado.",true);return;}
-  runSafe(()=>cargarLotes(true));
-  const loteNuevo = state.lotes.find(l => parseInt(l.slot,10) === parseInt(state.activePin,10)) || null;
-  if(!loteNuevo){
-    state.modal.hide();
-    return;
+  try{
+    const p={action:"INICIAR_LOTE",slot:state.activePin,producto_id:document.getElementById("m_producto").value,cantidad:Number(document.getElementById("m_cantidad").value||0),temp_amb:Number(document.getElementById("m_temp").value||0),hum_amb:Number(document.getElementById("m_hum").value||0),pin:document.getElementById("m_pin_inicio").value.trim(),materias_primas:[]};
+    if(!p.producto_id||!p.cantidad||!p.pin){setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);return;}
+    const r=await apiPost(p);
+    if(r?.status==="error"){setStatus("m_status_inicio",r.message||"Error al iniciar mojado.",true);return;}
+    await cargarLotes(true);
+    const loteNuevo = state.lotes.find(l => parseInt(l.slot,10) === parseInt(state.activePin,10)) || null;
+    if(!loteNuevo){
+      setStatus("m_status_inicio","No se confirmó el lote en tablero. Reintenta.",true);
+      return;
+    }
+    state.activeLote = loteNuevo;
+    document.getElementById("pinViewDisponible").style.display = "none";
+    document.getElementById("pinViewProceso").style.display = "block";
+    await cargarPantallaEtapa(loteNuevo);
+    document.getElementById("m_cantidad_proceso").value = String(p.cantidad);
+    await calcularFormula();
+    setStatus("m_status_etapa","Formula cargada automaticamente. Puedes editar cantidad y recalcular.",false);
+  }catch(e){
+    setStatus("m_status_inicio",`No se pudo iniciar: ${e?.message||"error"}`,true);
   }
-  state.activeLote = loteNuevo;
-  document.getElementById("pinViewDisponible").style.display = "none";
-  document.getElementById("pinViewProceso").style.display = "block";
-  await cargarPantallaEtapa(loteNuevo);
-  document.getElementById("m_cantidad_proceso").value = String(p.cantidad);
-  await calcularFormula();
-  setStatus("m_status_etapa","Formula cargada automaticamente. Puedes editar cantidad y recalcular.",false);
 }
 
 async function cargarPantallaEtapa(lote){
@@ -858,7 +874,7 @@ async function init(){
     runSafe(()=>cargarSeguimientoProduccion());
     runSafe(()=>cargarHistorialSemanal());
   }, 1500);
-  setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await runSafe(()=>cargarLotes());},10000);
+  setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await runSafe(()=>cargarLotes());},15000);
   setInterval(()=>clearUiLocks(), 3000);
 }
 window.addEventListener("error",(ev)=>console.warn("JS error:", ev?.message || ev));
