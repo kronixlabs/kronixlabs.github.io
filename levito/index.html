@@ -375,6 +375,7 @@ const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SU
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
 const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0};
+const toArr = (v)=>Array.isArray(v)?v:[];
 
 function showTab(id, el){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
@@ -474,14 +475,14 @@ async function cargarTrazabilidad(){
 }
 
 async function cargarAuditoriaCatalogos(){
-  const productos = await apiGet("GET_PRODUCTOS");
+  const productos = toArr(await apiGet("GET_PRODUCTOS"));
   document.getElementById("a_producto").innerHTML = `<option value="">Seleccionar</option>` + productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>`;
 }
 
 async function cargarLotesAuditoria(){
   const pid = document.getElementById("a_producto").value;
-  const lotes = await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500});
+  const lotes = toArr(await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500}));
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | ${formatDateTime(l.hora_fin)}</option>`).join("");
 }
 
@@ -527,7 +528,7 @@ function renderPines(){
 function nombreBotonPaso(etapa){const idx=ETAPAS.indexOf(etapa);const n=ETAPAS[idx+1];return n?`PASAR A ${n.toUpperCase()}`:"PRODUCCION FINALIZADA";}
 
 async function cargarLotes(){try{const d=await apiGet("GET_ALL_ACTIVOS");state.lotes=Array.isArray(d)?d:[];state.lastLotesFetchTs=Date.now();renderPines();}catch(e){alert("Error cargando tablero de pines: "+(e.message||"sin detalle"));}}
-async function fillProductosModal(){if(!state.productos.length)state.productos=await apiGet("GET_PRODUCTOS");document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
+async function fillProductosModal(){if(!state.productos.length)state.productos=toArr(await apiGet("GET_PRODUCTOS"));document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
   if(Date.now()-state.lastLotesFetchTs>8000) await cargarLotes(); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
@@ -764,17 +765,27 @@ async function init(){
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
-  const boot = await apiGet("GET_BOOTSTRAP");
-  state.productos = Array.isArray(boot.productos) ? boot.productos : [];
-  state.materiasDecorado = Array.isArray(boot.materias_decorado) ? boot.materias_decorado : [];
-  state.clientes = Array.isArray(boot.clientes) ? boot.clientes : [];
-  await cargarCatalogosDespachoEntrega();
-  await cargarAuditoriaCatalogos();
-  await cargarLotes();
-  await cargarInventario();
-  await cargarTrazabilidad();
-  await cargarSeguimientoProduccion();
-  await cargarHistorialSemanal();
+  try{
+    const boot = await apiGet("GET_BOOTSTRAP");
+    state.productos = toArr(boot?.productos);
+    state.materiasDecorado = toArr(boot?.materias_decorado);
+    state.clientes = toArr(boot?.clientes);
+  }catch(e){
+    console.warn("BOOTSTRAP fallo, usando endpoints individuales", e?.message||e);
+    state.productos = toArr(await apiGet("GET_PRODUCTOS"));
+    state.materiasDecorado = toArr(await apiGet("GET_MATERIAS_DECORADO"));
+    state.clientes = toArr(await apiGet("GET_CLIENTES"));
+  }
+  await Promise.allSettled([
+    cargarCatalogosDespachoEntrega(),
+    cargarAuditoriaCatalogos(),
+    cargarLotes(),
+    cargarInventario(),
+    cargarTrazabilidad(),
+    cargarSeguimientoProduccion(),
+    cargarHistorialSemanal()
+  ]);
+  if(!state.lotes.length) renderPines();
   setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();},10000);
 }
 init();
