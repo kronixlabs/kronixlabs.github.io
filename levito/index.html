@@ -3,173 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Levito MES</title>
+<title>Levito | Control de Producción</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body {
-background: radial-gradient(circle at 20% 20%, #1f1f3a, #0d0d1a 60%);
-font-family: 'Segoe UI', sans-serif;
-color:white;
+body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+.navbar { background: white; border-bottom: 3px solid #e67e22; padding: 10px 20px; }
+.logo-kronix { height: 40px; }
+.logo-levito { height: 60px; }
+.header-title { font-weight: bold; color: #2c3e50; margin: 0; }
+
+.pin-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+gap: 20px;
+padding: 20px;
 }
 
-.navbar {
-background: rgba(255,255,255,0.05);
-backdrop-filter: blur(10px);
+.pin-card {
+height: 160px;
+border-radius: 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: white;
+cursor: pointer;
+transition: 0.3s;
+border: none;
+box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.nav-link {
-color: rgba(255,255,255,0.6);
-cursor:pointer;
+.pin-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
-.nav-link.active {
-color:#00f2fe !important;
-font-weight:600;
+.ocupado {
+opacity: 0.7;
 }
 
-.section { display:none; padding:30px; }
-.section.active { display:block; }
-
-.panel-box {
-background: rgba(255,255,255,0.05);
-border-radius:20px;
-padding:25px;
-}
-
-/* LOTES */
-.lote-mini {
-width:115px;
-height:135px;
-border-radius:15px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-background:rgba(255,255,255,0.05);
-cursor:pointer;
-transition:.3s;
-}
-
-.lote-mini:hover {
-background:rgba(255,255,255,0.1);
-}
-
-.indicador {
-width:18px;
-height:18px;
-border-radius:50%;
-margin-bottom:6px;
-}
-
-.gris { background:#7f8c8d; }
-.verde { background:#27ae60; }
-
-.lote-num { font-weight:600; }
-.etapa-texto { font-size:11px; opacity:.7; text-align:center; }
-.operario-texto { font-size:10px; opacity:.5; text-align:center; }
-
-/* SEMAFORO */
-.semaforo-card {
-height:120px;
-border-radius:15px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:600;
-}
-
-.modal-content {
-background:#111124;
-color:white;
-border-radius:20px;
-}
-
-.btn-primary {
-background: linear-gradient(90deg,#4facfe,#00f2fe);
-border:none;
-}
+/* Colores */
+.rojo { background: linear-gradient(145deg, #ff4b2b, #ff416c); }
+.azul { background: linear-gradient(145deg, #2193b0, #6dd5ed); }
+.verde { background: linear-gradient(145deg, #11998e, #38ef7d); }
+.amarillo { background: linear-gradient(145deg, #fbb034, #ffdd00); color: #333; }
+.blanco { background: #ffffff; color: #333; border: 1px solid #ddd; }
+.negro { background: #232526; }
+.naranja { background: linear-gradient(145deg, #f12711, #f5af19); }
+.morado { background: linear-gradient(145deg, #8e2de2, #4a00e0); }
 </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg px-4">
-<span class="navbar-brand text-white">LEVITO MES</span>
-
-<ul class="navbar-nav ms-auto">
-<li class="nav-item">
-<span class="nav-link active" onclick="cambiarSeccion('produccion', this)">Producción</span>
-</li>
-<li class="nav-item">
-<span class="nav-link" onclick="cambiarSeccion('despacho', this)">Despacho</span>
-</li>
-<li class="nav-item">
-<span class="nav-link" onclick="cambiarSeccion('entrega', this)">Entrega</span>
-</li>
-<li class="nav-item">
-<span class="nav-link" onclick="cambiarSeccion('estado', this)">Estado</span>
-</li>
-</ul>
+<nav class="navbar d-flex justify-content-between align-items-center">
+<img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-kronix.png" class="logo-kronix">
+<h3 class="header-title">LEVITO - MES SYSTEM</h3>
+<img src="https://raw.githubusercontent.com/kronixlabs/kronixlabs.github.io/main/logo-levito.png" class="logo-levito">
 </nav>
 
-<!-- PRODUCCIÓN -->
-<div id="produccion" class="section active">
-<div class="panel-box">
-<h5 class="mb-4">Panel Operativo de Lotes</h5>
-<div id="contenedorLotes" class="d-flex flex-wrap gap-3"></div>
-</div>
+<div class="container mt-4">
+<div class="alert alert-dark text-center">PANEL DE CONTROL DE LOTES</div>
+
+<div class="pin-container">
+
+<div class="pin-card rojo" id="Rojo" onclick="abrirModal('Rojo')">
+<h3>Rojo</h3>
+<span class="estado">LIBRE</span>
 </div>
 
-<!-- DESPACHO -->
-<div id="despacho" class="section">
-<div class="panel-box">
-<h5>Módulo de Despacho</h5>
-<p>En desarrollo.</p>
-</div>
+<div class="pin-card azul" id="Azul" onclick="abrirModal('Azul')">
+<h3>Azul</h3>
+<span class="estado">LIBRE</span>
 </div>
 
-<!-- ENTREGA -->
-<div id="entrega" class="section">
-<div class="panel-box">
-<h5>Módulo de Entrega</h5>
-<p>En desarrollo.</p>
-</div>
+<div class="pin-card verde" id="Verde" onclick="abrirModal('Verde')">
+<h3>Verde</h3>
+<span class="estado">LIBRE</span>
 </div>
 
-<!-- ESTADO -->
-<div id="estado" class="section">
-<div class="panel-box">
-<h5>Estado General de Lotes</h5>
-<div id="estadoSemaforo" class="row mt-3"></div>
+<div class="pin-card amarillo" id="Amarillo" onclick="abrirModal('Amarillo')">
+<h3>Amarillo</h3>
+<span class="estado">LIBRE</span>
+</div>
+
+<div class="pin-card blanco" id="Blanco" onclick="abrirModal('Blanco')">
+<h3>Blanco</h3>
+<span class="estado">LIBRE</span>
+</div>
+
+<div class="pin-card negro" id="Negro" onclick="abrirModal('Negro')">
+<h3>Negro</h3>
+<span class="estado">LIBRE</span>
+</div>
+
+<div class="pin-card naranja" id="Naranja" onclick="abrirModal('Naranja')">
+<h3>Naranja</h3>
+<span class="estado">LIBRE</span>
+</div>
+
+<div class="pin-card morado" id="Morado" onclick="abrirModal('Morado')">
+<h3>Morado</h3>
+<span class="estado">LIBRE</span>
+</div>
+
 </div>
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="modalLote">
+<div class="modal fade" id="modalLote" tabindex="-1">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
-<h5 class="modal-title" id="tituloLote"></h5>
-<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+<h5 class="modal-title" id="tituloPin"></h5>
+<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 </div>
 <div class="modal-body">
-<form>
-<div class="mb-3">
-<label>Producto</label>
-<select class="form-select">
-<option>Pan Brioche Mini</option>
-</select>
-</div>
+
+<form id="formLote">
+
 <div class="mb-3">
 <label>PIN Operario</label>
-<input type="password" class="form-control">
+<input type="password" id="operarioPin" class="form-control" required>
 </div>
-<button type="button" class="btn btn-primary w-100">
-Iniciar Proceso
+
+<div class="mb-3">
+<label>Producto</label>
+<select id="prodId" class="form-select">
+<option value="BRIO-MINI-A">Pan Brioche Mini</option>
+</select>
+</div>
+
+<button type="submit" class="btn btn-primary w-100">
+INICIAR MOJADO
 </button>
+
 </form>
+
 </div>
 </div>
 </div>
@@ -181,89 +153,59 @@ Iniciar Proceso
 
 const API_URL = "https://script.google.com/macros/s/AKfycbzQO295YoshhzK24rsucjWfOJE6wxzCJB-69GqT0IqdxvxaiY1chfK4AUrHK_P5qidx/exec";
 
-let modal;
+let colorActivo = "";
+let modal = new bootstrap.Modal(document.getElementById('modalLote'));
 
-document.addEventListener("DOMContentLoaded", function(){
-modal = new bootstrap.Modal(document.getElementById('modalLote'));
-cargarEstados();
-setInterval(cargarEstados, 5000);
-});
-
-function cambiarSeccion(id, element){
-document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-
-document.querySelectorAll(".nav-link").forEach(link=>link.classList.remove("active"));
-element.classList.add("active");
-}
-
-function abrirModal(lote){
-document.getElementById("tituloLote").innerText = lote;
+function abrirModal(color){
+colorActivo = color;
+document.getElementById('tituloPin').innerText = "Pin " + color + " - Nuevo Lote";
 modal.show();
 }
 
-async function cargarEstados(){
+document.getElementById('formLote').addEventListener('submit', async function(e){
 
-const contenedor = document.getElementById("contenedorLotes");
-const estadoGeneral = document.getElementById("estadoSemaforo");
+e.preventDefault();
 
-contenedor.innerHTML = "";
-estadoGeneral.innerHTML = "";
+const pin = document.getElementById('operarioPin').value;
 
-const totalLotes = 7;
+const data = {
+action: "INICIAR_MOJADO",
+pin: pin,
+color_pin: colorActivo,
+producto_id: "BRIO-MINI-A",
+empaque: "Flowpack",
+fecha_venc: "2026-03-15"
+};
 
-/* 🔹 Dibujar base en gris */
-for(let i=1; i<=totalLotes; i++){
-
-contenedor.innerHTML += `
-<div class="lote-mini" onclick="abrirModal('LOTE_${i}')">
-<div class="indicador gris"></div>
-<div class="lote-num">L${i}</div>
-<div class="etapa-texto">No iniciado</div>
-<div class="operario-texto"></div>
-</div>
-`;
-
-estadoGeneral.innerHTML += `
-<div class="col-md-3 mb-3">
-<div class="semaforo-card gris">
-L${i}<br>No iniciado
-</div>
-</div>
-`;
-
-}
-
-/* 🔹 Intentar actualizar desde backend */
 try {
 
-const res = await fetch(API_URL);
-const data = await res.json();
-
-data.forEach(info => {
-
-const match = info.lote.match(/LOTE_(\d+)/);
-if(!match) return;
-
-const num = match[1];
-
-const loteCards = document.querySelectorAll(".lote-mini");
-const semaforos = document.querySelectorAll(".semaforo-card");
-
-loteCards[num-1].querySelector(".indicador").className = "indicador verde";
-loteCards[num-1].querySelector(".etapa-texto").innerText = info.etapa;
-loteCards[num-1].querySelector(".operario-texto").innerText = info.responsable || "";
-
-semaforos[num-1].className = "semaforo-card verde";
-semaforos[num-1].innerHTML = `L${num}<br>${info.etapa}`;
-
+const res = await fetch(API_URL, {
+method: 'POST',
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify(data)
 });
 
-} catch(error){
-console.log("Backend no disponible. Mostrando estado base.");
+const result = await res.json();
+
+if(result.status === "ok"){
+
+alert("Lote creado: " + result.id_lote_unico);
+
+document.getElementById(colorActivo).classList.add("ocupado");
+document.querySelector("#"+colorActivo+" .estado").innerText = "OCUPADO";
+
+modal.hide();
+
+} else {
+alert(result.message);
 }
 
+} catch(error){
+alert("Error de conexión con el servidor.");
+console.error(error);
 }
+
+});
 
 </script>
 
