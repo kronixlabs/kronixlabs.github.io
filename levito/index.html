@@ -168,13 +168,13 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 </div>
 
 <div class="tabs">
-  <div class="tab" onclick="showTab('inventario', this)">Inventario</div>
-  <div class="tab active" onclick="showTab('produccion', this)">Producción</div>
-  <div class="tab" onclick="showTab('despacho', this)">Despacho</div>
-  <div class="tab" onclick="showTab('entrega', this)">Entrega</div>
-  <div class="tab" onclick="showTab('trazabilidad', this)">Trazabilidad</div>
-  <div class="tab" onclick="showTab('auditoria', this)">Auditoría</div>
-  <div class="tab" onclick="showTab('seguimiento', this)">Seguimiento Producción</div>
+  <div class="tab" data-tab="inventario" onclick="showTab('inventario', this)">Inventario</div>
+  <div class="tab active" data-tab="produccion" onclick="showTab('produccion', this)">Producción</div>
+  <div class="tab" data-tab="despacho" onclick="showTab('despacho', this)">Despacho</div>
+  <div class="tab" data-tab="entrega" onclick="showTab('entrega', this)">Entrega</div>
+  <div class="tab" data-tab="trazabilidad" onclick="showTab('trazabilidad', this)">Trazabilidad</div>
+  <div class="tab" data-tab="auditoria" onclick="showTab('auditoria', this)">Auditoría</div>
+  <div class="tab" data-tab="seguimiento" onclick="showTab('seguimiento', this)">Seguimiento Producción</div>
 </div>
 
 <div id="inventario" class="section">
@@ -378,8 +378,12 @@ const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:n
 const toArr = (v)=>Array.isArray(v)?v:[];
 
 function showTab(id, el){
+  document.querySelectorAll(".modal-backdrop").forEach(x=>x.remove());
+  document.body.classList.remove("modal-open");
+  document.body.style.removeProperty("padding-right");
+  const tabEl = el || document.querySelector(`.tab[data-tab="${id}"]`);
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  el.classList.add("active");
+  if(tabEl) tabEl.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   if(id==="inventario") cargarInventario();
@@ -765,6 +769,14 @@ async function init(){
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
+  const tabsRoot = document.querySelector(".tabs");
+  if(tabsRoot){
+    tabsRoot.addEventListener("click",(ev)=>{
+      const t = ev.target.closest(".tab[data-tab]");
+      if(!t) return;
+      showTab(t.dataset.tab, t);
+    });
+  }
   try{
     const boot = await apiGet("GET_BOOTSTRAP");
     state.productos = toArr(boot?.productos);
