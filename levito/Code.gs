@@ -146,6 +146,7 @@ function doPost(e) {
       if (!operario) {
         return jsonError("PIN inválido. Acceso denegado.");
       }
+      invalidateFastCaches_();
     }
 
     switch (action) {
@@ -191,6 +192,14 @@ function doPost(e) {
 // ============================================================
 
 function getAllActivos() {
+  try {
+    const cache = CacheService.getScriptCache();
+    const hit = cache.get("GET_ALL_ACTIVOS_V3");
+    if (hit) return JSON.parse(hit);
+  } catch (e) {
+    // continue
+  }
+
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sh = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
 
@@ -200,7 +209,7 @@ function getAllActivos() {
   const tiemposMap = getTiemposPromedioMap();
   const now = new Date();
 
-  return datos
+  const out = datos
     .filter(r => r[0] !== "" && r[4] !== "Finalizado")
     .map(r => {
       const slot          = parseInt(r[0]);
@@ -270,6 +279,13 @@ function getAllActivos() {
         mensaje_alerta: mensaje_alerta
       };
     });
+
+  try {
+    CacheService.getScriptCache().put("GET_ALL_ACTIVOS_V3", JSON.stringify(out), 3);
+  } catch (e) {
+    // no-op
+  }
+  return out;
 }
 
 // ============================================================
@@ -1081,6 +1097,14 @@ function getProductoPorId(ss, codigo) {
  * Clave: "producto_id_etapa" → minutos
  */
 function getTiemposPromedioMap() {
+  try {
+    const cache = CacheService.getScriptCache();
+    const hit = cache.get("TIEMPOS_MAP_V2");
+    if (hit) return JSON.parse(hit);
+  } catch (e) {
+    // continue
+  }
+
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sh = ss.getSheetByName(SHEETS.TIEMPOS);
 
@@ -1130,7 +1154,10 @@ function getUltimoDetalleByLote_(ss, id_lote, etapa) {
   const sh = ss.getSheetByName(SHEETS.BITACORA_DETALLE);
   if (!sh || sh.getLastRow() < 2) return null;
 
-  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 10).getValues();
+  const total = sh.getLastRow() - 1;
+  const chunk = Math.min(total, 1200);
+  const start = sh.getLastRow() - chunk + 1;
+  const datos = sh.getRange(start, 1, chunk, 10).getValues();
   for (let i = datos.length - 1; i >= 0; i--) {
     const row = datos[i];
     if (row[1] === id_lote && (!etapa || row[3] === etapa)) {
@@ -1303,6 +1330,16 @@ function actualizarInventarioProduccion_(ss, producto_id, producto_nombre, canti
     ]]);
   } finally {
     lock.releaseLock();
+  }
+}
+
+function invalidateFastCaches_() {
+  try {
+    const c = CacheService.getScriptCache();
+    c.remove("GET_ALL_ACTIVOS_V3");
+    c.remove("TIEMPOS_MAP_V2");
+  } catch (e) {
+    // no-op
   }
 }
 
@@ -1492,6 +1529,11 @@ function getMapProductoPorLote_() {
       map[lote] = { producto_id: r[3], producto_nombre: r[4] };
     }
   });
+  try {
+    CacheService.getScriptCache().put("TIEMPOS_MAP_V2", JSON.stringify(map), 300);
+  } catch (e) {
+    // no-op
+  }
   return map;
 }
 

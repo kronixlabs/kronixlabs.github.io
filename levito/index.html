@@ -453,23 +453,14 @@ async function supabaseRpc(action, params){
 }
 async function apiGet(action, params){
   if(BACKEND_MODE === "supabase"){
-    try{return await supabaseRpc(action, params || {});}
-    catch(e){
-      console.warn(`Supabase GET fallback -> GAS [${action}]`, e?.message || e);
-      return await gasGet(action, params);
-    }
+    return await supabaseRpc(action, params || {});
   }
   return await gasGet(action, params);
 }
 async function apiPost(payload){
   if(BACKEND_MODE === "supabase"){
-    try{
-      const data = await supabaseRpc(payload?.action, payload || {});
-      return (data && typeof data === "object" && !Array.isArray(data)) ? data : {status:"ok", data};
-    }catch(e){
-      console.warn(`Supabase POST fallback -> GAS [${payload?.action}]`, e?.message || e);
-      return await gasPost(payload);
-    }
+    const data = await supabaseRpc(payload?.action, payload || {});
+    return (data && typeof data === "object" && !Array.isArray(data)) ? data : {status:"ok", data};
   }
   return await gasPost(payload);
 }
@@ -599,7 +590,7 @@ async function cargarLotes(force=false){
 async function fillProductosModal(){if(!state.productos.length)state.productos=toArr(await apiGet("GET_PRODUCTOS"));document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
-  if(Date.now()-state.lastLotesFetchTs>8000) await cargarLotes(); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
+  if(Date.now()-state.lastLotesFetchTs>20000) runSafe(()=>cargarLotes(true)); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
   const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
   document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
   document.getElementById("pinViewProceso").style.display=lote?"block":"none";
@@ -633,7 +624,7 @@ async function iniciarMojado(){
   const p={action:"INICIAR_LOTE",slot:state.activePin,producto_id:document.getElementById("m_producto").value,cantidad:Number(document.getElementById("m_cantidad").value||0),temp_amb:Number(document.getElementById("m_temp").value||0),hum_amb:Number(document.getElementById("m_hum").value||0),pin:document.getElementById("m_pin_inicio").value.trim(),materias_primas:[]};
   if(!p.producto_id||!p.cantidad||!p.pin){setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);return;}
   const r=await apiPost(p); if(r.status==="error"){setStatus("m_status_inicio",r.message||"Error al iniciar mojado.",true);return;}
-  await cargarLotes();
+  runSafe(()=>cargarLotes(true));
   const loteNuevo = state.lotes.find(l => parseInt(l.slot,10) === parseInt(state.activePin,10)) || null;
   if(!loteNuevo){
     state.modal.hide();
@@ -746,7 +737,8 @@ async function pasarEtapa(){
   if(lote.etapa_actual==="Horneado"){payload.temp_horno=Number(document.getElementById("m_temp_horno").value||0);payload.tiempo_horno=Number(document.getElementById("m_tiempo_horno").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna").value||0);}
   if(lote.etapa_actual==="Empaque"){payload.unid_finales=Number(document.getElementById("m_unid_finales").value||0);payload.unid_nc=Number(document.getElementById("m_unid_nc").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna_emp").value||0);payload.lote_empaque=document.getElementById("m_lote_empaque").value.trim();}
   const r=await apiPost(payload); if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo cambiar etapa.",true);return;}
-  state.modal.hide(); await cargarLotes();
+  state.modal.hide();
+  runSafe(()=>cargarLotes(true));
 }
 
 function isInCurrentWeek(dateStr){
