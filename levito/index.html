@@ -1,155 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>LEVITO MES PRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEVITO MES SYSTEM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: #020617; color: white; font-family: sans-serif; }
-        .lote-card { width: 160px; height: 180px; border: 1px solid #1e293b; border-radius: 15px; background: #0f172a; cursor: pointer; transition: 0.3s; padding: 10px; text-align: center; }
-        .lote-card.activo { border-color: #22c55e; background: #064e3b; }
-        .indicador { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 10px; }
+        body { background: #020617; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .lote-card { width: 170px; height: 190px; border: 1px solid #1e293b; border-radius: 20px; background: #0f172a; cursor: pointer; transition: 0.3s; padding: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .lote-card.activo { border-color: #22c55e; background: #064e3b; box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); }
+        .indicador { width: 12px; height: 12px; border-radius: 50%; margin-bottom: 10px; }
         .gris { background: #64748b; } .verde { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
-        .modal-content { background: #0f172a; border: 1px solid #38bdf8; }
-        .form-control { background: #1e293b; color: white; border: 1px solid #334155; }
-        .form-control:focus { background: #1e293b; color: white; }
+        .modal-content { background: #0f172a; border: 1px solid #38bdf8; border-radius: 25px; }
+        .form-control, .form-select { background: #1e293b; color: white; border: 1px solid #334155; }
+        .form-control:focus { background: #1e293b; color: white; border-color: #38bdf8; }
+        .table-dark { --bs-table-bg: #000; }
+        .btn-calc { background: #38bdf8; color: #000; font-weight: bold; }
     </style>
 </head>
 <body class="p-4">
 
-<div class="d-flex justify-content-between mb-5 border-bottom pb-3">
-    <h4>KRONIX LABS • MES CONTROL</h4>
-    <div id="reloj" class="text-info"></div>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="text-info fw-bold">LEVITO MES <small class="text-white fs-6">v9.0</small></h2>
+        <div id="status" class="badge bg-secondary">Conectando...</div>
+    </div>
+
+    <div id="panel" class="d-flex flex-wrap gap-4 justify-content-center">
+        </div>
 </div>
 
-<div id="panel" class="d-flex flex-wrap gap-4 justify-content-center"></div>
-
-<div class="modal fade" id="modalMES" tabindex="-1">
+<div class="modal fade" id="modalMES" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="mTitle">Control de Proceso</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body">
-                <form id="mainForm">
-                    <div id="secInicio" class="d-none">
-                        <h5>Nuevo Lote: Mojado</h5>
-                        <div class="row g-2 mb-3">
-                            <div class="col-4"><label class="small">PIN</label><input type="password" id="pin" class="form-control" required></div>
-                            <div class="col-5"><label class="small">Producto</label><select id="prodId" class="form-select bg-dark text-white"><option value="0903-1">BRIOCHE 0903-1</option></select></div>
-                            <div class="col-3"><label class="small">Cantidad</label><input type="number" id="cant" class="form-control" value="1" oninput="recalcular()"></div>
+                <form id="mesForm">
+                    <div id="faseInicio" class="d-none">
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4"><label class="small">PIN Operario</label><input type="password" id="pin" class="form-control" required></div>
+                            <div class="col-md-5"><label class="small">Producto</label><select id="prodId" class="form-select"><option value="0903-1">BRIOCHE MINI (0903-1)</option></select></div>
+                            <div class="col-md-3"><label class="small">Cant. Producir</label><input type="number" id="cant" class="form-control" value="1" min="1"></div>
                         </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-6"><label class="small">Temp Ambiente (°C)</label><input type="number" id="temp" class="form-control" placeholder="24"></div>
-                            <div class="col-6"><label class="small">Humedad (%)</label><input type="number" id="hum" class="form-control" placeholder="60"></div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6"><label class="small text-info">Temp. Ambiente (°C)</label><input type="number" id="temp" class="form-control" placeholder="Ej: 24"></div>
+                            <div class="col-md-6"><label class="small text-info">Humedad (%)</label><input type="number" id="hum" class="form-control" placeholder="Ej: 60"></div>
                         </div>
-                        <div class="table-responsive bg-black p-2 rounded">
-                            <table class="table table-dark table-sm small">
-                                <thead><tr><th>Ingrediente</th><th>Peso (g)</th><th>Lote MP</th><th>Vence</th></tr></thead>
-                                <tbody id="tablaFormula"></tbody>
-                                <tfoot class="table-primary text-dark"><tr><td colspan="4" id="totalMasa" class="fw-bold px-2">TOTAL MASA: 0 g</td></tr></tfoot>
+                        <button type="button" class="btn btn-calc w-100 mb-4" onclick="obtenerFormula()">CALCULAR E INICIAR MOJADO</button>
+                        
+                        <div id="tablaArea" class="d-none">
+                            <table class="table table-dark table-hover table-sm small">
+                                <thead><tr><th>Ingrediente / Peso</th><th>Lote MP</th><th>Vencimiento</th></tr></thead>
+                                <tbody id="tbodyFormula"></tbody>
+                                <tfoot class="table-primary text-dark"><tr><td colspan="3" id="tMasa" class="fw-bold px-2">TOTAL MASA: 0 g</td></tr></tfoot>
                             </table>
                         </div>
                     </div>
 
-                    <div id="secAvance" class="d-none text-center">
-                        <h2 id="etapaActualLabel" class="text-success"></h2>
-                        <div class="my-3">⬇ PASAR A ⬇</div>
-                        <h4 id="proximaEtapaLabel" class="text-info"></h4>
+                    <div id="faseAvance" class="d-none text-center">
+                        <h4 id="labelActual" class="text-success"></h4>
+                        <div class="py-2 opacity-50">Siguiente etapa:</div>
+                        <h3 id="labelProxima" class="text-info mb-4"></h3>
                         
-                        <div id="preguntasEtapa" class="mt-4 text-start bg-black p-3 rounded">
+                        <div id="camposExtras" class="text-start bg-dark p-3 rounded mb-3">
                             </div>
                         
-                        <input type="password" id="pinAvance" class="form-control mt-3 text-center" placeholder="PIN CONFIRMACIÓN" required>
+                        <input type="password" id="pinAvance" class="form-control text-center mx-auto" style="max-width:250px" placeholder="PIN CONFIRMACIÓN" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mt-4 p-3 fw-bold" id="btnAccion">CONFIRMAR</button>
+                    <button type="submit" class="btn btn-primary w-100 mt-4 p-3 fw-bold" id="btnSubmit" disabled>CONFIRMAR REGISTRO</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const API = "https://script.google.com/macros/library/d/1vnDQs8u7K7JuwhwrCg7XumkYv2qwDijIHZmQLL6cGQPm3kYxQpcqO-uk/15";
-    let modal, loteSel, infoLote, masaFinal = 0;
+    const API = "https://script.google.com/macros/s/AKfycbwNhSJWe5ZyTbqG_JPTNqtF6GmsZiCgLU4owjlutycLEDC3JhDRCr4q8vGVkAswC8iU/exec"; // REEMPLAZA AQUÍ
+    let modal, loteSel, infoSel, masaTotal = 0;
     const etapas = ["Mojado", "Levado", "Horneo", "Empaque", "Finalizado"];
 
     window.onload = () => {
         modal = new bootstrap.Modal(document.getElementById('modalMES'));
-        actualizarPanel();
-        setInterval(() => { document.getElementById('reloj').innerText = new Date().toLocaleTimeString(); }, 1000);
+        cargarPines();
+        setInterval(cargarPines, 20000);
     };
 
-    async function actualizarPanel() {
-        const res = await fetch(`${API}?action=GET_ALL_ACTIVOS`);
-        const activos = await res.json();
-        const panel = document.getElementById("panel");
-        panel.innerHTML = "";
-        for(let i=1; i<=8; i++) {
-            const id = `LOTE_${i}`;
-            const act = activos.find(a => a.id_lote_pin === id);
-            panel.innerHTML += `
-                <div class="lote-card ${act?'activo':''}" onclick="gestionar('${id}', ${act?JSON.stringify(act).replace(/"/g,'&quot;'):'null'})">
-                    <div class="indicador ${act?'verde':'gris'}"></div>
-                    <div class="fw-bold">${id}</div>
-                    <div class="small text-info">${act?act.etapa_actual:'LIBRE'}</div>
-                    ${act?`<div class="small mt-2 text-warning">${act.responsable}</div><div style="font-size:10px">${act.hora_inicio}</div>`:''}
-                </div>`;
-        }
+    async function cargarPines() {
+        try {
+            const res = await fetch(`${API}?action=GET_ALL_ACTIVOS`);
+            const activos = await res.json();
+            const panel = document.getElementById("panel");
+            panel.innerHTML = "";
+            for(let i=1; i<=8; i++){
+                const id = `LOTE_${i}`;
+                const act = activos.find(a => a.id_lote_pin === id);
+                panel.innerHTML += `
+                    <div class="lote-card ${act?'activo':''}" onclick="abrirControl('${id}', ${act?JSON.stringify(act).replace(/"/g,'&quot;'):'null'})">
+                        <div class="indicador ${act?'verde':'gris'}"></div>
+                        <div class="fw-bold">${id.replace('_',' ')}</div>
+                        <div class="small ${act?'text-info':'text-secondary'}">${act?act.etapa_actual:'LIBRE'}</div>
+                        ${act?`<div style="font-size:11px; color:#fbbf24; margin-top:10px">${act.responsable}</div><div style="font-size:9px; opacity:0.6">${act.hora_inicio}</div>`:''}
+                    </div>`;
+            }
+            document.getElementById("status").innerText = "Sincronizado ✓";
+            document.getElementById("status").className = "badge bg-success";
+        } catch(e) { document.getElementById("status").innerText = "Error de red"; }
     }
 
-    async function gestionar(id, info) {
-        loteSel = id; infoLote = info;
-        document.getElementById("secInicio").classList.add("d-none");
-        document.getElementById("secAvance").classList.add("d-none");
-        
+    function abrirControl(id, info) {
+        loteSel = id; infoSel = info;
+        document.getElementById("faseInicio").classList.add("d-none");
+        document.getElementById("faseAvance").classList.add("d-none");
+        document.getElementById("tablaArea").classList.add("d-none");
+        document.getElementById("btnSubmit").disabled = (info === null);
+
         if(!info) {
-            document.getElementById("secInicio").classList.remove("d-none");
-            recalcular();
+            document.getElementById("faseInicio").classList.remove("d-none");
+            document.getElementById("mTitle").innerText = "Iniciar " + id;
         } else {
+            document.getElementById("faseAvance").classList.remove("d-none");
             const idx = etapas.indexOf(info.etapa_actual);
-            const prox = etapas[idx + 1];
-            document.getElementById("secAvance").classList.remove("d-none");
-            document.getElementById("etapaActualLabel").innerText = info.etapa_actual;
-            document.getElementById("proximaEtapaLabel").innerText = prox;
-            prepararPreguntas(prox);
+            const prox = etapas[idx+1];
+            document.getElementById("labelActual").innerText = info.etapa_actual;
+            document.getElementById("labelProxima").innerText = prox;
+            document.getElementById("mTitle").innerText = "Avance: " + info.id_lote_unico;
+            document.getElementById("btnSubmit").disabled = false;
+            generarPreguntas(prox);
         }
         modal.show();
     }
 
-    async function recalcular() {
-        const pId = document.getElementById("prodId").value;
-        const c = document.getElementById("cant").value;
-        const res = await fetch(`${API}?action=GET_FORMULA&producto_id=${pId}`);
-        const formula = await res.json();
-        const tbody = document.getElementById("tablaFormula");
-        tbody.innerHTML = ""; masaFinal = 0;
-        formula.forEach(item => {
-            let peso = item.cantidad_base * c;
-            masaFinal += peso;
-            tbody.innerHTML += `<tr><td>${item.ingrediente}</td><td>${peso}g</td>
-                <td><input type="text" class="form-control form-control-sm mp-lote" data-ing="${item.ingrediente}" required></td>
-                <td><input type="date" class="form-control form-control-sm mp-vence" required></td></tr>`;
+    async function obtenerFormula() {
+        const prod = document.getElementById("prodId").value;
+        const cant = document.getElementById("cant").value;
+        const res = await fetch(`${API}?action=GET_FORMULA&producto_id=${prod}`);
+        const data = await res.json();
+        
+        const tbody = document.getElementById("tbodyFormula");
+        tbody.innerHTML = ""; masaTotal = 0;
+        
+        data.forEach(item => {
+            const peso = item.cantidad_base * cant;
+            masaTotal += peso;
+            tbody.innerHTML += `
+                <tr>
+                    <td>${item.ingrediente}<br><span class="badge bg-secondary">${peso}g</span></td>
+                    <td><input type="text" class="form-control form-control-sm mp-lote" data-ing="${item.ingrediente}" required></td>
+                    <td><input type="date" class="form-control form-control-sm mp-vence" required></td>
+                </tr>`;
         });
-        document.getElementById("totalMasa").innerText = `TOTAL MASA: ${masaFinal.toLocaleString()} g`;
+        document.getElementById("tMasa").innerText = `TOTAL MASA: ${masaTotal.toLocaleString()} g`;
+        document.getElementById("tablaArea").classList.remove("d-none");
+        document.getElementById("btnSubmit").disabled = false;
     }
 
-    function prepararPreguntas(etapa) {
-        const div = document.getElementById("preguntasEtapa");
+    function generarPreguntas(etapa) {
+        const div = document.getElementById("camposExtras");
         div.innerHTML = "";
-        if(etapa === "Levado") div.innerHTML = `<label>Cámara Asignada</label><select id="extra_camara" class="form-select mb-2"><option>Cámara 1</option><option>Cámara 2</option></select>`;
-        if(etapa === "Horneo") div.innerHTML = `<label>Temperatura Horno (°C)</label><input type="number" id="extra_temp" class="form-control" placeholder="180">`;
-        if(etapa === "Empaque") div.innerHTML = `<label>Cantidad Final Unidades</label><input type="number" id="extra_cant" class="form-control">`;
+        if(etapa === "Levado") div.innerHTML = `<label class="small">Cámara de Crecimiento</label><select id="extra_1" class="form-select"><option>Cámara 1</option><option>Cámara 2</option></select>`;
+        if(etapa === "Horneo") div.innerHTML = `<label class="small">Temperatura Real Horno (°C)</label><input type="number" id="extra_1" class="form-control" required>`;
+        if(etapa === "Empaque") div.innerHTML = `<label class="small">Unidades Finales Producidas</label><input type="number" id="extra_1" class="form-control" required>`;
     }
 
-    document.getElementById("mainForm").onsubmit = async (e) => {
+    document.getElementById("mesForm").onsubmit = async (e) => {
         e.preventDefault();
+        const btn = document.getElementById("btnSubmit");
+        btn.disabled = true; btn.innerText = "Registrando...";
+
         let payload = { color_pin: loteSel };
-        if(!infoLote) {
+        if(!infoSel) {
             payload.action = "INICIAR_MOJADO";
             payload.pin = document.getElementById("pin").value;
             payload.producto_id = document.getElementById("prodId").value;
             payload.temp = document.getElementById("temp").value;
             payload.humedad = document.getElementById("hum").value;
-            payload.total_masa = masaFinal;
+            payload.total_masa = masaTotal;
             payload.materias_primas = {};
             document.querySelectorAll(".mp-lote").forEach((el, i) => {
                 payload.materias_primas[el.dataset.ing] = { lote: el.value, vence: document.querySelectorAll(".mp-vence")[i].value };
@@ -157,14 +187,16 @@
         } else {
             payload.action = "AVANZAR_ETAPA";
             payload.pin = document.getElementById("pinAvance").value;
-            payload.id_lote_unico = infoLote.id_lote_unico;
-            payload.proxima_etapa = etapas[etapas.indexOf(infoLote.etapa_actual) + 1];
-            payload.datos_etapa = {}; // Aquí recogerías los valores de "extra_camara", etc.
+            payload.id_lote_unico = infoSel.id_lote_unico;
+            payload.proxima_etapa = etapas[etapas.indexOf(infoSel.etapa_actual) + 1];
+            payload.datos_etapa = { val: document.getElementById("extra_1")?.value || "" };
         }
-        await fetch(API, { method: "POST", body: JSON.stringify(payload) });
-        modal.hide();
-        actualizarPanel();
-    }
+
+        const res = await fetch(API, { method: "POST", body: JSON.stringify(payload) });
+        const r = await res.json();
+        if(r.status === "ok") { modal.hide(); cargarPines(); } else { alert(r.message); }
+        btn.disabled = false; btn.innerText = "CONFIRMAR REGISTRO";
+    };
 </script>
 </body>
 </html>
