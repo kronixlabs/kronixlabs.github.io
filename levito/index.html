@@ -372,7 +372,7 @@ const SUPABASE_URL = "https://rmxckjscqfjainctsedr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mWfCo8yvsCDRoicfFiRpXw_cF4_qNAa";
 const URL_BACKEND = new URLSearchParams(window.location.search).get("backend");
 const BACKEND_MODE = ((URL_BACKEND || "gas").toLowerCase()==="supabase" ? "supabase" : "gas");
-const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+window.__levitoSupabaseClient = window.__levitoSupabaseClient || (window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null);
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
 const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0};
@@ -395,6 +395,7 @@ function showTab(id, el){
   if(id==="seguimiento") runSafe(()=>cargarSeguimientoProduccion());
   if(id==="despacho" || id==="entrega") runSafe(()=>cargarHistorialSemanal());
 }
+window.showTab = showTab;
 
 function toRpcName(action){
   return String(action||"").toLowerCase();
@@ -427,10 +428,11 @@ async function gasPost(payload){
   }
 }
 async function supabaseRpc(action, params){
-  if(!supabase) throw new Error("Supabase no inicializado.");
+  const sb = window.__levitoSupabaseClient;
+  if(!sb) throw new Error("Supabase no inicializado.");
   const rpcName = toRpcName(action);
   const args = toRpcArgs(params || {});
-  const { data, error } = await supabase.rpc(rpcName, args);
+  const { data, error } = await sb.rpc(rpcName, args);
   if(error){
     throw new Error(error.message || `RPC ${rpcName} fallo`);
   }
