@@ -25,10 +25,11 @@ function setupDatabase() {
   crearHoja_InventarioLote(ss);
   crearHoja_Clientes(ss);
   crearHoja_Alertas(ss);
+  crearHoja_LotesReciclables(ss);
   eliminarHojaTemporal_(ss);
 
   Logger.log("✅ Base de datos configurada correctamente.");
-  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 16 hojas con datos de ejemplo.");
+  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 17 hojas con datos de ejemplo.");
 }
 
 // ============================================================
@@ -75,6 +76,7 @@ function prepararEstructuraExacta_(ss) {
     "DB_INVENTARIO_LOTE",
     "DB_CLIENTES",
     "DB_ALERTAS",
+    "DB_LOTES_RECICLABLES",
     "DB_BITACORA_DETALLE"
   ]);
 
@@ -609,6 +611,25 @@ function crearHoja_Alertas(ss) {
 }
 
 // ============================================================
+// DB_LOTES_RECICLABLES
+// Lotes liberados manualmente para reuso prioritario
+// ============================================================
+function crearHoja_LotesReciclables(ss) {
+  const sh = getOrCreateSheet(ss, "DB_LOTES_RECICLABLES");
+  const headers = ["id_registro", "id_lote", "producto_id", "motivo", "fecha_liberacion", "estado", "fecha_reuso"];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 120);
+  sh.setColumnWidth(3, 120);
+  sh.setColumnWidth(4, 260);
+  sh.setColumnWidth(5, 170);
+  sh.setColumnWidth(6, 90);
+  sh.setColumnWidth(7, 170);
+  Logger.log("DB_LOTES_RECICLABLES: inicializado.");
+}
+
+// ============================================================
 // FUNCIÓN AUXILIAR: Mostrar resumen de hojas creadas
 // ============================================================
 function verificarBaseDeDatos() {
@@ -619,7 +640,7 @@ function verificarBaseDeDatos() {
     "DB_CONFIG_HORNO", "DB_MATERIAS_DECORADO", "DB_CONSECUTIVO",
     "DB_DESPACHO", "DB_ENTREGA",
     "DB_INVENTARIO_PRODUCTO", "DB_MOV_INVENTARIO",
-    "DB_INVENTARIO_LOTE", "DB_CLIENTES", "DB_ALERTAS"
+    "DB_INVENTARIO_LOTE", "DB_CLIENTES", "DB_ALERTAS", "DB_LOTES_RECICLABLES"
   ];
 
   let reporte = "VERIFICACIÓN DE BASE DE DATOS LEVITO MES\n";

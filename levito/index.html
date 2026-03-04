@@ -45,7 +45,7 @@ body::after{
 .header{display:flex;justify-content:space-between;align-items:center;padding:15px 25px;border-bottom:1px solid #1e293b}
 .logo{font-size:18px;font-weight:700}.logo span{color:#38bdf8}
 .brand-logos{display:flex;align-items:center;gap:16px}
-.brand-logos img{height:34px;object-fit:contain}
+.brand-logos img{height:46px;object-fit:contain}
 .tabs{display:flex;gap:10px;padding:15px 25px;border-bottom:1px solid #1e293b;flex-wrap:wrap}
 .tab{padding:8px 16px;border-radius:8px;cursor:pointer;background:rgba(15,23,42,.85);border:1px solid #1e293b;backdrop-filter:blur(3px)}
 .tab.active{background:#1e293b;border-color:#38bdf8}
@@ -271,6 +271,7 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
             <div class="d-flex gap-2 mt-3">
               <button class="btn btn-secondary" id="m_btn_pre">PRE-GUARDAR DATOS</button>
               <button class="btn btn-success" id="m_btn_pasar">PASAR ETAPA</button>
+              <button class="btn btn-outline-danger ms-auto" id="m_btn_finalizar">FINALIZAR PROCESO</button>
             </div>
             <div id="m_status_etapa" class="status-line"></div>
           </div>
@@ -402,8 +403,18 @@ async function onPinClick(slot){
   const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
   document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
   document.getElementById("pinViewProceso").style.display=lote?"block":"none";
-  if(!lote) await fillProductosModal(); else await cargarPantallaEtapa(lote);
+  document.getElementById("m_btn_finalizar").style.display=lote?"inline-block":"none";
+  if(!lote){clearInicioForm();await fillProductosModal();} else await cargarPantallaEtapa(lote);
   state.modal.show();
+}
+
+function clearInicioForm(){
+  document.getElementById("m_producto").selectedIndex = 0;
+  document.getElementById("m_cantidad").value = "";
+  document.getElementById("m_temp").value = "";
+  document.getElementById("m_hum").value = "";
+  document.getElementById("m_pin_inicio").value = "";
+  setStatus("m_status_inicio","");
 }
 
 function getDetalleRowsFromTable(){return Array.from(document.querySelectorAll("#m_formula_body tr")).map(tr=>({ingrediente:tr.dataset.ingrediente||"",gramos:Number(tr.dataset.gramos||0),lote_materia_prima:tr.querySelector(".in-lote")?.value?.trim()||"",fecha_vencimiento:tr.querySelector(".in-venc")?.value||""}));}
@@ -471,7 +482,7 @@ function renderDecoradoRows(rows){
     <tr>
       <td><select class="form-control dec-materia"><option value="">Seleccionar</option>${opts}</select></td>
       <td><input class="form-control dec-lote" value="${r.lote || ""}"></td>
-      <td><div class="d-flex gap-1"><input type="text" class="form-control dec-venc" placeholder="YYYY-MM-DD" value="${r.vencimiento || ""}"><button type="button" class="btn btn-outline-info btn-sm" onclick="openDatePicker(this)">📅</button></div></td>
+      <td><input type="date" class="form-control dec-venc" value="${r.vencimiento || ""}"></td>
     </tr>
   `).join("");
   const selects = document.querySelectorAll(".dec-materia");
@@ -479,9 +490,23 @@ function renderDecoradoRows(rows){
 }
 
 function renderFormulaRows(rows){
-  document.getElementById("m_formula_body").innerHTML = rows.map(r=>`<tr data-ingrediente="${r.ingrediente||""}" data-gramos="${Number(r.gramos||0)}"><td>${r.ingrediente||""}</td><td>${Number(r.gramos||0).toFixed(2)}</td><td><input class="form-control in-lote" value="${r.lote_materia_prima||""}"></td><td><div class="d-flex gap-1"><input type="text" class="form-control in-venc" placeholder="YYYY-MM-DD" value="${r.fecha_vencimiento||""}"><button type="button" class="btn btn-outline-info btn-sm" onclick="openDatePicker(this)">📅</button></div></td></tr>`).join("");
+  document.getElementById("m_formula_body").innerHTML = rows.map(r=>`<tr data-ingrediente="${r.ingrediente||""}" data-gramos="${Number(r.gramos||0)}"><td>${r.ingrediente||""}</td><td>${Number(r.gramos||0).toFixed(2)}</td><td><input class="form-control in-lote" value="${r.lote_materia_prima||""}"></td><td><input type="date" class="form-control in-venc" value="${r.fecha_vencimiento||""}"></td></tr>`).join("");
 }
 function openDatePicker(btn){const txt=btn.parentElement.querySelector(".in-venc");const p=document.createElement("input");p.type="date";p.style.position="fixed";p.style.left="-9999px";p.onchange=()=>{txt.value=p.value};document.body.appendChild(p);if(p.showPicker)p.showPicker();else p.click();setTimeout(()=>p.remove(),1200);}
+
+async function finalizarProcesoManual(){
+  const lote=state.activeLote;if(!lote){setStatus("m_status_etapa","No hay lote activo.",true);return;}
+  const pin=document.getElementById("m_pin_etapa").value.trim();if(!pin){setStatus("m_status_etapa","PIN requerido para finalizar.",true);return;}
+  const motivo=(window.prompt("Motivo de finalización del proceso:","")||"").trim();
+  if(!motivo){setStatus("m_status_etapa","Debes indicar el motivo.",true);return;}
+  const r = await apiPost({action:"FINALIZAR_PROCESO_MANUAL",pin,id_lote:lote.id_lote,slot:lote.slot,producto_id:lote.producto_id,motivo});
+  if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo finalizar.",true);return;}
+  setStatus("m_status_etapa","Proceso finalizado y pin liberado.",false);
+  state.modal.hide();
+  await cargarLotes();
+  await cargarTrazabilidad();
+  await cargarSeguimientoProduccion();
+}
 
 async function calcularFormula(){
   const lote=state.activeLote;if(!lote||lote.etapa_actual!=="Mojado"){setStatus("m_status_etapa","La calculadora solo aplica en Mojado.",true);return;}
@@ -599,6 +624,7 @@ async function init(){
   document.getElementById("m_btn_calcular").addEventListener("click",calcularFormula);
   document.getElementById("m_btn_pre").addEventListener("click",preGuardarMojado);
   document.getElementById("m_btn_pasar").addEventListener("click",pasarEtapa);
+  document.getElementById("m_btn_finalizar").addEventListener("click",finalizarProcesoManual);
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);

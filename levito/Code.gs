@@ -25,7 +25,8 @@ const SHEETS = {
   MOV_INVENTARIO:   "DB_MOV_INVENTARIO",
   INVENTARIO_LOTE:  "DB_INVENTARIO_LOTE",
   CLIENTES:         "DB_CLIENTES",
-  ALERTAS:          "DB_ALERTAS"
+  ALERTAS:          "DB_ALERTAS",
+  LOTES_RECICLABLES:"DB_LOTES_RECICLABLES"
 };
 
 const ETAPAS = [
@@ -172,6 +173,9 @@ function doPost(e) {
       case "PASAR_ETAPA_DESDE_MODAL":
         return jsonOk(pasarEtapaDesdeModal(data, operario));
 
+      case "FINALIZAR_PROCESO_MANUAL":
+        return jsonOk(finalizarProcesoManual(data, operario));
+
       default:
         return jsonError("Acción POST no reconocida: " + action);
     }
@@ -247,6 +251,9 @@ function getAllActivos() {
       const hora_inicio_str = hora_inicio
         ? Utilities.formatDate(new Date(hora_inicio), Session.getScriptTimeZone(), "dd/MM HH:mm")
         : "—";
+      const hora_etapa_str = hora_etapa
+        ? Utilities.formatDate(new Date(hora_etapa), Session.getScriptTimeZone(), "HH:mm")
+        : "—";
 
       return {
         slot:           slot,
@@ -255,6 +262,8 @@ function getAllActivos() {
         producto:       producto,
         etapa_actual:   etapa_actual,
         operario:       operario,
+        hora_etapa:     hora_etapa,
+        hora_etapa_str: hora_etapa_str,
         hora_inicio:    hora_inicio_str,
         tiempo_etapa:   tiempo_etapa,
         alerta:         alerta,
@@ -633,14 +642,30 @@ function iniciarLote(data, operario) {
   try {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  // 1. Generar número de lote y actualizar consecutivo
-  const shCons  = ss.getSheetByName(SHEETS.CONSECUTIVO);
-  const ultimo  = parseInt(shCons.getRange(2, 1).getValue()) || 5225;
-  const nuevoNum = ultimo + 1;
-  const id_lote  = "L:" + String(nuevoNum).padStart(6, "0");
-
-  shCons.getRange(2, 1).setValue(nuevoNum);
-  shCons.getRange(2, 2).setValue(new Date());
+  // 1. Reusar lote reciclable del mismo slot (si existe), o generar consecutivo nuevo.
+  const now = new Date().toISOString();
+  let id_lote = "";
+  const shRec = ss.getSheetByName(SHEETS.LOTES_RECICLABLES);
+  if (shRec && shRec.getLastRow() > 1) {
+    const rec = shRec.getRange(2, 1, shRec.getLastRow() - 1, 9).getValues();
+    for (let i = 0; i < rec.length; i++) {
+      const activo = rec[i][8] === true;
+      const slotRec = Number(rec[i][2] || 0);
+      if (activo && slotRec === Number(data.slot || 0)) {
+        id_lote = String(rec[i][1] || "").trim();
+        shRec.getRange(i + 2, 9).setValue(false);
+        break;
+      }
+    }
+  }
+  if (!id_lote) {
+    const shCons  = ss.getSheetByName(SHEETS.CONSECUTIVO);
+    const ultimo  = parseInt(shCons.getRange(2, 1).getValue()) || 5225;
+    const nuevoNum = ultimo + 1;
+    id_lote  = "L:" + String(nuevoNum).padStart(6, "0");
+    shCons.getRange(2, 1).setValue(nuevoNum);
+    shCons.getRange(2, 2).setValue(new Date());
+  }
 
   // 2. Obtener info del producto
   const producto = getProductoPorId(ss, data.producto_id);
@@ -658,8 +683,6 @@ function iniciarLote(data, operario) {
   }
 
   // 4. Registrar lote en DB_LOTES_ACTIVOS
-  const now = new Date().toISOString();
-
   const datosJson = JSON.stringify({
     cantidad:        data.cantidad,
     temp_amb:        data.temp_amb,
@@ -1701,6 +1724,84 @@ function getTrazabilidadFinalizados(limit) {
       operarios_por_etapa: opStr
     };
   });
+}
+
+function finalizarProcesoManual(data, operario) {
+  if (!data || !data.id_lote) {
+    return { status: "error", message: "id_lote requerido." };
+  }
+  const motivo = String(data.motivo || "").trim();
+  if (!motivo) {
+    return { status: "error", message: "Motivo de finalizacion requerido." };
+  }
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const shLotes = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
+    if (!shLotes || shLotes.getLastRow() < 2) {
+      return { status: "error", message: "No hay lotes activos." };
+    }
+
+    const found = buscarLote(shLotes, data.id_lote);
+    if (!found || !found.rowIdx || !found.fila) {
+      return { status: "error", message: "Lote no encontrado en activos." };
+    }
+
+    const fila = found.fila;
+    const nowIso = new Date().toISOString();
+    const datos = {
+      motivo_finalizacion: motivo,
+      etapa_actual: fila[4],
+      producto_id: fila[2],
+      producto_nombre: fila[3]
+    };
+
+    registrarBitacora(
+      ss,
+      fila[1],
+      fila[0],
+      "Finalizado",
+      data.pin || "",
+      operario,
+      nowIso,
+      JSON.stringify(datos)
+    );
+
+    const shRec = ss.getSheetByName(SHEETS.LOTES_RECICLABLES);
+    if (shRec) {
+      shRec.appendRow([
+        Utilities.getUuid(),
+        String(fila[1] || ""),
+        Number(fila[0] || 0),
+        normalizeProductId_(fila[2]),
+        String(fila[3] || ""),
+        nowIso,
+        operario,
+        motivo,
+        true
+      ]);
+    }
+
+    registrarAlerta_(
+      ss,
+      "PRODUCCION",
+      "FINALIZACION_MANUAL",
+      "Proceso finalizado manualmente por operario",
+      { id_lote: fila[1], slot: fila[0], operario: operario, motivo: motivo }
+    );
+
+    shLotes.deleteRow(found.rowIdx);
+    return {
+      status: "ok",
+      message: "Proceso finalizado manualmente. Pin liberado.",
+      id_lote: fila[1],
+      slot: fila[0]
+    };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // ============================================================
