@@ -41,7 +41,9 @@ body::after{
   background:linear-gradient(180deg, rgba(56,189,248,.22), rgba(56,189,248,0));
   z-index:0;
 }
-.header,.tabs,.section,.modal{position:relative;z-index:1}
+.header,.tabs,.section{position:relative;z-index:1}
+/* Mantener modal por encima del backdrop de Bootstrap */
+.modal{z-index:1060}
 .header{display:flex;justify-content:space-between;align-items:center;padding:15px 25px;border-bottom:1px solid #1e293b}
 .logo{font-size:18px;font-weight:700}.logo span{color:#38bdf8}
 .brand-logos{display:flex;align-items:center;gap:16px}
@@ -620,6 +622,11 @@ async function registrarEntrega(){
 async function init(){
   const hoy=new Date().toISOString().slice(0,10);document.getElementById("d_fecha").value=hoy;document.getElementById("e_fecha").value=hoy;
   state.modal=new bootstrap.Modal(document.getElementById("pinModal"));
+  document.getElementById("pinModal").addEventListener("hidden.bs.modal",()=>{
+    document.querySelectorAll(".modal-backdrop").forEach(x=>x.remove());
+    document.body.classList.remove("modal-open");
+    document.body.style.removeProperty("padding-right");
+  });
   document.getElementById("m_btn_inicio").addEventListener("click",iniciarMojado);
   document.getElementById("m_btn_calcular").addEventListener("click",calcularFormula);
   document.getElementById("m_btn_pre").addEventListener("click",preGuardarMojado);
