@@ -22,7 +22,10 @@ const SHEETS = {
   ENTREGA:          "DB_ENTREGA",
   BITACORA_DETALLE: "DB_BITACORA_DETALLE",
   INVENTARIO:       "DB_INVENTARIO_PRODUCTO",
-  MOV_INVENTARIO:   "DB_MOV_INVENTARIO"
+  MOV_INVENTARIO:   "DB_MOV_INVENTARIO",
+  INVENTARIO_LOTE:  "DB_INVENTARIO_LOTE",
+  CLIENTES:         "DB_CLIENTES",
+  ALERTAS:          "DB_ALERTAS"
 };
 
 const ETAPAS = [
@@ -64,7 +67,7 @@ function doGet(e) {
         return jsonOk(getAllActivos());
 
       case "GET_PRODUCTOS":
-        return jsonOk(getProductos());
+        return jsonOk(getProductosCached_());
 
       case "GET_FORMULA":
         return jsonOk(getFormula(e.parameter.producto_id));
@@ -73,7 +76,7 @@ function doGet(e) {
         return jsonOk(getProximoLote());
 
       case "GET_MATERIAS_DECORADO":
-        return jsonOk(getMateriasDecorado());
+        return jsonOk(getMateriasDecoradoCached_());
 
       case "GET_TEMP_HORNO":
         return jsonOk(getTempHorno(e.parameter.producto_id));
@@ -92,6 +95,27 @@ function doGet(e) {
 
       case "GET_TRAZABILIDAD":
         return jsonOk(getTrazabilidadFinalizados(parseInt(e.parameter.limit || "100", 10)));
+
+      case "GET_CLIENTES":
+        return jsonOk(getClientesCached_());
+
+      case "GET_LOTES_STOCK":
+        return jsonOk(getLotesConStock(e.parameter.producto_id));
+
+      case "GET_BOOTSTRAP":
+        return jsonOk(getBootstrapData());
+
+      case "GET_SEGUIMIENTO_PRODUCCION":
+        return jsonOk(getSeguimientoProduccion(parseInt(e.parameter.limit || "200", 10)));
+
+      case "GET_LOTES_FINALIZADOS":
+        return jsonOk(getLotesFinalizados(parseInt(e.parameter.limit || "500", 10), e.parameter.producto_id));
+
+      case "GET_AUDITORIA_LOTE":
+        return jsonOk(getAuditoriaLote(e.parameter.id_lote));
+
+      case "GET_INVENTARIO_LOTE":
+        return jsonOk(getInventarioLote(parseInt(e.parameter.limit || "1000", 10)));
 
       case "PING":
         return jsonOk({ status: "ok", timestamp: new Date().toISOString() });
@@ -141,6 +165,9 @@ function doPost(e) {
 
       case "PRE_GUARDAR_MOJADO":
         return jsonOk(preGuardarMojado(data, operario));
+
+      case "PRE_GUARDAR_ETAPA":
+        return jsonOk(preGuardarEtapa(data, operario));
 
       case "PASAR_ETAPA_DESDE_MODAL":
         return jsonOk(pasarEtapaDesdeModal(data, operario));
@@ -416,6 +443,92 @@ function getInventario() {
       entregado_acum: Number(r[4] || 0),
       stock_actual: Number(r[5] || 0),
       ultima_actualizacion: r[6]
+    }));
+}
+
+function getClientes() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.CLIENTES);
+  if (!sh || sh.getLastRow() < 2) return [];
+  const data = sh.getRange(2, 1, sh.getLastRow() - 1, 2).getValues();
+  return data.filter(r => r[0] !== "" && r[1] === true).map(r => ({ cliente: r[0] }));
+}
+
+function getLotesConStock(producto_id) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.INVENTARIO_LOTE);
+  if (!sh || sh.getLastRow() < 2) return [];
+  const pid = normalizeProductId_(producto_id);
+  const data = sh.getRange(2, 1, sh.getLastRow() - 1, 10).getValues();
+  return data
+    .filter(r => normalizeProductId_(r[1]) === pid && Number(r[7] || 0) > 0 && r[9] === true)
+    .sort((a, b) => new Date(a[4]) - new Date(b[4]))
+    .map(r => ({
+      id_lote: r[3],
+      fecha_produccion: r[4],
+      stock_lote: Number(r[7] || 0)
+    }));
+}
+
+function getBootstrapData() {
+  return {
+    productos: getProductosCached_(),
+    materias_decorado: getMateriasDecoradoCached_(),
+    clientes: getClientesCached_()
+  };
+}
+
+function getProductosCached_() {
+  return getCachedJson_("CAT_PRODUCTOS_V1", 180, function() {
+    return getProductos();
+  });
+}
+
+function getMateriasDecoradoCached_() {
+  return getCachedJson_("CAT_MATERIAS_DECORADO_V1", 180, function() {
+    return getMateriasDecorado();
+  });
+}
+
+function getClientesCached_() {
+  return getCachedJson_("CAT_CLIENTES_V1", 180, function() {
+    return getClientes();
+  });
+}
+
+function getCachedJson_(key, ttlSeconds, buildFn) {
+  const cache = CacheService.getScriptCache();
+  const hit = cache.get(key);
+  if (hit) {
+    try {
+      return JSON.parse(hit);
+    } catch (e) {
+      // continue to rebuild
+    }
+  }
+  const value = buildFn();
+  cache.put(key, JSON.stringify(value), ttlSeconds);
+  return value;
+}
+
+function getInventarioLote(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.INVENTARIO_LOTE);
+  if (!sh || sh.getLastRow() < 2) return [];
+  const data = sh.getRange(2, 1, sh.getLastRow() - 1, 10).getValues();
+  return data
+    .filter(r => r[9] === true)
+    .sort((a, b) => new Date(a[4]) - new Date(b[4]))
+    .slice(0, Math.max(1, Math.min(limit || 1000, 3000)))
+    .map(r => ({
+      producto_id: r[1],
+      producto_nombre: r[2],
+      id_lote: r[3],
+      fecha_produccion: r[4],
+      cantidad_inicial: Number(r[5] || 0),
+      cantidad_salida: Number(r[6] || 0),
+      stock_lote: Number(r[7] || 0),
+      ultima_actualizacion: r[8]
     }));
 }
 
@@ -700,6 +813,7 @@ function registrarDespacho(data, operario) {
   const fecha = String(data.fecha || "").trim();
   const producto = String(data.producto || "").trim();
   const id_lote = String(data.id_lote || "").trim();
+  const producto_id = String(data.producto_id || "").trim();
   const cantidad = Number(data.cantidad);
 
   if (!fecha || !producto || !id_lote || !Number.isFinite(cantidad) || cantidad <= 0) {
@@ -709,6 +823,17 @@ function registrarDespacho(data, operario) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sh = ss.getSheetByName(SHEETS.DESPACHO);
   if (!sh) return { status: "error", message: "No existe la hoja DB_DESPACHO." };
+
+  const stockResult = actualizarInventarioSalida_(
+    ss,
+    normalizeProductId_(producto_id || producto),
+    producto,
+    id_lote,
+    cantidad,
+    operario.nombre,
+    "DESPACHO"
+  );
+  if (stockResult.status === "error") return stockResult;
 
   const now = new Date().toISOString();
   sh.appendRow([
@@ -744,13 +869,14 @@ function registrarEntrega(data, operario) {
   const sh = ss.getSheetByName(SHEETS.ENTREGA);
   if (!sh) return { status: "error", message: "No existe la hoja DB_ENTREGA." };
 
-  const stockResult = actualizarInventarioEntrega_(
+  const stockResult = actualizarInventarioSalida_(
     ss,
     normalizeProductId_(data.producto_id || producto),
     producto,
-    cantidad,
     id_lote,
-    operario.nombre
+    cantidad,
+    operario.nombre,
+    "ENTREGA"
   );
   if (stockResult.status === "error") return stockResult;
 
@@ -807,6 +933,29 @@ function preGuardarMojado(data, operario) {
   });
 
   return { status: "ok", message: "Datos pre-guardados.", total_gramos_masa: total };
+}
+
+function preGuardarEtapa(data, operario) {
+  if (!data.id_lote || !data.pin) return { status: "error", message: "id_lote y PIN requeridos." };
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shLotes = ss.getSheetByName(SHEETS.LOTES_ACTIVOS);
+  const { fila } = buscarLote(shLotes, data.id_lote);
+  if (!fila) return { status: "error", message: "Lote no encontrado." };
+
+  const etapa = String(data.etapa || fila[4] || "");
+  const detalle = Object.assign(buildDetallePayload_(data), buildDatosEtapa(data));
+  const total = Number(data.total_gramos_masa || 0);
+  saveBitacoraDetalle_(ss, {
+    id_lote: data.id_lote,
+    slot: data.slot || fila[0],
+    etapa: etapa,
+    producto_id: data.producto_id || fila[2],
+    pin: data.pin,
+    operario: operario.nombre,
+    detalle: detalle,
+    total_gramos_masa: total
+  });
+  return { status: "ok", message: "Pre-guardado de " + etapa + " realizado." };
 }
 
 // ============================================================
@@ -1043,6 +1192,43 @@ function registrarMovInventario_(ss, data) {
   ]);
 }
 
+function registrarAlerta_(ss, modulo, tipo, mensaje, payload) {
+  const sh = ss.getSheetByName(SHEETS.ALERTAS);
+  if (!sh) return;
+  sh.appendRow([
+    Utilities.getUuid(),
+    new Date().toISOString(),
+    modulo,
+    tipo,
+    mensaje,
+    JSON.stringify(payload || {}),
+    false
+  ]);
+}
+
+function ensureInventarioLoteRow_(ss, producto_id, producto_nombre, id_lote) {
+  const sh = ss.getSheetByName(SHEETS.INVENTARIO_LOTE);
+  if (!sh) throw new Error("No existe DB_INVENTARIO_LOTE.");
+  const pid = normalizeProductId_(producto_id);
+  const data = sh.getLastRow() > 1 ? sh.getRange(2, 1, sh.getLastRow() - 1, 10).getValues() : [];
+  for (let i = 0; i < data.length; i++) {
+    if (normalizeProductId_(data[i][1]) === pid && String(data[i][3]) === String(id_lote)) {
+      return i + 2;
+    }
+  }
+  sh.appendRow([
+    Utilities.getUuid(),
+    pid,
+    producto_nombre || pid,
+    id_lote,
+    new Date().toISOString(),
+    0, 0, 0,
+    new Date().toISOString(),
+    true
+  ]);
+  return sh.getLastRow();
+}
+
 function actualizarInventarioProduccion_(ss, producto_id, producto_nombre, cantidad, id_lote, operario) {
   const qty = Number(cantidad || 0);
   if (qty <= 0) return;
@@ -1078,6 +1264,75 @@ function actualizarInventarioProduccion_(ss, producto_id, producto_nombre, canti
       stock_resultante: stockActual,
       obs: "Ingreso por finalizacion de lote"
     });
+
+    const shLote = ss.getSheetByName(SHEETS.INVENTARIO_LOTE);
+    const rowL = ensureInventarioLoteRow_(ss, producto_id, producto_nombre, id_lote);
+    const currL = shLote.getRange(rowL, 1, 1, 10).getValues()[0];
+    const iniL = Number(currL[5] || 0) + qty;
+    const salL = Number(currL[6] || 0);
+    const stkL = iniL - salL;
+    shLote.getRange(rowL, 5, 1, 5).setValues([[
+      currL[4] || new Date().toISOString(),
+      iniL,
+      salL,
+      stkL,
+      new Date().toISOString()
+    ]]);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function actualizarInventarioSalida_(ss, producto_id, producto_nombre, id_lote, cantidad, operario, modulo) {
+  const qty = Number(cantidad || 0);
+  if (qty <= 0) return { status: "error", message: "Cantidad inválida." };
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const shInv = ss.getSheetByName(SHEETS.INVENTARIO);
+    const shLot = ss.getSheetByName(SHEETS.INVENTARIO_LOTE);
+    const pos = ensureInventarioRow_(ss, producto_id, producto_nombre);
+    const row = shInv.getRange(pos.rowIdx, 1, 1, 8).getValues()[0];
+    const stockActual = Number(row[5] || 0);
+    if (qty > stockActual) {
+      registrarAlerta_(ss, modulo, "STOCK_INSUFICIENTE", "Intento de salida sin existencia", { producto_id, id_lote, qty, stockActual });
+      return { status: "error", message: "Stock insuficiente. Disponible: " + stockActual + ", solicitado: " + qty };
+    }
+
+    const rowL = ensureInventarioLoteRow_(ss, producto_id, producto_nombre, id_lote);
+    const lot = shLot.getRange(rowL, 1, 1, 10).getValues()[0];
+    const lotStock = Number(lot[7] || 0);
+    if (qty > lotStock) {
+      const desfase = qty - lotStock;
+      registrarAlerta_(ss, modulo, "DESFASE_LOTE", "Salida mayor al stock del lote", { producto_id, id_lote, qty, lotStock, desfase });
+      return { status: "error", message: "Desfase en lote. Disponible en lote: " + lotStock + ", solicitado: " + qty + ", desfase: +" + desfase };
+    }
+
+    const inventarioInicial = Number(row[2] || 0);
+    const producidoAcum = Number(row[3] || 0);
+    const entregadoAcum = Number(row[4] || 0) + qty;
+    const nuevoStock = inventarioInicial + producidoAcum - entregadoAcum;
+    shInv.getRange(pos.rowIdx, 3, 1, 5).setValues([[inventarioInicial, producidoAcum, entregadoAcum, nuevoStock, new Date().toISOString()]]);
+
+    const iniL = Number(lot[5] || 0);
+    const salL = Number(lot[6] || 0) + qty;
+    const stkL = iniL - salL;
+    shLot.getRange(rowL, 6, 1, 4).setValues([[iniL, salL, stkL, new Date().toISOString()]]);
+
+    registrarMovInventario_(ss, {
+      tipo_mov: modulo,
+      producto_id: normalizeProductId_(producto_id),
+      producto_nombre: producto_nombre,
+      cantidad: qty,
+      id_lote: id_lote,
+      ref_modulo: modulo,
+      operario: operario,
+      stock_resultante: nuevoStock,
+      obs: "Salida por " + modulo
+    });
+
+    return { status: "ok", stock_actual: nuevoStock, stock_lote: stkL };
   } finally {
     lock.releaseLock();
   }
@@ -1198,6 +1453,254 @@ function buildDatosEtapa(data) {
   });
 
   return result;
+}
+
+function getMapProductoPorLote_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.MOV_INVENTARIO);
+  if (!sh || sh.getLastRow() < 2) return {};
+  const data = sh.getRange(2, 1, sh.getLastRow() - 1, 11).getValues();
+  const map = {};
+  data.forEach(r => {
+    const tipo = String(r[2] || "");
+    const lote = String(r[6] || "");
+    if (!lote) return;
+    if (tipo === "PRODUCCION" || !map[lote]) {
+      map[lote] = { producto_id: r[3], producto_nombre: r[4] };
+    }
+  });
+  return map;
+}
+
+function getLotesFinalizados(limit, producto_id) {
+  const rows = getTrazabilidadFinalizados(limit);
+  const pid = normalizeProductId_(producto_id || "");
+  return rows.filter(r => !pid || normalizeProductId_(r.producto_id) === pid);
+}
+
+function getSeguimientoProduccion(limit) {
+  const activos = getAllActivos().map(r => ({
+    id_lote: r.id_lote,
+    producto_id: r.producto_id,
+    producto_nombre: r.producto,
+    estado: "EN_PROCESO",
+    etapa_actual: r.etapa_actual,
+    hora_inicio: r.hora_inicio,
+    hora_ref: r.hora_etapa || "",
+    semaforo: buildSemaforo_(r.etapa_actual, false)
+  }));
+
+  const finalizados = getTrazabilidadFinalizados(limit)
+    .slice(0, Math.max(1, Math.min(limit || 200, 500)))
+    .map(r => ({
+      id_lote: r.id_lote,
+      producto_id: r.producto_id,
+      producto_nombre: r.producto_nombre,
+      estado: "FINALIZADO",
+      etapa_actual: "Finalizado",
+      hora_inicio: r.hora_inicio,
+      hora_ref: r.hora_fin,
+      semaforo: buildSemaforo_("Finalizado", true)
+    }));
+
+  return [...activos, ...finalizados]
+    .sort((a, b) => new Date(b.hora_ref || b.hora_inicio) - new Date(a.hora_ref || a.hora_inicio));
+}
+
+function buildSemaforo_(etapaActual, finalizado) {
+  if (finalizado) return "VERDE";
+  return "ROJO:" + String(etapaActual || "N/A");
+}
+
+function getAuditoriaLote(id_lote) {
+  if (!id_lote) return { status: "error", message: "id_lote requerido." };
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shB = ss.getSheetByName(SHEETS.BITACORA);
+  const shD = ss.getSheetByName(SHEETS.BITACORA_DETALLE);
+
+  const bit = shB && shB.getLastRow() > 1
+    ? shB.getRange(2, 1, shB.getLastRow() - 1, 8).getValues().filter(r => r[1] === id_lote)
+    : [];
+  const det = shD && shD.getLastRow() > 1
+    ? shD.getRange(2, 1, shD.getLastRow() - 1, 10).getValues().filter(r => r[1] === id_lote)
+    : [];
+
+  const prodMap = getMapProductoPorLote_();
+  const prod = prodMap[id_lote] || {};
+  return {
+    status: "ok",
+    id_lote: id_lote,
+    producto_id: prod.producto_id || "",
+    producto_nombre: prod.producto_nombre || "",
+    bitacora: bit.map(r => ({
+      etapa: r[3],
+      pin: r[4],
+      operario: r[5],
+      timestamp: r[6],
+      datos_json: r[7]
+    })),
+    detalle: det.map(r => ({
+      etapa: r[3],
+      timestamp: r[5],
+      operario: r[7],
+      detalle_json: r[8],
+      total_gramos_masa: r[9]
+    }))
+  };
+}
+
+// Version optimizada para tablero visual de seguimiento con horas por etapa.
+function getSeguimientoProduccion(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const shBit = ss.getSheetByName(SHEETS.BITACORA);
+  const bit = shBit && shBit.getLastRow() > 1
+    ? shBit.getRange(2, 1, shBit.getLastRow() - 1, 8).getValues()
+    : [];
+
+  const byLote = {};
+  bit.forEach(r => {
+    const id = String(r[1] || "");
+    if (!id) return;
+    if (!byLote[id]) byLote[id] = [];
+    byLote[id].push({
+      etapa: String(r[3] || ""),
+      ts: new Date(r[6]),
+      operario: String(r[5] || "")
+    });
+  });
+  Object.keys(byLote).forEach(k => byLote[k].sort((a, b) => a.ts - b.ts));
+
+  const activos = getAllActivos();
+  const activosMap = {};
+  activos.forEach(a => { activosMap[a.id_lote] = a; });
+
+  const stageOrder = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque","Finalizado"];
+
+  const items = [];
+
+  // Activos
+  activos.forEach(a => {
+    const events = byLote[a.id_lote] || [];
+    const starts = {};
+    starts["Mojado"] = a.hora_inicio || "";
+
+    events.forEach(ev => {
+      const idx = stageOrder.indexOf(ev.etapa);
+      if (idx >= 0 && idx < stageOrder.length - 1) {
+        const next = stageOrder[idx + 1];
+        if (!starts[next]) starts[next] = ev.ts.toISOString();
+      }
+    });
+
+    // Hora real de inicio de etapa actual tomada de lotes activos si existe.
+    if (a.hora_etapa) starts[a.etapa_actual] = a.hora_etapa;
+
+    const timeline = stageOrder.map(s => ({
+      etapa: s,
+      inicio: starts[s] || "",
+      estado: s === a.etapa_actual ? "actual" : (stageOrder.indexOf(s) < stageOrder.indexOf(a.etapa_actual) ? "completada" : "pendiente")
+    }));
+
+    items.push({
+      id_lote: a.id_lote,
+      producto_id: a.producto_id,
+      producto_nombre: a.producto,
+      estado: "EN_PROCESO",
+      etapa_actual: a.etapa_actual,
+      hora_inicio: a.hora_inicio || "",
+      hora_ref: a.hora_etapa || a.hora_inicio || "",
+      timeline: timeline
+    });
+  });
+
+  // Finalizados
+  const fin = getTrazabilidadFinalizados(limit);
+  fin.forEach(f => {
+    const events = byLote[f.id_lote] || [];
+    const starts = {};
+    events.forEach(ev => {
+      if (!starts[ev.etapa]) starts[ev.etapa] = ev.ts.toISOString();
+    });
+    const timeline = stageOrder.map(s => ({
+      etapa: s,
+      inicio: starts[s] || "",
+      estado: "completada"
+    }));
+    items.push({
+      id_lote: f.id_lote,
+      producto_id: f.producto_id || "",
+      producto_nombre: f.producto_nombre || "",
+      estado: "FINALIZADO",
+      etapa_actual: "Finalizado",
+      hora_inicio: f.hora_inicio,
+      hora_ref: f.hora_fin,
+      timeline: timeline
+    });
+  });
+
+  return items
+    .sort((a, b) => new Date(b.hora_ref || b.hora_inicio) - new Date(a.hora_ref || a.hora_inicio))
+    .slice(0, Math.max(1, Math.min(limit || 200, 500)));
+}
+
+// Sobrescribe trazabilidad con detalle de tiempos y operarios por etapa.
+function getTrazabilidadFinalizados(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.BITACORA);
+  if (!sh || sh.getLastRow() < 2) return [];
+
+  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 8).getValues();
+  const map = {};
+  datos.forEach(r => {
+    const id = r[1];
+    if (!id) return;
+    const ts = new Date(r[6]);
+    if (!map[id]) map[id] = { id_lote:id, slot:r[2], hora_inicio:ts, hora_fin:ts, etapas:[], operarios:{} };
+    if (ts < map[id].hora_inicio) map[id].hora_inicio = ts;
+    if (ts > map[id].hora_fin) map[id].hora_fin = ts;
+    const etapa = String(r[3]||"");
+    const operario = String(r[5]||"");
+    if (map[id].etapas.indexOf(etapa) === -1) map[id].etapas.push(etapa);
+    if (etapa) map[id].operarios[etapa] = operario;
+  });
+
+  const items = Object.values(map)
+    .filter(x => x.etapas.indexOf("Finalizado") !== -1)
+    .sort((a,b) => b.hora_fin - a.hora_fin)
+    .slice(0, Math.max(1, Math.min(limit || 100, 500)));
+
+  const prodMap = getMapProductoPorLote_();
+  return items.map(x => {
+    const eventos = datos
+      .filter(r => r[1] === x.id_lote)
+      .map(r => ({ etapa: String(r[3] || ""), ts: new Date(r[6]) }))
+      .filter(e => !Number.isNaN(e.ts.getTime()))
+      .sort((a,b) => a.ts - b.ts);
+
+    let total = 0;
+    const parts = [];
+    for (let i = 0; i < eventos.length - 1; i++) {
+      const min = Math.max(0, Math.round((eventos[i + 1].ts - eventos[i].ts) / 60000));
+      total += min;
+      parts.push(eventos[i].etapa + ": " + min + "m");
+    }
+    const opStr = Object.keys(x.operarios).map(k => k + ": " + x.operarios[k]).join(" | ");
+
+    const prod = prodMap[x.id_lote] || {};
+    return {
+      id_lote: x.id_lote,
+      producto_id: prod.producto_id || "",
+      producto_nombre: prod.producto_nombre || "",
+      slot: x.slot,
+      hora_inicio: x.hora_inicio.toISOString(),
+      hora_fin: x.hora_fin.toISOString(),
+      operario_ultimo: x.operarios["Finalizado"] || "",
+      etapas: x.etapas.join(" > "),
+      duracion_total_min: total,
+      duracion_por_etapa: parts.join(" | "),
+      operarios_por_etapa: opStr
+    };
+  });
 }
 
 // ============================================================

@@ -22,10 +22,13 @@ function setupDatabase() {
   crearHoja_Entrega(ss);
   crearHoja_InventarioProducto(ss);
   crearHoja_MovInventario(ss);
+  crearHoja_InventarioLote(ss);
+  crearHoja_Clientes(ss);
+  crearHoja_Alertas(ss);
   eliminarHojaTemporal_(ss);
 
   Logger.log("✅ Base de datos configurada correctamente.");
-  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 13 hojas con datos de ejemplo.");
+  SpreadsheetApp.getUi().alert("✅ Base de datos LEVITO MES configurada.\n\nSe crearon 16 hojas con datos de ejemplo.");
 }
 
 // ============================================================
@@ -69,6 +72,9 @@ function prepararEstructuraExacta_(ss) {
     "DB_ENTREGA",
     "DB_INVENTARIO_PRODUCTO",
     "DB_MOV_INVENTARIO",
+    "DB_INVENTARIO_LOTE",
+    "DB_CLIENTES",
+    "DB_ALERTAS",
     "DB_BITACORA_DETALLE"
   ]);
 
@@ -540,6 +546,69 @@ function crearHoja_MovInventario(ss) {
 }
 
 // ============================================================
+// DB_INVENTARIO_LOTE
+// Stock por lote para control FEFO y despacho/entrega
+// ============================================================
+function crearHoja_InventarioLote(ss) {
+  const sh = getOrCreateSheet(ss, "DB_INVENTARIO_LOTE");
+  const headers = [
+    "id_registro", "producto_id", "producto_nombre", "id_lote",
+    "fecha_produccion", "cantidad_inicial", "cantidad_salida", "stock_lote", "ultima_actualizacion", "activo"
+  ];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  sh.getRange("B:B").setNumberFormat("@");
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 120);
+  sh.setColumnWidth(3, 220);
+  sh.setColumnWidth(4, 120);
+  sh.setColumnWidth(5, 170);
+  sh.setColumnWidth(6, 120);
+  sh.setColumnWidth(7, 120);
+  sh.setColumnWidth(8, 100);
+  sh.setColumnWidth(9, 170);
+  sh.setColumnWidth(10, 70);
+  Logger.log("DB_INVENTARIO_LOTE: inicializado.");
+}
+
+// ============================================================
+// DB_CLIENTES
+// ============================================================
+function crearHoja_Clientes(ss) {
+  const sh = getOrCreateSheet(ss, "DB_CLIENTES");
+  const headers = ["cliente", "activo"];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  const datos = [
+    ["Cliente A", true],
+    ["Cliente B", true],
+    ["Cliente C", true]
+  ];
+  datos.forEach(r => sh.appendRow(r));
+  sh.setColumnWidth(1, 200);
+  sh.setColumnWidth(2, 70);
+  Logger.log("DB_CLIENTES: inicializado.");
+}
+
+// ============================================================
+// DB_ALERTAS
+// ============================================================
+function crearHoja_Alertas(ss) {
+  const sh = getOrCreateSheet(ss, "DB_ALERTAS");
+  const headers = ["id_alerta", "timestamp", "modulo", "tipo", "mensaje", "payload_json", "atendida"];
+  sh.appendRow(headers);
+  formatHeader(sh, headers.length);
+  sh.setColumnWidth(1, 220);
+  sh.setColumnWidth(2, 170);
+  sh.setColumnWidth(3, 120);
+  sh.setColumnWidth(4, 120);
+  sh.setColumnWidth(5, 320);
+  sh.setColumnWidth(6, 360);
+  sh.setColumnWidth(7, 80);
+  Logger.log("DB_ALERTAS: inicializado.");
+}
+
+// ============================================================
 // FUNCIÓN AUXILIAR: Mostrar resumen de hojas creadas
 // ============================================================
 function verificarBaseDeDatos() {
@@ -549,7 +618,8 @@ function verificarBaseDeDatos() {
     "DB_LOTES_ACTIVOS", "DB_BITACORA", "DB_TIEMPOS_PROMEDIO",
     "DB_CONFIG_HORNO", "DB_MATERIAS_DECORADO", "DB_CONSECUTIVO",
     "DB_DESPACHO", "DB_ENTREGA",
-    "DB_INVENTARIO_PRODUCTO", "DB_MOV_INVENTARIO"
+    "DB_INVENTARIO_PRODUCTO", "DB_MOV_INVENTARIO",
+    "DB_INVENTARIO_LOTE", "DB_CLIENTES", "DB_ALERTAS"
   ];
 
   let reporte = "VERIFICACIÓN DE BASE DE DATOS LEVITO MES\n";

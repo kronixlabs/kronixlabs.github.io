@@ -9,6 +9,8 @@
 body{background:#020617;color:#fff;font-family:system-ui}
 .header{display:flex;justify-content:space-between;align-items:center;padding:15px 25px;border-bottom:1px solid #1e293b}
 .logo{font-size:18px;font-weight:700}.logo span{color:#38bdf8}
+.brand-logos{display:flex;align-items:center;gap:16px}
+.brand-logos img{height:34px;object-fit:contain}
 .tabs{display:flex;gap:10px;padding:15px 25px;border-bottom:1px solid #1e293b;flex-wrap:wrap}
 .tab{padding:8px 16px;border-radius:8px;cursor:pointer;background:#0f172a;border:1px solid #1e293b}
 .tab.active{background:#1e293b;border-color:#38bdf8}
@@ -27,12 +29,23 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 .status-line{font-size:12px;color:#94a3b8;margin-top:8px;min-height:18px}
 #pinModal .form-control{font-size:14px;padding:6px 10px}
 #pinModal label,#pinModal .table th,#pinModal .table td,#pinModal .btn{font-size:14px}
+.flow-wrap{min-width:520px}
+.flow-bar{display:flex;gap:6px;align-items:center}
+.flow-step{flex:1;min-width:90px;padding:6px 8px;border-radius:8px;border:1px solid #1e293b;background:#0f172a}
+.flow-step .s-name{font-size:11px;font-weight:700;line-height:1.1}
+.flow-step .s-time{font-size:10px;color:#cbd5e1}
+.flow-step.done{background:#14532d;border-color:#22c55e}
+.flow-step.current{background:#7f1d1d;border-color:#ef4444}
+.flow-step.pending{background:#1f2937;border-color:#475569}
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="logo">KRONIX <span>LABS</span></div>
-  <div>LEVITO MES</div>
+  <div class="brand-logos">
+    <img src="logo-kronix.png" alt="Kronix Labs">
+    <img src="logo-levito.png" alt="Levito MES">
+  </div>
+  <div></div>
 </div>
 
 <div class="tabs">
@@ -41,6 +54,8 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
   <div class="tab" onclick="showTab('despacho', this)">Despacho</div>
   <div class="tab" onclick="showTab('entrega', this)">Entrega</div>
   <div class="tab" onclick="showTab('trazabilidad', this)">Trazabilidad</div>
+  <div class="tab" onclick="showTab('auditoria', this)">Auditoría</div>
+  <div class="tab" onclick="showTab('seguimiento', this)">Seguimiento Producción</div>
 </div>
 
 <div id="inventario" class="section">
@@ -49,6 +64,13 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
     <table class="table table-dark table-striped">
       <thead><tr><th>Producto ID</th><th>Producto</th><th>Inicial</th><th>Producido</th><th>Entregado</th><th>Stock</th><th>Actualizado</th></tr></thead>
       <tbody id="inv_body"></tbody>
+    </table>
+  </div>
+  <h6 class="mt-4">Inventario por Lote (FEFO)</h6>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Producto</th><th>Lote</th><th>Fecha Producción</th><th>Inicial</th><th>Salida</th><th>Stock Lote</th></tr></thead>
+      <tbody id="inv_lote_body"></tbody>
     </table>
   </div>
 </div>
@@ -62,31 +84,70 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
   <h5 class="mb-4">Registro de Despachos</h5>
   <div class="row g-3 mb-3">
     <div class="col-md-3"><label>Fecha</label><input type="date" id="d_fecha" class="form-control"></div>
-    <div class="col-md-3"><label>Producto</label><input type="text" id="d_producto" class="form-control"></div>
-    <div class="col-md-3"><label>Lote</label><input type="text" id="d_lote" class="form-control"></div>
+    <div class="col-md-3"><label>Producto</label><select id="d_producto" class="form-control"></select></div>
+    <div class="col-md-3"><label>Lote</label><select id="d_lote" class="form-control"></select></div>
     <div class="col-md-3"><label>Cantidad</label><input type="number" id="d_cantidad" class="form-control"></div>
+    <div class="col-md-3"><label>PIN Operario</label><input type="password" id="d_pin" class="form-control"></div>
   </div>
   <button class="btn btn-primary" onclick="registrarDespacho()">Registrar despacho</button>
+  <div class="table-responsive mt-3">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Fecha/Hora</th><th>Lote</th><th>Producto</th><th>Cantidad</th></tr></thead>
+      <tbody id="d_hist"></tbody>
+    </table>
+  </div>
 </div>
 
 <div id="entrega" class="section">
   <h5 class="mb-4">Registro de Entregas</h5>
   <div class="row g-3 mb-3">
     <div class="col-md-3"><label>Fecha</label><input type="date" id="e_fecha" class="form-control"></div>
-    <div class="col-md-3"><label>Producto</label><input type="text" id="e_producto" class="form-control"></div>
-    <div class="col-md-3"><label>Lote</label><input type="text" id="e_lote" class="form-control"></div>
-    <div class="col-md-3"><label>Cliente</label><input type="text" id="e_cliente" class="form-control"></div>
+    <div class="col-md-3"><label>Producto</label><select id="e_producto" class="form-control"></select></div>
+    <div class="col-md-3"><label>Lote</label><select id="e_lote" class="form-control"></select></div>
+    <div class="col-md-3"><label>Cliente</label><select id="e_cliente" class="form-control"></select></div>
     <div class="col-md-3"><label>Cantidad</label><input type="number" id="e_cantidad" class="form-control"></div>
+    <div class="col-md-3"><label>PIN Operario</label><input type="password" id="e_pin" class="form-control"></div>
   </div>
   <button class="btn btn-success" onclick="registrarEntrega()">Registrar entrega</button>
+  <div class="table-responsive mt-3">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Fecha/Hora</th><th>Lote</th><th>Producto</th><th>Cliente</th><th>Cantidad</th></tr></thead>
+      <tbody id="e_hist"></tbody>
+    </table>
+  </div>
 </div>
 
 <div id="trazabilidad" class="section">
   <h5 class="mb-4">Trazabilidad de Lotes Finalizados</h5>
   <div class="table-responsive">
     <table class="table table-dark table-striped">
-      <thead><tr><th>ID Lote</th><th>Slot</th><th>Inicio</th><th>Fin</th><th>Operario</th><th>Proceso</th></tr></thead>
+      <thead><tr><th>ID Lote</th><th>Producto</th><th>Slot</th><th>Inicio</th><th>Fin</th><th>Operario</th><th>Proceso</th><th>Operarios por Proceso</th></tr></thead>
       <tbody id="trz_body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="auditoria" class="section">
+  <h5 class="mb-4">Auditoría por Lote Finalizado</h5>
+  <div class="row g-3 mb-3">
+    <div class="col-md-4"><label>Producto</label><select id="a_producto" class="form-control"></select></div>
+    <div class="col-md-4"><label>Lote</label><select id="a_lote" class="form-control"></select></div>
+    <div class="col-md-4 d-flex align-items-end"><button class="btn btn-info w-100" onclick="cargarAuditoriaLote()">Ver auditoría</button></div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Etapa</th><th>Operario</th><th>Fecha/Hora</th><th>Datos</th></tr></thead>
+      <tbody id="a_bit_body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="seguimiento" class="section">
+  <h5 class="mb-4">Seguimiento de Producción</h5>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Lote</th><th>Producto</th><th>Estado</th><th>Etapa</th><th>Inicio</th><th>Referencia</th><th>Línea de proceso</th></tr></thead>
+      <tbody id="s_body"></tbody>
     </table>
   </div>
 </div>
@@ -114,7 +175,7 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
         <div id="pinViewProceso" style="display:none;">
           <div class="panel mt-0">
             <h6 id="m_lote_header">Producto - Lote</h6>
-            <div class="row g-2 mb-2">
+            <div id="m_qty_row" class="row g-2 mb-2">
               <div class="col-md-3"><label>Cantidad de producto</label><input id="m_cantidad_proceso" type="number" min="1" class="form-control"></div>
             </div>
 
@@ -139,6 +200,32 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
               </div>
             </div>
 
+            <div id="m_sec_decorado" style="display:none;">
+              <div class="table-responsive mt-2">
+                <table class="table table-dark table-striped">
+                  <thead><tr><th>Materia prima</th><th>Lote</th><th>Vencimiento</th></tr></thead>
+                  <tbody id="m_decorado_body"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="m_sec_horneado" style="display:none;">
+              <div class="row g-2">
+                <div class="col-md-3"><label>Temperatura horno (°C)</label><input id="m_temp_horno" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Tiempo horno (min)</label><input id="m_tiempo_horno" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Temperatura interna (°C)</label><input id="m_temp_interna" type="number" step="0.1" class="form-control"></div>
+              </div>
+            </div>
+
+            <div id="m_sec_empaque" style="display:none;">
+              <div class="row g-2">
+                <div class="col-md-3"><label>Unidades finales</label><input id="m_unid_finales" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Unid. no conformes</label><input id="m_unid_nc" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Temp interna producto</label><input id="m_temp_interna_emp" type="number" step="0.1" class="form-control"></div>
+                <div class="col-md-3"><label>Lote material empaque</label><input id="m_lote_empaque" type="text" class="form-control"></div>
+              </div>
+            </div>
+
             <div class="row g-2">
               <div class="col-md-3"><label>Total gramos masa</label><input id="m_total_gramos" class="form-control" readonly></div>
               <div class="col-md-3"><label>Temperatura ambiente (°C)</label><input id="m_temp_amb_proceso" type="number" step="0.1" class="form-control"></div>
@@ -160,10 +247,10 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwjicDWlhPYWNp1vcLPW1PIMva8MR6xrbMlQqgy-GYdfSBxcn5FbJtQvAH3EPTukHfU/exec";
+const API = "https://script.google.com/macros/s/AKfycbxbpok0P3F3kFNaAIsDOT4hUIzcFiJeR7d2HsmUk1hT6aJTuk5Coe7dQwRo8FBKpige/exec";
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
-const state = {lotes:[],productos:[],activePin:null,activeLote:null,modal:null};
+const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0};
 
 function showTab(id, el){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
@@ -173,6 +260,9 @@ function showTab(id, el){
   if(id==="inventario") cargarInventario();
   if(id==="produccion") cargarLotes();
   if(id==="trazabilidad") cargarTrazabilidad();
+  if(id==="auditoria") cargarAuditoriaCatalogos();
+  if(id==="seguimiento") cargarSeguimientoProduccion();
+  if(id==="despacho" || id==="entrega") cargarHistorialSemanal();
 }
 
 async function apiGet(action, params){
@@ -188,22 +278,76 @@ async function apiPost(payload){
 }
 function setStatus(id,msg,isError){const e=document.getElementById(id);if(!e)return;e.style.color=isError?"#fca5a5":"#86efac";e.textContent=msg||"";}
 function formatDateTime(v){if(!v)return"--";const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return d.toLocaleString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});}
+function formatHour(v){if(!v)return"--:--";const d=new Date(v);if(Number.isNaN(d.getTime()))return"--:--";return d.toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});}
 function getNombreProducto(pid,fallback){const p=state.productos.find(x=>String(x.codigo)===String(pid));return p?p.nombre:(fallback||String(pid||""));}
 function roundFormula(ing,g){let x=Number(g||0);const i=String(ing||"").toLowerCase();if(x>100&&(i.includes("harina")||i.includes("agua"))){const step=x>=500?10:5;return Math.round(x/step)*step;}if(x<10)return Math.max(1,Math.round(x));return Math.round(x*100)/100;}
 
 async function cargarInventario(){
   try{
     const data=await apiGet("GET_INVENTARIO"); const b=document.getElementById("inv_body");
-    if(!Array.isArray(data)||!data.length){b.innerHTML=`<tr><td colspan="7">Sin datos de inventario.</td></tr>`;return;}
-    b.innerHTML=data.map(r=>`<tr><td>${r.producto_id}</td><td>${r.producto_nombre}</td><td>${r.inventario_inicial}</td><td>${r.producido_acum}</td><td>${r.entregado_acum}</td><td><b>${r.stock_actual}</b></td><td>${formatDateTime(r.ultima_actualizacion)}</td></tr>`).join("");
-  }catch(e){document.getElementById("inv_body").innerHTML=`<tr><td colspan="7">Error cargando inventario.</td></tr>`;}
+    const sorted = (Array.isArray(data)?data:[]).sort((a,b)=>String(a.producto_nombre||"").localeCompare(String(b.producto_nombre||"")));
+    if(!sorted.length){b.innerHTML=`<tr><td colspan="7">Sin datos de inventario.</td></tr>`;}
+    else b.innerHTML=sorted.map(r=>`<tr><td>${r.producto_id}</td><td>${r.producto_nombre}</td><td>${r.inventario_inicial}</td><td>${r.producido_acum}</td><td>${r.entregado_acum}</td><td><b>${r.stock_actual}</b></td><td>${formatDateTime(r.ultima_actualizacion)}</td></tr>`).join("");
+
+    const lotes = await apiGet("GET_INVENTARIO_LOTE",{limit:2000});
+    const bl = document.getElementById("inv_lote_body");
+    if(!Array.isArray(lotes)||!lotes.length){bl.innerHTML=`<tr><td colspan="6">Sin datos por lote.</td></tr>`;}
+    else bl.innerHTML=lotes.map(x=>`<tr><td>${x.producto_nombre}</td><td>${x.id_lote}</td><td>${formatDateTime(x.fecha_produccion)}</td><td>${x.cantidad_inicial}</td><td>${x.cantidad_salida}</td><td><b>${x.stock_lote}</b></td></tr>`).join("");
+  }catch(e){
+    document.getElementById("inv_body").innerHTML=`<tr><td colspan="7">Error cargando inventario.</td></tr>`;
+    document.getElementById("inv_lote_body").innerHTML=`<tr><td colspan="6">Error cargando inventario por lote.</td></tr>`;
+  }
 }
 async function cargarTrazabilidad(){
   try{
     const data=await apiGet("GET_TRAZABILIDAD",{limit:200}); const b=document.getElementById("trz_body");
-    if(!Array.isArray(data)||!data.length){b.innerHTML=`<tr><td colspan="6">No hay lotes finalizados.</td></tr>`;return;}
-    b.innerHTML=data.map(r=>`<tr><td>${r.id_lote}</td><td>${r.slot}</td><td>${formatDateTime(r.hora_inicio)}</td><td>${formatDateTime(r.hora_fin)}</td><td>${r.operario_ultimo||""}</td><td>${r.etapas||""}<br><small>Total: ${r.duracion_total_min||0} min</small><br><small>${r.duracion_por_etapa||""}</small></td></tr>`).join("");
-  }catch(e){document.getElementById("trz_body").innerHTML=`<tr><td colspan="6">Error cargando trazabilidad.</td></tr>`;}
+    if(!Array.isArray(data)||!data.length){b.innerHTML=`<tr><td colspan="8">No hay lotes finalizados.</td></tr>`;return;}
+    b.innerHTML=data.map(r=>`<tr><td>${r.id_lote}</td><td>${r.producto_nombre||r.producto_id||""}</td><td>${r.slot}</td><td>${formatDateTime(r.hora_inicio)}</td><td>${formatDateTime(r.hora_fin)}</td><td>${r.operario_ultimo||""}</td><td>${r.etapas||""}<br><small>Total: ${r.duracion_total_min||0} min</small><br><small>${r.duracion_por_etapa||""}</small></td><td>${r.operarios_por_etapa||""}</td></tr>`).join("");
+  }catch(e){document.getElementById("trz_body").innerHTML=`<tr><td colspan="8">Error cargando trazabilidad.</td></tr>`;}
+}
+
+async function cargarAuditoriaCatalogos(){
+  const productos = await apiGet("GET_PRODUCTOS");
+  document.getElementById("a_producto").innerHTML = `<option value="">Seleccionar</option>` + productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
+  document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>`;
+}
+
+async function cargarLotesAuditoria(){
+  const pid = document.getElementById("a_producto").value;
+  const lotes = await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500});
+  document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | ${formatDateTime(l.hora_fin)}</option>`).join("");
+}
+
+async function cargarAuditoriaLote(){
+  const lote = document.getElementById("a_lote").value;
+  if(!lote) return;
+  const r = await apiGet("GET_AUDITORIA_LOTE",{id_lote:lote});
+  const b = document.getElementById("a_bit_body");
+  if(!r || r.status==="error"){b.innerHTML = `<tr><td colspan="4">Error cargando auditoría.</td></tr>`;return;}
+  b.innerHTML = (r.bitacora||[]).map(x=>`<tr><td>${x.etapa}</td><td>${x.operario}</td><td>${formatDateTime(x.timestamp)}</td><td><pre style="white-space:pre-wrap;color:#cbd5e1;margin:0">${x.datos_json||""}</pre></td></tr>`).join("");
+}
+
+async function cargarSeguimientoProduccion(){
+  const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
+  const b = document.getElementById("s_body");
+  if(!Array.isArray(data)||!data.length){b.innerHTML = `<tr><td colspan="7">Sin datos.</td></tr>`;return;}
+  b.innerHTML = data.map(r=>{
+    const flow = (Array.isArray(r.timeline)?r.timeline:[]).map(s=>`
+      <div class="flow-step ${s.estado==='completada'?'done':(s.estado==='actual'?'current':'pending')}">
+        <div class="s-name">${s.etapa}</div>
+        <div class="s-time">${formatHour(s.inicio)}</div>
+      </div>
+    `).join("");
+    return `<tr>
+      <td>${r.id_lote}</td>
+      <td>${r.producto_nombre||r.producto_id||""}</td>
+      <td>${r.estado}</td>
+      <td>${r.etapa_actual}</td>
+      <td>${formatDateTime(r.hora_inicio)}</td>
+      <td>${formatDateTime(r.hora_ref)}</td>
+      <td class="flow-wrap"><div class="flow-bar">${flow}</div></td>
+    </tr>`;
+  }).join("");
 }
 
 function renderPines(){
@@ -215,11 +359,11 @@ function renderPines(){
 }
 function nombreBotonPaso(etapa){const idx=ETAPAS.indexOf(etapa);const n=ETAPAS[idx+1];return n?`PASAR A ${n.toUpperCase()}`:"PRODUCCION FINALIZADA";}
 
-async function cargarLotes(){try{const d=await apiGet("GET_ALL_ACTIVOS");state.lotes=Array.isArray(d)?d:[];renderPines();}catch(e){alert("Error cargando tablero de pines: "+(e.message||"sin detalle"));}}
+async function cargarLotes(){try{const d=await apiGet("GET_ALL_ACTIVOS");state.lotes=Array.isArray(d)?d:[];state.lastLotesFetchTs=Date.now();renderPines();}catch(e){alert("Error cargando tablero de pines: "+(e.message||"sin detalle"));}}
 async function fillProductosModal(){if(!state.productos.length)state.productos=await apiGet("GET_PRODUCTOS");document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
-  await cargarLotes(); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
+  if(Date.now()-state.lastLotesFetchTs>8000) await cargarLotes(); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
   const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
   document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
   document.getElementById("pinViewProceso").style.display=lote?"block":"none";
@@ -229,6 +373,15 @@ async function onPinClick(slot){
 
 function getDetalleRowsFromTable(){return Array.from(document.querySelectorAll("#m_formula_body tr")).map(tr=>({ingrediente:tr.dataset.ingrediente||"",gramos:Number(tr.dataset.gramos||0),lote_materia_prima:tr.querySelector(".in-lote")?.value?.trim()||"",fecha_vencimiento:tr.querySelector(".in-venc")?.value||""}));}
 function calcTotalGramos(rows){return rows.reduce((a,r)=>a+(Number(r.gramos)||0),0);}
+function getDecoradoRows(){return Array.from(document.querySelectorAll("#m_decorado_body tr")).map(tr=>({materia:tr.querySelector(".dec-materia")?.value||"",lote:tr.querySelector(".dec-lote")?.value?.trim()||"",vencimiento:tr.querySelector(".dec-venc")?.value||""}));}
+function fechaNoMenorAHoy(value){
+  if(!value) return true;
+  const h = new Date(); h.setHours(0,0,0,0);
+  const d = new Date(value);
+  if(Number.isNaN(d.getTime())) return false;
+  d.setHours(0,0,0,0);
+  return d >= h;
+}
 
 async function iniciarMojado(){
   const p={action:"INICIAR_LOTE",slot:state.activePin,producto_id:document.getElementById("m_producto").value,cantidad:Number(document.getElementById("m_cantidad").value||0),temp_amb:Number(document.getElementById("m_temp").value||0),hum_amb:Number(document.getElementById("m_hum").value||0),pin:document.getElementById("m_pin_inicio").value.trim(),materias_primas:[]};
@@ -252,20 +405,42 @@ async function iniciarMojado(){
 async function cargarPantallaEtapa(lote){
   const estado=await apiGet("GET_LOTE_ESTADO",{id_lote:lote.id_lote}); const d=estado.detalle||{};
   document.getElementById("m_lote_header").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`;
+  document.getElementById("pinModalTitle").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote} | ${lote.etapa_actual}`;
   document.getElementById("m_cantidad_proceso").value=d.cantidad||"";
   document.getElementById("m_total_gramos").value=d.total_gramos_masa||"";
   document.getElementById("m_temp_amb_proceso").value=d.temp_amb||"";
   document.getElementById("m_hum_amb_proceso").value=d.hum_amb||"";
   document.getElementById("m_obs_proceso").value=d.obs||"";
   document.getElementById("m_btn_pasar").textContent=nombreBotonPaso(lote.etapa_actual);
-  const moj=lote.etapa_actual==="Mojado", por=lote.etapa_actual==="Porcionado";
+  const moj=lote.etapa_actual==="Mojado", por=lote.etapa_actual==="Porcionado", lev=lote.etapa_actual==="Levado", dec=lote.etapa_actual==="Decorado", hor=lote.etapa_actual==="Horneado", emp=lote.etapa_actual==="Empaque";
   document.getElementById("m_sec_mojado").style.display=moj?"block":"none";
   document.getElementById("m_sec_porcionado").style.display=por?"block":"none";
+  document.getElementById("m_sec_decorado").style.display=dec?"block":"none";
+  document.getElementById("m_sec_horneado").style.display=hor?"block":"none";
+  document.getElementById("m_sec_empaque").style.display=emp?"block":"none";
   document.getElementById("m_btn_calcular").style.display=moj?"inline-block":"none";
-  document.getElementById("m_btn_pre").style.display=moj?"inline-block":"none";
+  document.getElementById("m_btn_pre").style.display=(moj||por||lev||dec||hor||emp)?"inline-block":"none";
   document.getElementById("m_total_gramos").closest(".col-md-3").style.display=moj?"block":"none";
+  document.getElementById("m_qty_row").style.display=lev?"none":"flex";
   if(por){document.getElementById("m_peso_unidad").value=d.peso_unidad||"";document.getElementById("m_num_porciones").value=d.num_porciones||"";document.getElementById("m_num_latas").value=d.num_latas||"";document.getElementById("m_unid_por_lata").value=d.unid_por_lata||"";}
+  if(dec){renderDecoradoRows(d.materias_decorado||[]);}
+  if(hor){document.getElementById("m_temp_horno").value=d.temp_horno||"";document.getElementById("m_tiempo_horno").value=d.tiempo_horno||"";document.getElementById("m_temp_interna").value=d.temp_interna||"";}
+  if(emp){document.getElementById("m_unid_finales").value=d.unid_finales||"";document.getElementById("m_unid_nc").value=d.unid_nc||"";document.getElementById("m_temp_interna_emp").value=d.temp_interna||"";document.getElementById("m_lote_empaque").value=d.lote_empaque||"";}
   if(moj&&d.rows&&d.rows.length) renderFormulaRows(d.rows); else document.getElementById("m_formula_body").innerHTML="";
+}
+
+function renderDecoradoRows(rows){
+  const opts = state.materiasDecorado.map(m=>`<option value="${m.nombre}">${m.nombre}</option>`).join("");
+  const data = Array.from({length:5}).map((_,i)=>rows[i]||{materia:"",lote:"",vencimiento:""});
+  document.getElementById("m_decorado_body").innerHTML = data.map(r => `
+    <tr>
+      <td><select class="form-control dec-materia"><option value="">Seleccionar</option>${opts}</select></td>
+      <td><input class="form-control dec-lote" value="${r.lote || ""}"></td>
+      <td><div class="d-flex gap-1"><input type="text" class="form-control dec-venc" placeholder="YYYY-MM-DD" value="${r.vencimiento || ""}"><button type="button" class="btn btn-outline-info btn-sm" onclick="openDatePicker(this)">📅</button></div></td>
+    </tr>
+  `).join("");
+  const selects = document.querySelectorAll(".dec-materia");
+  selects.forEach((s,idx)=>{ s.value = data[idx].materia || ""; });
 }
 
 function renderFormulaRows(rows){
@@ -282,24 +457,105 @@ async function calcularFormula(){
 }
 
 async function preGuardarMojado(){
-  const lote=state.activeLote; if(!lote||lote.etapa_actual!=="Mojado"){setStatus("m_status_etapa","Pre-guardado aplica en Mojado.",true);return;}
+  const lote=state.activeLote; if(!lote){setStatus("m_status_etapa","Selecciona lote.",true);return;}
   const pin=document.getElementById("m_pin_etapa").value.trim(); if(!pin){setStatus("m_status_etapa","PIN requerido.",true);return;}
   const rows=getDetalleRowsFromTable(); const total=calcTotalGramos(rows);
-  const r=await apiPost({action:"PRE_GUARDAR_MOJADO",pin,id_lote:lote.id_lote,slot:lote.slot,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows,total_gramos_masa:total});
+  if(rows.some(r => r.fecha_vencimiento && !fechaNoMenorAHoy(r.fecha_vencimiento))){setStatus("m_status_etapa","La fecha de vencimiento no puede ser menor a hoy.",true);return;}
+  const decRows = getDecoradoRows();
+  if(decRows.some(r => r.vencimiento && !fechaNoMenorAHoy(r.vencimiento))){setStatus("m_status_etapa","En decorado la fecha de vencimiento no puede ser menor a hoy.",true);return;}
+  const payload={action:"PRE_GUARDAR_ETAPA",pin,id_lote:lote.id_lote,slot:lote.slot,etapa:lote.etapa_actual,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows,total_gramos_masa:total};
+  if(lote.etapa_actual==="Porcionado"){payload.peso_unidad=Number(document.getElementById("m_peso_unidad").value||0);payload.num_porciones=Number(document.getElementById("m_num_porciones").value||0);payload.num_latas=Number(document.getElementById("m_num_latas").value||0);payload.unid_por_lata=Number(document.getElementById("m_unid_por_lata").value||0);}
+  if(lote.etapa_actual==="Decorado"){payload.materias_decorado=decRows;}
+  if(lote.etapa_actual==="Horneado"){payload.temp_horno=Number(document.getElementById("m_temp_horno").value||0);payload.tiempo_horno=Number(document.getElementById("m_tiempo_horno").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna").value||0);}
+  if(lote.etapa_actual==="Empaque"){payload.unid_finales=Number(document.getElementById("m_unid_finales").value||0);payload.unid_nc=Number(document.getElementById("m_unid_nc").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna_emp").value||0);payload.lote_empaque=document.getElementById("m_lote_empaque").value.trim();}
+  const r=await apiPost(payload);
   if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo pre-guardar.",true);return;}
-  document.getElementById("m_total_gramos").value=total.toFixed(2);setStatus("m_status_etapa","Datos pre-guardados.",false);
+  if(lote.etapa_actual==="Mojado"){document.getElementById("m_total_gramos").value=total.toFixed(2);}
+  setStatus("m_status_etapa","Datos pre-guardados.",false);
 }
 
 async function pasarEtapa(){
   const lote=state.activeLote;if(!lote)return; const pin=document.getElementById("m_pin_etapa").value.trim();if(!pin){setStatus("m_status_etapa","PIN requerido para cambiar etapa.",true);return;}
-  const payload={action:"PASAR_ETAPA_DESDE_MODAL",pin,id_lote:lote.id_lote,slot:lote.slot,etapa:lote.etapa_actual,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows:getDetalleRowsFromTable(),total_gramos_masa:Number(document.getElementById("m_total_gramos").value||0)};
+  const rows = getDetalleRowsFromTable();
+  if(rows.some(r => r.fecha_vencimiento && !fechaNoMenorAHoy(r.fecha_vencimiento))){setStatus("m_status_etapa","La fecha de vencimiento no puede ser menor a hoy.",true);return;}
+  const decRows = getDecoradoRows();
+  if(decRows.some(r => r.vencimiento && !fechaNoMenorAHoy(r.vencimiento))){setStatus("m_status_etapa","En decorado la fecha de vencimiento no puede ser menor a hoy.",true);return;}
+  const payload={action:"PASAR_ETAPA_DESDE_MODAL",pin,id_lote:lote.id_lote,slot:lote.slot,etapa:lote.etapa_actual,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows:rows,total_gramos_masa:Number(document.getElementById("m_total_gramos").value||0)};
   if(lote.etapa_actual==="Porcionado"){payload.peso_unidad=Number(document.getElementById("m_peso_unidad").value||0);payload.num_porciones=Number(document.getElementById("m_num_porciones").value||0);payload.num_latas=Number(document.getElementById("m_num_latas").value||0);payload.unid_por_lata=Number(document.getElementById("m_unid_por_lata").value||0);}
+  if(lote.etapa_actual==="Decorado"){payload.materias_decorado=decRows;}
+  if(lote.etapa_actual==="Horneado"){payload.temp_horno=Number(document.getElementById("m_temp_horno").value||0);payload.tiempo_horno=Number(document.getElementById("m_tiempo_horno").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna").value||0);}
+  if(lote.etapa_actual==="Empaque"){payload.unid_finales=Number(document.getElementById("m_unid_finales").value||0);payload.unid_nc=Number(document.getElementById("m_unid_nc").value||0);payload.temp_interna=Number(document.getElementById("m_temp_interna_emp").value||0);payload.lote_empaque=document.getElementById("m_lote_empaque").value.trim();}
   const r=await apiPost(payload); if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo cambiar etapa.",true);return;}
   state.modal.hide(); await cargarLotes();
 }
 
-async function registrarDespacho(){const fecha=document.getElementById("d_fecha").value,producto=document.getElementById("d_producto").value.trim(),id_lote=document.getElementById("d_lote").value.trim(),cantidad=parseFloat(document.getElementById("d_cantidad").value);if(!fecha||!producto||!id_lote||!Number.isFinite(cantidad)||cantidad<=0)return alert("Completa datos.");const pin=prompt("PIN operario:");if(!pin)return;const d=await apiPost({action:"REGISTRAR_DESPACHO",pin:pin.trim(),fecha,producto,id_lote,cantidad});if(d.status==="error")return alert(d.message||"Error");alert(d.message||"OK");}
-async function registrarEntrega(){const fecha=document.getElementById("e_fecha").value,producto=document.getElementById("e_producto").value.trim(),id_lote=document.getElementById("e_lote").value.trim(),cliente=document.getElementById("e_cliente").value.trim(),cantidad=parseFloat(document.getElementById("e_cantidad").value);if(!fecha||!producto||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0)return alert("Completa datos.");const pin=prompt("PIN operario:");if(!pin)return;const d=await apiPost({action:"REGISTRAR_ENTREGA",pin:pin.trim(),fecha,producto,id_lote,cliente,cantidad});if(d.status==="error")return alert(d.message||"Error");alert(d.message||"OK");}
+function isInCurrentWeek(dateStr){
+  const d = new Date(dateStr); if(Number.isNaN(d.getTime())) return false;
+  const now = new Date();
+  const day = (now.getDay() + 6) % 7;
+  const monday = new Date(now); monday.setDate(now.getDate() - day); monday.setHours(0,0,0,0);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6); sunday.setHours(23,59,59,999);
+  return d >= monday && d <= sunday;
+}
+
+async function cargarCatalogosDespachoEntrega(){
+  const productos = state.productos || [];
+  const clientes = state.clientes || [];
+  const pOpts = productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
+  document.getElementById("d_producto").innerHTML = `<option value="">Seleccionar</option>${pOpts}`;
+  document.getElementById("e_producto").innerHTML = `<option value="">Seleccionar</option>${pOpts}`;
+  document.getElementById("e_cliente").innerHTML = `<option value="">Seleccionar</option>${clientes.map(c=>`<option value="${c.cliente}">${c.cliente}</option>`).join("")}`;
+}
+
+async function cargarLotesSelect(productSelectId, loteSelectId){
+  const pid = document.getElementById(productSelectId).value;
+  const target = document.getElementById(loteSelectId);
+  if(!pid){target.innerHTML = `<option value="">Seleccionar</option>`; return;}
+  const lotes = await apiGet("GET_LOTES_STOCK",{producto_id:pid});
+  target.innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | Stock ${l.stock_lote}</option>`).join("");
+}
+
+async function cargarHistorialSemanal(){
+  const desp = await apiGet("GET_DESPACHOS",{limit:300});
+  const ent = await apiGet("GET_ENTREGAS",{limit:300});
+  const dRows = (Array.isArray(desp)?desp:[]).filter(x=>isInCurrentWeek(x.timestamp_registro)).map(x=>`<tr><td>${formatDateTime(x.timestamp_registro)}</td><td>${x.id_lote}</td><td>${x.producto}</td><td>${x.cantidad}</td></tr>`).join("");
+  const eRows = (Array.isArray(ent)?ent:[]).filter(x=>isInCurrentWeek(x.timestamp_registro)).map(x=>`<tr><td>${formatDateTime(x.timestamp_registro)}</td><td>${x.id_lote}</td><td>${x.producto}</td><td>${x.cliente||""}</td><td>${x.cantidad}</td></tr>`).join("");
+  document.getElementById("d_hist").innerHTML = dRows || `<tr><td colspan="4">Sin despachos esta semana.</td></tr>`;
+  document.getElementById("e_hist").innerHTML = eRows || `<tr><td colspan="5">Sin entregas esta semana.</td></tr>`;
+}
+
+async function registrarDespacho(){
+  const fecha=document.getElementById("d_fecha").value;
+  const producto_id=document.getElementById("d_producto").value;
+  const producto=document.getElementById("d_producto").selectedOptions[0]?.dataset?.nombre||"";
+  const id_lote=document.getElementById("d_lote").value;
+  const cantidad=parseFloat(document.getElementById("d_cantidad").value);
+  const pin=document.getElementById("d_pin").value.trim();
+  if(!fecha||!producto_id||!id_lote||!Number.isFinite(cantidad)||cantidad<=0||!pin)return alert("Completa datos de despacho.");
+  if(!fechaNoMenorAHoy(fecha)) return alert("La fecha no puede ser menor a hoy.");
+  const d=await apiPost({action:"REGISTRAR_DESPACHO",pin,fecha,producto,producto_id,id_lote,cantidad});
+  if(d.status==="error") return alert(d.message||"Error");
+  alert(d.message||"Despacho OK");
+  await cargarLotesSelect("d_producto","d_lote");
+  await cargarInventario();
+  await cargarHistorialSemanal();
+}
+
+async function registrarEntrega(){
+  const fecha=document.getElementById("e_fecha").value;
+  const producto_id=document.getElementById("e_producto").value;
+  const producto=document.getElementById("e_producto").selectedOptions[0]?.dataset?.nombre||"";
+  const id_lote=document.getElementById("e_lote").value;
+  const cliente=document.getElementById("e_cliente").value;
+  const cantidad=parseFloat(document.getElementById("e_cantidad").value);
+  const pin=document.getElementById("e_pin").value.trim();
+  if(!fecha||!producto_id||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0||!pin)return alert("Completa datos de entrega.");
+  if(!fechaNoMenorAHoy(fecha)) return alert("La fecha no puede ser menor a hoy.");
+  const d=await apiPost({action:"REGISTRAR_ENTREGA",pin,fecha,producto,producto_id,id_lote,cliente,cantidad});
+  if(d.status==="error") return alert(d.message||"Error");
+  alert(d.message||"Entrega OK");
+  await cargarHistorialSemanal();
+}
 
 async function init(){
   const hoy=new Date().toISOString().slice(0,10);document.getElementById("d_fecha").value=hoy;document.getElementById("e_fecha").value=hoy;
@@ -308,8 +564,20 @@ async function init(){
   document.getElementById("m_btn_calcular").addEventListener("click",calcularFormula);
   document.getElementById("m_btn_pre").addEventListener("click",preGuardarMojado);
   document.getElementById("m_btn_pasar").addEventListener("click",pasarEtapa);
-  state.productos=await apiGet("GET_PRODUCTOS");
+  document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
+  document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
+  document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
+  const boot = await apiGet("GET_BOOTSTRAP");
+  state.productos = Array.isArray(boot.productos) ? boot.productos : [];
+  state.materiasDecorado = Array.isArray(boot.materias_decorado) ? boot.materias_decorado : [];
+  state.clientes = Array.isArray(boot.clientes) ? boot.clientes : [];
+  await cargarCatalogosDespachoEntrega();
+  await cargarAuditoriaCatalogos();
   await cargarLotes();
+  await cargarInventario();
+  await cargarTrazabilidad();
+  await cargarSeguimientoProduccion();
+  await cargarHistorialSemanal();
   setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();},10000);
 }
 init();
