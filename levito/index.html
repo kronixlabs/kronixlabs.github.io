@@ -1,235 +1,170 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEVITO MES | Kronix Labs</title>
+    <title>LEVITO MES PRO</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: radial-gradient(circle at 20% 20%, #0f172a, #020617 70%); color: white; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
-        .navbar { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 15px 30px; }
-        .brand-title { font-weight: 600; color: #38bdf8; letter-spacing: 1px; }
-        
-        /* TARJETAS DE LOTE */
-        .lote-card {
-            width: 170px; height: 190px; border-radius: 20px; background: rgba(255,255,255,0.05);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            cursor: pointer; transition: .3s; border: 1px solid rgba(255,255,255,0.1); text-align: center; padding: 10px;
-        }
-        .lote-card.activo { border-color: #22c55e; background: rgba(34, 197, 94, 0.15); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
-        .indicador { width: 12px; height: 12px; border-radius: 50%; margin-bottom: 10px; }
-        .gris { background: #64748b; }
-        .verde { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
-        
-        .ope-name { font-size: 0.75rem; font-weight: bold; color: #38bdf8; margin-top: 5px; }
-        .hora-text { font-size: 0.65rem; opacity: 0.7; }
-
-        /* MODAL */
-        .modal-content { background: #0f172a; border: 1px solid #38bdf8; border-radius: 20px; color: white; }
-        .form-control, .form-select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: white; }
-        .form-control:focus { background: rgba(255,255,255,0.15); color: white; border-color: #38bdf8; box-shadow: none; }
-        
-        /* TABLA DE FORMULA */
-        .tabla-calculos { width: 100%; margin-top: 20px; border-collapse: separate; border-spacing: 0 8px; }
-        .tabla-calculos th { font-size: 0.7rem; color: #38bdf8; text-transform: uppercase; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .tabla-calculos td { padding: 10px; background: rgba(255,255,255,0.03); }
-        .scroll-area { max-height: 350px; overflow-y: auto; border-radius: 10px; padding: 5px; }
-        
-        .btn-calc { background: #38bdf8; color: #000; font-weight: bold; border: none; }
-        .btn-calc:hover { background: #7dd3fc; }
-        .btn-confirmar { background: linear-gradient(90deg, #22c55e, #16a34a); border: none; font-weight: bold; }
+        body { background: #020617; color: white; font-family: sans-serif; }
+        .lote-card { width: 160px; height: 180px; border: 1px solid #1e293b; border-radius: 15px; background: #0f172a; cursor: pointer; transition: 0.3s; padding: 10px; text-align: center; }
+        .lote-card.activo { border-color: #22c55e; background: #064e3b; }
+        .indicador { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 10px; }
+        .gris { background: #64748b; } .verde { background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+        .modal-content { background: #0f172a; border: 1px solid #38bdf8; }
+        .form-control { background: #1e293b; color: white; border: 1px solid #334155; }
+        .form-control:focus { background: #1e293b; color: white; }
     </style>
 </head>
-<body>
+<body class="p-4">
 
-<nav class="navbar d-flex justify-content-between align-items-center">
-    <div class="brand-title">KRONIX LABS • LEVITO MES</div>
-    <div id="status" class="small opacity-50">Sincronizando...</div>
-</nav>
-
-<div class="container mt-5">
-    <div id="contenedorLotes" class="d-flex flex-wrap gap-4 justify-content-center">
-        </div>
+<div class="d-flex justify-content-between mb-5 border-bottom pb-3">
+    <h4>KRONIX LABS • MES CONTROL</h4>
+    <div id="reloj" class="text-info"></div>
 </div>
 
-<div class="modal fade" id="modalLote" tabindex="-1">
+<div id="panel" class="d-flex flex-wrap gap-4 justify-content-center"></div>
+
+<div class="modal fade" id="modalMES" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tituloModal">Control de Proceso</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
             <div class="modal-body">
-                <form id="formAccion">
-                    
-                    <div id="seccionInicial">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label class="small fw-bold">PIN Operario</label>
-                                <input type="password" id="pin" class="form-control" placeholder="****" required>
-                            </div>
-                            <div class="col-md-5">
-                                <label class="small fw-bold">Producto a Iniciar</label>
-                                <select id="productoId" class="form-select">
-                                    <option value="0903-1">PAN BRIOCHE MINI (0903-1)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="small fw-bold">Cant. a Producir</label>
-                                <input type="number" id="cantProduccion" class="form-control" value="1" min="1">
-                            </div>
+                <form id="mainForm">
+                    <div id="secInicio" class="d-none">
+                        <h5>Nuevo Lote: Mojado</h5>
+                        <div class="row g-2 mb-3">
+                            <div class="col-4"><label class="small">PIN</label><input type="password" id="pin" class="form-control" required></div>
+                            <div class="col-5"><label class="small">Producto</label><select id="prodId" class="form-select bg-dark text-white"><option value="0903-1">BRIOCHE 0903-1</option></select></div>
+                            <div class="col-3"><label class="small">Cantidad</label><input type="number" id="cant" class="form-control" value="1" oninput="recalcular()"></div>
                         </div>
-                        <button type="button" class="btn btn-calc w-100 mt-3 p-2" onclick="generarCalculos()">
-                            EMPEZAR PROCESO DE MOJADO (CALCULAR)
-                        </button>
-                    </div>
-
-                    <div id="seccionCalculos" class="d-none mt-4">
-                        <h6 class="text-info small border-bottom pb-2">HOJA DE PESAJE Y TRAZABILIDAD</h6>
-                        <div class="scroll-area">
-                            <table class="tabla-calculos">
-                                <thead>
-                                    <tr>
-                                        <th>Ingrediente / Cantidad</th>
-                                        <th>Lote Materia Prima</th>
-                                        <th>Vencimiento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cuerpoTabla">
-                                    </tbody>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6"><label class="small">Temp Ambiente (°C)</label><input type="number" id="temp" class="form-control" placeholder="24"></div>
+                            <div class="col-6"><label class="small">Humedad (%)</label><input type="number" id="hum" class="form-control" placeholder="60"></div>
+                        </div>
+                        <div class="table-responsive bg-black p-2 rounded">
+                            <table class="table table-dark table-sm small">
+                                <thead><tr><th>Ingrediente</th><th>Peso (g)</th><th>Lote MP</th><th>Vence</th></tr></thead>
+                                <tbody id="tablaFormula"></tbody>
+                                <tfoot class="table-primary text-dark"><tr><td colspan="4" id="totalMasa" class="fw-bold px-2">TOTAL MASA: 0 g</td></tr></tfoot>
                             </table>
                         </div>
-                        <button type="submit" class="btn btn-confirmar w-100 mt-3 p-3">GUARDAR E INICIAR LOTE</button>
                     </div>
 
-                    <div id="seccionAvance" class="d-none text-center p-4">
-                        <h4 id="txtEtapa" class="text-success"></h4>
-                        <div class="my-3">⬇ PROXIMO PASO ⬇</div>
-                        <h5 id="txtSiguiente" class="text-info"></h5>
-                        <input type="password" id="pinAvance" class="form-control mt-4 text-center" placeholder="PIN CONFIRMACIÓN">
-                        <button type="submit" class="btn btn-primary w-100 mt-3 p-3">CONFIRMAR AVANCE</button>
+                    <div id="secAvance" class="d-none text-center">
+                        <h2 id="etapaActualLabel" class="text-success"></h2>
+                        <div class="my-3">⬇ PASAR A ⬇</div>
+                        <h4 id="proximaEtapaLabel" class="text-info"></h4>
+                        
+                        <div id="preguntasEtapa" class="mt-4 text-start bg-black p-3 rounded">
+                            </div>
+                        
+                        <input type="password" id="pinAvance" class="form-control mt-3 text-center" placeholder="PIN CONFIRMACIÓN" required>
                     </div>
 
+                    <button type="submit" class="btn btn-primary w-100 mt-4 p-3 fw-bold" id="btnAccion">CONFIRMAR</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbxEoExsjFpjZtMo9yN-dt_MX7jDPNy65xafO36swb-nB5lg18lFjlAkFw2n7XduhfHY/exec"; // REEMPLAZAR CON TU URL
-    let modal, loteSel, infoActiva;
+    const API = "https://script.google.com/macros/s/AKfycbz-CeUycpTym_tcXCzoQvXaNVQPBynHHuJcXW1uFFjTO9Vp_UbLp1YCizh5Wiu5W028/exec";
+    let modal, loteSel, infoLote, masaFinal = 0;
     const etapas = ["Mojado", "Levado", "Horneo", "Empaque", "Finalizado"];
 
-    document.addEventListener("DOMContentLoaded", () => {
-        modal = new bootstrap.Modal(document.getElementById('modalLote'));
-        cargarPanel();
-        setInterval(cargarPanel, 15000);
-    });
+    window.onload = () => {
+        modal = new bootstrap.Modal(document.getElementById('modalMES'));
+        actualizarPanel();
+        setInterval(() => { document.getElementById('reloj').innerText = new Date().toLocaleTimeString(); }, 1000);
+    };
 
-    async function cargarPanel() {
-        try {
-            const res = await fetch(`${API_URL}?action=GET_ALL_ACTIVOS`);
-            const activos = await res.json();
-            const cont = document.getElementById("contenedorLotes");
-            cont.innerHTML = "";
-
-            for (let i = 1; i <= 8; i++) {
-                const idPin = `LOTE_${i}`;
-                const info = activos.find(a => a.id_lote_pin === idPin);
-                
-                cont.innerHTML += `
-                    <div class="lote-card ${info ? 'activo' : ''}" onclick="abrirModal('${idPin}', ${info ? JSON.stringify(info).replace(/"/g, '&quot;') : 'null'})">
-                        <div class="indicador ${info ? 'verde' : 'gris'}"></div>
-                        <div class="fw-bold">${idPin.replace('_',' ')}</div>
-                        <div class="small opacity-75">${info ? info.etapa_actual : 'LIBRE'}</div>
-                        ${info ? `<div class="ope-name">${info.responsable}</div><div class="hora-text">Inicio: ${info.hora_inicio}</div>` : ''}
-                    </div>`;
-            }
-            document.getElementById("status").innerText = "Sincronizado ✓";
-        } catch (e) { document.getElementById("status").innerText = "Error conexión"; }
+    async function actualizarPanel() {
+        const res = await fetch(`${API}?action=GET_ALL_ACTIVOS`);
+        const activos = await res.json();
+        const panel = document.getElementById("panel");
+        panel.innerHTML = "";
+        for(let i=1; i<=8; i++) {
+            const id = `LOTE_${i}`;
+            const act = activos.find(a => a.id_lote_pin === id);
+            panel.innerHTML += `
+                <div class="lote-card ${act?'activo':''}" onclick="gestionar('${id}', ${act?JSON.stringify(act).replace(/"/g,'&quot;'):'null'})">
+                    <div class="indicador ${act?'verde':'gris'}"></div>
+                    <div class="fw-bold">${id}</div>
+                    <div class="small text-info">${act?act.etapa_actual:'LIBRE'}</div>
+                    ${act?`<div class="small mt-2 text-warning">${act.responsable}</div><div style="font-size:10px">${act.hora_inicio}</div>`:''}
+                </div>`;
+        }
     }
 
-    function abrirModal(idPin, info) {
-        loteSel = idPin;
-        infoActiva = info;
+    async function gestionar(id, info) {
+        loteSel = id; infoLote = info;
+        document.getElementById("secInicio").classList.add("d-none");
+        document.getElementById("secAvance").classList.add("d-none");
         
-        // Reset de secciones
-        document.getElementById("seccionInicial").classList.add("d-none");
-        document.getElementById("seccionCalculos").classList.add("d-none");
-        document.getElementById("seccionAvance").classList.add("d-none");
-
-        if (!info) {
-            document.getElementById("seccionInicial").classList.remove("d-none");
-            document.getElementById("tituloModal").innerText = "Nuevo Proceso - " + idPin;
+        if(!info) {
+            document.getElementById("secInicio").classList.remove("d-none");
+            recalcular();
         } else {
-            document.getElementById("seccionAvance").classList.remove("d-none");
-            document.getElementById("txtEtapa").innerText = info.etapa_actual;
-            const prox = etapas[etapas.indexOf(info.etapa_actual) + 1];
-            document.getElementById("txtSiguiente").innerText = prox;
-            document.getElementById("tituloModal").innerText = "Avanzar Lote: " + info.id_lote_unico;
+            const idx = etapas.indexOf(info.etapa_actual);
+            const prox = etapas[idx + 1];
+            document.getElementById("secAvance").classList.remove("d-none");
+            document.getElementById("etapaActualLabel").innerText = info.etapa_actual;
+            document.getElementById("proximaEtapaLabel").innerText = prox;
+            prepararPreguntas(prox);
         }
         modal.show();
     }
 
-    async function generarCalculos() {
-        const prodId = document.getElementById("productoId").value;
-        const cant = document.getElementById("cantProduccion").value;
-        
-        const res = await fetch(`${API_URL}?action=GET_FORMULA&producto_id=${prodId}`);
+    async function recalcular() {
+        const pId = document.getElementById("prodId").value;
+        const c = document.getElementById("cant").value;
+        const res = await fetch(`${API}?action=GET_FORMULA&producto_id=${pId}`);
         const formula = await res.json();
-        
-        const cuerpo = document.getElementById("cuerpoTabla");
-        cuerpo.innerHTML = "";
-
+        const tbody = document.getElementById("tablaFormula");
+        tbody.innerHTML = ""; masaFinal = 0;
         formula.forEach(item => {
-            const pesoCalc = (item.cantidad_base * cant).toLocaleString();
-            cuerpo.innerHTML += `
-                <tr>
-                    <td>
-                        <span class="small fw-bold text-white">${item.ingrediente}</span><br>
-                        <span class="badge bg-primary">${pesoCalc} g</span>
-                    </td>
-                    <td><input type="text" class="form-control form-control-sm mp-lote" data-ing="${item.ingrediente}" placeholder="Lote" required></td>
-                    <td><input type="date" class="form-control form-control-sm mp-vence" required></td>
-                </tr>`;
+            let peso = item.cantidad_base * c;
+            masaFinal += peso;
+            tbody.innerHTML += `<tr><td>${item.ingrediente}</td><td>${peso}g</td>
+                <td><input type="text" class="form-control form-control-sm mp-lote" data-ing="${item.ingrediente}" required></td>
+                <td><input type="date" class="form-control form-control-sm mp-vence" required></td></tr>`;
         });
-
-        document.getElementById("seccionCalculos").classList.remove("d-none");
+        document.getElementById("totalMasa").innerText = `TOTAL MASA: ${masaFinal.toLocaleString()} g`;
     }
 
-    document.getElementById("formAccion").onsubmit = async (e) => {
+    function prepararPreguntas(etapa) {
+        const div = document.getElementById("preguntasEtapa");
+        div.innerHTML = "";
+        if(etapa === "Levado") div.innerHTML = `<label>Cámara Asignada</label><select id="extra_camara" class="form-select mb-2"><option>Cámara 1</option><option>Cámara 2</option></select>`;
+        if(etapa === "Horneo") div.innerHTML = `<label>Temperatura Horno (°C)</label><input type="number" id="extra_temp" class="form-control" placeholder="180">`;
+        if(etapa === "Empaque") div.innerHTML = `<label>Cantidad Final Unidades</label><input type="number" id="extra_cant" class="form-control">`;
+    }
+
+    document.getElementById("mainForm").onsubmit = async (e) => {
         e.preventDefault();
         let payload = { color_pin: loteSel };
-
-        if (!infoActiva) {
+        if(!infoLote) {
             payload.action = "INICIAR_MOJADO";
             payload.pin = document.getElementById("pin").value;
-            payload.producto_id = document.getElementById("productoId").value;
+            payload.producto_id = document.getElementById("prodId").value;
+            payload.temp = document.getElementById("temp").value;
+            payload.humedad = document.getElementById("hum").value;
+            payload.total_masa = masaFinal;
             payload.materias_primas = {};
             document.querySelectorAll(".mp-lote").forEach((el, i) => {
-                payload.materias_primas[el.dataset.ing] = { 
-                    lote: el.value, 
-                    vence: document.querySelectorAll(".mp-vence")[i].value 
-                };
+                payload.materias_primas[el.dataset.ing] = { lote: el.value, vence: document.querySelectorAll(".mp-vence")[i].value };
             });
         } else {
             payload.action = "AVANZAR_ETAPA";
             payload.pin = document.getElementById("pinAvance").value;
-            payload.id_lote_unico = infoActiva.id_lote_unico;
-            payload.proxima_etapa = etapas[etapas.indexOf(infoActiva.etapa_actual) + 1];
+            payload.id_lote_unico = infoLote.id_lote_unico;
+            payload.proxima_etapa = etapas[etapas.indexOf(infoLote.etapa_actual) + 1];
+            payload.datos_etapa = {}; // Aquí recogerías los valores de "extra_camara", etc.
         }
-
-        const res = await fetch(API_URL, { method: "POST", body: JSON.stringify(payload) });
-        const r = await res.json();
-        if (r.status === "ok") {
-            modal.hide();
-            cargarPanel();
-        } else { alert(r.message); }
-    };
+        await fetch(API, { method: "POST", body: JSON.stringify(payload) });
+        modal.hide();
+        actualizarPanel();
+    }
 </script>
-
 </body>
 </html>
