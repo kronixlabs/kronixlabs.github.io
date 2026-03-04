@@ -73,9 +73,10 @@ gap:18px;
 background:#0f172a;
 border:1px solid #1e293b;
 border-radius:14px;
-padding:18px;
+padding:22px;
 transition:.2s;
 cursor:pointer;
+min-height:205px;
 }
 
 .lote-card:hover{
@@ -85,11 +86,12 @@ transform:translateY(-3px);
 
 .lote-title{
 font-weight:700;
-font-size:17px;
+font-size:29px;
+line-height:1.1;
 }
 
 .producto{
-font-size:13px;
+font-size:20px;
 color:#94a3b8;
 }
 
@@ -154,7 +156,7 @@ box-shadow:0 0 0 1px #22c55e inset;
 }
 
 .pin-status{
-font-size:12px;
+font-size:16px;
 color:#94a3b8;
 margin-top:6px;
 }
@@ -180,6 +182,26 @@ color:#86efac;
 padding:2px 8px;
 border-radius:999px;
 font-size:11px;
+}
+
+.lote-card.in-process{
+background:linear-gradient(180deg,#052e16 0%, #064e3b 100%);
+border-color:#22c55e;
+}
+
+#pinModal .form-control{
+font-size:20px;
+padding:10px 12px;
+}
+
+#pinModal label,
+#pinModal .table th,
+#pinModal .table td{
+font-size:22px;
+}
+
+#pinModal .btn{
+font-size:22px;
 }
 
 </style>
@@ -362,6 +384,11 @@ const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado",
 const TOTAL_PINES = 8;
 const state = { lotes:[], productos:[], activePin:null, activeLote:null, modal:null };
 
+function getNombreProducto(productoId, fallback){
+  const p = state.productos.find(x => String(x.codigo) === String(productoId));
+  return p ? p.nombre : (fallback || String(productoId || ""));
+}
+
 function showTab(id, el){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   el.classList.add("active");
@@ -422,9 +449,10 @@ function renderPines(){
         <div class="pin-status">Click para registro de Mojado</div>
       </div>`;
     }else{
+      const nombre = getNombreProducto(lote.producto_id, lote.producto);
       html += `
-      <div class="lote-card" onclick="onPinClick(${i})">
-        <div class="pin-header"><div class="lote-title">${lote.producto}</div><span class="tag-green">EN PROCESO</span></div>
+      <div class="lote-card in-process" onclick="onPinClick(${i})">
+        <div class="pin-header"><div class="lote-title">${nombre}</div></div>
         <div class="producto">${lote.id_lote}</div>
         <div class="pin-status">Etapa actual: ${lote.etapa_actual}</div>
         <div class="pin-status">Responsable: ${lote.operario || "N/A"}</div>
@@ -448,7 +476,8 @@ async function onPinClick(slot){
     await cargarLotes();
     const lote = state.lotes.find(l => parseInt(l.slot,10) === slot) || null;
     state.activeLote = lote;
-    document.getElementById("pinModalTitle").textContent = lote ? `${lote.producto} | ${lote.id_lote}` : `LOTE ${slot} | DISPONIBLE`;
+    const nombre = lote ? getNombreProducto(lote.producto_id, lote.producto) : "";
+    document.getElementById("pinModalTitle").textContent = lote ? `${nombre} | ${lote.id_lote}` : `LOTE ${slot} | DISPONIBLE`;
     document.getElementById("pinViewDisponible").style.display = lote ? "none" : "block";
     document.getElementById("pinViewProceso").style.display = lote ? "block" : "none";
     setStatus("m_status_inicio","",false);
@@ -522,7 +551,8 @@ async function iniciarMojado(){
 async function cargarPantallaEtapa(lote){
   const estado = await apiGet("GET_LOTE_ESTADO",{id_lote:lote.id_lote});
   const detalle = estado.detalle || {};
-  document.getElementById("m_lote_header").textContent = `${lote.producto} | ${lote.id_lote}`;
+  const nombre = getNombreProducto(lote.producto_id, lote.producto);
+  document.getElementById("m_lote_header").textContent = `${nombre} | ${lote.id_lote}`;
   document.getElementById("m_calc_cantidad").value = detalle.cantidad || "";
   document.getElementById("m_formula_body").innerHTML = "";
   document.getElementById("m_total_gramos").value = detalle.total_gramos_masa || "";
@@ -556,7 +586,19 @@ async function calcularFormula(){
     setStatus("m_status_etapa","Ingresa cantidad de producto.",true);
     return;
   }
-  const base = await apiGet("GET_FORMULA",{producto_id:lote.producto_id});
+  let base = await apiGet("GET_FORMULA",{producto_id:lote.producto_id});
+  if(!Array.isArray(base) || !base.length){
+    const match = state.productos.find(p => p.nombre === lote.producto);
+    if(match){
+      base = await apiGet("GET_FORMULA",{producto_id:match.codigo});
+    }
+  }
+  if(!Array.isArray(base) || !base.length){
+    setStatus("m_status_etapa","No existe formula para este producto. Revisa DB_FORMULA.",true);
+    document.getElementById("m_formula_body").innerHTML = "";
+    document.getElementById("m_total_gramos").value = "0.00";
+    return;
+  }
   const rows = base.map(i=>({
     ingrediente:i.ingrediente,
     gramos:(Number(i.cantidad_base)||0) * cantidad,
@@ -675,6 +717,7 @@ async function init(){
   document.getElementById("m_btn_calcular").addEventListener("click", calcularFormula);
   document.getElementById("m_btn_pre").addEventListener("click", preGuardarMojado);
   document.getElementById("m_btn_pasar").addEventListener("click", pasarEtapa);
+  state.productos = await apiGet("GET_PRODUCTOS");
   await cargarLotes();
   setInterval(async()=>{
     if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();

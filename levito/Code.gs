@@ -873,9 +873,16 @@ function buildDetallePayload_(data) {
 function normalizeProductId_(value) {
   if (value === null || value === undefined) return "";
   if (Object.prototype.toString.call(value) === "[object Date]") {
-    return value.toISOString();
+    const year = Utilities.formatDate(value, "UTC", "yyyy");
+    const month = String(value.getUTCMonth() + 1);
+    return year + "-" + month;
   }
-  return String(value).trim();
+  const str = String(value).trim();
+  const isoMatch = str.match(/^(\d{4})-(\d{2})-(\d{2})T/);
+  if (isoMatch) {
+    return isoMatch[1] + "-" + String(parseInt(isoMatch[2], 10));
+  }
+  return str;
 }
 
 /**
