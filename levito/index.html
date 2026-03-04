@@ -80,6 +80,10 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 .flow-step.current{background:#7f1d1d;border-color:#ef4444}
 .flow-step.pending{background:#1f2937;border-color:#475569}
 @media (max-width: 992px){
+  body{
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
   .header{padding:12px 14px;gap:10px;align-items:flex-start}
   .brand-logos{width:100%;justify-content:space-between}
   .brand-logos img{height:38px;max-width:48%}
@@ -108,17 +112,32 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
   .lote-title{font-size:18px}
   .pin-status,.producto{font-size:14px}
 
+  .modal{
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    overflow-y:auto;
+  }
   .modal-dialog.modal-xl{
     margin:0;
     max-width:100%;
     width:100%;
-    height:100%;
+    min-height:100%;
+    display:flex;
+    align-items:stretch;
   }
   .modal-content{
-    min-height:100vh;
+    min-height:100dvh;
     border-radius:0;
+    display:flex;
+    flex-direction:column;
   }
   #pinModal .modal-header{position:sticky;top:0;background:#0b1220;z-index:2}
+  #pinModal .modal-body{
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    max-height:calc(100dvh - 72px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    padding-bottom:18px;
+  }
   #pinModal .panel{padding:12px}
   #pinModal .form-control{font-size:16px;min-height:44px}
   #pinModal label{font-size:13px}
