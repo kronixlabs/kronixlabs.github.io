@@ -206,21 +206,21 @@ function crearHoja_Formula(ss) {
 
   // PAN HAMBURGUESA BRIOCHE (PAN-HB-1) — fórmula base por lote con % panadero
   const formula_pan_hamburguesa = [
-    ["PAN-HB-1", "Harina",               5500, "g", 100],
-    ["PAN-HB-1", "Agua",                 2915, "g", 53],
-    ["PAN-HB-1", "Azúcar",                440, "g", 8],
-    ["PAN-HB-1", "Grasa",                 330, "g", 6],
-    ["PAN-HB-1", "Huevo",                 110, "g", 2],
-    ["PAN-HB-1", "Leche en polvo",        110, "g", 2],
-    ["PAN-HB-1", "Levadura",              110, "g", 2],
-    ["PAN-HB-1", "Sal",                   110, "g", 2],
-    ["PAN-HB-1", "Esencia mantequilla",    55, "g", 1],
-    ["PAN-HB-1", "Propionato calcio",      28, "g", 0.5],
-    ["PAN-HB-1", "Dimodan",                17, "g", 0.3],
-    ["PAN-HB-1", "Ácido acético",           4, "g", 0.07],
-    ["PAN-HB-1", "9740",                    1, "g", 0.02],
-    ["PAN-HB-1", "7200",                    1, "g", 0.02],
-    ["PAN-HB-1", "Color amarillo",          1, "g", 0.02],
+    ["PAN-HB-1", "Harina",               17.52, "g", 100],
+    ["PAN-HB-1", "Agua",                  9.29, "g", 53],
+    ["PAN-HB-1", "Azúcar",                1.40, "g", 8],
+    ["PAN-HB-1", "Grasa",                 1.05, "g", 6],
+    ["PAN-HB-1", "Huevo",                 0.35, "g", 2],
+    ["PAN-HB-1", "Leche en polvo",        0.35, "g", 2],
+    ["PAN-HB-1", "Levadura",              0.35, "g", 2],
+    ["PAN-HB-1", "Sal",                   0.35, "g", 2],
+    ["PAN-HB-1", "Esencia mantequilla",   0.18, "g", 1],
+    ["PAN-HB-1", "Propionato calcio",     0.09, "g", 0.5],
+    ["PAN-HB-1", "Dimodan",               0.05, "g", 0.3],
+    ["PAN-HB-1", "Ácido acético",         0.01, "g", 0.07],
+    ["PAN-HB-1", "9740",                  0.003, "g", 0.02],
+    ["PAN-HB-1", "7200",                  0.003, "g", 0.02],
+    ["PAN-HB-1", "Color amarillo",        0.003, "g", 0.02],
   ];
 
   [...formula_0903_1, ...formula_0903_2, ...formula_0904_1, ...formula_pan_hamburguesa].forEach(r => sh.appendRow(r));

@@ -225,6 +225,10 @@ LEVITO MES
 
 <div class="tabs">
 
+<div class="tab" onclick="showTab('inventario', this)">
+Inventario
+</div>
+
 <div class="tab active" onclick="showTab('produccion', this)">
 Producción
 </div>
@@ -237,6 +241,32 @@ Despacho
 Entrega
 </div>
 
+<div class="tab" onclick="showTab('trazabilidad', this)">
+Trazabilidad
+</div>
+
+</div>
+
+<!-- ====================== INVENTARIO ====================== -->
+
+<div id="inventario" class="section">
+<h5 class="mb-4">Inventario de Producto Terminado</h5>
+<div class="table-responsive">
+<table class="table table-dark table-striped">
+<thead>
+<tr>
+<th>Producto ID</th>
+<th>Producto</th>
+<th>Inicial</th>
+<th>Producido</th>
+<th>Entregado</th>
+<th>Stock Actual</th>
+<th>Actualizado</th>
+</tr>
+</thead>
+<tbody id="inv_body"></tbody>
+</table>
+</div>
 </div>
 
 
@@ -248,6 +278,27 @@ Entrega
 
 <div id="grid" class="grid-lotes"></div>
 
+</div>
+
+<!-- ====================== TRAZABILIDAD ====================== -->
+
+<div id="trazabilidad" class="section">
+<h5 class="mb-4">Trazabilidad de Lotes Finalizados</h5>
+<div class="table-responsive">
+<table class="table table-dark table-striped">
+<thead>
+<tr>
+<th>ID Lote</th>
+<th>Slot</th>
+<th>Hora Inicio</th>
+<th>Hora Fin</th>
+<th>Operario</th>
+<th>Etapas</th>
+</tr>
+</thead>
+<tbody id="trz_body"></tbody>
+</table>
+</div>
 </div>
 
 
@@ -379,7 +430,7 @@ Registrar entrega
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwe4BBOBpgKeb-1kQWskSDlDhjXSMOCk5N8uprKhz1T5ualrXLPwd45Y5-BBVHIemo9/exec";
+const API = "https://script.google.com/macros/s/AKfycbwjicDWlhPYWNp1vcLPW1PIMva8MR6xrbMlQqgy-GYdfSBxcn5FbJtQvAH3EPTukHfU/exec";
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
 const state = { lotes:[], productos:[], activePin:null, activeLote:null, modal:null };
@@ -394,6 +445,9 @@ function showTab(id, el){
   el.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
+  if (id === "inventario") cargarInventario();
+  if (id === "produccion") cargarLotes();
+  if (id === "trazabilidad") cargarTrazabilidad();
 }
 
 async function apiGet(action, params){
@@ -433,6 +487,62 @@ function formatHora(v){
   const d = new Date(v);
   if(Number.isNaN(d.getTime())) return "--:--";
   return d.toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
+}
+
+function formatDateTime(v){
+  if(!v) return "--";
+  const d = new Date(v);
+  if(Number.isNaN(d.getTime())) return String(v);
+  return d.toLocaleString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
+}
+
+async function cargarInventario(){
+  try {
+    const data = await apiGet("GET_INVENTARIO");
+    const body = document.getElementById("inv_body");
+    if(!Array.isArray(data) || !data.length){
+      body.innerHTML = `<tr><td colspan="7">Sin datos de inventario.</td></tr>`;
+      return;
+    }
+    body.innerHTML = data.map(r => `
+      <tr>
+        <td>${r.producto_id}</td>
+        <td>${r.producto_nombre}</td>
+        <td>${Number(r.inventario_inicial || 0)}</td>
+        <td>${Number(r.producido_acum || 0)}</td>
+        <td>${Number(r.entregado_acum || 0)}</td>
+        <td><b>${Number(r.stock_actual || 0)}</b></td>
+        <td>${formatDateTime(r.ultima_actualizacion)}</td>
+      </tr>
+    `).join("");
+  } catch (err) {
+    console.error(err);
+    document.getElementById("inv_body").innerHTML = `<tr><td colspan="7">Error cargando inventario.</td></tr>`;
+  }
+}
+
+async function cargarTrazabilidad(){
+  try {
+    const data = await apiGet("GET_TRAZABILIDAD",{limit:200});
+    const body = document.getElementById("trz_body");
+    if(!Array.isArray(data) || !data.length){
+      body.innerHTML = `<tr><td colspan="6">No hay lotes finalizados.</td></tr>`;
+      return;
+    }
+    body.innerHTML = data.map(r => `
+      <tr>
+        <td>${r.id_lote}</td>
+        <td>${r.slot}</td>
+        <td>${formatDateTime(r.hora_inicio)}</td>
+        <td>${formatDateTime(r.hora_fin)}</td>
+        <td>${r.operario_ultimo || ""}</td>
+        <td>${r.etapas || ""}</td>
+      </tr>
+    `).join("");
+  } catch (err) {
+    console.error(err);
+    document.getElementById("trz_body").innerHTML = `<tr><td colspan="6">Error cargando trazabilidad.</td></tr>`;
+  }
 }
 
 function renderPines(){
@@ -677,7 +787,7 @@ async function cargarLotes(){
     renderPines();
   } catch (err) {
     console.error(err);
-    alert("Error cargando tablero de pines.");
+    alert("Error cargando tablero de pines: " + (err.message || "sin detalle"));
   }
 }
 

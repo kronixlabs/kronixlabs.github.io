@@ -90,6 +90,9 @@ function doGet(e) {
       case "GET_INVENTARIO":
         return jsonOk(getInventario());
 
+      case "GET_TRAZABILIDAD":
+        return jsonOk(getTrazabilidadFinalizados(parseInt(e.parameter.limit || "100", 10)));
+
       case "PING":
         return jsonOk({ status: "ok", timestamp: new Date().toISOString() });
 
@@ -414,6 +417,62 @@ function getInventario() {
       stock_actual: Number(r[5] || 0),
       ultima_actualizacion: r[6]
     }));
+}
+
+// ============================================================
+// GET — TRAZABILIDAD (solo lotes finalizados)
+// ============================================================
+
+function getTrazabilidadFinalizados(limit) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEETS.BITACORA);
+  if (!sh || sh.getLastRow() < 2) return [];
+
+  const datos = sh.getRange(2, 1, sh.getLastRow() - 1, 8).getValues();
+  const map = {};
+
+  datos.forEach(r => {
+    const id_lote = r[1];
+    const slot = r[2];
+    const etapa = String(r[3] || "");
+    const operario = r[5];
+    const ts = r[6];
+    if (!id_lote) return;
+
+    if (!map[id_lote]) {
+      map[id_lote] = {
+        id_lote: id_lote,
+        slot: slot,
+        hora_inicio: ts,
+        hora_fin: ts,
+        operario_ultimo: operario,
+        etapas: []
+      };
+    }
+
+    const item = map[id_lote];
+    if (new Date(ts) < new Date(item.hora_inicio)) item.hora_inicio = ts;
+    if (new Date(ts) > new Date(item.hora_fin)) {
+      item.hora_fin = ts;
+      item.operario_ultimo = operario;
+    }
+    if (item.etapas.indexOf(etapa) === -1) item.etapas.push(etapa);
+  });
+
+  const finalizados = Object.values(map)
+    .filter(x => x.etapas.indexOf("Finalizado") !== -1)
+    .sort((a, b) => new Date(b.hora_fin) - new Date(a.hora_fin))
+    .slice(0, Math.max(1, Math.min(limit || 100, 500)))
+    .map(x => ({
+      id_lote: x.id_lote,
+      slot: x.slot,
+      hora_inicio: x.hora_inicio,
+      hora_fin: x.hora_fin,
+      operario_ultimo: x.operario_ultimo,
+      etapas: x.etapas.join(" > ")
+    }));
+
+  return finalizados;
 }
 
 // ============================================================
