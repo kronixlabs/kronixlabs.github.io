@@ -1,383 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>KRONIX LABS | LEVITO MES</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <style>
-
-body{
-background:#020617;
-color:white;
-font-family:system-ui;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-border-bottom:1px solid #1e293b;
-}
-
-.logo{
-font-size:18px;
-font-weight:700;
-}
-
-.logo span{
-color:#38bdf8;
-}
-
-.tabs{
-display:flex;
-gap:10px;
-padding:15px 25px;
-border-bottom:1px solid #1e293b;
-}
-
-.tab{
-padding:8px 16px;
-border-radius:8px;
-cursor:pointer;
-background:#0f172a;
-border:1px solid #1e293b;
-}
-
-.tab.active{
-background:#1e293b;
-border-color:#38bdf8;
-}
-
-.section{
-display:none;
-padding:25px;
-}
-
-.section.active{
-display:block;
-}
-
-.grid-lotes{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:18px;
-}
-
-.lote-card{
-background:#0f172a;
-border:1px solid #1e293b;
-border-radius:14px;
-padding:18px;
-transition:.2s;
-cursor:pointer;
-min-height:170px;
-}
-
-.lote-card:hover{
-border-color:#38bdf8;
-transform:translateY(-3px);
-}
-
-.lote-title{
-font-weight:700;
-font-size:20px;
-line-height:1.2;
-}
-
-.producto{
-font-size:14px;
-color:#94a3b8;
-}
-
-.etapa{
-font-weight:600;
-margin-top:8px;
-}
-
-.operario{
-font-size:12px;
-color:#cbd5e1;
-}
-
-.tiempo{
-font-size:12px;
-color:#94a3b8;
-margin-bottom:10px;
-}
-
-.progreso{
-font-size:18px;
-letter-spacing:4px;
-}
-
-.done{color:#22c55e;}
-.active-step{color:#4ade80;}
-.pending{color:#475569;}
-
-.table{
-color:white;
-}
-
-input,select{
-background:#0f172a!important;
-color:white!important;
-border:1px solid #1e293b!important;
-}
-
-.panel{
-background:#0b1220;
-border:1px solid #1e293b;
-border-radius:14px;
-padding:16px;
-margin-top:18px;
-}
-
-.panel h6{
-margin-bottom:14px;
-font-weight:700;
-}
-
-.status-line{
-font-size:12px;
-color:#94a3b8;
-margin-top:8px;
-min-height:18px;
-}
-
-.lote-card.selected{
-border-color:#22c55e;
-box-shadow:0 0 0 1px #22c55e inset;
-}
-
-.pin-status{
-font-size:13px;
-color:#94a3b8;
-margin-top:6px;
-}
-
-.pin-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:6px;
-}
-
-.tag-gray{
-background:#334155;
-color:#cbd5e1;
-padding:2px 8px;
-border-radius:999px;
-font-size:11px;
-}
-
-.tag-green{
-background:#14532d;
-color:#86efac;
-padding:2px 8px;
-border-radius:999px;
-font-size:11px;
-}
-
-.lote-card.in-process{
-background:linear-gradient(180deg,#052e16 0%, #064e3b 100%);
-border-color:#22c55e;
-}
-
-#pinModal .form-control{
-font-size:14px;
-padding:6px 10px;
-}
-
-#pinModal label,
-#pinModal .table th,
-#pinModal .table td{
-font-size:14px;
-}
-
-#pinModal .btn{
-font-size:14px;
-}
-
+body{background:#020617;color:#fff;font-family:system-ui}
+.header{display:flex;justify-content:space-between;align-items:center;padding:15px 25px;border-bottom:1px solid #1e293b}
+.logo{font-size:18px;font-weight:700}.logo span{color:#38bdf8}
+.tabs{display:flex;gap:10px;padding:15px 25px;border-bottom:1px solid #1e293b;flex-wrap:wrap}
+.tab{padding:8px 16px;border-radius:8px;cursor:pointer;background:#0f172a;border:1px solid #1e293b}
+.tab.active{background:#1e293b;border-color:#38bdf8}
+.section{display:none;padding:25px}.section.active{display:block}
+.grid-lotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.lote-card{background:#0f172a;border:1px solid #1e293b;border-radius:14px;padding:18px;cursor:pointer;min-height:170px}
+.lote-card:hover{border-color:#38bdf8;transform:translateY(-2px)}
+.lote-card.in-process{background:linear-gradient(180deg,#052e16 0%,#064e3b 100%);border-color:#22c55e}
+.lote-title{font-weight:700;font-size:20px;line-height:1.2}.producto{font-size:14px;color:#94a3b8}
+.pin-status{font-size:13px;color:#94a3b8;margin-top:6px}
+.pin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tag-gray{background:#334155;color:#cbd5e1;padding:2px 8px;border-radius:999px;font-size:11px}
+input,select{background:#0f172a!important;color:#fff!important;border:1px solid #1e293b!important}
+.table{color:#fff}
+.panel{background:#0b1220;border:1px solid #1e293b;border-radius:14px;padding:16px}
+.status-line{font-size:12px;color:#94a3b8;margin-top:8px;min-height:18px}
+#pinModal .form-control{font-size:14px;padding:6px 10px}
+#pinModal label,#pinModal .table th,#pinModal .table td,#pinModal .btn{font-size:14px}
 </style>
-
 </head>
-
 <body>
-
 <div class="header">
-
-<div class="logo">
-KRONIX <span>LABS</span>
+  <div class="logo">KRONIX <span>LABS</span></div>
+  <div>LEVITO MES</div>
 </div>
-
-<div>
-LEVITO MES
-</div>
-
-</div>
-
 
 <div class="tabs">
-
-<div class="tab" onclick="showTab('inventario', this)">
-Inventario
+  <div class="tab" onclick="showTab('inventario', this)">Inventario</div>
+  <div class="tab active" onclick="showTab('produccion', this)">Producción</div>
+  <div class="tab" onclick="showTab('despacho', this)">Despacho</div>
+  <div class="tab" onclick="showTab('entrega', this)">Entrega</div>
+  <div class="tab" onclick="showTab('trazabilidad', this)">Trazabilidad</div>
 </div>
-
-<div class="tab active" onclick="showTab('produccion', this)">
-Producción
-</div>
-
-<div class="tab" onclick="showTab('despacho', this)">
-Despacho
-</div>
-
-<div class="tab" onclick="showTab('entrega', this)">
-Entrega
-</div>
-
-<div class="tab" onclick="showTab('trazabilidad', this)">
-Trazabilidad
-</div>
-
-</div>
-
-<!-- ====================== INVENTARIO ====================== -->
 
 <div id="inventario" class="section">
-<h5 class="mb-4">Inventario de Producto Terminado</h5>
-<div class="table-responsive">
-<table class="table table-dark table-striped">
-<thead>
-<tr>
-<th>Producto ID</th>
-<th>Producto</th>
-<th>Inicial</th>
-<th>Producido</th>
-<th>Entregado</th>
-<th>Stock Actual</th>
-<th>Actualizado</th>
-</tr>
-</thead>
-<tbody id="inv_body"></tbody>
-</table>
+  <h5 class="mb-4">Inventario de Producto Terminado</h5>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>Producto ID</th><th>Producto</th><th>Inicial</th><th>Producido</th><th>Entregado</th><th>Stock</th><th>Actualizado</th></tr></thead>
+      <tbody id="inv_body"></tbody>
+    </table>
+  </div>
 </div>
-</div>
-
-
-<!-- ====================== PRODUCCION ====================== -->
 
 <div id="produccion" class="section active">
-
-<h5 class="mb-4">Panel Operativo de Producción</h5>
-
-<div id="grid" class="grid-lotes"></div>
-
+  <h5 class="mb-4">Panel Operativo de Producción</h5>
+  <div id="grid" class="grid-lotes"></div>
 </div>
-
-<!-- ====================== TRAZABILIDAD ====================== -->
-
-<div id="trazabilidad" class="section">
-<h5 class="mb-4">Trazabilidad de Lotes Finalizados</h5>
-<div class="table-responsive">
-<table class="table table-dark table-striped">
-<thead>
-<tr>
-<th>ID Lote</th>
-<th>Slot</th>
-<th>Hora Inicio</th>
-<th>Hora Fin</th>
-<th>Operario</th>
-<th>Etapas</th>
-</tr>
-</thead>
-<tbody id="trz_body"></tbody>
-</table>
-</div>
-</div>
-
-
-<!-- ====================== DESPACHO ====================== -->
 
 <div id="despacho" class="section">
-
-<h5 class="mb-4">Registro de Despachos</h5>
-
-<div class="row g-3 mb-3">
-
-<div class="col-md-3">
-<label>Fecha</label>
-<input type="date" id="d_fecha" class="form-control">
+  <h5 class="mb-4">Registro de Despachos</h5>
+  <div class="row g-3 mb-3">
+    <div class="col-md-3"><label>Fecha</label><input type="date" id="d_fecha" class="form-control"></div>
+    <div class="col-md-3"><label>Producto</label><input type="text" id="d_producto" class="form-control"></div>
+    <div class="col-md-3"><label>Lote</label><input type="text" id="d_lote" class="form-control"></div>
+    <div class="col-md-3"><label>Cantidad</label><input type="number" id="d_cantidad" class="form-control"></div>
+  </div>
+  <button class="btn btn-primary" onclick="registrarDespacho()">Registrar despacho</button>
 </div>
-
-<div class="col-md-3">
-<label>Producto</label>
-<input type="text" id="d_producto" class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Lote</label>
-<input type="text" id="d_lote" class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Cantidad</label>
-<input type="number" id="d_cantidad" class="form-control">
-</div>
-
-</div>
-
-<button class="btn btn-primary" onclick="registrarDespacho()">
-Registrar despacho
-</button>
-
-</div>
-
-
-<!-- ====================== ENTREGA ====================== -->
 
 <div id="entrega" class="section">
-
-<h5 class="mb-4">Registro de Entregas</h5>
-
-<div class="row g-3 mb-3">
-
-<div class="col-md-3">
-<label>Fecha</label>
-<input type="date" id="e_fecha" class="form-control">
+  <h5 class="mb-4">Registro de Entregas</h5>
+  <div class="row g-3 mb-3">
+    <div class="col-md-3"><label>Fecha</label><input type="date" id="e_fecha" class="form-control"></div>
+    <div class="col-md-3"><label>Producto</label><input type="text" id="e_producto" class="form-control"></div>
+    <div class="col-md-3"><label>Lote</label><input type="text" id="e_lote" class="form-control"></div>
+    <div class="col-md-3"><label>Cliente</label><input type="text" id="e_cliente" class="form-control"></div>
+    <div class="col-md-3"><label>Cantidad</label><input type="number" id="e_cantidad" class="form-control"></div>
+  </div>
+  <button class="btn btn-success" onclick="registrarEntrega()">Registrar entrega</button>
 </div>
 
-<div class="col-md-3">
-<label>Producto</label>
-<input type="text" id="e_producto" class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Lote</label>
-<input type="text" id="e_lote" class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Cliente</label>
-<input type="text" id="e_cliente" class="form-control">
-</div>
-
-<div class="col-md-3">
-<label>Cantidad</label>
-<input type="number" id="e_cantidad" class="form-control">
-</div>
-
-</div>
-
-<button class="btn btn-success" onclick="registrarEntrega()">
-Registrar entrega
-</button>
-
+<div id="trazabilidad" class="section">
+  <h5 class="mb-4">Trazabilidad de Lotes Finalizados</h5>
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead><tr><th>ID Lote</th><th>Slot</th><th>Inicio</th><th>Fin</th><th>Operario</th><th>Proceso</th></tr></thead>
+      <tbody id="trz_body"></tbody>
+    </table>
+  </div>
 </div>
 
 <div class="modal fade" id="pinModal" tabindex="-1" aria-hidden="true">
@@ -399,26 +110,45 @@ Registrar entrega
           <div id="m_status_inicio" class="status-line"></div>
           <button class="btn btn-primary mt-3" id="m_btn_inicio">EMPEZAR MOJADO</button>
         </div>
+
         <div id="pinViewProceso" style="display:none;">
           <div class="panel mt-0">
             <h6 id="m_lote_header">Producto - Lote</h6>
-            <div class="row g-2">
-              <div class="col-md-3"><label>Cantidad de producto</label><input id="m_calc_cantidad" type="number" min="1" class="form-control"></div>
-              <div class="col-md-3 d-flex align-items-end"><button class="btn btn-info w-100" id="m_btn_calcular">CALCULAR FORMULA</button></div>
+            <div class="row g-2 mb-2">
+              <div class="col-md-3"><label>Cantidad de producto</label><input id="m_cantidad_proceso" type="number" min="1" class="form-control"></div>
             </div>
-            <div class="table-responsive mt-3">
-              <table class="table table-dark table-striped">
-                <thead><tr><th>Ingrediente</th><th>Gramos</th><th>Lote Materia Prima</th><th>Fecha Vencimiento</th></tr></thead>
-                <tbody id="m_formula_body"></tbody>
-              </table>
+
+            <div id="m_sec_mojado">
+              <div class="row g-2">
+                <div class="col-md-3 d-flex align-items-end"><button class="btn btn-info w-100" id="m_btn_calcular">CALCULAR FORMULA</button></div>
+              </div>
+              <div class="table-responsive mt-3">
+                <table class="table table-dark table-striped">
+                  <thead><tr><th>Ingrediente</th><th>Gramos</th><th>Lote Materia Prima</th><th>Fecha Vencimiento</th></tr></thead>
+                  <tbody id="m_formula_body"></tbody>
+                </table>
+              </div>
             </div>
+
+            <div id="m_sec_porcionado" style="display:none;">
+              <div class="row g-2">
+                <div class="col-md-3"><label>Peso por unidad (g)</label><input id="m_peso_unidad" type="number" step="0.01" class="form-control"></div>
+                <div class="col-md-3"><label>Número de porciones</label><input id="m_num_porciones" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Número de latas</label><input id="m_num_latas" type="number" class="form-control"></div>
+                <div class="col-md-3"><label>Unidades por lata</label><input id="m_unid_por_lata" type="number" class="form-control"></div>
+              </div>
+            </div>
+
             <div class="row g-2">
               <div class="col-md-3"><label>Total gramos masa</label><input id="m_total_gramos" class="form-control" readonly></div>
+              <div class="col-md-3"><label>Temperatura ambiente (°C)</label><input id="m_temp_amb_proceso" type="number" step="0.1" class="form-control"></div>
+              <div class="col-md-3"><label>Humedad ambiente (%)</label><input id="m_hum_amb_proceso" type="number" step="0.1" class="form-control"></div>
               <div class="col-md-3"><label>PIN</label><input id="m_pin_etapa" type="password" class="form-control"></div>
+              <div class="col-md-12"><label>Observaciones</label><input id="m_obs_proceso" type="text" class="form-control"></div>
             </div>
             <div class="d-flex gap-2 mt-3">
               <button class="btn btn-secondary" id="m_btn_pre">PRE-GUARDAR DATOS</button>
-              <button class="btn btn-success" id="m_btn_pasar">EMPEZAR PORCIONADO</button>
+              <button class="btn btn-success" id="m_btn_pasar">PASAR ETAPA</button>
             </div>
             <div id="m_status_etapa" class="status-line"></div>
           </div>
@@ -433,409 +163,156 @@ Registrar entrega
 const API = "https://script.google.com/macros/s/AKfycbwjicDWlhPYWNp1vcLPW1PIMva8MR6xrbMlQqgy-GYdfSBxcn5FbJtQvAH3EPTukHfU/exec";
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
-const state = { lotes:[], productos:[], activePin:null, activeLote:null, modal:null };
-
-function getNombreProducto(productoId, fallback){
-  const p = state.productos.find(x => String(x.codigo) === String(productoId));
-  return p ? p.nombre : (fallback || String(productoId || ""));
-}
+const state = {lotes:[],productos:[],activePin:null,activeLote:null,modal:null};
 
 function showTab(id, el){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   el.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  if (id === "inventario") cargarInventario();
-  if (id === "produccion") cargarLotes();
-  if (id === "trazabilidad") cargarTrazabilidad();
+  if(id==="inventario") cargarInventario();
+  if(id==="produccion") cargarLotes();
+  if(id==="trazabilidad") cargarTrazabilidad();
 }
 
 async function apiGet(action, params){
-  const q = new URLSearchParams({ action, ...(params||{}) });
+  const q = new URLSearchParams({action,...(params||{})});
   const r = await fetch(`${API}?${q.toString()}`);
   const txt = await r.text();
-  try {
-    return JSON.parse(txt);
-  } catch (e) {
-    throw new Error("Respuesta no JSON en GET " + action + ": " + txt.slice(0, 120));
-  }
+  return JSON.parse(txt);
 }
-
 async function apiPost(payload){
-  const r = await fetch(API,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(payload)
-  });
+  const r = await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
   const txt = await r.text();
-  try {
-    return JSON.parse(txt);
-  } catch (e) {
-    throw new Error("Respuesta no JSON en POST " + payload.action + ": " + txt.slice(0, 120));
-  }
+  return JSON.parse(txt);
 }
-
-function setStatus(id,msg,isError){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.style.color = isError ? "#fca5a5" : "#86efac";
-  el.textContent = msg || "";
-}
-
-function formatHora(v){
-  if(!v) return "--:--";
-  const d = new Date(v);
-  if(Number.isNaN(d.getTime())) return "--:--";
-  return d.toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});
-}
-
-function formatDateTime(v){
-  if(!v) return "--";
-  const d = new Date(v);
-  if(Number.isNaN(d.getTime())) return String(v);
-  return d.toLocaleString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
-}
+function setStatus(id,msg,isError){const e=document.getElementById(id);if(!e)return;e.style.color=isError?"#fca5a5":"#86efac";e.textContent=msg||"";}
+function formatDateTime(v){if(!v)return"--";const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return d.toLocaleString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});}
+function getNombreProducto(pid,fallback){const p=state.productos.find(x=>String(x.codigo)===String(pid));return p?p.nombre:(fallback||String(pid||""));}
+function roundFormula(ing,g){let x=Number(g||0);const i=String(ing||"").toLowerCase();if(x>100&&(i.includes("harina")||i.includes("agua"))){const step=x>=500?10:5;return Math.round(x/step)*step;}if(x<10)return Math.max(1,Math.round(x));return Math.round(x*100)/100;}
 
 async function cargarInventario(){
-  try {
-    const data = await apiGet("GET_INVENTARIO");
-    const body = document.getElementById("inv_body");
-    if(!Array.isArray(data) || !data.length){
-      body.innerHTML = `<tr><td colspan="7">Sin datos de inventario.</td></tr>`;
-      return;
-    }
-    body.innerHTML = data.map(r => `
-      <tr>
-        <td>${r.producto_id}</td>
-        <td>${r.producto_nombre}</td>
-        <td>${Number(r.inventario_inicial || 0)}</td>
-        <td>${Number(r.producido_acum || 0)}</td>
-        <td>${Number(r.entregado_acum || 0)}</td>
-        <td><b>${Number(r.stock_actual || 0)}</b></td>
-        <td>${formatDateTime(r.ultima_actualizacion)}</td>
-      </tr>
-    `).join("");
-  } catch (err) {
-    console.error(err);
-    document.getElementById("inv_body").innerHTML = `<tr><td colspan="7">Error cargando inventario.</td></tr>`;
-  }
+  try{
+    const data=await apiGet("GET_INVENTARIO"); const b=document.getElementById("inv_body");
+    if(!Array.isArray(data)||!data.length){b.innerHTML=`<tr><td colspan="7">Sin datos de inventario.</td></tr>`;return;}
+    b.innerHTML=data.map(r=>`<tr><td>${r.producto_id}</td><td>${r.producto_nombre}</td><td>${r.inventario_inicial}</td><td>${r.producido_acum}</td><td>${r.entregado_acum}</td><td><b>${r.stock_actual}</b></td><td>${formatDateTime(r.ultima_actualizacion)}</td></tr>`).join("");
+  }catch(e){document.getElementById("inv_body").innerHTML=`<tr><td colspan="7">Error cargando inventario.</td></tr>`;}
 }
-
 async function cargarTrazabilidad(){
-  try {
-    const data = await apiGet("GET_TRAZABILIDAD",{limit:200});
-    const body = document.getElementById("trz_body");
-    if(!Array.isArray(data) || !data.length){
-      body.innerHTML = `<tr><td colspan="6">No hay lotes finalizados.</td></tr>`;
-      return;
-    }
-    body.innerHTML = data.map(r => `
-      <tr>
-        <td>${r.id_lote}</td>
-        <td>${r.slot}</td>
-        <td>${formatDateTime(r.hora_inicio)}</td>
-        <td>${formatDateTime(r.hora_fin)}</td>
-        <td>${r.operario_ultimo || ""}</td>
-        <td>${r.etapas || ""}</td>
-      </tr>
-    `).join("");
-  } catch (err) {
-    console.error(err);
-    document.getElementById("trz_body").innerHTML = `<tr><td colspan="6">Error cargando trazabilidad.</td></tr>`;
-  }
+  try{
+    const data=await apiGet("GET_TRAZABILIDAD",{limit:200}); const b=document.getElementById("trz_body");
+    if(!Array.isArray(data)||!data.length){b.innerHTML=`<tr><td colspan="6">No hay lotes finalizados.</td></tr>`;return;}
+    b.innerHTML=data.map(r=>`<tr><td>${r.id_lote}</td><td>${r.slot}</td><td>${formatDateTime(r.hora_inicio)}</td><td>${formatDateTime(r.hora_fin)}</td><td>${r.operario_ultimo||""}</td><td>${r.etapas||""}<br><small>Total: ${r.duracion_total_min||0} min</small><br><small>${r.duracion_por_etapa||""}</small></td></tr>`).join("");
+  }catch(e){document.getElementById("trz_body").innerHTML=`<tr><td colspan="6">Error cargando trazabilidad.</td></tr>`;}
 }
 
 function renderPines(){
-  const grid = document.getElementById("grid");
-  const bySlot = new Map(state.lotes.map(l => [parseInt(l.slot,10), l]));
-  let html = "";
-  for(let i=1;i<=TOTAL_PINES;i++){
-    const lote = bySlot.get(i);
-    if(!lote){
-      html += `
-      <div class="lote-card" onclick="onPinClick(${i})">
-        <div class="pin-header"><div class="lote-title">LOTE ${i}</div><span class="tag-gray">DISPONIBLE</span></div>
-        <div class="producto">Estado: DISPONIBLE</div>
-        <div class="pin-status">Click para registro de Mojado</div>
-      </div>`;
-    }else{
-      const nombre = getNombreProducto(lote.producto_id, lote.producto);
-      html += `
-      <div class="lote-card in-process" onclick="onPinClick(${i})">
-        <div class="pin-header"><div class="lote-title">${nombre}</div></div>
-        <div class="producto">${lote.id_lote}</div>
-        <div class="pin-status">Etapa actual: ${lote.etapa_actual}</div>
-        <div class="pin-status">Responsable: ${lote.operario || "N/A"}</div>
-        <div class="pin-status">Hora: ${formatHora(lote.hora_etapa)}</div>
-      </div>`;
-    }
-  }
-  grid.innerHTML = html;
+  const bySlot = new Map(state.lotes.map(l=>[parseInt(l.slot,10),l])); let html="";
+  for(let i=1;i<=TOTAL_PINES;i++){const lote=bySlot.get(i);
+    if(!lote){html += `<div class="lote-card" onclick="onPinClick(${i})"><div class="pin-header"><div class="lote-title">LOTE ${i}</div><span class="tag-gray">DISPONIBLE</span></div><div class="producto">Estado: DISPONIBLE</div><div class="pin-status">Click para registro de Mojado</div></div>`;}
+    else{const n=getNombreProducto(lote.producto_id,lote.producto);html += `<div class="lote-card in-process" onclick="onPinClick(${i})"><div class="lote-title">${n}</div><div class="producto">${lote.id_lote}</div><div class="pin-status">Etapa actual: ${lote.etapa_actual}</div><div class="pin-status">Responsable: ${lote.operario||"N/A"}</div><div class="pin-status">Hora: ${lote.hora_etapa_str||"--:--"}</div></div>`;}
+  } document.getElementById("grid").innerHTML = html;
 }
+function nombreBotonPaso(etapa){const idx=ETAPAS.indexOf(etapa);const n=ETAPAS[idx+1];return n?`PASAR A ${n.toUpperCase()}`:"PRODUCCION FINALIZADA";}
 
-function nombreBotonPaso(etapa){
-  const idx = ETAPAS.indexOf(etapa);
-  const next = ETAPAS[idx+1];
-  if(!next) return "PRODUCCION FINALIZADA";
-  return `PASAR A ${next.toUpperCase()}`;
-}
+async function cargarLotes(){try{const d=await apiGet("GET_ALL_ACTIVOS");state.lotes=Array.isArray(d)?d:[];renderPines();}catch(e){alert("Error cargando tablero de pines: "+(e.message||"sin detalle"));}}
+async function fillProductosModal(){if(!state.productos.length)state.productos=await apiGet("GET_PRODUCTOS");document.getElementById("m_producto").innerHTML=state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");}
 
 async function onPinClick(slot){
-  try {
-    state.activePin = slot;
-    await cargarLotes();
-    const lote = state.lotes.find(l => parseInt(l.slot,10) === slot) || null;
-    state.activeLote = lote;
-    const nombre = lote ? getNombreProducto(lote.producto_id, lote.producto) : "";
-    document.getElementById("pinModalTitle").textContent = lote ? `${nombre} | ${lote.id_lote}` : `LOTE ${slot} | DISPONIBLE`;
-    document.getElementById("pinViewDisponible").style.display = lote ? "none" : "block";
-    document.getElementById("pinViewProceso").style.display = lote ? "block" : "none";
-    setStatus("m_status_inicio","",false);
-    setStatus("m_status_etapa","",false);
-    if(!lote){
-      await fillProductosModal();
-    }else{
-      await cargarPantallaEtapa(lote);
-    }
-    state.modal.show();
-  } catch (err) {
-    console.error(err);
-    alert("No se pudo abrir el flujo del pin. Verifica despliegue/API.");
-  }
+  await cargarLotes(); state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
+  const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
+  document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
+  document.getElementById("pinViewProceso").style.display=lote?"block":"none";
+  if(!lote) await fillProductosModal(); else await cargarPantallaEtapa(lote);
+  state.modal.show();
 }
 
-async function fillProductosModal(){
-  if(!state.productos.length){
-    state.productos = await apiGet("GET_PRODUCTOS");
-  }
-  const sel = document.getElementById("m_producto");
-  sel.innerHTML = state.productos.map(p=>`<option value="${p.codigo}">${p.codigo} - ${p.nombre}</option>`).join("");
-}
-
-function getDetalleRowsFromTable(){
-  const rows = [];
-  document.querySelectorAll("#m_formula_body tr").forEach(tr => {
-    rows.push({
-      ingrediente: tr.dataset.ingrediente || "",
-      gramos: Number(tr.dataset.gramos || "0"),
-      lote_materia_prima: tr.querySelector(".in-lote")?.value?.trim() || "",
-      fecha_vencimiento: tr.querySelector(".in-venc")?.value || ""
-    });
-  });
-  return rows;
-}
-
-function calcTotalGramos(rows){
-  return rows.reduce((acc,r)=>acc+(Number(r.gramos)||0),0);
-}
+function getDetalleRowsFromTable(){return Array.from(document.querySelectorAll("#m_formula_body tr")).map(tr=>({ingrediente:tr.dataset.ingrediente||"",gramos:Number(tr.dataset.gramos||0),lote_materia_prima:tr.querySelector(".in-lote")?.value?.trim()||"",fecha_vencimiento:tr.querySelector(".in-venc")?.value||""}));}
+function calcTotalGramos(rows){return rows.reduce((a,r)=>a+(Number(r.gramos)||0),0);}
 
 async function iniciarMojado(){
-  try {
-    const payload = {
-      action:"INICIAR_LOTE",
-      slot: state.activePin,
-      producto_id: document.getElementById("m_producto").value,
-      cantidad: Number(document.getElementById("m_cantidad").value || "0"),
-      temp_amb: Number(document.getElementById("m_temp").value || "0"),
-      hum_amb: Number(document.getElementById("m_hum").value || "0"),
-      pin: document.getElementById("m_pin_inicio").value.trim(),
-      materias_primas:[]
-    };
-    if(!payload.producto_id || !payload.cantidad || !payload.pin){
-      setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);
-      return;
-    }
-    const r = await apiPost(payload);
-    if(r.status==="error"){
-      setStatus("m_status_inicio",r.message || "Error al iniciar mojado.",true);
-      return;
-    }
+  const p={action:"INICIAR_LOTE",slot:state.activePin,producto_id:document.getElementById("m_producto").value,cantidad:Number(document.getElementById("m_cantidad").value||0),temp_amb:Number(document.getElementById("m_temp").value||0),hum_amb:Number(document.getElementById("m_hum").value||0),pin:document.getElementById("m_pin_inicio").value.trim(),materias_primas:[]};
+  if(!p.producto_id||!p.cantidad||!p.pin){setStatus("m_status_inicio","Completa producto, cantidad y PIN.",true);return;}
+  const r=await apiPost(p); if(r.status==="error"){setStatus("m_status_inicio",r.message||"Error al iniciar mojado.",true);return;}
+  await cargarLotes();
+  const loteNuevo = state.lotes.find(l => parseInt(l.slot,10) === parseInt(state.activePin,10)) || null;
+  if(!loteNuevo){
     state.modal.hide();
-    await cargarLotes();
-  } catch (err) {
-    console.error(err);
-    setStatus("m_status_inicio","No se pudo iniciar: " + (err.message || "error de red/permisos"),true);
+    return;
   }
+  state.activeLote = loteNuevo;
+  document.getElementById("pinViewDisponible").style.display = "none";
+  document.getElementById("pinViewProceso").style.display = "block";
+  await cargarPantallaEtapa(loteNuevo);
+  document.getElementById("m_cantidad_proceso").value = String(p.cantidad);
+  await calcularFormula();
+  setStatus("m_status_etapa","Formula cargada automaticamente. Puedes editar cantidad y recalcular.",false);
 }
 
 async function cargarPantallaEtapa(lote){
-  const estado = await apiGet("GET_LOTE_ESTADO",{id_lote:lote.id_lote});
-  const detalle = estado.detalle || {};
-  const nombre = getNombreProducto(lote.producto_id, lote.producto);
-  document.getElementById("m_lote_header").textContent = `${nombre} | ${lote.id_lote}`;
-  document.getElementById("m_calc_cantidad").value = detalle.cantidad || "";
-  document.getElementById("m_formula_body").innerHTML = "";
-  document.getElementById("m_total_gramos").value = detalle.total_gramos_masa || "";
-  document.getElementById("m_btn_pasar").textContent = nombreBotonPaso(lote.etapa_actual);
-
-  if(lote.etapa_actual === "Mojado" && detalle.rows && detalle.rows.length){
-    renderFormulaRows(detalle.rows);
-  }
+  const estado=await apiGet("GET_LOTE_ESTADO",{id_lote:lote.id_lote}); const d=estado.detalle||{};
+  document.getElementById("m_lote_header").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`;
+  document.getElementById("m_cantidad_proceso").value=d.cantidad||"";
+  document.getElementById("m_total_gramos").value=d.total_gramos_masa||"";
+  document.getElementById("m_temp_amb_proceso").value=d.temp_amb||"";
+  document.getElementById("m_hum_amb_proceso").value=d.hum_amb||"";
+  document.getElementById("m_obs_proceso").value=d.obs||"";
+  document.getElementById("m_btn_pasar").textContent=nombreBotonPaso(lote.etapa_actual);
+  const moj=lote.etapa_actual==="Mojado", por=lote.etapa_actual==="Porcionado";
+  document.getElementById("m_sec_mojado").style.display=moj?"block":"none";
+  document.getElementById("m_sec_porcionado").style.display=por?"block":"none";
+  document.getElementById("m_btn_calcular").style.display=moj?"inline-block":"none";
+  document.getElementById("m_btn_pre").style.display=moj?"inline-block":"none";
+  document.getElementById("m_total_gramos").closest(".col-md-3").style.display=moj?"block":"none";
+  if(por){document.getElementById("m_peso_unidad").value=d.peso_unidad||"";document.getElementById("m_num_porciones").value=d.num_porciones||"";document.getElementById("m_num_latas").value=d.num_latas||"";document.getElementById("m_unid_por_lata").value=d.unid_por_lata||"";}
+  if(moj&&d.rows&&d.rows.length) renderFormulaRows(d.rows); else document.getElementById("m_formula_body").innerHTML="";
 }
 
 function renderFormulaRows(rows){
-  const body = document.getElementById("m_formula_body");
-  body.innerHTML = rows.map(r=>`
-    <tr data-ingrediente="${r.ingrediente || ""}" data-gramos="${Number(r.gramos || 0)}">
-      <td>${r.ingrediente || ""}</td>
-      <td>${Number(r.gramos || 0).toFixed(2)}</td>
-      <td><input class="form-control in-lote" value="${r.lote_materia_prima || ""}"></td>
-      <td><input type="date" class="form-control in-venc" value="${r.fecha_vencimiento || ""}"></td>
-    </tr>
-  `).join("");
+  document.getElementById("m_formula_body").innerHTML = rows.map(r=>`<tr data-ingrediente="${r.ingrediente||""}" data-gramos="${Number(r.gramos||0)}"><td>${r.ingrediente||""}</td><td>${Number(r.gramos||0).toFixed(2)}</td><td><input class="form-control in-lote" value="${r.lote_materia_prima||""}"></td><td><div class="d-flex gap-1"><input type="text" class="form-control in-venc" placeholder="YYYY-MM-DD" value="${r.fecha_vencimiento||""}"><button type="button" class="btn btn-outline-info btn-sm" onclick="openDatePicker(this)">📅</button></div></td></tr>`).join("");
 }
+function openDatePicker(btn){const txt=btn.parentElement.querySelector(".in-venc");const p=document.createElement("input");p.type="date";p.style.position="fixed";p.style.left="-9999px";p.onchange=()=>{txt.value=p.value};document.body.appendChild(p);if(p.showPicker)p.showPicker();else p.click();setTimeout(()=>p.remove(),1200);}
 
 async function calcularFormula(){
-  const lote = state.activeLote;
-  if(!lote || lote.etapa_actual !== "Mojado"){
-    setStatus("m_status_etapa","La calculadora solo aplica en Mojado.",true);
-    return;
-  }
-  const cantidad = Number(document.getElementById("m_calc_cantidad").value || "0");
-  if(!cantidad){
-    setStatus("m_status_etapa","Ingresa cantidad de producto.",true);
-    return;
-  }
-  let base = await apiGet("GET_FORMULA",{producto_id:lote.producto_id});
-  if(!Array.isArray(base) || !base.length){
-    const match = state.productos.find(p => p.nombre === lote.producto);
-    if(match){
-      base = await apiGet("GET_FORMULA",{producto_id:match.codigo});
-    }
-  }
-  if(!Array.isArray(base) || !base.length){
-    setStatus("m_status_etapa","No existe formula para este producto. Revisa DB_FORMULA.",true);
-    document.getElementById("m_formula_body").innerHTML = "";
-    document.getElementById("m_total_gramos").value = "0.00";
-    return;
-  }
-  const rows = base.map(i=>({
-    ingrediente:i.ingrediente,
-    gramos:(Number(i.cantidad_base)||0) * cantidad,
-    lote_materia_prima:"",
-    fecha_vencimiento:""
-  }));
-  renderFormulaRows(rows);
-  document.getElementById("m_total_gramos").value = calcTotalGramos(rows).toFixed(2);
-  setStatus("m_status_etapa","Formula calculada.",false);
+  const lote=state.activeLote;if(!lote||lote.etapa_actual!=="Mojado"){setStatus("m_status_etapa","La calculadora solo aplica en Mojado.",true);return;}
+  const cantidad=Number(document.getElementById("m_cantidad_proceso").value||0);if(!cantidad){setStatus("m_status_etapa","Cantidad no definida.",true);return;}
+  let base=await apiGet("GET_FORMULA",{producto_id:lote.producto_id}); if(!Array.isArray(base)||!base.length){setStatus("m_status_etapa","No existe formula para este producto. Revisa DB_FORMULA.",true);return;}
+  const rows=base.map(i=>({ingrediente:i.ingrediente,gramos:roundFormula(i.ingrediente,(Number(i.cantidad_base)||0)*cantidad),lote_materia_prima:"",fecha_vencimiento:""}));
+  renderFormulaRows(rows);document.getElementById("m_total_gramos").value=calcTotalGramos(rows).toFixed(2);setStatus("m_status_etapa","Formula calculada.",false);
 }
 
 async function preGuardarMojado(){
-  const lote = state.activeLote;
-  if(!lote || lote.etapa_actual !== "Mojado"){
-    setStatus("m_status_etapa","Pre-guardado aplica en etapa Mojado.",true);
-    return;
-  }
-  const rows = getDetalleRowsFromTable();
-  const total = calcTotalGramos(rows);
-  const pin = document.getElementById("m_pin_etapa").value.trim();
-  if(!pin){
-    setStatus("m_status_etapa","PIN requerido para guardar.",true);
-    return;
-  }
-  const r = await apiPost({
-    action:"PRE_GUARDAR_MOJADO",
-    pin,
-    id_lote:lote.id_lote,
-    slot:lote.slot,
-    producto_id:lote.producto_id,
-    cantidad:Number(document.getElementById("m_calc_cantidad").value || "0"),
-    rows,
-    total_gramos_masa: total
-  });
-  if(r.status==="error"){
-    setStatus("m_status_etapa",r.message || "No se pudo pre-guardar.",true);
-    return;
-  }
-  document.getElementById("m_total_gramos").value = total.toFixed(2);
-  setStatus("m_status_etapa","Datos pre-guardados en servidor.",false);
+  const lote=state.activeLote; if(!lote||lote.etapa_actual!=="Mojado"){setStatus("m_status_etapa","Pre-guardado aplica en Mojado.",true);return;}
+  const pin=document.getElementById("m_pin_etapa").value.trim(); if(!pin){setStatus("m_status_etapa","PIN requerido.",true);return;}
+  const rows=getDetalleRowsFromTable(); const total=calcTotalGramos(rows);
+  const r=await apiPost({action:"PRE_GUARDAR_MOJADO",pin,id_lote:lote.id_lote,slot:lote.slot,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows,total_gramos_masa:total});
+  if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo pre-guardar.",true);return;}
+  document.getElementById("m_total_gramos").value=total.toFixed(2);setStatus("m_status_etapa","Datos pre-guardados.",false);
 }
 
 async function pasarEtapa(){
-  const lote = state.activeLote;
-  if(!lote) return;
-  const pin = document.getElementById("m_pin_etapa").value.trim();
-  if(!pin){
-    setStatus("m_status_etapa","PIN requerido para cambiar de etapa.",true);
-    return;
-  }
-  const rows = getDetalleRowsFromTable();
-  const total = calcTotalGramos(rows);
-  const r = await apiPost({
-    action:"PASAR_ETAPA_DESDE_MODAL",
-    pin,
-    id_lote:lote.id_lote,
-    slot:lote.slot,
-    etapa:lote.etapa_actual,
-    producto_id:lote.producto_id,
-    cantidad:Number(document.getElementById("m_calc_cantidad").value || "0"),
-    rows,
-    total_gramos_masa:total
-  });
-  if(r.status==="error"){
-    setStatus("m_status_etapa",r.message || "No se pudo cambiar etapa.",true);
-    return;
-  }
-  state.modal.hide();
-  await cargarLotes();
+  const lote=state.activeLote;if(!lote)return; const pin=document.getElementById("m_pin_etapa").value.trim();if(!pin){setStatus("m_status_etapa","PIN requerido para cambiar etapa.",true);return;}
+  const payload={action:"PASAR_ETAPA_DESDE_MODAL",pin,id_lote:lote.id_lote,slot:lote.slot,etapa:lote.etapa_actual,producto_id:lote.producto_id,cantidad:Number(document.getElementById("m_cantidad_proceso").value||0),temp_amb:Number(document.getElementById("m_temp_amb_proceso").value||0),hum_amb:Number(document.getElementById("m_hum_amb_proceso").value||0),obs:document.getElementById("m_obs_proceso").value.trim(),rows:getDetalleRowsFromTable(),total_gramos_masa:Number(document.getElementById("m_total_gramos").value||0)};
+  if(lote.etapa_actual==="Porcionado"){payload.peso_unidad=Number(document.getElementById("m_peso_unidad").value||0);payload.num_porciones=Number(document.getElementById("m_num_porciones").value||0);payload.num_latas=Number(document.getElementById("m_num_latas").value||0);payload.unid_por_lata=Number(document.getElementById("m_unid_por_lata").value||0);}
+  const r=await apiPost(payload); if(r.status==="error"){setStatus("m_status_etapa",r.message||"No se pudo cambiar etapa.",true);return;}
+  state.modal.hide(); await cargarLotes();
 }
 
-async function cargarLotes(){
-  try {
-    const data = await apiGet("GET_ALL_ACTIVOS");
-    state.lotes = Array.isArray(data) ? data : [];
-    renderPines();
-  } catch (err) {
-    console.error(err);
-    alert("Error cargando tablero de pines: " + (err.message || "sin detalle"));
-  }
-}
-
-async function registrarDespacho(){
-  const fecha = document.getElementById("d_fecha").value;
-  const producto = document.getElementById("d_producto").value.trim();
-  const id_lote = document.getElementById("d_lote").value.trim();
-  const cantidad = parseFloat(document.getElementById("d_cantidad").value);
-  if(!fecha||!producto||!id_lote||!Number.isFinite(cantidad)||cantidad<=0) return alert("Completa los datos de despacho correctamente.");
-  const pin = prompt("Ingresa PIN de operario:");
-  if(!pin) return;
-  const data = await apiPost({action:"REGISTRAR_DESPACHO",pin:pin.trim(),fecha,producto,id_lote,cantidad});
-  if(data.status==="error") return alert(data.message||"Error en despacho.");
-  alert(data.message||"Despacho registrado.");
-}
-
-async function registrarEntrega(){
-  const fecha = document.getElementById("e_fecha").value;
-  const producto = document.getElementById("e_producto").value.trim();
-  const id_lote = document.getElementById("e_lote").value.trim();
-  const cliente = document.getElementById("e_cliente").value.trim();
-  const cantidad = parseFloat(document.getElementById("e_cantidad").value);
-  if(!fecha||!producto||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0) return alert("Completa los datos de entrega correctamente.");
-  const pin = prompt("Ingresa PIN de operario:");
-  if(!pin) return;
-  const data = await apiPost({action:"REGISTRAR_ENTREGA",pin:pin.trim(),fecha,producto,id_lote,cliente,cantidad});
-  if(data.status==="error") return alert(data.message||"Error en entrega.");
-  alert(data.message||"Entrega registrada.");
-}
+async function registrarDespacho(){const fecha=document.getElementById("d_fecha").value,producto=document.getElementById("d_producto").value.trim(),id_lote=document.getElementById("d_lote").value.trim(),cantidad=parseFloat(document.getElementById("d_cantidad").value);if(!fecha||!producto||!id_lote||!Number.isFinite(cantidad)||cantidad<=0)return alert("Completa datos.");const pin=prompt("PIN operario:");if(!pin)return;const d=await apiPost({action:"REGISTRAR_DESPACHO",pin:pin.trim(),fecha,producto,id_lote,cantidad});if(d.status==="error")return alert(d.message||"Error");alert(d.message||"OK");}
+async function registrarEntrega(){const fecha=document.getElementById("e_fecha").value,producto=document.getElementById("e_producto").value.trim(),id_lote=document.getElementById("e_lote").value.trim(),cliente=document.getElementById("e_cliente").value.trim(),cantidad=parseFloat(document.getElementById("e_cantidad").value);if(!fecha||!producto||!id_lote||!cliente||!Number.isFinite(cantidad)||cantidad<=0)return alert("Completa datos.");const pin=prompt("PIN operario:");if(!pin)return;const d=await apiPost({action:"REGISTRAR_ENTREGA",pin:pin.trim(),fecha,producto,id_lote,cliente,cantidad});if(d.status==="error")return alert(d.message||"Error");alert(d.message||"OK");}
 
 async function init(){
-  const hoy = new Date().toISOString().slice(0,10);
-  document.getElementById("d_fecha").value = hoy;
-  document.getElementById("e_fecha").value = hoy;
-  state.modal = new bootstrap.Modal(document.getElementById("pinModal"));
-  document.getElementById("m_btn_inicio").addEventListener("click", iniciarMojado);
-  document.getElementById("m_btn_calcular").addEventListener("click", calcularFormula);
-  document.getElementById("m_btn_pre").addEventListener("click", preGuardarMojado);
-  document.getElementById("m_btn_pasar").addEventListener("click", pasarEtapa);
-  state.productos = await apiGet("GET_PRODUCTOS");
+  const hoy=new Date().toISOString().slice(0,10);document.getElementById("d_fecha").value=hoy;document.getElementById("e_fecha").value=hoy;
+  state.modal=new bootstrap.Modal(document.getElementById("pinModal"));
+  document.getElementById("m_btn_inicio").addEventListener("click",iniciarMojado);
+  document.getElementById("m_btn_calcular").addEventListener("click",calcularFormula);
+  document.getElementById("m_btn_pre").addEventListener("click",preGuardarMojado);
+  document.getElementById("m_btn_pasar").addEventListener("click",pasarEtapa);
+  state.productos=await apiGet("GET_PRODUCTOS");
   await cargarLotes();
-  setInterval(async()=>{
-    if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();
-  },10000);
+  setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();},10000);
 }
-
 init();
 </script>
-
 </body>
 </html>
