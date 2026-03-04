@@ -370,12 +370,14 @@ input,select{background:#0f172a!important;color:#fff!important;border:1px solid 
 const GAS_API = "https://script.google.com/macros/s/AKfycby02ydpuUyGGzSqLGRkpUhHjVfZ4K4BAg-zFpMB2e2vj35hY7Re6Bo59j1XhaFSPYZJ/exec";
 const SUPABASE_URL = "https://rmxckjscqfjainctsedr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_mWfCo8yvsCDRoicfFiRpXw_cF4_qNAa";
-const BACKEND_MODE = (localStorage.getItem("LEVITO_BACKEND_MODE") || "gas").toLowerCase(); // "gas" | "supabase"
+const URL_BACKEND = new URLSearchParams(window.location.search).get("backend");
+const BACKEND_MODE = ((URL_BACKEND || "gas").toLowerCase()==="supabase" ? "supabase" : "gas");
 const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
 const TOTAL_PINES = 8;
 const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0};
 const toArr = (v)=>Array.isArray(v)?v:[];
+const runSafe = (fn)=>Promise.resolve().then(fn).catch(e=>console.warn(e?.message||e));
 
 function showTab(id, el){
   document.querySelectorAll(".modal-backdrop").forEach(x=>x.remove());
@@ -386,12 +388,12 @@ function showTab(id, el){
   if(tabEl) tabEl.classList.add("active");
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
-  if(id==="inventario") cargarInventario();
-  if(id==="produccion") cargarLotes();
-  if(id==="trazabilidad") cargarTrazabilidad();
-  if(id==="auditoria") cargarAuditoriaCatalogos();
-  if(id==="seguimiento") cargarSeguimientoProduccion();
-  if(id==="despacho" || id==="entrega") cargarHistorialSemanal();
+  if(id==="inventario") runSafe(()=>cargarInventario());
+  if(id==="produccion") runSafe(()=>cargarLotes());
+  if(id==="trazabilidad") runSafe(()=>cargarTrazabilidad());
+  if(id==="auditoria") runSafe(()=>cargarAuditoriaCatalogos());
+  if(id==="seguimiento") runSafe(()=>cargarSeguimientoProduccion());
+  if(id==="despacho" || id==="entrega") runSafe(()=>cargarHistorialSemanal());
 }
 
 function toRpcName(action){
@@ -409,12 +411,20 @@ async function gasGet(action, params){
   const q = new URLSearchParams({action,...(params||{})});
   const r = await fetch(`${GAS_API}?${q.toString()}`);
   const txt = await r.text();
-  return JSON.parse(txt);
+  try{
+    return JSON.parse(txt);
+  }catch(e){
+    throw new Error(`Respuesta invalida GET ${action}`);
+  }
 }
 async function gasPost(payload){
   const r = await fetch(GAS_API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
   const txt = await r.text();
-  return JSON.parse(txt);
+  try{
+    return JSON.parse(txt);
+  }catch(e){
+    throw new Error(`Respuesta invalida POST ${payload?.action||""}`);
+  }
 }
 async function supabaseRpc(action, params){
   if(!supabase) throw new Error("Supabase no inicializado.");
@@ -707,7 +717,7 @@ async function cargarLotesSelect(productSelectId, loteSelectId){
   const pid = document.getElementById(productSelectId).value;
   const target = document.getElementById(loteSelectId);
   if(!pid){target.innerHTML = `<option value="">Seleccionar</option>`; return;}
-  const lotes = await apiGet("GET_LOTES_STOCK",{producto_id:pid});
+  const lotes = toArr(await apiGet("GET_LOTES_STOCK",{producto_id:pid}));
   target.innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | Stock ${l.stock_lote}</option>`).join("");
 }
 
@@ -798,9 +808,11 @@ async function init(){
     cargarHistorialSemanal()
   ]);
   if(!state.lotes.length) renderPines();
-  setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await cargarLotes();},10000);
+  setInterval(async()=>{if(document.getElementById("produccion").classList.contains("active")) await runSafe(()=>cargarLotes());},10000);
 }
-init();
+window.addEventListener("error",(ev)=>console.warn("JS error:", ev?.message || ev));
+window.addEventListener("unhandledrejection",(ev)=>console.warn("Promise error:", ev?.reason || ev));
+runSafe(()=>init());
 </script>
 </body>
 </html>
