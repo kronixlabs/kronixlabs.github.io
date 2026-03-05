@@ -1,11 +1,38 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="333.000000pt" height="439.000000pt" viewBox="0 0 333.000000 439.000000"
- preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" fill="#ffffff">
+  <rect x="110" y="200" width="40" height="220"/>
+  <rect x="110" y="380" width="120" height="40"/>
 
-<g transform="translate(0.000000,439.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-</g>
+  <rect x="260" y="120" width="120" height="40"/>
+  <rect x="260" y="200" width="120" height="40"/>
+  <rect x="260" y="280" width="120" height="40"/>
+  <rect x="260" y="120" width="40" height="200"/>
+
+  <polygon points="110,460 150,460 210,600 170,600"/>
+  <polygon points="230,460 270,460 210,600 170,600"/>
+
+  <rect x="310" y="460" width="40" height="140"/>
+
+  <rect x="390" y="460" width="140" height="40"/>
+  <rect x="440" y="460" width="40" height="160"/>
+
+  <circle cx="470" cy="670" r="70" stroke="#ffffff" stroke-width="30" fill="none"/>
+
+  <path d="M440 650 Q470 620 500 650" stroke="#ffffff" stroke-width="10" fill="none"/>
+  <path d="M440 690 Q470 660 500 690" stroke="#ffffff" stroke-width="10" fill="none"/>
+
+  <text x="300" y="820" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="40"
+        letter-spacing="8"
+        fill="#ffffff">
+        PANADERÍA
+  </text>
+
+  <text x="300" y="870" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="40"
+        letter-spacing="8"
+        fill="#ffffff">
+        VITAL
+  </text>
 </svg>
