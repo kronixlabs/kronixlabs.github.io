@@ -325,15 +325,24 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 <div id="seguimiento" class="section">
   <h5 class="mb-4">Seguimiento de Producción</h5>
   <div class="row g-2 mb-3">
-    <div class="col-md-4"><input id="s_buscar" class="form-control" placeholder="Buscar por lote o producto"></div>
     <div class="col-md-3">
+      <select id="s_lote_filter" class="form-control">
+        <option value="">Todos los lotes</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select id="s_producto_filter" class="form-control">
+        <option value="">Todos los productos</option>
+      </select>
+    </div>
+    <div class="col-md-2">
       <select id="s_estado_filter" class="form-control">
         <option value="">Todos los estados</option>
         <option value="EN_PROCESO">En proceso</option>
         <option value="FINALIZADO">Finalizado</option>
       </select>
     </div>
-    <div class="col-md-3 d-flex align-items-center"><div id="s_stats" class="status-line mb-0"></div></div>
+    <div class="col-md-2 d-flex align-items-center"><div id="s_stats" class="status-line mb-0"></div></div>
     <div class="col-md-2 d-flex align-items-end"><button class="btn btn-outline-info w-100" onclick="cargarSeguimientoProduccion()">Actualizar</button></div>
   </div>
   <div class="table-responsive">
@@ -1189,13 +1198,14 @@ async function renderSeguimientoProduccion(){
   const b = document.getElementById("s_body");
   const stats = document.getElementById("s_stats");
   const data = toArr(state.seguimientoRaw);
-  const buscar = (document.getElementById("s_buscar")?.value || "").trim().toLowerCase();
+  const filtroLote = (document.getElementById("s_lote_filter")?.value || "").trim();
+  const filtroProducto = (document.getElementById("s_producto_filter")?.value || "").trim();
   const filtroEstado = (document.getElementById("s_estado_filter")?.value || "").trim();
   const dataFiltrada = data.filter(r=>{
-    const txt = `${r.id_lote||""} ${r.producto_nombre||r.producto_id||""}`.toLowerCase();
-    const okTxt = !buscar || txt.includes(buscar);
+    const okLote = !filtroLote || String(r.id_lote||"")=== filtroLote;
+    const okProducto = !filtroProducto || String(r.producto_id||"")===filtroProducto || String(r.producto_nombre||"")===filtroProducto;
     const okEstado = !filtroEstado || String(r.estado||"").toUpperCase()===filtroEstado;
-    return okTxt && okEstado;
+    return okLote && okProducto && okEstado;
   });
   if(stats){
     const enProceso = dataFiltrada.filter(x=>String(x.estado||"").toUpperCase()!=="FINALIZADO").length;
@@ -1314,9 +1324,26 @@ async function renderSeguimientoProduccion(){
   }).join("");
 }
 
+function poblarFiltrosSeguimiento(){
+  const data = toArr(state.seguimientoRaw);
+  const lSel = document.getElementById("s_lote_filter");
+  const pSel = document.getElementById("s_producto_filter");
+  if(!lSel || !pSel) return;
+  const curLote = lSel.value;
+  const curProd = pSel.value;
+  const lotes = [...new Set(data.map(r=>String(r.id_lote||"")).filter(Boolean))].sort();
+  const prodMap = new Map();
+  data.forEach(r=>{ const k=String(r.producto_id||""); if(k) prodMap.set(k, r.producto_nombre||r.producto_id||k); });
+  const productos = [...prodMap.entries()].sort((a,b)=>a[1].localeCompare(b[1]));
+  lSel.innerHTML = `<option value="">Todos los lotes</option>` + lotes.map(l=>`<option value="${l}">${l}</option>`).join("");
+  pSel.innerHTML = `<option value="">Todos los productos</option>` + productos.map(([k,n])=>`<option value="${k}">${n}</option>`).join("");
+  lSel.value = curLote;
+  pSel.value = curProd;
+}
 async function cargarSeguimientoProduccion(){
   const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
   state.seguimientoRaw = Array.isArray(data) ? data : [];
+  poblarFiltrosSeguimiento();
   await renderSeguimientoProduccion();
 }
 
@@ -1639,7 +1666,8 @@ async function init(){
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
-  document.getElementById("s_buscar").addEventListener("input",()=>runSafe(()=>renderSeguimientoProduccion()));
+  document.getElementById("s_lote_filter").addEventListener("change",()=>runSafe(()=>renderSeguimientoProduccion()));
+  document.getElementById("s_producto_filter").addEventListener("change",()=>runSafe(()=>renderSeguimientoProduccion()));
   document.getElementById("s_estado_filter").addEventListener("change",()=>runSafe(()=>renderSeguimientoProduccion()));
   document.querySelectorAll('input[type="date"]').forEach(el=>{
     el.addEventListener("focus",()=>tryShowPicker(el));
