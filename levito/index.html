@@ -589,10 +589,10 @@ async function descargarPdfLote(idLote, rowMeta=null){
   const doc = new jsPDF({orientation:"p", unit:"pt", format:"a4"});
   const consRows = auditToConsolidadoRows(aud);
   const ahora = new Date().toLocaleString("es-CO");
-  const meta = rowMeta || {};
-  const productoTxt = meta.producto || "";
+  const meta = rowMeta || toArr(state.seguimientoRaw).find(x=>String(x.id_lote)===String(idLote)) || {};
+  const productoTxt = meta.producto || meta.producto_nombre || meta.producto_id || "";
   const estadoTxt = meta.estado || "";
-  const etapaTxt = meta.etapa || "";
+  const etapaTxt = meta.etapa || meta.etapa_actual || "";
   doc.setFont("helvetica","bold");
   doc.setFontSize(14);
   doc.text(`LEVITO | Auditoria consolidada - ${idLote}`, 40, 40);
@@ -647,12 +647,16 @@ async function cargarAuditoriaCatalogos(){
   const productos = toArr(await apiGet("GET_PRODUCTOS"));
   document.getElementById("a_producto").innerHTML = `<option value="">Seleccionar</option>` + productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>`;
+  document.getElementById("a_cons_body").innerHTML = `<tr><td colspan="5">Selecciona un lote para ver consolidado.</td></tr>`;
+  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
 async function cargarLotesAuditoria(){
   const pid = document.getElementById("a_producto").value;
   const lotes = toArr(await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500}));
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | ${formatDateTime(l.hora_fin)}</option>`).join("");
+  document.getElementById("a_cons_body").innerHTML = `<tr><td colspan="5">Selecciona un lote para ver consolidado.</td></tr>`;
+  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
 async function cargarAuditoriaLote(){
@@ -660,14 +664,39 @@ async function cargarAuditoriaLote(){
   if(!lote) return;
   const r = await apiGet("GET_AUDITORIA_LOTE",{id_lote:lote});
   const b = document.getElementById("a_bit_body");
-  if(!r || r.status==="error"){b.innerHTML = `<tr><td colspan="4">Error cargando auditoría.</td></tr>`;return;}
+  const bc = document.getElementById("a_cons_body");
+  if(!r || r.status==="error"){
+    b.innerHTML = `<tr><td colspan="4">Error cargando auditoría.</td></tr>`;
+    bc.innerHTML = `<tr><td colspan="5">Error cargando consolidado.</td></tr>`;
+    return;
+  }
   b.innerHTML = (r.bitacora||[]).map(x=>`<tr><td>${x.etapa}</td><td>${x.operario}</td><td>${formatDateTime(x.timestamp)}</td><td><pre style="white-space:pre-wrap;color:#cbd5e1;margin:0">${x.datos_json||""}</pre></td></tr>`).join("");
+  const cons = auditToConsolidadoRows(r);
+  bc.innerHTML = cons.length
+    ? cons.map(x=>`<tr><td>${x.etapa}</td><td>${x.campo}</td><td>${x.valor}</td><td>${x.operario}</td><td>${x.fecha}</td></tr>`).join("")
+    : `<tr><td colspan="5">Sin datos consolidados.</td></tr>`;
+  state.auditCache = state.auditCache || {};
+  state.auditCache[lote] = r;
 }
 
-async function cargarSeguimientoProduccion(){
-  const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
+async function renderSeguimientoProduccion(){
   const b = document.getElementById("s_body");
-  if(!Array.isArray(data)||!data.length){b.innerHTML = `<tr><td colspan="7">Sin datos.</td></tr>`;return;}
+  const stats = document.getElementById("s_stats");
+  const data = toArr(state.seguimientoRaw);
+  const buscar = (document.getElementById("s_buscar")?.value || "").trim().toLowerCase();
+  const filtroEstado = (document.getElementById("s_estado_filter")?.value || "").trim();
+  const dataFiltrada = data.filter(r=>{
+    const txt = `${r.id_lote||""} ${r.producto_nombre||r.producto_id||""}`.toLowerCase();
+    const okTxt = !buscar || txt.includes(buscar);
+    const okEstado = !filtroEstado || String(r.estado||"").toUpperCase()===filtroEstado;
+    return okTxt && okEstado;
+  });
+  if(stats){
+    const enProceso = dataFiltrada.filter(x=>String(x.estado||"").toUpperCase()!=="FINALIZADO").length;
+    const finalizados = dataFiltrada.filter(x=>String(x.estado||"").toUpperCase()==="FINALIZADO").length;
+    stats.textContent = `Mostrando ${dataFiltrada.length}/${data.length} | En proceso: ${enProceso} | Finalizados: ${finalizados}`;
+  }
+  if(!dataFiltrada.length){b.innerHTML = `<tr><td colspan="8">Sin datos para el filtro actual.</td></tr>`;return;}
 
   state.auditCache = state.auditCache || {};
   const stageList = [...ETAPAS, "Finalizado"];
@@ -683,7 +712,7 @@ async function cargarSeguimientoProduccion(){
     });
     return map;
   };
-  const needAudit = data.slice(0, 40).filter(r => !state.auditCache[r.id_lote]);
+  const needAudit = dataFiltrada.slice(0, 60).filter(r => !state.auditCache[r.id_lote]);
   await Promise.allSettled(needAudit.map(async (r)=>{
     const aud = await apiGet("GET_AUDITORIA_LOTE",{id_lote:r.id_lote});
     if(aud && aud.status !== "error") state.auditCache[r.id_lote] = aud;
@@ -742,7 +771,7 @@ async function cargarSeguimientoProduccion(){
     return { txt: parts.join(" | "), total };
   };
 
-  b.innerHTML = data.map(r=>{
+  b.innerHTML = dataFiltrada.map(r=>{
     const aud = state.auditCache[r.id_lote];
     const fromAudit = buildFromAudit(r, aud);
     const tl = (Array.isArray(r.timeline) && r.timeline.length) ? r.timeline : fromAudit.tl;
@@ -763,8 +792,15 @@ async function cargarSeguimientoProduccion(){
       <td>${formatDateTime(r.hora_inicio)}</td>
       <td>${formatDateTime(r.hora_ref)}</td>
       <td class="flow-wrap"><div class="flow-meta">${durs.txt || "Duraciones: calculando..."} | Total: ${durs.total}m</div><div class="flow-bar">${flow}</div></td>
+      <td><button class="btn btn-sm btn-outline-light" onclick="descargarPdfLote('${String(r.id_lote||"").replace(/'/g,"&#39;")}')">Descargar PDF</button></td>
     </tr>`;
   }).join("");
+}
+
+async function cargarSeguimientoProduccion(){
+  const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
+  state.seguimientoRaw = Array.isArray(data) ? data : [];
+  await renderSeguimientoProduccion();
 }
 
 function renderPines(){
@@ -1086,6 +1122,8 @@ async function init(){
   document.getElementById("d_producto").addEventListener("change",()=>cargarLotesSelect("d_producto","d_lote"));
   document.getElementById("e_producto").addEventListener("change",()=>cargarLotesSelect("e_producto","e_lote"));
   document.getElementById("a_producto").addEventListener("change",cargarLotesAuditoria);
+  document.getElementById("s_buscar").addEventListener("input",()=>runSafe(()=>renderSeguimientoProduccion()));
+  document.getElementById("s_estado_filter").addEventListener("change",()=>runSafe(()=>renderSeguimientoProduccion()));
   document.querySelectorAll('input[type="date"]').forEach(el=>{
     el.addEventListener("focus",()=>tryShowPicker(el));
     el.addEventListener("click",()=>tryShowPicker(el));
