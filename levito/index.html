@@ -364,6 +364,11 @@ input[type="date"]::-webkit-calendar-picker-indicator{
               <div class="col-md-3"><label>Cantidad de producto</label><input id="m_cantidad_proceso" type="number" min="1" class="form-control"></div>
             </div>
 
+            <div class="row g-2 mb-2">
+              <div class="col-md-3"><label>Temperatura ambiente (°C)</label><input id="m_temp_amb_proceso" type="number" step="0.1" class="form-control"></div>
+              <div class="col-md-3"><label>Humedad ambiente (%)</label><input id="m_hum_amb_proceso" type="number" step="0.1" class="form-control"></div>
+            </div>
+
             <div id="m_sec_mojado">
               <div class="row g-2">
                 <div class="col-md-3 d-flex align-items-end"><button class="btn btn-info w-100" id="m_btn_calcular">CALCULAR FORMULA</button></div>
@@ -413,8 +418,6 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
             <div class="row g-2">
               <div class="col-md-3"><label>Total gramos masa</label><input id="m_total_gramos" class="form-control" readonly></div>
-              <div class="col-md-3"><label>Temperatura ambiente (°C)</label><input id="m_temp_amb_proceso" type="number" step="0.1" class="form-control"></div>
-              <div class="col-md-3"><label>Humedad ambiente (%)</label><input id="m_hum_amb_proceso" type="number" step="0.1" class="form-control"></div>
               <div class="col-md-3"><label>PIN</label><input id="m_pin_etapa" type="password" class="form-control"></div>
               <div class="col-md-12"><label>Observaciones</label><input id="m_obs_proceso" type="text" class="form-control"></div>
             </div>
@@ -651,9 +654,10 @@ function renderAuditoriaSecciones(bitacora){
         Duracion: <b style="color:#fbbf24">${durTxt}</b>
       </span>
     </div>`;
-    const qaRows = sec.qa.length
-      ? sec.qa.map(q=>`<tr><td style="font-weight:700">${q.pregunta}</td><td>${q.respuesta}</td><td>${q.operario}</td><td>${q.fecha}</td></tr>`).join("")
-      : `<tr><td colspan="4" style="color:#64748b">Sin datos registrados para esta etapa.</td></tr>`;
+    const sortedQa = [...sec.qa].sort((a,b) => a.key==="obs" ? 1 : b.key==="obs" ? -1 : 0);
+    const qaRows = sortedQa.length
+      ? sortedQa.map(q=>`<tr><td style="font-weight:700">${q.pregunta}</td><td>${q.respuesta}</td><td>${q.fecha}</td></tr>`).join("")
+      : `<tr><td colspan="3" style="color:#64748b">Sin datos registrados para esta etapa.</td></tr>`;
     const materiasHtml = sec.materias.length
       ? `<div class="mt-3" style="background:#060f1e;border:1px solid #1e3a5f;border-radius:8px;overflow:hidden">
            <div style="background:#0c1f3a;padding:7px 12px;font-weight:700;font-size:12px;color:#93c5fd;border-bottom:1px solid #1e3a5f">MATERIA PRIMA — DESCRIPCION DE INGREDIENTES</div>
@@ -681,7 +685,7 @@ function renderAuditoriaSecciones(bitacora){
       <div style="padding:12px 14px">
         <div class="table-responsive">
           <table class="table table-dark table-striped mb-0">
-            <thead><tr><th style="font-weight:700">CAMPO</th><th style="font-weight:700">VALOR</th><th style="font-weight:700">OPERARIO</th><th style="font-weight:700">FECHA/HORA</th></tr></thead>
+            <thead><tr><th style="font-weight:700">CAMPO</th><th style="font-weight:700">VALOR</th><th style="font-weight:700">FECHA/HORA</th></tr></thead>
             <tbody>${qaRows}</tbody>
           </table>
         </div>
