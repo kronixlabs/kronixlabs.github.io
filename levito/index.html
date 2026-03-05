@@ -306,7 +306,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
         <div id="pinViewProceso" style="display:none;">
           <div class="panel mt-0">
-            <h6 id="m_lote_header">Producto - Lote</h6>
+            <h6 id="m_lote_header">Producto | Etapa | Lote</h6>
             <div id="m_qty_row" class="row g-2 mb-2">
               <div class="col-md-3"><label>Cantidad de producto</label><input id="m_cantidad_proceso" type="number" min="1" class="form-control"></div>
             </div>
@@ -637,7 +637,7 @@ function renderPines(){
   const bySlot = new Map(state.lotes.map(l=>[parseInt(l.slot,10),l])); let html="";
   for(let i=1;i<=TOTAL_PINES;i++){const lote=bySlot.get(i);
     if(!lote){html += `<div class="lote-card" onclick="onPinClick(${i})"><div class="pin-header"><div class="lote-title">LOTE ${i}</div><span class="tag-gray">DISPONIBLE</span></div><div class="producto">Estado: DISPONIBLE</div><div class="pin-status">Click para registro de Mojado</div></div>`;}
-    else{const n=getNombreProducto(lote.producto_id,lote.producto);html += `<div class="lote-card in-process" onclick="onPinClick(${i})"><div class="lote-title">${n}</div><div class="producto">${lote.id_lote}</div><div class="pin-status">Etapa actual: ${lote.etapa_actual}</div><div class="pin-status">Responsable: ${lote.operario||"N/A"}</div><div class="pin-status">Hora: ${lote.hora_etapa_str||"--:--"}</div></div>`;}
+    else{const n=getNombreProducto(lote.producto_id,lote.producto);html += `<div class="lote-card in-process" onclick="onPinClick(${i})"><div class="lote-title">${n} | ${lote.etapa_actual}</div><div class="producto">${lote.id_lote}</div><div class="pin-status">Responsable: ${lote.operario||"N/A"}</div><div class="pin-status">Hora: ${lote.hora_etapa_str||"--:--"}</div></div>`;}
   } document.getElementById("grid").innerHTML = html;
 }
 function nombreBotonPaso(etapa){const idx=ETAPAS.indexOf(etapa);const n=ETAPAS[idx+1];return n?`PASAR A ${n.toUpperCase()}`:"PRODUCCION FINALIZADA";}
@@ -694,7 +694,7 @@ async function onPinClick(slot){
     }catch(_){}
   }
   state.activePin=slot; state.activeLote=state.lotes.find(l=>parseInt(l.slot,10)===slot)||null;
-  const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
+  const lote=state.activeLote; document.getElementById("pinModalTitle").textContent=lote?`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.etapa_actual} | ${lote.id_lote}`:`LOTE ${slot} | DISPONIBLE`;
   document.getElementById("pinViewDisponible").style.display=lote?"none":"block";
   document.getElementById("pinViewProceso").style.display=lote?"block":"none";
   document.getElementById("m_btn_finalizar").style.display=lote?"inline-block":"none";
@@ -749,8 +749,8 @@ async function iniciarMojado(){
 
 async function cargarPantallaEtapa(lote){
   const estado=await apiGet("GET_LOTE_ESTADO",{id_lote:lote.id_lote}); const d=estado.detalle||{};
-  document.getElementById("m_lote_header").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote}`;
-  document.getElementById("pinModalTitle").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.id_lote} | ${lote.etapa_actual}`;
+  document.getElementById("m_lote_header").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.etapa_actual} | ${lote.id_lote}`;
+  document.getElementById("pinModalTitle").textContent=`${getNombreProducto(lote.producto_id,lote.producto)} | ${lote.etapa_actual} | ${lote.id_lote}`;
   document.getElementById("m_cantidad_proceso").value=d.cantidad||"";
   document.getElementById("m_total_gramos").value=d.total_gramos_masa||"";
   document.getElementById("m_temp_amb_proceso").value=d.temp_amb||"";
@@ -766,7 +766,7 @@ async function cargarPantallaEtapa(lote){
   document.getElementById("m_btn_calcular").style.display=moj?"inline-block":"none";
   document.getElementById("m_btn_pre").style.display=(moj||por||lev||dec||hor||emp)?"inline-block":"none";
   document.getElementById("m_total_gramos").closest(".col-md-3").style.display=moj?"block":"none";
-  document.getElementById("m_qty_row").style.display=lev?"none":"flex";
+  document.getElementById("m_qty_row").style.display=moj?"flex":"none";
   if(por){document.getElementById("m_peso_unidad").value=d.peso_unidad||"";document.getElementById("m_num_porciones").value=d.num_porciones||"";document.getElementById("m_num_latas").value=d.num_latas||"";document.getElementById("m_unid_por_lata").value=d.unid_por_lata||"";}
   if(dec){renderDecoradoRows(d.materias_decorado||[]);}
   if(hor){document.getElementById("m_temp_horno").value=d.temp_horno||"";document.getElementById("m_tiempo_horno").value=d.tiempo_horno||"";document.getElementById("m_temp_interna").value=d.temp_interna||"";}
