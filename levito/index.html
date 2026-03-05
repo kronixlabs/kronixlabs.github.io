@@ -530,6 +530,9 @@ async function cargarSeguimientoProduccion(){
   const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
   const b = document.getElementById("s_body");
   if(!Array.isArray(data)||!data.length){b.innerHTML = `<tr><td colspan="7">Sin datos.</td></tr>`;return;}
+
+  state.auditCache = state.auditCache || {};
+  const stageList = [...ETAPAS, "Finalizado"];
   const parseOps = (raw)=>{
     const map = {};
     if(!raw || typeof raw !== "string") return map;
@@ -542,33 +545,76 @@ async function cargarSeguimientoProduccion(){
     });
     return map;
   };
-  const fallbackTimeline = (etapaActual, estado)=>{
-    const all = [...ETAPAS, "Finalizado"];
-    const idx = estado==="FINALIZADO" ? all.length-1 : Math.max(0, all.indexOf(etapaActual));
-    return all.map((e,i)=>({etapa:e,inicio:"",estado:estado==="FINALIZADO"?"completada":(i<idx?"completada":(i===idx?"actual":"pendiente"))}));
+  const needAudit = data.slice(0, 40).filter(r => !state.auditCache[r.id_lote]);
+  await Promise.allSettled(needAudit.map(async (r)=>{
+    const aud = await apiGet("GET_AUDITORIA_LOTE",{id_lote:r.id_lote});
+    if(aud && aud.status !== "error") state.auditCache[r.id_lote] = aud;
+  }));
+
+  const toTs = (v)=>{ const d = new Date(v || ""); return Number.isNaN(d.getTime()) ? null : d; };
+  const buildFromAudit = (row, audit)=>{
+    const events = Array.isArray(audit?.bitacora) ? audit.bitacora
+      .map(x=>({ etapa:String(x.etapa||""), ts:toTs(x.timestamp), operario:String(x.operario||"") }))
+      .filter(x=>x.ts && stageList.includes(x.etapa))
+      .sort((a,b)=>a.ts-b.ts) : [];
+
+    const startBy = {};
+    const opBy = {};
+    events.forEach(ev=>{
+      if(!startBy[ev.etapa]) startBy[ev.etapa] = ev.ts.toISOString();
+      if(ev.operario) opBy[ev.etapa] = ev.operario;
+    });
+
+    if(!startBy["Mojado"] && row.hora_inicio) startBy["Mojado"] = row.hora_inicio;
+    if(row.etapa_actual && row.hora_ref && !startBy[row.etapa_actual]) startBy[row.etapa_actual] = row.hora_ref;
+
+    const idxAct = row.estado === "FINALIZADO" ? stageList.length-1 : Math.max(0, stageList.indexOf(row.etapa_actual));
+    const tl = stageList.map((e,i)=>({
+      etapa:e,
+      inicio:startBy[e] || "",
+      estado: row.estado==="FINALIZADO" ? "completada" : (i<idxAct ? "completada" : (i===idxAct ? "actual" : "pendiente"))
+    }));
+    return { tl, opBy };
   };
-  const buildDuraciones = (tl)=>{
+
+  const buildDuraciones = (row, tl)=>{
     const parts = [];
     let total = 0;
-    for(let i=0;i<tl.length-1;i++){
-      const a = new Date(tl[i].inicio || "");
-      const b = new Date(tl[i+1].inicio || "");
-      if(Number.isNaN(a.getTime()) || Number.isNaN(b.getTime())) continue;
-      const min = Math.max(0, Math.round((b-a)/60000));
+    const idxAct = row.estado==="FINALIZADO" ? stageList.length-1 : Math.max(0, stageList.indexOf(row.etapa_actual));
+    for(let i=0;i<tl.length;i++){
+      const s = toTs(tl[i].inicio);
+      if(!s) continue;
+      let e = null;
+      for(let j=i+1;j<tl.length;j++){
+        const nx = toTs(tl[j].inicio);
+        if(nx){ e = nx; break; }
+      }
+      if(!e){
+        if(row.estado==="FINALIZADO"){
+          e = toTs(row.hora_ref) || toTs(row.hora_fin);
+        }else if(i===idxAct){
+          e = new Date();
+        }
+      }
+      if(!e) continue;
+      const min = Math.max(0, Math.round((e - s)/60000));
       total += min;
       parts.push(`${tl[i].etapa}: ${min}m`);
     }
-    return {txt: parts.join(" | "), total};
+    return { txt: parts.join(" | "), total };
   };
+
   b.innerHTML = data.map(r=>{
-    const opMap = parseOps(r.operarios_por_etapa || "");
-    const tl = (Array.isArray(r.timeline) && r.timeline.length) ? r.timeline : fallbackTimeline(r.etapa_actual, r.estado);
-    const durs = buildDuraciones(tl);
+    const aud = state.auditCache[r.id_lote];
+    const fromAudit = buildFromAudit(r, aud);
+    const tl = (Array.isArray(r.timeline) && r.timeline.length) ? r.timeline : fromAudit.tl;
+    const opMap = { ...parseOps(r.operarios_por_etapa || ""), ...(fromAudit.opBy || {}) };
+    const durs = buildDuraciones(r, tl);
     const flow = tl.map(s=>`
       <div class="flow-step ${s.estado==='completada'?'done':(s.estado==='actual'?'current':'pending')}">
         <div class="s-name">${s.etapa}</div>
         <div class="s-time">${formatHour(s.inicio)}</div>
-        <div class="s-op">${opMap[s.etapa] || (s.estado==='actual' ? (r.operario || "") : "")}</div>
+        <div class="s-op">${opMap[s.etapa] || ""}</div>
       </div>
     `).join("");
     return `<tr>
@@ -578,7 +624,7 @@ async function cargarSeguimientoProduccion(){
       <td>${r.etapa_actual}</td>
       <td>${formatDateTime(r.hora_inicio)}</td>
       <td>${formatDateTime(r.hora_ref)}</td>
-      <td class="flow-wrap"><div class="flow-meta">${durs.txt || "Duraciones: sin datos"}${durs.total?` | Total: ${durs.total}m`:""}</div><div class="flow-bar">${flow}</div></td>
+      <td class="flow-wrap"><div class="flow-meta">${durs.txt || "Duraciones: calculando..."} | Total: ${durs.total}m</div><div class="flow-bar">${flow}</div></td>
     </tr>`;
   }).join("");
 }
