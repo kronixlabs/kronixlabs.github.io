@@ -86,11 +86,15 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .flow-bar{display:flex;gap:6px;align-items:center;width:100%}
 .flow-step{flex:1;min-width:92px;padding:7px 8px;border-radius:8px;border:1px solid #1e293b;background:#0f172a;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
 .flow-step .s-name{font-size:11px;font-weight:700;line-height:1.1}
-.flow-step .s-time{font-size:10px;color:#e2e8f0}
+.flow-step .s-time{font-size:10px;color:#e2e8f0;font-weight:600;margin-bottom:2px}
+.flow-step .s-dur{font-size:10px;color:#fbbf24;font-weight:700}
 .flow-step .s-op{font-size:10px;color:#93c5fd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .flow-step.done{background:#14532d;border-color:#22c55e}
 .flow-step.current{background:#7f1d1d;border-color:#ef4444}
 .flow-step.pending{background:#1f2937;border-color:#475569}
+.flow-step.total-card{background:#1e3a5f;border-color:#60a5fa;min-width:100px}
+.flow-step.total-card .s-name{color:#93c5fd;font-size:10px}
+.flow-step.total-card .s-dur{font-size:13px;color:#fff;font-weight:700;margin-top:2px}
 @media (max-width: 992px){
   body{
     padding-top: env(safe-area-inset-top);
@@ -438,6 +442,15 @@ const URL_BACKEND = new URLSearchParams(window.location.search).get("backend");
 const BACKEND_MODE = ((URL_BACKEND || "gas").toLowerCase()==="supabase" ? "supabase" : "gas");
 window.__levitoSupabaseClient = window.__levitoSupabaseClient || (window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null);
 const ETAPAS = ["Mojado","Porcionado","Levado","Decorado","Horneado","Enfriado","Empaque"];
+const ETAPA_QA_FIELDS = {
+  "Mojado":    ["cantidad","total_gramos_masa","temp_amb","hum_amb","obs"],
+  "Porcionado":["cantidad","peso_unidad","num_porciones","num_latas","unid_por_lata","temp_amb","hum_amb","obs"],
+  "Levado":    ["temp_amb","hum_amb","obs"],
+  "Decorado":  ["temp_amb","hum_amb","obs"],
+  "Horneado":  ["temp_horno","tiempo_horno","temp_interna","temp_amb","hum_amb","obs"],
+  "Enfriado":  ["temp_amb","hum_amb","obs"],
+  "Empaque":   ["unid_finales","unid_nc","temp_interna","lote_empaque","temp_amb","hum_amb","obs"]
+};
 const TOTAL_PINES = 8;
 const state = {lotes:[],productos:[],materiasDecorado:[],clientes:[],activePin:null,activeLote:null,modal:null,lastLotesFetchTs:0,seguimientoRaw:[]};
 const toArr = (v)=>Array.isArray(v)?v:[];
@@ -581,11 +594,15 @@ function buildAuditoriaSecciones(bitacora){
   const byEtapa = new Map();
   ordered.forEach((x)=>{
     const etapa = String(x?.etapa||"Sin etapa");
-    if(!byEtapa.has(etapa)) byEtapa.set(etapa, {etapa, qa:[], materias:[]});
+    if(!byEtapa.has(etapa)) byEtapa.set(etapa, {etapa, qa:[], materias:[], materiasDecorado:[], inicio:x?.timestamp, fin:x?.timestamp, operario:x?.operario||""});
     const sec = byEtapa.get(etapa);
+    if(x?.timestamp) sec.fin = x.timestamp;
+    if(x?.operario) sec.operario = x.operario;
     const parsed = parseJsonSafe(x?.datos_json || "");
+    const allowedKeys = ETAPA_QA_FIELDS[etapa] || Object.keys(parsed);
     Object.entries(parsed).forEach(([k,v])=>{
       if(k==="rows" && Array.isArray(v)){
+        sec.materias = [];
         v.forEach((r)=>{
           sec.materias.push({
             materia: r?.ingrediente || "-",
@@ -596,12 +613,19 @@ function buildAuditoriaSecciones(bitacora){
         });
         return;
       }
-      sec.qa.push({
-        pregunta: getPreguntaLabel(k),
-        respuesta: toDisplayValue(v),
-        operario: x?.operario || "",
-        fecha: formatDateTime(x?.timestamp)
-      });
+      if(k==="materias_decorado" && Array.isArray(v)){
+        sec.materiasDecorado = v.map(r=>({materia:r?.materia||"-", lote:r?.lote||"-", vencimiento:r?.vencimiento||"-"}));
+        return;
+      }
+      if(!allowedKeys.includes(k)) return;
+      const existing = sec.qa.find(q=>q.key===k);
+      if(!existing){
+        sec.qa.push({key:k, pregunta:getPreguntaLabel(k), respuesta:toDisplayValue(v), operario:x?.operario||"", fecha:formatDateTime(x?.timestamp)});
+      } else {
+        existing.respuesta = toDisplayValue(v);
+        if(x?.operario) existing.operario = x.operario;
+        existing.fecha = formatDateTime(x?.timestamp);
+      }
     });
   });
   return Array.from(byEtapa.values());
@@ -615,29 +639,55 @@ function renderAuditoriaSecciones(bitacora){
     return;
   }
   cont.innerHTML = secciones.map(sec=>{
+    const durMs = sec.inicio && sec.fin ? new Date(sec.fin)-new Date(sec.inicio) : 0;
+    const durMin = Math.max(0, Math.round(durMs/60000));
+    const durTxt = durMin > 0 ? (Math.floor(durMin/60)>0?`${Math.floor(durMin/60)}h ${durMin%60}m`:`${durMin}m`) : "--";
+    const headerBar = `<div style="background:#0f2744;border-radius:8px 8px 0 0;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:1px solid #1e3a5f">
+      <span style="font-weight:700;font-size:15px;color:#e2e8f0">${sec.etapa.toUpperCase()}</span>
+      <span style="font-size:12px;color:#94a3b8">
+        ${sec.operario?`<b style="color:#93c5fd">${sec.operario}</b> &nbsp;|&nbsp; `:""}
+        Inicio: <b>${formatDateTime(sec.inicio)}</b> &nbsp;|&nbsp;
+        Fin: <b>${formatDateTime(sec.fin)}</b> &nbsp;|&nbsp;
+        Duracion: <b style="color:#fbbf24">${durTxt}</b>
+      </span>
+    </div>`;
     const qaRows = sec.qa.length
-      ? sec.qa.map(q=>`<tr><td>${q.pregunta}</td><td>${q.respuesta}</td><td>${q.operario}</td><td>${q.fecha}</td></tr>`).join("")
-      : `<tr><td colspan="4">Sin preguntas registradas para esta etapa.</td></tr>`;
-    const materiasHtml = (String(sec.etapa).toLowerCase()==="mojado" && sec.materias.length)
-      ? `<div class="panel mt-3" style="background:#0a1323;border:1px solid #334155">
-           <h6 class="mb-2">Proceso de producción</h6>
+      ? sec.qa.map(q=>`<tr><td style="font-weight:700">${q.pregunta}</td><td>${q.respuesta}</td><td>${q.operario}</td><td>${q.fecha}</td></tr>`).join("")
+      : `<tr><td colspan="4" style="color:#64748b">Sin datos registrados para esta etapa.</td></tr>`;
+    const materiasHtml = sec.materias.length
+      ? `<div class="mt-3" style="background:#060f1e;border:1px solid #1e3a5f;border-radius:8px;overflow:hidden">
+           <div style="background:#0c1f3a;padding:7px 12px;font-weight:700;font-size:12px;color:#93c5fd;border-bottom:1px solid #1e3a5f">MATERIA PRIMA — DESCRIPCION DE INGREDIENTES</div>
            <div class="table-responsive">
-             <table class="table table-dark table-striped">
-               <thead><tr><th>Materia prima</th><th>Cantidad</th><th>Lote</th><th>Vencimiento</th></tr></thead>
-               <tbody>${sec.materias.map(m=>`<tr><td>${m.materia}</td><td>${m.cantidad}</td><td>${m.lote}</td><td>${m.vencimiento}</td></tr>`).join("")}</tbody>
+             <table class="table table-dark table-striped mb-0">
+               <thead><tr><th style="font-weight:700">MATERIA PRIMA</th><th style="font-weight:700">CANT (g)</th><th style="font-weight:700">LOTE MP</th><th style="font-weight:700">VENCIMIENTO</th></tr></thead>
+               <tbody>${sec.materias.map(m=>`<tr><td><b>${m.materia}</b></td><td>${m.cantidad}</td><td>${m.lote}</td><td>${m.vencimiento}</td></tr>`).join("")}</tbody>
              </table>
            </div>
          </div>`
       : "";
-    return `<div class="panel">
-      <h6 class="mb-2">${sec.etapa}</h6>
-      <div class="table-responsive">
-        <table class="table table-dark table-striped">
-          <thead><tr><th>Pregunta</th><th>Respuesta</th><th>Operario</th><th>Fecha/Hora</th></tr></thead>
-          <tbody>${qaRows}</tbody>
-        </table>
+    const decHtml = sec.materiasDecorado.length
+      ? `<div class="mt-3" style="background:#060f1e;border:1px solid #1e3a5f;border-radius:8px;overflow:hidden">
+           <div style="background:#0c1f3a;padding:7px 12px;font-weight:700;font-size:12px;color:#93c5fd;border-bottom:1px solid #1e3a5f">MATERIAS DE DECORADO</div>
+           <div class="table-responsive">
+             <table class="table table-dark table-striped mb-0">
+               <thead><tr><th style="font-weight:700">MATERIA PRIMA</th><th style="font-weight:700">LOTE</th><th style="font-weight:700">VENCIMIENTO</th></tr></thead>
+               <tbody>${sec.materiasDecorado.map(m=>`<tr><td><b>${m.materia}</b></td><td>${m.lote}</td><td>${m.vencimiento}</td></tr>`).join("")}</tbody>
+             </table>
+           </div>
+         </div>`
+      : "";
+    return `<div class="panel" style="padding:0;overflow:hidden">
+      ${headerBar}
+      <div style="padding:12px 14px">
+        <div class="table-responsive">
+          <table class="table table-dark table-striped mb-0">
+            <thead><tr><th style="font-weight:700">CAMPO</th><th style="font-weight:700">VALOR</th><th style="font-weight:700">OPERARIO</th><th style="font-weight:700">FECHA/HORA</th></tr></thead>
+            <tbody>${qaRows}</tbody>
+          </table>
+        </div>
+        ${materiasHtml}
+        ${decHtml}
       </div>
-      ${materiasHtml}
     </div>`;
   }).join("");
 }
@@ -645,164 +695,392 @@ async function descargarPdfLote(idLote, rowMeta=null){
   if(!idLote) return;
   const aud = await apiGet("GET_AUDITORIA_LOTE",{id_lote:idLote});
   if(!aud || aud.status==="error"){ alert("No se pudo generar el PDF del lote."); return; }
-  if(!window.jspdf || !window.jspdf.jsPDF){ alert("Librería PDF no disponible."); return; }
+  if(!window.jspdf || !window.jspdf.jsPDF){ alert("Libreria PDF no disponible."); return; }
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({orientation:"p", unit:"pt", format:"a4"});
-  const secciones = buildAuditoriaSecciones(aud?.bitacora || []);
-  const ahora = new Date().toLocaleString("es-CO");
-  const meta = rowMeta || toArr(state.seguimientoRaw).find(x=>String(x.id_lote)===String(idLote)) || {};
-  const productoTxt = meta.producto || meta.producto_nombre || meta.producto_id || "";
-  const estadoTxt = meta.estado || "";
-  const etapaTxt = meta.etapa || meta.etapa_actual || "";
-  const loadImageDataUrl = async (url)=>{
+
+  // ---- Extraer datos por etapa desde bitacora ----
+  const bitacora = Array.isArray(aud?.bitacora)
+    ? [...aud.bitacora].sort((a,b)=>new Date(a.timestamp||0)-new Date(b.timestamp||0)) : [];
+  const etapaMap = {};
+  bitacora.forEach(entry=>{
+    const etapa = String(entry.etapa||"");
+    if(!etapa) return;
+    const parsed = parseJsonSafe(entry.datos_json||"");
+    const ts = new Date(entry.timestamp||0);
+    if(!etapaMap[etapa]){
+      etapaMap[etapa] = {operario:String(entry.operario||""), inicio:ts, fin:ts, datos:{}};
+    } else {
+      if(ts > etapaMap[etapa].fin) etapaMap[etapa].fin = ts;
+      if(ts < etapaMap[etapa].inicio) etapaMap[etapa].inicio = ts;
+    }
+    Object.assign(etapaMap[etapa].datos, parsed);
+    if(entry.operario) etapaMap[etapa].operario = String(entry.operario);
+  });
+
+  // Logos
+  const loadImg = async(url)=>{
     try{
-      const res = await fetch(url);
-      if(!res.ok) return null;
+      const res = await fetch(url); if(!res.ok) return null;
       const blob = await res.blob();
-      return await new Promise((resolve)=>{
-        const fr = new FileReader();
-        fr.onload = ()=>resolve(fr.result);
-        fr.onerror = ()=>resolve(null);
-        fr.readAsDataURL(blob);
-      });
+      return await new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result); fr.onerror=()=>r(null); fr.readAsDataURL(blob); });
     }catch(_){ return null; }
   };
-  const [kronixLogo, levitoLogo] = await Promise.all([
-    loadImageDataUrl("/levito/logo-kronix.png"),
-    loadImageDataUrl("/levito/logo-levito.png")
-  ]);
+  const [levitoLogo] = await Promise.all([loadImg("/levito/logo-levito.png")]);
+
+  // Despacho / Entrega
   const despRaw = toArr(await apiGet("GET_DESPACHOS",{limit:2000}));
-  const entRaw = toArr(await apiGet("GET_ENTREGAS",{limit:2000}));
+  const entRaw  = toArr(await apiGet("GET_ENTREGAS",{limit:2000}));
   const despLote = despRaw.filter(x=>String(x.id_lote||"")===String(idLote));
-  const entLote = entRaw.filter(x=>String(x.id_lote||"")===String(idLote));
-  const drawFooterAllPages = ()=>{
-    const pages = doc.getNumberOfPages();
-    for(let i=1;i<=pages;i++){
-      doc.setPage(i);
-      doc.setFont("helvetica","normal");
-      doc.setFontSize(9);
-      doc.setTextColor(120);
-      doc.text("Informe elaborado por Kronix", 40, 822);
-      doc.text(`Pagina ${i}/${pages}`, 555, 822, {align:"right"});
-    }
+  const entLote  = entRaw.filter(x=>String(x.id_lote||"")===String(idLote));
+
+  const meta = rowMeta || toArr(state.seguimientoRaw).find(x=>String(x.id_lote)===String(idLote)) || {};
+  const productoTxt = meta.producto || meta.producto_nombre || meta.producto_id || aud?.producto_nombre || "";
+
+  // Helpers tiempo
+  const fmtHM  = (d) => (d instanceof Date && !Number.isNaN(d.getTime())) ? d.toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"}) : "--:--";
+  const durMin  = (ini,fin) => (ini instanceof Date && fin instanceof Date && !Number.isNaN(ini.getTime()) && !Number.isNaN(fin.getTime())) ? Math.max(0,Math.round((fin-ini)/60000)) : 0;
+  const fmtDur  = (min) => min>0 ? (Math.floor(min/60)>0?`${Math.floor(min/60)}h ${min%60}m`:`${min}m`) : "--";
+  const totalMin = ETAPAS.reduce((acc,e)=>acc+(etapaMap[e]?durMin(etapaMap[e].inicio,etapaMap[e].fin):0),0);
+
+  // ---- PDF SETUP ----
+  const doc = new jsPDF({orientation:"p",unit:"pt",format:"a4"});
+  const PW=595, PH=842, ML=30, MR=30, MT=15;
+  const CW = PW-ML-MR;
+  const NAVY  = [10,36,99];
+  const NAVY2 = [22,55,130];
+  const WHITE = [255,255,255];
+  const LGRAY = [245,247,250];
+  const MGRAY = [200,205,212];
+  let y = MT;
+
+  // ---- Helpers dibujo ----
+  const tx = (str,x,cy,{sz=9,bold=false,col=[30,30,30],align="left",mw}={})=>{
+    doc.setFontSize(sz); doc.setFont("helvetica",bold?"bold":"normal"); doc.setTextColor(...col);
+    const s=String(str||"");
+    if(mw){ const lines=doc.splitTextToSize(s,mw); doc.text(lines[0]||"",x,cy,{align}); }
+    else doc.text(s,x,cy,{align});
   };
-  const pageW = doc.internal.pageSize.getWidth();
-  const drawHeader = ()=>{
-    doc.setDrawColor(110);
-    doc.setLineWidth(0.8);
-    doc.rect(30, 16, pageW-60, 108);
-    doc.rect(30, 16, 76, 108);
-    doc.rect(106, 16, pageW-136, 40);
-    doc.rect(106, 56, pageW-136, 34);
-    doc.rect(106, 90, pageW-136, 34);
-    if(kronixLogo){ try{ doc.addImage(kronixLogo, "PNG", 38, 25, 60, 18); }catch(_){ } }
-    if(levitoLogo){ try{ doc.addImage(levitoLogo, "PNG", 48, 56, 40, 46); }catch(_){ } }
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(10);
-    doc.text("PROGRAMA DE TRAZABILIDAD, ASEGURAMIENTO Y CONTROL DE CALIDAD", 112, 40);
-    doc.setFontSize(11);
-    doc.text("FORMATO CONTROL DE TRAZABILIDAD PRODUCCION", 112, 76);
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9);
-    doc.text(`Lote: ${idLote}`, 112, 106);
-    doc.text(`Generado: ${ahora}`, 270, 106);
-    if(productoTxt) doc.text(`Producto: ${productoTxt}`, 112, 118);
-    if(estadoTxt || etapaTxt) doc.text(`Estado/Etapa: ${estadoTxt}${estadoTxt&&etapaTxt ? " | " : ""}${etapaTxt}`, 340, 118);
+  const fillRect = (x,ry,w,h,fill,stroke)=>{
+    if(fill){ doc.setFillColor(...fill); doc.rect(x,ry,w,h,"F"); }
+    if(stroke){ doc.setDrawColor(...stroke); doc.setLineWidth(0.5); doc.rect(x,ry,w,h,"S"); }
   };
-  const ensureSpace = (y, need)=>{
-    if(y + need <= 780) return y;
-    doc.addPage();
-    drawHeader();
-    return 140;
+  const hline = (x1,ry,x2,col=MGRAY)=>{ doc.setDrawColor(...col); doc.setLineWidth(0.3); doc.line(x1,ry,x2,ry); };
+  const vline = (rx,y1,y2,col=MGRAY)=>{ doc.setDrawColor(...col); doc.setLineWidth(0.3); doc.line(rx,y1,rx,y2); };
+  const needSpace = (need)=>{ if(y+need>PH-40){ doc.addPage(); y=MT+10; } };
+
+  // ---- CABECERA PAGINA (similar al formato fisico) ----
+  const drawPageHeader = ()=>{
+    // Marco exterior
+    doc.setDrawColor(...NAVY); doc.setLineWidth(1);
+    doc.rect(ML,15,CW,95);
+    // Celda logo (izquierda)
+    vline(ML+74,15,110,NAVY);
+    if(levitoLogo){ try{ doc.addImage(levitoLogo,"PNG",ML+5,20,64,84); }catch(_){} }
+    // Celda info derecha
+    const infoX = ML+CW-100;
+    vline(infoX,15,110,NAVY);
+    hline(ML+74,47,infoX,NAVY);
+    hline(ML+74,78,infoX,NAVY);
+    hline(infoX,47,ML+CW,NAVY);
+    hline(infoX,78,ML+CW,NAVY);
+    // Titulos centro
+    const cx = ML+74+(infoX-ML-74)/2;
+    tx("PROGRAMA DE TRAZABILIDAD, ASEGURAMIENTO Y CONTROL DE LA CALIDAD",cx,34,{sz:8.5,bold:true,col:NAVY,align:"center",mw:infoX-ML-82});
+    tx("FORMATO CONTROL DE TRAZABILIDAD PRODUCCION",cx,64,{sz:9.5,bold:true,col:NAVY,align:"center"});
+    tx(`Lote: ${idLote}  |  ${productoTxt}  |  ${new Date().toLocaleDateString("es-CO")}`,cx,92,{sz:7.5,col:[80,90,110],align:"center",mw:infoX-ML-82});
+    // Info derecha
+    tx("Codigo:",infoX+5,29,{sz:7,col:[80,90,120]});
+    tx("F-020",infoX+5,41,{sz:8.5,bold:true,col:NAVY});
+    tx("Version:",infoX+5,60,{sz:7,col:[80,90,120]});
+    tx("03",infoX+5,72,{sz:8.5,bold:true,col:NAVY});
+    tx("Fecha:",infoX+5,90,{sz:7,col:[80,90,120]});
+    tx(new Date().toLocaleDateString("es-CO"),infoX+5,102,{sz:8,col:NAVY});
+    y = 125;
   };
-  drawHeader();
-  let y = 140;
-  if(!secciones.length){
-    y = ensureSpace(y, 70);
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(10);
-    doc.text("Consolidado por proceso", 40, y);
-    y += 6;
-    doc.autoTable({
-      startY: y,
-      head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
-      body: [["Sin datos","","",""]],
-      styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-      headStyles:{fillColor:[30,41,59]}
-    });
-  }else{
-    secciones.forEach((sec)=>{
-      y = ensureSpace(y, 70);
-      doc.setDrawColor(90);
-      doc.setLineWidth(0.6);
-      doc.rect(34, y-12, pageW-68, 24);
-      doc.setFont("helvetica","bold");
-      doc.setFontSize(10);
-      doc.text(`${sec.etapa.toUpperCase()}`, 42, y+3);
-      y += 20;
+
+  // ---- BLOQUE DATOS PRODUCTO ----
+  const drawProductBlock = ()=>{
+    needSpace(60);
+    const bh=52;
+    fillRect(ML,y,CW,bh,LGRAY,NAVY);
+    hline(ML,y+18,ML+CW,MGRAY); hline(ML,y+35,ML+CW,MGRAY);
+    vline(ML+CW*0.56,y,y+bh,MGRAY);
+    tx("PRODUCTO:",ML+5,y+13,{sz:7.5,bold:true,col:NAVY});
+    tx(productoTxt||"--",ML+62,y+13,{sz:8,mw:CW*0.56-68});
+    tx("PESO NETO:",ML+CW*0.56+5,y+13,{sz:7.5,bold:true,col:NAVY});
+    tx(String(meta.peso_neto||"--"),ML+CW*0.56+62,y+13,{sz:8});
+    tx("EMPAQUE:",ML+5,y+27,{sz:7.5,bold:true,col:NAVY});
+    tx(String(meta.empaque||"--"),ML+62,y+27,{sz:8,mw:CW*0.56-68});
+    tx("CODIGO:",ML+CW*0.56+5,y+27,{sz:7.5,bold:true,col:NAVY});
+    tx(String(meta.codigo||meta.producto_id||"--"),ML+CW*0.56+62,y+27,{sz:8});
+    tx("LOTE:",ML+5,y+44,{sz:7.5,bold:true,col:NAVY});
+    tx(String(idLote),ML+62,y+44,{sz:8});
+    tx("FECHA VENC:",ML+CW*0.56+5,y+44,{sz:7.5,bold:true,col:NAVY});
+    tx(String(meta.fecha_vencimiento||"--"),ML+CW*0.56+68,y+44,{sz:8});
+    y += bh+10;
+  };
+
+  // ---- CABECERA DE ETAPA ----
+  const drawEtapaHeader = (num,nombre,eData)=>{
+    needSpace(48);
+    // Barra titulo (azul oscuro)
+    fillRect(ML,y,CW,22,NAVY,NAVY);
+    tx(`${num}. ${nombre.toUpperCase()}`,ML+8,y+14,{sz:10,bold:true,col:WHITE});
+    if(eData.operario) tx(`RESPONSABLE: ${eData.operario}`,ML+CW-6,y+14,{sz:8.5,col:[180,210,255],align:"right"});
+    y += 22;
+    // Barra tiempos (3 columnas)
+    fillRect(ML,y,CW,18,[236,241,250],MGRAY);
+    const c=CW/3;
+    vline(ML+c,y,y+18,MGRAY); vline(ML+c*2,y,y+18,MGRAY);
+    const dm = durMin(eData.inicio,eData.fin);
+    tx(`HORA INICIO:  ${fmtHM(eData.inicio)}`,ML+c/2,y+12,{sz:8,align:"center"});
+    tx(`HORA FIN:  ${fmtHM(eData.fin)}`,ML+c+c/2,y+12,{sz:8,align:"center"});
+    tx(`DURACION:  ${fmtDur(dm)}`,ML+c*2+c/2,y+12,{sz:8.5,bold:true,col:NAVY,align:"center"});
+    y += 18;
+  };
+
+  // ---- FILA AMBIENTE ----
+  const drawEnvRow = (datos)=>{
+    const ta=datos.temp_amb||datos.temp_ambiente, ha=datos.hum_amb||datos.humedad_ambiente, ob=datos.obs||datos.observaciones||"";
+    fillRect(ML,y,CW,18,[250,252,255],MGRAY);
+    const c=CW/3;
+    vline(ML+c,y,y+18,MGRAY); vline(ML+c*2,y,y+18,MGRAY);
+    tx("TEMP AMB (C):",ML+5,y+12,{sz:7.5,bold:true,col:NAVY});
+    tx(String(ta||"--"),ML+76,y+12,{sz:8.5});
+    tx("HUMEDAD (%):",ML+c+5,y+12,{sz:7.5,bold:true,col:NAVY});
+    tx(String(ha||"--"),ML+c+74,y+12,{sz:8.5});
+    tx("OBSERVACIONES:",ML+c*2+5,y+12,{sz:7.5,bold:true,col:NAVY});
+    tx(ob||"--",ML+c*2+80,y+12,{sz:8,mw:c-85});
+    y += 18;
+  };
+
+  // ---- SECCIONES POR ETAPA ----
+  const drawMojado = (datos)=>{
+    const rows=Array.isArray(datos.rows)?datos.rows:[];
+    const total=datos.total_gramos_masa||datos.total_gramos||calcTotalGramos(rows);
+    if(rows.length){
+      needSpace(rows.length*16+60);
+      // Fila descripcion de la tabla
+      fillRect(ML,y,CW,16,[18,42,100],NAVY);
+      tx("DESCRIPCION DE MATERIAS PRIMAS",ML+CW/2,y+11,{sz:8.5,bold:true,col:WHITE,align:"center"});
+      y+=16;
+      const body=rows.map(r=>[
+        {content:String(r.ingrediente||""),styles:{fontStyle:"bold"}},
+        {content:String(Number(r.gramos||0).toFixed(2)),styles:{halign:"center"}},
+        {content:String(r.lote_materia_prima||"--"),styles:{halign:"center"}},
+        {content:String(r.fecha_vencimiento||"--"),styles:{halign:"center"}}
+      ]);
+      body.push([
+        {content:"TOTAL MASA",styles:{fontStyle:"bold",fillColor:[215,228,248],textColor:NAVY}},
+        {content:`${Number(total||0).toFixed(2)} g`,styles:{halign:"center",fontStyle:"bold",fillColor:[215,228,248],textColor:NAVY}},
+        {content:"",styles:{fillColor:[215,228,248]}},
+        {content:"",styles:{fillColor:[215,228,248]}}
+      ]);
       doc.autoTable({
-        startY: y,
-        head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
-        body: sec.qa.length ? sec.qa.map(q=>[q.pregunta, q.respuesta, q.operario, q.fecha]) : [["Sin preguntas registradas","","",""]],
-        styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-        headStyles:{fillColor:[30,41,59]},
-        columnStyles:{0:{cellWidth:140},1:{cellWidth:220},2:{cellWidth:80},3:{cellWidth:75}}
+        startY:y, margin:{left:ML,right:MR},
+        head:[[
+          {content:"MATERIA PRIMA",styles:{fontStyle:"bold",halign:"left"}},
+          {content:"CANT (g)",styles:{fontStyle:"bold",halign:"center"}},
+          {content:"LOTE MP",styles:{fontStyle:"bold",halign:"center"}},
+          {content:"VENCIMIENTO",styles:{fontStyle:"bold",halign:"center"}}
+        ]],
+        body,
+        styles:{fontSize:8.5,cellPadding:5,overflow:"linebreak",lineColor:MGRAY,lineWidth:0.3},
+        headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold",fontSize:9,cellPadding:{top:5,bottom:5,left:6,right:6}},
+        alternateRowStyles:{fillColor:[245,248,252]},
+        columnStyles:{0:{cellWidth:210,fontStyle:"bold"},1:{cellWidth:75,halign:"center"},2:{cellWidth:135,halign:"center"},3:{cellWidth:115,halign:"center"}},
+        tableLineColor:NAVY, tableLineWidth:0.5
       });
-      y = doc.lastAutoTable.finalY + 12;
-      if(String(sec.etapa).toLowerCase()==="mojado" && sec.materias.length){
-        y = ensureSpace(y, 80);
-        doc.setDrawColor(110);
-        doc.setLineWidth(0.6);
-        doc.rect(38, y-10, pageW-76, 26);
-        doc.setFont("helvetica","bold");
-        doc.setFontSize(10);
-        doc.text("PROCESO DE PRODUCCION - MOJADO", 46, y+6);
-        y += 22;
-        doc.autoTable({
-          startY: y,
-          head: [["Materia prima","Cantidad","Lote","Vencimiento"]],
-          body: sec.materias.map(m=>[m.materia, m.cantidad, m.lote, m.vencimiento]),
-          styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-          headStyles:{fillColor:[30,41,59]},
-          columnStyles:{0:{cellWidth:190},1:{cellWidth:80},2:{cellWidth:120},3:{cellWidth:125}}
-        });
-        y = doc.lastAutoTable.finalY + 14;
-      }
+      y=doc.lastAutoTable.finalY;
+    }
+    drawEnvRow(datos);
+  };
+
+  const drawPorcionado = (datos)=>{
+    needSpace(55);
+    doc.autoTable({
+      startY:y, margin:{left:ML,right:MR},
+      head:[[
+        {content:"N° PORCIONES",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"PESO UNIT (g)",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"N° LATAS",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"UNID / LATA",styles:{fontStyle:"bold",halign:"center"}}
+      ]],
+      body:[[
+        {content:String(datos.num_porciones||"--"),styles:{halign:"center",fontStyle:"bold"}},
+        {content:String(datos.peso_unidad||"--"),styles:{halign:"center"}},
+        {content:String(datos.num_latas||"--"),styles:{halign:"center"}},
+        {content:String(datos.unid_por_lata||"--"),styles:{halign:"center"}}
+      ]],
+      styles:{fontSize:9,cellPadding:7},
+      headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold",fontSize:9},
+      columnStyles:{0:{cellWidth:CW/4},1:{cellWidth:CW/4},2:{cellWidth:CW/4},3:{cellWidth:CW/4}},
+      tableLineColor:NAVY, tableLineWidth:0.5
     });
+    y=doc.lastAutoTable.finalY;
+    drawEnvRow(datos);
+  };
+
+  const drawLevado   = (datos)=>drawEnvRow(datos);
+  const drawEnfriado = (datos)=>drawEnvRow(datos);
+
+  const drawDecorado = (datos)=>{
+    const mats=Array.isArray(datos.materias_decorado)?datos.materias_decorado:[];
+    if(mats.length){
+      needSpace(mats.length*16+50);
+      fillRect(ML,y,CW,16,[18,42,100],NAVY);
+      tx("DESCRIPCION DE MATERIAS DE DECORADO",ML+CW/2,y+11,{sz:8.5,bold:true,col:WHITE,align:"center"});
+      y+=16;
+      doc.autoTable({
+        startY:y, margin:{left:ML,right:MR},
+        head:[[
+          {content:"MATERIA PRIMA",styles:{fontStyle:"bold",halign:"left"}},
+          {content:"LOTE",styles:{fontStyle:"bold",halign:"center"}},
+          {content:"VENCIMIENTO",styles:{fontStyle:"bold",halign:"center"}}
+        ]],
+        body:mats.map(m=>[
+          {content:String(m.materia||"--"),styles:{fontStyle:"bold"}},
+          {content:String(m.lote||"--"),styles:{halign:"center"}},
+          {content:String(m.vencimiento||"--"),styles:{halign:"center"}}
+        ]),
+        styles:{fontSize:8.5,cellPadding:5},
+        headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold",fontSize:9},
+        columnStyles:{0:{cellWidth:240},1:{cellWidth:150,halign:"center"},2:{cellWidth:145,halign:"center"}},
+        tableLineColor:NAVY, tableLineWidth:0.5
+      });
+      y=doc.lastAutoTable.finalY;
+    }
+    drawEnvRow(datos);
+  };
+
+  const drawHorneado = (datos)=>{
+    needSpace(55);
+    doc.autoTable({
+      startY:y, margin:{left:ML,right:MR},
+      head:[[
+        {content:"TEMP DE HORNEADO (°C)",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"TIEMPO (min)",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"TEMP INTERNA PRTO (°C)",styles:{fontStyle:"bold",halign:"center"}}
+      ]],
+      body:[[
+        {content:String(datos.temp_horno||"--"),styles:{halign:"center",fontStyle:"bold"}},
+        {content:String(datos.tiempo_horno||"--"),styles:{halign:"center"}},
+        {content:String(datos.temp_interna||"--"),styles:{halign:"center"}}
+      ]],
+      styles:{fontSize:9,cellPadding:7},
+      headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold",fontSize:9},
+      columnStyles:{0:{cellWidth:CW/3},1:{cellWidth:CW/3},2:{cellWidth:CW/3}},
+      tableLineColor:NAVY, tableLineWidth:0.5
+    });
+    y=doc.lastAutoTable.finalY;
+    drawEnvRow(datos);
+  };
+
+  const drawEmpaque = (datos)=>{
+    needSpace(55);
+    doc.autoTable({
+      startY:y, margin:{left:ML,right:MR},
+      head:[[
+        {content:"UNIDADES FINALES",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"UNID NO CONFORMES",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"TEMP INTERNA (°C)",styles:{fontStyle:"bold",halign:"center"}},
+        {content:"LOTE MAT EMPAQUE",styles:{fontStyle:"bold",halign:"center"}}
+      ]],
+      body:[[
+        {content:String(datos.unid_finales||"--"),styles:{halign:"center",fontStyle:"bold"}},
+        {content:String(datos.unid_nc||"--"),styles:{halign:"center"}},
+        {content:String(datos.temp_interna||"--"),styles:{halign:"center"}},
+        {content:String(datos.lote_empaque||"--"),styles:{halign:"center"}}
+      ]],
+      styles:{fontSize:9,cellPadding:7},
+      headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold",fontSize:9},
+      columnStyles:{0:{cellWidth:CW/4},1:{cellWidth:CW/4},2:{cellWidth:CW/4},3:{cellWidth:CW/4}},
+      tableLineColor:NAVY, tableLineWidth:0.5
+    });
+    y=doc.lastAutoTable.finalY;
+    drawEnvRow(datos);
+  };
+
+  const DRAWERS = {"Mojado":drawMojado,"Porcionado":drawPorcionado,"Levado":drawLevado,"Decorado":drawDecorado,"Horneado":drawHorneado,"Enfriado":drawEnfriado,"Empaque":drawEmpaque};
+
+  // ---- RESUMEN FINAL ----
+  const drawSummary = ()=>{
+    needSpace(70);
+    fillRect(ML,y,CW,22,NAVY,NAVY);
+    tx("RESUMEN DEL PROCESO",ML+CW/2,y+14,{sz:10,bold:true,col:WHITE,align:"center"});
+    y+=22;
+    fillRect(ML,y,CW,22,[236,241,250],MGRAY);
+    const c=CW/3;
+    vline(ML+c,y,y+22,MGRAY); vline(ML+c*2,y,y+22,MGRAY);
+    const empDatos=(etapaMap["Empaque"]||{}).datos||{};
+    tx("TIEMPO TOTAL:",ML+5,y+14,{sz:8,bold:true,col:NAVY});
+    tx(fmtDur(totalMin),ML+80,y+14,{sz:10,bold:true,col:NAVY});
+    tx("UNIDADES FINALES:",ML+c+5,y+14,{sz:8,bold:true,col:NAVY});
+    tx(String(empDatos.unid_finales||"--"),ML+c+108,y+14,{sz:10,bold:true,col:NAVY});
+    tx("NO CONFORMES:",ML+c*2+5,y+14,{sz:8,bold:true,col:NAVY});
+    tx(String(empDatos.unid_nc||"--"),ML+c*2+87,y+14,{sz:10,bold:true,col:NAVY});
+    y+=22+10;
+  };
+
+  // ---- CONSTRUIR PDF ----
+  drawPageHeader();
+  drawProductBlock();
+
+  ETAPAS.forEach((etapa,idx)=>{
+    const eData = etapaMap[etapa] || {operario:"",inicio:new Date("invalid"),fin:new Date("invalid"),datos:{}};
+    needSpace(90);
+    drawEtapaHeader(idx+1,etapa,eData);
+    if(DRAWERS[etapa]) DRAWERS[etapa](eData.datos);
+    y+=8;
+  });
+
+  drawSummary();
+
+  if(despLote.length){
+    needSpace(80);
+    fillRect(ML,y,CW,20,NAVY2,NAVY);
+    tx("DESPACHOS DEL LOTE",ML+8,y+13,{sz:9,bold:true,col:WHITE});
+    y+=20;
+    doc.autoTable({
+      startY:y, margin:{left:ML,right:MR},
+      head:[["FECHA/HORA","PRODUCTO","CANTIDAD"]],
+      body:despLote.map(d=>[formatDateTime(d.timestamp_registro),String(d.producto||""),String(d.cantidad||"")]),
+      styles:{fontSize:8,cellPadding:4,overflow:"linebreak"},
+      headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold"},
+      columnStyles:{0:{cellWidth:150},1:{cellWidth:295},2:{cellWidth:90}},
+      tableLineColor:NAVY
+    });
+    y=doc.lastAutoTable.finalY+8;
   }
-  y = ensureSpace(y, 120);
-  doc.setDrawColor(90);
-  doc.rect(34, y-10, pageW-68, 24);
-  doc.setFont("helvetica","bold");
-  doc.setFontSize(10);
-  doc.text("DATOS DE DESPACHO DEL LOTE", 42, y+6);
-  y += 22;
-  doc.autoTable({
-    startY: y,
-    head: [["Fecha/Hora","Producto","Cantidad"]],
-    body: despLote.length ? despLote.map(d=>[formatDateTime(d.timestamp_registro), String(d.producto||""), String(d.cantidad||"")]) : [["Sin despachos","",""]],
-    styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-    headStyles:{fillColor:[30,41,59]},
-    columnStyles:{0:{cellWidth:150},1:{cellWidth:280},2:{cellWidth:90}}
-  });
-  y = doc.lastAutoTable.finalY + 14;
-  y = ensureSpace(y, 120);
-  doc.setDrawColor(90);
-  doc.rect(34, y-10, pageW-68, 24);
-  doc.setFont("helvetica","bold");
-  doc.setFontSize(10);
-  doc.text("DATOS DE ENTREGA DEL LOTE", 42, y+6);
-  y += 22;
-  doc.autoTable({
-    startY: y,
-    head: [["Fecha/Hora","Producto","Cliente","Cantidad"]],
-    body: entLote.length ? entLote.map(e=>[formatDateTime(e.timestamp_registro), String(e.producto||""), String(e.cliente||""), String(e.cantidad||"")]) : [["Sin entregas","","",""]],
-    styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-    headStyles:{fillColor:[30,41,59]},
-    columnStyles:{0:{cellWidth:130},1:{cellWidth:210},2:{cellWidth:140},3:{cellWidth:70}}
-  });
-  drawFooterAllPages();
-  doc.save(`auditoria_${String(idLote).replace(/[^a-zA-Z0-9_-]/g,"_")}.pdf`);
+  if(entLote.length){
+    needSpace(80);
+    fillRect(ML,y,CW,20,NAVY2,NAVY);
+    tx("ENTREGAS DEL LOTE",ML+8,y+13,{sz:9,bold:true,col:WHITE});
+    y+=20;
+    doc.autoTable({
+      startY:y, margin:{left:ML,right:MR},
+      head:[["FECHA/HORA","PRODUCTO","CLIENTE","CANTIDAD"]],
+      body:entLote.map(e=>[formatDateTime(e.timestamp_registro),String(e.producto||""),String(e.cliente||""),String(e.cantidad||"")]),
+      styles:{fontSize:8,cellPadding:4,overflow:"linebreak"},
+      headStyles:{fillColor:NAVY2,textColor:WHITE,fontStyle:"bold"},
+      columnStyles:{0:{cellWidth:130},1:{cellWidth:185},2:{cellWidth:150},3:{cellWidth:70}},
+      tableLineColor:NAVY
+    });
+    y=doc.lastAutoTable.finalY+8;
+  }
+
+  // Footer en todas las paginas
+  const pages = doc.getNumberOfPages();
+  for(let i=1;i<=pages;i++){
+    doc.setPage(i);
+    doc.setFontSize(8); doc.setFont("helvetica","normal"); doc.setTextColor(120);
+    doc.text("Elaborado por Departamento de calidad",ML,PH-15);
+    doc.text("Aprobado por Gerencia general",PW/2,PH-15,{align:"center"});
+    doc.text(`Pagina ${i}/${pages}`,PW-MR,PH-15,{align:"right"});
+    if(i>1){ doc.setFontSize(7); doc.setTextColor(150); doc.text(`${idLote} | ${productoTxt}`,PW/2,12,{align:"center"}); }
+  }
+
+  doc.save(`trazabilidad_${String(idLote).replace(/[^a-zA-Z0-9_-]/g,"_")}.pdf`);
 }
 function descargarPdfAuditoriaSeleccion(){
   const lote = document.getElementById("a_lote")?.value || "";
@@ -936,6 +1214,7 @@ async function renderSeguimientoProduccion(){
 
   const buildDuraciones = (row, tl)=>{
     const parts = [];
+    const byEtapa = {};
     let total = 0;
     const idxAct = row.estado==="FINALIZADO" ? stageList.length-1 : Math.max(0, stageList.indexOf(row.etapa_actual));
     for(let i=0;i<tl.length;i++){
@@ -957,9 +1236,12 @@ async function renderSeguimientoProduccion(){
       const min = Math.max(0, Math.round((e - s)/60000));
       total += min;
       parts.push(`${tl[i].etapa}: ${min}m`);
+      byEtapa[tl[i].etapa] = min;
     }
-    return { txt: parts.join(" | "), total };
+    return { txt: parts.join(" | "), total, byEtapa };
   };
+
+  const fmtMinutos = (min) => min > 0 ? (Math.floor(min/60)>0?`${Math.floor(min/60)}h ${min%60}m`:`${min}m`) : "";
 
   b.innerHTML = dataFiltrada.map(r=>{
     const aud = state.auditCache[r.id_lote];
@@ -967,13 +1249,20 @@ async function renderSeguimientoProduccion(){
     const tl = (Array.isArray(r.timeline) && r.timeline.length) ? r.timeline : fromAudit.tl;
     const opMap = { ...parseOps(r.operarios_por_etapa || ""), ...(fromAudit.opBy || {}) };
     const durs = buildDuraciones(r, tl);
-    const flow = tl.map(s=>`
-      <div class="flow-step ${s.estado==='completada'?'done':(s.estado==='actual'?'current':'pending')}">
-        <div class="s-name">${s.etapa}</div>
+    const totalTxt = Math.floor(durs.total/60)>0?`${Math.floor(durs.total/60)}h ${durs.total%60}m`:`${durs.total}m`;
+    const flow = tl.map(s=>{
+      const min = durs.byEtapa[s.etapa] || 0;
+      const durTxt = fmtMinutos(min);
+      return `<div class="flow-step ${s.estado==='completada'?'done':(s.estado==='actual'?'current':'pending')}">
         <div class="s-time">${formatHour(s.inicio)}</div>
+        <div class="s-name">${s.etapa}</div>
+        ${durTxt?`<div class="s-dur">${durTxt}</div>`:""}
         <div class="s-op">${opMap[s.etapa] || ""}</div>
-      </div>
-    `).join("");
+      </div>`;
+    }).join("") + `<div class="flow-step total-card">
+      <div class="s-name">TOTAL</div>
+      <div class="s-dur">${totalTxt}</div>
+    </div>`;
     return `<tr>
       <td>${r.id_lote}</td>
       <td>${r.producto_nombre||r.producto_id||""}</td>
@@ -981,7 +1270,7 @@ async function renderSeguimientoProduccion(){
       <td>${r.etapa_actual}</td>
       <td>${formatDateTime(r.hora_inicio)}</td>
       <td>${formatDateTime(r.hora_ref)}</td>
-      <td class="flow-wrap"><div class="flow-meta">${durs.txt || "Duraciones: calculando..."} | Total: ${durs.total}m</div><div class="flow-bar">${flow}</div></td>
+      <td class="flow-wrap"><div class="flow-meta">${durs.txt || "Duraciones: calculando..."} | Total: ${totalTxt}</div><div class="flow-bar">${flow}</div></td>
       <td><button class="btn btn-sm btn-outline-light" onclick="descargarPdfLote('${String(r.id_lote||"").replace(/'/g,"&#39;")}')">Descargar PDF</button></td>
     </tr>`;
   }).join("");
