@@ -160,12 +160,45 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   #pinModal .d-flex.gap-2.mt-3 .btn{width:100%}
 
   .table-responsive{
-    border:1px solid #1e293b;
-    border-radius:10px;
-    overflow:auto;
+    border:0;
+    border-radius:0;
+    overflow:visible;
     -webkit-overflow-scrolling:touch;
   }
   .table{min-width:760px;margin-bottom:0}
+  .table.js-mobile-cards{
+    min-width:0;
+    border-collapse:separate;
+    border-spacing:0 10px;
+    background:transparent;
+  }
+  .table.js-mobile-cards thead{display:none}
+  .table.js-mobile-cards tbody tr{
+    display:block;
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:12px;
+    padding:8px 10px;
+    margin-bottom:10px;
+  }
+  .table.js-mobile-cards tbody td{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    border:0!important;
+    padding:8px 0;
+    white-space:normal;
+    text-align:right;
+  }
+  .table.js-mobile-cards tbody td::before{
+    content:attr(data-label);
+    color:#93c5fd;
+    font-weight:700;
+    text-align:left;
+    min-width:44%;
+    max-width:44%;
+  }
   #pinModal .table{min-width:980px}
   #pinModal .table th,#pinModal .table td{padding:10px 8px}
 }
@@ -711,6 +744,23 @@ function clearInicioForm(){
   setStatus("m_status_inicio","");
 }
 
+function syncMobileTableLabels(root=document){
+  const scope = root && root.querySelectorAll ? root : document;
+  const tables = scope.querySelectorAll(".section .table-responsive table");
+  tables.forEach(table=>{
+    table.classList.add("js-mobile-cards");
+    const headers = Array.from(table.querySelectorAll("thead th")).map(th => (th.textContent || "").trim());
+    if(!headers.length) return;
+    table.querySelectorAll("tbody tr").forEach(tr=>{
+      Array.from(tr.children).forEach((cell, idx)=>{
+        if(cell.tagName === "TD"){
+          cell.setAttribute("data-label", headers[idx] || `Campo ${idx+1}`);
+        }
+      });
+    });
+  });
+}
+
 function getDetalleRowsFromTable(){return Array.from(document.querySelectorAll("#m_formula_body tr")).map(tr=>({ingrediente:tr.dataset.ingrediente||"",gramos:Number(tr.dataset.gramos||0),lote_materia_prima:tr.querySelector(".in-lote")?.value?.trim()||"",fecha_vencimiento:tr.querySelector(".in-venc")?.value||""}));}
 function calcTotalGramos(rows){return rows.reduce((a,r)=>a+(Number(r.gramos)||0),0);}
 function getDecoradoRows(){return Array.from(document.querySelectorAll("#m_decorado_body tr")).map(tr=>({materia:tr.querySelector(".dec-materia")?.value||"",lote:tr.querySelector(".dec-lote")?.value?.trim()||"",vencimiento:tr.querySelector(".dec-venc")?.value||""}));}
@@ -948,6 +998,8 @@ async function init(){
       showTab(t.dataset.tab, t);
     });
   }
+  syncMobileTableLabels(document);
+  new MutationObserver(()=>syncMobileTableLabels(document)).observe(document.body,{childList:true,subtree:true});
   try{
     const boot = await apiGet("GET_BOOTSTRAP");
     state.productos = toArr(boot?.productos);
