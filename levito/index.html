@@ -619,12 +619,14 @@ function renderAuditoriaSecciones(bitacora){
       ? sec.qa.map(q=>`<tr><td>${q.pregunta}</td><td>${q.respuesta}</td><td>${q.operario}</td><td>${q.fecha}</td></tr>`).join("")
       : `<tr><td colspan="4">Sin preguntas registradas para esta etapa.</td></tr>`;
     const materiasHtml = (String(sec.etapa).toLowerCase()==="mojado" && sec.materias.length)
-      ? `<h6 class="mt-3 mb-2">Materias primas usadas (Mojado)</h6>
-         <div class="table-responsive">
-           <table class="table table-dark table-striped">
-             <thead><tr><th>Materia prima</th><th>Cantidad</th><th>Lote</th><th>Vencimiento</th></tr></thead>
-             <tbody>${sec.materias.map(m=>`<tr><td>${m.materia}</td><td>${m.cantidad}</td><td>${m.lote}</td><td>${m.vencimiento}</td></tr>`).join("")}</tbody>
-           </table>
+      ? `<div class="panel mt-3" style="background:#0a1323;border:1px solid #334155">
+           <h6 class="mb-2">Proceso de producción</h6>
+           <div class="table-responsive">
+             <table class="table table-dark table-striped">
+               <thead><tr><th>Materia prima</th><th>Cantidad</th><th>Lote</th><th>Vencimiento</th></tr></thead>
+               <tbody>${sec.materias.map(m=>`<tr><td>${m.materia}</td><td>${m.cantidad}</td><td>${m.lote}</td><td>${m.vencimiento}</td></tr>`).join("")}</tbody>
+             </table>
+           </div>
          </div>`
       : "";
     return `<div class="panel">
@@ -652,16 +654,75 @@ async function descargarPdfLote(idLote, rowMeta=null){
   const productoTxt = meta.producto || meta.producto_nombre || meta.producto_id || "";
   const estadoTxt = meta.estado || "";
   const etapaTxt = meta.etapa || meta.etapa_actual || "";
-  doc.setFont("helvetica","bold");
-  doc.setFontSize(14);
-  doc.text(`LEVITO | Auditoria consolidada - ${idLote}`, 40, 40);
-  doc.setFont("helvetica","normal");
-  doc.setFontSize(10);
-  doc.text(`Generado: ${ahora}`, 40, 58);
-  if(productoTxt) doc.text(`Producto: ${productoTxt}`, 40, 74);
-  if(estadoTxt || etapaTxt) doc.text(`Estado/Etapa: ${estadoTxt}${estadoTxt&&etapaTxt ? " | " : ""}${etapaTxt}`, 40, 90);
-  let y = 108;
+  const loadImageDataUrl = async (url)=>{
+    try{
+      const res = await fetch(url);
+      if(!res.ok) return null;
+      const blob = await res.blob();
+      return await new Promise((resolve)=>{
+        const fr = new FileReader();
+        fr.onload = ()=>resolve(fr.result);
+        fr.onerror = ()=>resolve(null);
+        fr.readAsDataURL(blob);
+      });
+    }catch(_){ return null; }
+  };
+  const [kronixLogo, levitoLogo] = await Promise.all([
+    loadImageDataUrl("/levito/logo-kronix.png"),
+    loadImageDataUrl("/levito/logo-levito.png")
+  ]);
+  const despRaw = toArr(await apiGet("GET_DESPACHOS",{limit:2000}));
+  const entRaw = toArr(await apiGet("GET_ENTREGAS",{limit:2000}));
+  const despLote = despRaw.filter(x=>String(x.id_lote||"")===String(idLote));
+  const entLote = entRaw.filter(x=>String(x.id_lote||"")===String(idLote));
+  const drawFooterAllPages = ()=>{
+    const pages = doc.getNumberOfPages();
+    for(let i=1;i<=pages;i++){
+      doc.setPage(i);
+      doc.setFont("helvetica","normal");
+      doc.setFontSize(9);
+      doc.setTextColor(120);
+      doc.text("Informe elaborado por Kronix", 40, 822);
+      doc.text(`Pagina ${i}/${pages}`, 555, 822, {align:"right"});
+    }
+  };
+  const pageW = doc.internal.pageSize.getWidth();
+  const drawHeader = ()=>{
+    doc.setDrawColor(110);
+    doc.setLineWidth(0.8);
+    doc.rect(30, 16, pageW-60, 108);
+    doc.rect(30, 16, 76, 108);
+    doc.rect(106, 16, pageW-136, 40);
+    doc.rect(106, 56, pageW-136, 34);
+    doc.rect(106, 90, pageW-136, 34);
+    if(kronixLogo){ try{ doc.addImage(kronixLogo, "PNG", 38, 25, 60, 18); }catch(_){ } }
+    if(levitoLogo){ try{ doc.addImage(levitoLogo, "PNG", 48, 56, 40, 46); }catch(_){ } }
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(10);
+    doc.text("PROGRAMA DE TRAZABILIDAD, ASEGURAMIENTO Y CONTROL DE CALIDAD", 112, 40);
+    doc.setFontSize(11);
+    doc.text("FORMATO CONTROL DE TRAZABILIDAD PRODUCCION", 112, 76);
+    doc.setFont("helvetica","normal");
+    doc.setFontSize(9);
+    doc.text(`Lote: ${idLote}`, 112, 106);
+    doc.text(`Generado: ${ahora}`, 270, 106);
+    if(productoTxt) doc.text(`Producto: ${productoTxt}`, 112, 118);
+    if(estadoTxt || etapaTxt) doc.text(`Estado/Etapa: ${estadoTxt}${estadoTxt&&etapaTxt ? " | " : ""}${etapaTxt}`, 340, 118);
+  };
+  const ensureSpace = (y, need)=>{
+    if(y + need <= 780) return y;
+    doc.addPage();
+    drawHeader();
+    return 140;
+  };
+  drawHeader();
+  let y = 140;
   if(!secciones.length){
+    y = ensureSpace(y, 70);
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(10);
+    doc.text("Consolidado por proceso", 40, y);
+    y += 6;
     doc.autoTable({
       startY: y,
       head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
@@ -671,11 +732,14 @@ async function descargarPdfLote(idLote, rowMeta=null){
     });
   }else{
     secciones.forEach((sec)=>{
-      if(y > 740){ doc.addPage(); y = 40; }
+      y = ensureSpace(y, 70);
+      doc.setDrawColor(90);
+      doc.setLineWidth(0.6);
+      doc.rect(34, y-12, pageW-68, 24);
       doc.setFont("helvetica","bold");
-      doc.setFontSize(11);
-      doc.text(`Etapa: ${sec.etapa}`, 40, y);
-      y += 10;
+      doc.setFontSize(10);
+      doc.text(`${sec.etapa.toUpperCase()}`, 42, y+3);
+      y += 20;
       doc.autoTable({
         startY: y,
         head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
@@ -686,10 +750,14 @@ async function descargarPdfLote(idLote, rowMeta=null){
       });
       y = doc.lastAutoTable.finalY + 12;
       if(String(sec.etapa).toLowerCase()==="mojado" && sec.materias.length){
+        y = ensureSpace(y, 80);
+        doc.setDrawColor(110);
+        doc.setLineWidth(0.6);
+        doc.rect(38, y-10, pageW-76, 26);
         doc.setFont("helvetica","bold");
         doc.setFontSize(10);
-        doc.text("Materias primas (Mojado)", 40, y);
-        y += 8;
+        doc.text("PROCESO DE PRODUCCION - MOJADO", 46, y+6);
+        y += 22;
         doc.autoTable({
           startY: y,
           head: [["Materia prima","Cantidad","Lote","Vencimiento"]],
@@ -702,6 +770,38 @@ async function descargarPdfLote(idLote, rowMeta=null){
       }
     });
   }
+  y = ensureSpace(y, 120);
+  doc.setDrawColor(90);
+  doc.rect(34, y-10, pageW-68, 24);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(10);
+  doc.text("DATOS DE DESPACHO DEL LOTE", 42, y+6);
+  y += 22;
+  doc.autoTable({
+    startY: y,
+    head: [["Fecha/Hora","Producto","Cantidad"]],
+    body: despLote.length ? despLote.map(d=>[formatDateTime(d.timestamp_registro), String(d.producto||""), String(d.cantidad||"")]) : [["Sin despachos","",""]],
+    styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
+    headStyles:{fillColor:[30,41,59]},
+    columnStyles:{0:{cellWidth:150},1:{cellWidth:280},2:{cellWidth:90}}
+  });
+  y = doc.lastAutoTable.finalY + 14;
+  y = ensureSpace(y, 120);
+  doc.setDrawColor(90);
+  doc.rect(34, y-10, pageW-68, 24);
+  doc.setFont("helvetica","bold");
+  doc.setFontSize(10);
+  doc.text("DATOS DE ENTREGA DEL LOTE", 42, y+6);
+  y += 22;
+  doc.autoTable({
+    startY: y,
+    head: [["Fecha/Hora","Producto","Cliente","Cantidad"]],
+    body: entLote.length ? entLote.map(e=>[formatDateTime(e.timestamp_registro), String(e.producto||""), String(e.cliente||""), String(e.cantidad||"")]) : [["Sin entregas","","",""]],
+    styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
+    headStyles:{fillColor:[30,41,59]},
+    columnStyles:{0:{cellWidth:130},1:{cellWidth:210},2:{cellWidth:140},3:{cellWidth:70}}
+  });
+  drawFooterAllPages();
   doc.save(`auditoria_${String(idLote).replace(/[^a-zA-Z0-9_-]/g,"_")}.pdf`);
 }
 function descargarPdfAuditoriaSeleccion(){
