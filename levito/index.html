@@ -646,7 +646,7 @@ async function descargarPdfLote(idLote, rowMeta=null){
   if(!window.jspdf || !window.jspdf.jsPDF){ alert("Librería PDF no disponible."); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({orientation:"p", unit:"pt", format:"a4"});
-  const consRows = auditToConsolidadoRows(aud);
+  const secciones = buildAuditoriaSecciones(aud?.bitacora || []);
   const ahora = new Date().toLocaleString("es-CO");
   const meta = rowMeta || toArr(state.seguimientoRaw).find(x=>String(x.id_lote)===String(idLote)) || {};
   const productoTxt = meta.producto || meta.producto_nombre || meta.producto_id || "";
@@ -660,14 +660,48 @@ async function descargarPdfLote(idLote, rowMeta=null){
   doc.text(`Generado: ${ahora}`, 40, 58);
   if(productoTxt) doc.text(`Producto: ${productoTxt}`, 40, 74);
   if(estadoTxt || etapaTxt) doc.text(`Estado/Etapa: ${estadoTxt}${estadoTxt&&etapaTxt ? " | " : ""}${etapaTxt}`, 40, 90);
-  doc.autoTable({
-    startY: 108,
-    head: [["Etapa","Campo","Valor","Operario","Fecha/Hora"]],
-    body: consRows.length ? consRows.map(r=>[r.etapa, r.campo, r.valor, r.operario, r.fecha]) : [["-","-","Sin datos","",""]],
-    styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
-    headStyles:{fillColor:[30,41,59]},
-    columnStyles:{0:{cellWidth:70},1:{cellWidth:120},2:{cellWidth:190},3:{cellWidth:70},4:{cellWidth:85}}
-  });
+  let y = 108;
+  if(!secciones.length){
+    doc.autoTable({
+      startY: y,
+      head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
+      body: [["Sin datos","","",""]],
+      styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
+      headStyles:{fillColor:[30,41,59]}
+    });
+  }else{
+    secciones.forEach((sec)=>{
+      if(y > 740){ doc.addPage(); y = 40; }
+      doc.setFont("helvetica","bold");
+      doc.setFontSize(11);
+      doc.text(`Etapa: ${sec.etapa}`, 40, y);
+      y += 10;
+      doc.autoTable({
+        startY: y,
+        head: [["Pregunta","Respuesta","Operario","Fecha/Hora"]],
+        body: sec.qa.length ? sec.qa.map(q=>[q.pregunta, q.respuesta, q.operario, q.fecha]) : [["Sin preguntas registradas","","",""]],
+        styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
+        headStyles:{fillColor:[30,41,59]},
+        columnStyles:{0:{cellWidth:140},1:{cellWidth:220},2:{cellWidth:80},3:{cellWidth:75}}
+      });
+      y = doc.lastAutoTable.finalY + 12;
+      if(String(sec.etapa).toLowerCase()==="mojado" && sec.materias.length){
+        doc.setFont("helvetica","bold");
+        doc.setFontSize(10);
+        doc.text("Materias primas (Mojado)", 40, y);
+        y += 8;
+        doc.autoTable({
+          startY: y,
+          head: [["Materia prima","Cantidad","Lote","Vencimiento"]],
+          body: sec.materias.map(m=>[m.materia, m.cantidad, m.lote, m.vencimiento]),
+          styles:{fontSize:8, cellPadding:4, overflow:"linebreak"},
+          headStyles:{fillColor:[30,41,59]},
+          columnStyles:{0:{cellWidth:190},1:{cellWidth:80},2:{cellWidth:120},3:{cellWidth:125}}
+        });
+        y = doc.lastAutoTable.finalY + 14;
+      }
+    });
+  }
   doc.save(`auditoria_${String(idLote).replace(/[^a-zA-Z0-9_-]/g,"_")}.pdf`);
 }
 function descargarPdfAuditoriaSeleccion(){
@@ -706,7 +740,7 @@ async function cargarAuditoriaCatalogos(){
   const productos = toArr(await apiGet("GET_PRODUCTOS"));
   document.getElementById("a_producto").innerHTML = `<option value="">Seleccionar</option>` + productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>`;
-  document.getElementById("a_cons_body").innerHTML = `<tr><td colspan="5">Selecciona un lote para ver consolidado.</td></tr>`;
+  document.getElementById("a_cons_sections").innerHTML = `<div class="panel">Selecciona un lote para ver consolidado por etapas.</div>`;
   document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
@@ -714,7 +748,7 @@ async function cargarLotesAuditoria(){
   const pid = document.getElementById("a_producto").value;
   const lotes = toArr(await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500}));
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | ${formatDateTime(l.hora_fin)}</option>`).join("");
-  document.getElementById("a_cons_body").innerHTML = `<tr><td colspan="5">Selecciona un lote para ver consolidado.</td></tr>`;
+  document.getElementById("a_cons_sections").innerHTML = `<div class="panel">Selecciona un lote para ver consolidado por etapas.</div>`;
   document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
@@ -723,17 +757,14 @@ async function cargarAuditoriaLote(){
   if(!lote) return;
   const r = await apiGet("GET_AUDITORIA_LOTE",{id_lote:lote});
   const b = document.getElementById("a_bit_body");
-  const bc = document.getElementById("a_cons_body");
+  const bc = document.getElementById("a_cons_sections");
   if(!r || r.status==="error"){
     b.innerHTML = `<tr><td colspan="4">Error cargando auditoría.</td></tr>`;
-    bc.innerHTML = `<tr><td colspan="5">Error cargando consolidado.</td></tr>`;
+    bc.innerHTML = `<div class="panel">Error cargando consolidado.</div>`;
     return;
   }
   b.innerHTML = (r.bitacora||[]).map(x=>`<tr><td>${x.etapa}</td><td>${x.operario}</td><td>${formatDateTime(x.timestamp)}</td><td><pre style="white-space:pre-wrap;color:#cbd5e1;margin:0">${x.datos_json||""}</pre></td></tr>`).join("");
-  const cons = auditToConsolidadoRows(r);
-  bc.innerHTML = cons.length
-    ? cons.map(x=>`<tr><td>${x.etapa}</td><td>${x.campo}</td><td>${x.valor}</td><td>${x.operario}</td><td>${x.fecha}</td></tr>`).join("")
-    : `<tr><td colspan="5">Sin datos consolidados.</td></tr>`;
+  renderAuditoriaSecciones(r.bitacora || []);
   state.auditCache = state.auditCache || {};
   state.auditCache[lote] = r;
 }
