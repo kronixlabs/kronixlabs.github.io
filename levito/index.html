@@ -1715,6 +1715,7 @@ async function init(){
 window.addEventListener("error",(ev)=>console.warn("JS error:", ev?.message || ev));
 window.addEventListener("unhandledrejection",(ev)=>console.warn("Promise error:", ev?.reason || ev));
 runSafe(()=>init());
+// v2.1
 </script>
 </body>
 </html>
