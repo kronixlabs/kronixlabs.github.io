@@ -80,10 +80,10 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 #pinModal .form-control{font-size:14px;padding:6px 10px}
 #pinModal label,#pinModal .table th,#pinModal .table td,#pinModal .btn{font-size:14px}
 .flow-wrap{min-width:520px}
-.flow-bar{display:flex;gap:6px;align-items:center}
-.flow-step{flex:1;min-width:90px;padding:6px 8px;border-radius:8px;border:1px solid #1e293b;background:#0f172a}
+.flow-bar{display:flex;gap:6px;align-items:center;width:100%}
+.flow-step{flex:1;min-width:92px;padding:7px 8px;border-radius:8px;border:1px solid #1e293b;background:#0f172a;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
 .flow-step .s-name{font-size:11px;font-weight:700;line-height:1.1}
-.flow-step .s-time{font-size:10px;color:#cbd5e1}
+.flow-step .s-time{font-size:10px;color:#e2e8f0}
 .flow-step.done{background:#14532d;border-color:#22c55e}
 .flow-step.current{background:#7f1d1d;border-color:#ef4444}
 .flow-step.pending{background:#1f2937;border-color:#475569}
@@ -528,8 +528,14 @@ async function cargarSeguimientoProduccion(){
   const data = await apiGet("GET_SEGUIMIENTO_PRODUCCION",{limit:500});
   const b = document.getElementById("s_body");
   if(!Array.isArray(data)||!data.length){b.innerHTML = `<tr><td colspan="7">Sin datos.</td></tr>`;return;}
+  const fallbackTimeline = (etapaActual, estado)=>{
+    const all = [...ETAPAS, "Finalizado"];
+    const idx = estado==="FINALIZADO" ? all.length-1 : Math.max(0, all.indexOf(etapaActual));
+    return all.map((e,i)=>({etapa:e,inicio:"",estado:estado==="FINALIZADO"?"completada":(i<idx?"completada":(i===idx?"actual":"pendiente"))}));
+  };
   b.innerHTML = data.map(r=>{
-    const flow = (Array.isArray(r.timeline)?r.timeline:[]).map(s=>`
+    const tl = (Array.isArray(r.timeline) && r.timeline.length) ? r.timeline : fallbackTimeline(r.etapa_actual, r.estado);
+    const flow = tl.map(s=>`
       <div class="flow-step ${s.estado==='completada'?'done':(s.estado==='actual'?'current':'pending')}">
         <div class="s-name">${s.etapa}</div>
         <div class="s-time">${formatHour(s.inicio)}</div>
