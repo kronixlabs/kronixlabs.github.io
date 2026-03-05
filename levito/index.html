@@ -170,6 +170,13 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     -webkit-overflow-scrolling:touch;
   }
   .table{min-width:760px;margin-bottom:0}
+  #seguimiento .table-responsive{
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch;
+  }
+  #seguimiento .table{
+    min-width:820px;
+  }
   .table.js-mobile-cards{
     min-width:0;
     border-collapse:separate;
@@ -309,7 +316,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   <h6 class="mt-3 mb-2">Bitácora cronológica</h6>
   <div class="table-responsive">
     <table class="table table-dark table-striped">
-      <thead><tr><th>Etapa</th><th>Operario</th><th>Fecha/Hora</th><th>Datos</th></tr></thead>
+      <thead><tr><th>Etapa</th><th>Operario</th><th>Fecha</th><th>Hora</th><th>Duración</th><th>Datos</th></tr></thead>
       <tbody id="a_bit_body"></tbody>
     </table>
   </div>
@@ -330,7 +337,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     <div class="col-md-2 d-flex align-items-end"><button class="btn btn-outline-info w-100" onclick="cargarSeguimientoProduccion()">Actualizar</button></div>
   </div>
   <div class="table-responsive">
-    <table class="table table-dark table-striped">
+    <table class="table table-dark table-striped no-mobile-cards">
       <thead><tr><th>Lote</th><th>Producto</th><th>Estado</th><th>Etapa</th><th>Inicio</th><th>Referencia</th><th>Línea de proceso</th><th>Acciones</th></tr></thead>
       <tbody id="s_body"></tbody>
     </table>
@@ -548,6 +555,7 @@ async function apiPost(payload){
 }
 function setStatus(id,msg,isError){const e=document.getElementById(id);if(!e)return;e.style.color=isError?"#fca5a5":"#86efac";e.textContent=msg||"";}
 function formatDateTime(v){if(!v)return"--";const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return d.toLocaleString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});}
+function formatDate(v){if(!v)return"--";const d=new Date(v);if(Number.isNaN(d.getTime()))return String(v);return d.toLocaleDateString("es-CO",{year:"numeric",month:"2-digit",day:"2-digit"});}
 function formatHour(v){if(!v)return"--:--";const d=new Date(v);if(Number.isNaN(d.getTime()))return"--:--";return d.toLocaleTimeString("es-CO",{hour:"2-digit",minute:"2-digit"});}
 function getNombreProducto(pid,fallback){const p=state.productos.find(x=>String(x.codigo)===String(pid));return p?p.nombre:(fallback||String(pid||""));}
 function roundFormula(ing,g){let x=Number(g||0);const i=String(ing||"").toLowerCase();if(x>100&&(i.includes("harina")||i.includes("agua"))){const step=x>=500?10:5;return Math.round(x/step)*step;}if(x<10)return Math.max(1,Math.round(x));return Math.round(x*100)/100;}
@@ -623,15 +631,18 @@ function buildAuditoriaSecciones(bitacora){
       if(!allowedKeys.includes(k)) return;
       const existing = sec.qa.find(q=>q.key===k);
       if(!existing){
-        sec.qa.push({key:k, pregunta:getPreguntaLabel(k), respuesta:toDisplayValue(v), operario:x?.operario||"", fecha:formatDateTime(x?.timestamp)});
+        sec.qa.push({key:k, pregunta:getPreguntaLabel(k), respuesta:toDisplayValue(v), operario:x?.operario||"", fecha:formatDate(x?.timestamp), hora:formatHour(x?.timestamp)});
       } else {
         existing.respuesta = toDisplayValue(v);
         if(x?.operario) existing.operario = x.operario;
-        existing.fecha = formatDateTime(x?.timestamp);
+        existing.fecha = formatDate(x?.timestamp);
+        existing.hora = formatHour(x?.timestamp);
       }
     });
   });
-  return Array.from(byEtapa.values());
+  const arr = Array.from(byEtapa.values());
+  for(let i=0;i<arr.length-1;i++) arr[i].fin = arr[i+1].inicio;
+  return arr;
 }
 function renderAuditoriaSecciones(bitacora){
   const cont = document.getElementById("a_cons_sections");
@@ -649,15 +660,15 @@ function renderAuditoriaSecciones(bitacora){
       <span style="font-weight:700;font-size:15px;color:#e2e8f0">${sec.etapa.toUpperCase()}</span>
       <span style="font-size:12px;color:#94a3b8">
         ${sec.operario?`<b style="color:#93c5fd">${sec.operario}</b> &nbsp;|&nbsp; `:""}
-        Inicio: <b>${formatDateTime(sec.inicio)}</b> &nbsp;|&nbsp;
-        Fin: <b>${formatDateTime(sec.fin)}</b> &nbsp;|&nbsp;
+        Inicio: <b>${formatDate(sec.inicio)}</b> <span style="color:#e2e8f0">${formatHour(sec.inicio)}</span> &nbsp;|&nbsp;
+        Fin: <b>${formatDate(sec.fin)}</b> <span style="color:#e2e8f0">${formatHour(sec.fin)}</span> &nbsp;|&nbsp;
         Duracion: <b style="color:#fbbf24">${durTxt}</b>
       </span>
     </div>`;
     const sortedQa = [...sec.qa].sort((a,b) => a.key==="obs" ? 1 : b.key==="obs" ? -1 : 0);
     const qaRows = sortedQa.length
-      ? sortedQa.map(q=>`<tr><td style="font-weight:700">${q.pregunta}</td><td>${q.respuesta}</td><td>${q.fecha}</td></tr>`).join("")
-      : `<tr><td colspan="3" style="color:#64748b">Sin datos registrados para esta etapa.</td></tr>`;
+      ? sortedQa.map(q=>`<tr><td style="font-weight:700">${q.pregunta}</td><td>${q.respuesta}</td><td>${q.fecha||""}</td><td>${q.hora||""}</td></tr>`).join("")
+      : `<tr><td colspan="4" style="color:#64748b">Sin datos registrados para esta etapa.</td></tr>`;
     const materiasHtml = sec.materias.length
       ? `<div class="mt-3" style="background:#060f1e;border:1px solid #1e3a5f;border-radius:8px;overflow:hidden">
            <div style="background:#0c1f3a;padding:7px 12px;font-weight:700;font-size:12px;color:#93c5fd;border-bottom:1px solid #1e3a5f">MATERIA PRIMA — DESCRIPCION DE INGREDIENTES</div>
@@ -685,7 +696,7 @@ function renderAuditoriaSecciones(bitacora){
       <div style="padding:12px 14px">
         <div class="table-responsive">
           <table class="table table-dark table-striped mb-0">
-            <thead><tr><th style="font-weight:700">CAMPO</th><th style="font-weight:700">VALOR</th><th style="font-weight:700">FECHA/HORA</th></tr></thead>
+            <thead><tr><th style="font-weight:700">CAMPO</th><th style="font-weight:700">VALOR</th><th style="font-weight:700">FECHA</th><th style="font-weight:700">HORA</th></tr></thead>
             <tbody>${qaRows}</tbody>
           </table>
         </div>
@@ -1123,7 +1134,7 @@ async function cargarAuditoriaCatalogos(){
   document.getElementById("a_producto").innerHTML = `<option value="">Seleccionar</option>` + productos.map(p=>`<option value="${p.codigo}" data-nombre="${p.nombre}">${p.nombre}</option>`).join("");
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>`;
   document.getElementById("a_cons_sections").innerHTML = `<div class="panel">Selecciona un lote para ver consolidado por etapas.</div>`;
-  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
+  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="6">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
 async function cargarLotesAuditoria(){
@@ -1131,7 +1142,7 @@ async function cargarLotesAuditoria(){
   const lotes = toArr(await apiGet("GET_LOTES_FINALIZADOS",{producto_id:pid,limit:500}));
   document.getElementById("a_lote").innerHTML = `<option value="">Seleccionar</option>` + lotes.map(l=>`<option value="${l.id_lote}">${l.id_lote} | ${formatDateTime(l.hora_fin)}</option>`).join("");
   document.getElementById("a_cons_sections").innerHTML = `<div class="panel">Selecciona un lote para ver consolidado por etapas.</div>`;
-  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="4">Selecciona un lote para ver bitácora.</td></tr>`;
+  document.getElementById("a_bit_body").innerHTML = `<tr><td colspan="6">Selecciona un lote para ver bitácora.</td></tr>`;
 }
 
 async function cargarAuditoriaLote(){
@@ -1141,11 +1152,34 @@ async function cargarAuditoriaLote(){
   const b = document.getElementById("a_bit_body");
   const bc = document.getElementById("a_cons_sections");
   if(!r || r.status==="error"){
-    b.innerHTML = `<tr><td colspan="4">Error cargando auditoría.</td></tr>`;
+    b.innerHTML = `<tr><td colspan="6">Error cargando auditoría.</td></tr>`;
     bc.innerHTML = `<div class="panel">Error cargando consolidado.</div>`;
     return;
   }
-  b.innerHTML = (r.bitacora||[]).map(x=>`<tr><td>${x.etapa}</td><td>${x.operario}</td><td>${formatDateTime(x.timestamp)}</td><td><pre style="white-space:pre-wrap;color:#cbd5e1;margin:0">${x.datos_json||""}</pre></td></tr>`).join("");
+  const sorted = [...(r.bitacora||[])].sort((a,b)=>new Date(a.timestamp||0)-new Date(b.timestamp||0));
+  // Calcular duración por etapa: de su primer evento al primer evento de la siguiente etapa
+  const etapaFirst = {};
+  const etapasOrden = [];
+  sorted.forEach(x=>{
+    if(!etapaFirst[x.etapa]){ etapaFirst[x.etapa]=new Date(x.timestamp||0); etapasOrden.push(x.etapa); }
+  });
+  const fmtMin = (min) => min>0?(Math.floor(min/60)>0?`${Math.floor(min/60)}h ${min%60}m`:`${min}m`):"--";
+  const etapaDur = {};
+  etapasOrden.forEach((e,i)=>{
+    const next = etapasOrden[i+1];
+    if(!next){ etapaDur[e]="--"; return; }
+    const ms = etapaFirst[next] - etapaFirst[e];
+    etapaDur[e] = fmtMin(Math.max(0,Math.round(ms/60000)));
+  });
+  const fmtDatos = (v) => typeof v==="object" && v!==null ? JSON.stringify(v,null,2) : (v||"");
+  b.innerHTML = sorted.map(x=>`<tr>
+    <td>${x.etapa}</td>
+    <td>${x.operario||""}</td>
+    <td>${formatDate(x.timestamp)}</td>
+    <td>${formatHour(x.timestamp)}</td>
+    <td style="color:#fbbf24;font-weight:700">${etapaDur[x.etapa]||"--"}</td>
+    <td><pre style="white-space:pre-wrap;color:#cbd5e1;margin:0;font-size:12px">${fmtDatos(x.datos_json)}</pre></td>
+  </tr>`).join("");
   renderAuditoriaSecciones(r.bitacora || []);
   state.auditCache = state.auditCache || {};
   state.auditCache[lote] = r;
@@ -1366,7 +1400,7 @@ function clearInicioForm(){
 
 function syncMobileTableLabels(root=document){
   const scope = root && root.querySelectorAll ? root : document;
-  const tables = scope.querySelectorAll(".section .table-responsive table");
+  const tables = scope.querySelectorAll(".section .table-responsive table:not(.no-mobile-cards)");
   tables.forEach(table=>{
     table.classList.add("js-mobile-cards");
     const headers = Array.from(table.querySelectorAll("thead th")).map(th => (th.textContent || "").trim());
