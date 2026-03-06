@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es" prefix="og: https://ogp.me/ns#">
+<head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1.0,viewport-fit=cover" name="viewport"/><meta content="dark light" name="color-scheme"/><meta content="#0C002B" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<title>Soluciones IA Empresarial · SIE, IoT y Automatización | KRONIX Labs</title>
+<meta content="Productos tecnológicos a medida para cualquier industria: SIE con IoT, medición inteligente de energía con IA, y Kronix Smart-Flow — plataforma de automatización comercial con agentes IA. KRONIX Labs." name="description"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<link href="https://kronixlabs.com/es/servicios-ia-empresarial.html" rel="canonical"/>
+<link href="https://kronixlabs.com/en/services-ai-enterprise.html" hreflang="en" rel="alternate"/>
+<link href="https://kronixlabs.com/es/servicios-ia-empresarial.html" hreflang="es" rel="alternate"/>
+<link href="https://kronixlabs.com/" hreflang="x-default" rel="alternate"/>
+<meta content="website" property="og:type"/><meta content="KRONIX Labs" property="og:site_name"/><meta content="es_CO" property="og:locale"/>
+<meta content="Soluciones IA Empresarial · SIE, IoT y Automatización | KRONIX Labs" property="og:title"/>
+<meta content="Productos tecnológicos a medida para cualquier industria: SIE con IoT, Energía Inteligente y Kronix Smart-Flow — automatización comercial con agentes IA." property="og:description"/>
+<meta content="https://kronixlabs.com/Kronix-Labs.png" property="og:image"/>
+<meta content="https://kronixlabs.com/es/servicios-ia-empresarial.html" property="og:url"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="/Kronix-Labs.svg" rel="icon" type="image/svg+xml"/>
+<link href="/Kronix-Labs.png" rel="icon" type="image/png"/>
+<link href="/manifest.json" rel="manifest"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          kronixBlue: '#1FA2FF',
+          kronixDark: '#0B0F2B',
+          kronixDeep: '#070A1E',
+          kronixGray: '#C7C9D3'
+        },
+        fontFamily: { sans: ['Montserrat','system-ui','sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+:root { --blue:#1FA2FF; --dark:#0B0F2B; --deep:#070A1E; --gray:#C7C9D3; }
+body { background:#0B0F2B; color:#fff; font-family:'Montserrat',system-ui,sans-serif; overflow-x:hidden; }
+.grid-bg { background-image: linear-gradient(rgba(31,162,255,0.04) 1px, transparent 1px), linear-gradient(90deg,rgba(31,162,255,0.04) 1px, transparent 1px); background-size:60px 60px; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(31,162,255,.35)} 50%{box-shadow:0 0 0 14px rgba(31,162,255,0)} }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+.fade-up { opacity:0; animation:fadeUp .7s ease forwards; }
+.d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s} .d4{animation-delay:.55s} .d5{animation-delay:.7s}
+.btn-glow { animation:pulseGlow 2.8s ease-in-out infinite; }
+.cap-card { border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:2rem; transition:border-color .25s,transform .25s,box-shadow .25s; background:rgba(255,255,255,.02); }
+.cap-card:hover { border-color:rgba(31,162,255,.4); transform:translateY(-5px); box-shadow:0 20px 60px rgba(31,162,255,.08); }
+.fade-in-on-scroll { opacity:0; transform:translateY(30px); }
+.fade-in-on-scroll.visible { animation:fadeUp 0.6s ease-out forwards; }
+.badge { display:inline-block; padding:8px 16px; background:linear-gradient(135deg,rgba(31,162,255,.1),rgba(31,162,255,.05)); border:1px solid rgba(31,162,255,.3); border-radius:8px; font-size:12px; font-weight:600; color:#1FA2FF; text-transform:uppercase; letter-spacing:.05em; }
+.metric-value { font-size:2.75rem; font-weight:800; background:linear-gradient(135deg,#1FA2FF,#7DD3FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.nav-link { color:rgba(255,255,255,.75); font-size:.875rem; transition:color .2s; }
+.nav-link:hover { color:#1FA2FF; }
+.nav-link.active { color:#1FA2FF; }
+#mobile-menu { display:none; }
+#mobile-menu.open { display:flex; }
+.scroll-indicator { position:fixed; top:0; left:0; height:3px; background:var(--blue); transition:width .1s; z-index:9999; width:0%; }
+@media (max-width:768px) {
+  .sticky-mobile-cta { position:fixed; bottom:0; left:0; right:0; padding:1rem; background:rgba(11,15,43,.95); border-top:1px solid rgba(31,162,255,.2); z-index:998; backdrop-filter:blur(12px); }
+}
+.kx-wa-btn { position:fixed; bottom:28px; right:28px; z-index:997; background:#1FA2FF; color:#fff; padding:14px 20px; border-radius:14px; font-weight:600; font-size:14px; font-family:inherit; box-shadow:0 10px 40px rgba(31,162,255,.45); display:flex; align-items:center; gap:8px; cursor:pointer; opacity:0; transform:translateY(20px); transition:all .4s ease; border:none; }
+.kx-wa-btn.show { opacity:1; transform:translateY(0); }
+.kx-wa-btn:hover { transform:translateY(-3px); box-shadow:0 16px 50px rgba(31,162,255,.55); }
+.product-card { position:relative; border:1px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden; background:rgba(7,10,30,.6); transition:border-color .3s, transform .3s, box-shadow .3s; }
+.product-card:hover { border-color:rgba(31,162,255,.4); transform:translateY(-6px); box-shadow:0 24px 64px rgba(31,162,255,.1); }
+.product-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; }
+.feature-pill { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; background:rgba(31,162,255,.08); border:1px solid rgba(31,162,255,.2); border-radius:999px; font-size:11px; color:#93c5fd; font-weight:600; }
+.stat-badge { text-align:center; padding:1.25rem; background:rgba(31,162,255,.06); border:1px solid rgba(31,162,255,.15); border-radius:12px; }
+.accent-green { color:#4ade80; }
+.accent-orange { color:#fb923c; }
+.accent-purple { color:#c084fc; }
+.tag-green { background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.2); color:#4ade80; }
+.tag-orange { background:rgba(251,146,60,.08); border:1px solid rgba(251,146,60,.2); color:#fb923c; }
+.tag-purple { background:rgba(192,132,252,.08); border:1px solid rgba(192,132,252,.2); color:#c084fc; }
+</style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="scroll-indicator" id="scrollIndicator"></div>
+
+<!-- HEADER -->
+<header class="fixed w-full bg-[#0B0F2B]/90 backdrop-blur-lg border-b border-white/5 z-50">
+<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<a aria-label="KRONIX Labs — Inicio" href="/es/"><img alt="KRONIX Labs" class="h-9" height="36" src="/Kronix-Labs.svg" width="140"/></a>
+<nav aria-label="Navegación principal" class="hidden md:flex items-center gap-7">
+  <a class="nav-link" href="/es/">Inicio</a>
+  <a class="nav-link active" href="/es/servicios-ia-empresarial.html">Soluciones</a>
+  <a class="nav-link" href="/es/implementacion-ia/">Implementación IA</a>
+  <a class="nav-link" href="/es/como-lo-hacemos/arquitectura-empresarial-ia.html">Cómo lo hacemos</a>
+  <a class="nav-link" href="/es/industrias/distribucion.html">Industrias</a>
+  <a class="nav-link" href="/es/sobre-kronix/consultora-estrategica-ia.html">Sobre KRONIX</a>
+</nav>
+<div class="flex items-center gap-3">
+  <div class="flex gap-2 items-center">
+    <span class="px-3 py-1 rounded-full bg-[#1FA2FF] text-white text-xs font-semibold flex items-center gap-1.5">
+      <svg aria-hidden="true" height="11" viewbox="0 0 3 2" width="16"><rect fill="#C60B1E" height="2" width="3"/><rect fill="#FFC400" height="1" width="3" y="0.5"/></svg>ES
+    </span>
+    <a class="px-3 py-1 rounded-full border border-white/30 text-white/70 text-xs hover:border-[#1FA2FF] hover:text-white transition flex items-center gap-1.5" href="/en/services-ai-enterprise.html" hreflang="en">
+      <svg aria-hidden="true" height="11" viewbox="0 0 19 10" width="16"><rect fill="#B22234" height="10" width="19"/><g fill="#fff"><rect height="1" width="19" y="1"/><rect height="1" width="19" y="3"/><rect height="1" width="19" y="5"/><rect height="1" width="19" y="7"/><rect height="1" width="19" y="9"/></g><rect fill="#3C3B6E" height="5" width="8"/></svg>EN
+    </a>
+  </div>
+  <button aria-expanded="false" aria-label="Abrir menú" class="md:hidden text-white/80 hover:text-white p-2" id="menu-btn">
+    <svg fill="none" height="22" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+  </button>
+</div>
+</div>
+<nav aria-label="Menú móvil" class="flex-col gap-1 px-6 pb-4 md:hidden bg-[#0B0F2B] border-t border-white/5" id="mobile-menu">
+  <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/">Inicio</a>
+  <a class="block py-2.5 text-sm text-[#1FA2FF] font-semibold border-b border-white/5" href="/es/servicios-ia-empresarial.html">Soluciones</a>
+  <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/implementacion-ia/">Implementación IA</a>
+  <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/como-lo-hacemos/arquitectura-empresarial-ia.html">Cómo lo hacemos</a>
+  <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/industrias/distribucion.html">Industrias</a>
+  <a class="block py-2.5 text-sm text-white/75 hover:text-[#1FA2FF] transition border-b border-white/5" href="/es/sobre-kronix/consultora-estrategica-ia.html">Sobre KRONIX</a>
+  <a class="block py-2.5 text-sm text-[#1FA2FF] font-bold mt-1" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20conocer%20sus%20soluciones%20de%20automatizaci%C3%B3n%20para%20mi%20empresa." rel="noopener noreferrer" target="_blank">Hablar con un experto →</a>
+</nav>
+</header>
+
+<!-- HERO -->
+<section class="relative pt-36 pb-24 px-6 grid-bg overflow-hidden" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+<div class="relative z-10 max-w-4xl mx-auto text-center">
+  <nav aria-label="Breadcrumb" class="text-sm mb-8">
+    <ol class="inline-flex items-center space-x-2">
+      <li><a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition-colors" href="/es/">Inicio</a></li>
+      <li><span class="text-[#C7C9D3]/30 mx-1">›</span><span class="text-[#C7C9D3]/80">Soluciones</span></li>
+    </ol>
+  </nav>
+  <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8 fade-up d1">
+    <span class="w-2 h-2 rounded-full bg-[#1FA2FF] inline-block" style="animation:pulse 2s ease-in-out infinite;"></span>
+    Productos · Automatización Personalizada
+  </div>
+  <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight fade-up d2">
+    Soluciones IA que
+    <br/><span class="text-[#1FA2FF]">transforman su negocio</span>
+  </h1>
+  <p class="text-[#C7C9D3] text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed fade-up d3">
+    No vendemos software genérico. Diseñamos y construimos <strong class="text-white">productos tecnológicos a la medida</strong> de cada empresa — desde la estrategia hasta la puesta en producción.
+  </p>
+  <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up d4">
+    <a class="btn-glow inline-flex items-center gap-2 bg-[#1FA2FF] text-white px-10 py-5 rounded-xl font-bold text-lg hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20conocer%20sus%20soluciones%20de%20automatizaci%C3%B3n%20para%20mi%20empresa." onclick="gtag&&gtag('event','click_cta',{event_category:'CTA',event_label:'Hero_Soluciones_ES'});" rel="noopener noreferrer" target="_blank">
+      Hablar con un experto →
+    </a>
+    <a class="inline-flex items-center gap-2 border border-white/20 text-white/80 px-8 py-5 rounded-xl font-semibold text-base hover:border-[#1FA2FF]/60 hover:text-white transition" href="#soluciones">
+      Ver soluciones ↓
+    </a>
+  </div>
+  <p class="text-[#C7C9D3]/50 text-sm mt-6 fade-up d5">Diagnóstico sin costo · Respuesta en menos de 2 horas · Lunes a Viernes</p>
+</div>
+</section>
+
+<!-- PROPUESTA DE VALOR -->
+<section class="py-16 px-6" style="background:#070A1E;">
+<div class="max-w-5xl mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="stat-badge fade-in-on-scroll">
+      <div class="text-3xl font-extrabold text-[#1FA2FF] mb-1">100%</div>
+      <div class="text-sm text-[#C7C9D3]/75">a la medida del cliente</div>
+    </div>
+    <div class="stat-badge fade-in-on-scroll">
+      <div class="text-3xl font-extrabold text-[#1FA2FF] mb-1">3 verticales</div>
+      <div class="text-sm text-[#C7C9D3]/75">SIE · Energía · Automatización</div>
+    </div>
+    <div class="stat-badge fade-in-on-scroll">
+      <div class="text-3xl font-extrabold text-[#1FA2FF] mb-1">IA + IoT</div>
+      <div class="text-sm text-[#C7C9D3]/75">integración completa en cada producto</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SOLUCIONES -->
+<section class="py-24 px-6" id="soluciones" style="background:linear-gradient(180deg,#070A1E 0%,#0B0F2B 100%);">
+<div class="max-w-6xl mx-auto">
+  <div class="text-center mb-16">
+    <p class="text-[#1FA2FF] text-xs font-semibold tracking-widest uppercase mb-4 fade-in-on-scroll">Nuestros productos</p>
+    <h2 class="text-4xl md:text-5xl font-bold mb-5 fade-in-on-scroll">Tres soluciones.<br/>Un mismo principio: <span class="text-[#1FA2FF]">automatizar para escalar.</span></h2>
+    <p class="text-[#C7C9D3]/75 text-lg max-w-2xl mx-auto fade-in-on-scroll">Cada solución se construye sobre la necesidad real de su empresa. No hay plantillas — hay arquitectura.</p>
+  </div>
+
+  <!-- PRODUCTO 1: SIE + IoT -->
+  <div class="product-card mb-10 fade-in-on-scroll" id="sie">
+    <div class="md:grid md:grid-cols-2 gap-0">
+      <div class="p-10">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="product-icon bg-[#1FA2FF]/10 border border-[#1FA2FF]/20">🧠</div>
+          <div>
+            <span class="text-xs font-bold text-[#1FA2FF] uppercase tracking-widest">Solución 01</span>
+            <h3 class="text-2xl font-bold mt-0.5">SIE + IoT</h3>
+          </div>
+        </div>
+        <p class="text-[#C7C9D3]/80 text-base leading-relaxed mb-6">
+          <strong class="text-white">Sistema de Inteligencia Empresarial</strong> integrado con sensores IoT que conecta todos los datos de su empresa — producción, logística, ventas y operaciones — en un único ecosistema inteligente.
+        </p>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-8">
+          Los sensores IoT recopilan datos en tiempo real desde planta, bodegas y puntos de venta. La capa de IA los procesa, detecta anomalías, predice quiebres de stock, optimiza rutas y genera alertas automáticas — todo sin intervención humana manual.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span class="feature-pill">📡 Sensores IoT en tiempo real</span>
+          <span class="feature-pill">📊 Dashboard ejecutivo unificado</span>
+          <span class="feature-pill">🤖 Agentes IA autónomos</span>
+          <span class="feature-pill">🔗 Integración ERP / CRM</span>
+          <span class="feature-pill">📲 Alertas automáticas</span>
+          <span class="feature-pill">🏭 Multi-sede</span>
+        </div>
+        <a class="inline-flex items-center gap-2 bg-[#1FA2FF] text-white px-7 py-4 rounded-xl font-bold text-sm hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Me%20interesa%20el%20Sistema%20SIE%20%2B%20IoT%20para%20mi%20empresa.%20%C2%BFPodemos%20agendar%20una%20sesi%C3%B3n%3F" rel="noopener noreferrer" target="_blank">
+          Solicitar información sobre SIE →
+        </a>
+      </div>
+      <div class="p-10 border-t md:border-t-0 md:border-l border-white/5 flex flex-col justify-between" style="background:rgba(31,162,255,.03);">
+        <div>
+          <p class="text-xs font-bold text-[#C7C9D3]/50 uppercase tracking-widest mb-5">¿Para qué tipo de empresa?</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-[#1FA2FF] mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Empresas con múltiples sedes o puntos de operación que necesitan visibilidad centralizada</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-[#1FA2FF] mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Manufactura y distribución que quieren predecir demanda y optimizar inventario</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-[#1FA2FF] mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Gerentes que hoy toman decisiones con datos del día anterior o de reportes manuales</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-[#1FA2FF] mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Operaciones industriales que buscan automatizar monitoreo y control de activos físicos</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/5">
+          <p class="text-xs text-[#C7C9D3]/40 uppercase tracking-wider mb-3">Resultado esperado</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="stat-badge"><div class="text-xl font-bold text-[#1FA2FF]">-60%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">tiempo en reportes manuales</div></div>
+            <div class="stat-badge"><div class="text-xl font-bold text-[#1FA2FF]">+35%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">visibilidad operativa</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTO 2: ENERGÍA INTELIGENTE -->
+  <div class="product-card mb-10 fade-in-on-scroll" id="energia">
+    <div class="md:grid md:grid-cols-2 gap-0">
+      <div class="p-10">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="product-icon bg-[#fb923c]/10 border border-[#fb923c]/20">⚡</div>
+          <div>
+            <span class="text-xs font-bold accent-orange uppercase tracking-widest">Solución 02</span>
+            <h3 class="text-2xl font-bold mt-0.5">Energía Inteligente</h3>
+          </div>
+        </div>
+        <p class="text-[#C7C9D3]/80 text-base leading-relaxed mb-6">
+          Sistema de <strong class="text-white">medición, gestión y cobro de energía eléctrica</strong> con breakers inteligentes e IA — diseñado para propietarios de locales comerciales, centros empresariales y parques industriales.
+        </p>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-8">
+          Cada local o unidad tiene un breaker inteligente que mide el consumo en tiempo real, genera reportes automáticos y permite cobrar la energía de forma justa y transparente a cada arrendatario. La IA detecta consumos anómalos, predice picos de demanda y puede gestionar cortes y reconexiones de forma remota.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">⚡ Breakers inteligentes</span>
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">📟 Medición por local</span>
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">💳 Cobro automático</span>
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">🔌 Corte/reconexión remota</span>
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">📈 Predicción de demanda</span>
+          <span class="feature-pill" style="border-color:rgba(251,146,60,.3);color:#fb923c;background:rgba(251,146,60,.06);">🏢 Multi-local</span>
+        </div>
+        <a class="inline-flex items-center gap-2 text-white px-7 py-4 rounded-xl font-bold text-sm hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Me%20interesa%20el%20sistema%20de%20Energ%C3%ADa%20Inteligente%20con%20breakers%20para%20mis%20locales%20comerciales.%20%C2%BFPodemos%20conversar%3F" rel="noopener noreferrer" target="_blank" style="background:#fb923c;">
+          Solicitar información sobre Energía →
+        </a>
+      </div>
+      <div class="p-10 border-t md:border-t-0 md:border-l border-white/5 flex flex-col justify-between" style="background:rgba(251,146,60,.03);">
+        <div>
+          <p class="text-xs font-bold text-[#C7C9D3]/50 uppercase tracking-widest mb-5">¿Para quién está pensado?</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="accent-orange mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Propietarios de centros comerciales o plazas con múltiples locales arrendados</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-orange mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Parques industriales o bodegas que comparten acometida eléctrica</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-orange mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Edificios de oficinas que quieren facturar la energía de manera individualizada</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-orange mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Empresas que pagan una sola factura de energía y necesitan distribuirla entre arrendatarios</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/5">
+          <p class="text-xs text-[#C7C9D3]/40 uppercase tracking-wider mb-3">Resultado esperado</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="stat-badge"><div class="text-xl font-bold accent-orange">-30%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">desperdicio energético</div></div>
+            <div class="stat-badge"><div class="text-xl font-bold accent-orange">100%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">cobro preciso por local</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTO 3: KRONIX SMART-FLOW INMOBILIARIA -->
+  <div class="product-card mb-10 fade-in-on-scroll" id="smartflow">
+    <div class="md:grid md:grid-cols-2 gap-0">
+      <div class="p-10">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="product-icon bg-[#c084fc]/10 border border-[#c084fc]/20">🏢</div>
+          <div>
+            <span class="text-xs font-bold accent-purple uppercase tracking-widest">Solución 03</span>
+            <h3 class="text-2xl font-bold mt-0.5">Kronix Smart-Flow</h3>
+            <p class="text-xs text-[#C7C9D3]/50 mt-0.5">Plataforma de automatización comercial con IA · Cualquier industria</p>
+          </div>
+        </div>
+        <p class="text-[#C7C9D3]/80 text-base leading-relaxed mb-6">
+          Ecosistema digital completo para <strong class="text-white">automatizar la operación comercial de cualquier empresa</strong> — desde la gestión del catálogo o inventario de servicios hasta el cobro y seguimiento de clientes — con inteligencia artificial y agentes conversacionales por sede o canal.
+        </p>
+        <p class="text-[#C7C9D3]/70 text-sm leading-relaxed mb-8">
+          La plataforma adapta su arquitectura a cada industria: base de datos dinámica de productos o servicios, automatización de flujos vía n8n, generación de contenido con IA (GPT-4o) y agentes comerciales inteligentes por sede. Los agentes gestionan clientes, agendan citas, hacen seguimiento de cartera y publican información actualizada automáticamente — sin intervención manual. Implementado en sectores como inmobiliario, salud, servicios profesionales y comercio.
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">🏠 Inventario dinámico de propiedades</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">🤖 Agentes por sede comercial</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">✍️ Descripción IA automática</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">📅 Agendamiento de citas</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">💰 Cobranza automatizada</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">📊 CRM inmobiliario integrado</span>
+          <span class="feature-pill" style="border-color:rgba(192,132,252,.3);color:#c084fc;background:rgba(192,132,252,.06);">📱 PWA + App nativa</span>
+        </div>
+        <!-- Fases -->
+        <div class="mb-8 space-y-2">
+          <p class="text-xs font-bold text-[#C7C9D3]/50 uppercase tracking-widest mb-3">Fases del proyecto</p>
+          <div class="flex items-center gap-3 text-sm"><span class="w-6 h-6 rounded-full bg-[#c084fc]/20 border border-[#c084fc]/40 flex items-center justify-center text-xs font-bold text-[#c084fc]">1</span><span class="text-[#C7C9D3]/80">Plataforma web inmobiliaria con base de datos estructurada</span></div>
+          <div class="flex items-center gap-3 text-sm"><span class="w-6 h-6 rounded-full bg-[#c084fc]/20 border border-[#c084fc]/40 flex items-center justify-center text-xs font-bold text-[#c084fc]">2</span><span class="text-[#C7C9D3]/80">IA y automatización con n8n + GPT-4o</span></div>
+          <div class="flex items-center gap-3 text-sm"><span class="w-6 h-6 rounded-full bg-[#c084fc]/20 border border-[#c084fc]/40 flex items-center justify-center text-xs font-bold text-[#c084fc]">3</span><span class="text-[#C7C9D3]/80">Agentes comerciales inteligentes por sede</span></div>
+          <div class="flex items-center gap-3 text-sm"><span class="w-6 h-6 rounded-full bg-[#c084fc]/20 border border-[#c084fc]/40 flex items-center justify-center text-xs font-bold text-[#c084fc]">4</span><span class="text-[#C7C9D3]/80">Agente de agendamiento de citas y cobranza automática</span></div>
+        </div>
+        <a class="inline-flex items-center gap-2 text-white px-7 py-4 rounded-xl font-bold text-sm hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Me%20interesa%20Kronix%20Smart-Flow%20para%20mi%20inmobiliaria.%20%C2%BFPodemos%20agendar%20una%20sesi%C3%B3n%3F" rel="noopener noreferrer" target="_blank" style="background:#c084fc;">
+          Solicitar información sobre Smart-Flow →
+        </a>
+      </div>
+      <div class="p-10 border-t md:border-t-0 md:border-l border-white/5 flex flex-col justify-between" style="background:rgba(192,132,252,.03);">
+        <div>
+          <p class="text-xs font-bold text-[#C7C9D3]/50 uppercase tracking-widest mb-5">¿Para qué tipo de empresa?</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="accent-purple mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Empresas de cualquier sector que hoy gestionan clientes, inventario o servicios en Excel o WhatsApp</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-purple mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Negocios con múltiples sedes que necesitan agentes digitales operando en cada canal comercial</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-purple mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Empresas de servicios, inmobiliarias, salud o comercio que quieren publicar y gestionar su oferta con IA</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="accent-purple mt-0.5 text-lg">✓</span>
+              <span class="text-[#C7C9D3]/80 text-sm">Cualquier negocio que quiera escalar su operación comercial sin contratar más personal de atención</span>
+            </div>
+          </div>
+          <!-- Caso de uso real -->
+          <div class="mt-8 p-4 rounded-xl" style="background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.15);">
+            <p class="text-xs font-bold text-[#c084fc] uppercase tracking-wider mb-2">✅ Caso real implementado</p>
+            <p class="text-xs text-[#C7C9D3]/70 leading-relaxed"><strong class="text-white">Arrendamiento La Mota</strong> — Implementación completa del ecosistema Smart-Flow con inventario dinámico de propiedades, agentes comerciales por sede y automatización de cobranza.</p>
+          </div>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/5">
+          <p class="text-xs text-[#C7C9D3]/40 uppercase tracking-wider mb-3">Resultado esperado</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="stat-badge"><div class="text-xl font-bold accent-purple">-70%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">tiempo de publicación de inmuebles</div></div>
+            <div class="stat-badge"><div class="text-xl font-bold accent-purple">+40%</div><div class="text-xs text-[#C7C9D3]/60 mt-1">capacidad operativa sin contratar</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- AUTOMATIZACIÓN A LA MEDIDA -->
+<section class="py-24 px-6" style="background:#070A1E;">
+<div class="max-w-5xl mx-auto">
+  <div class="rounded-2xl p-10 md:p-16 text-center fade-in-on-scroll" style="background:linear-gradient(135deg,rgba(31,162,255,.07) 0%,rgba(31,162,255,.03) 100%);border:1px solid rgba(31,162,255,.15);">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#1FA2FF]/30 bg-[#1FA2FF]/10 text-[#1FA2FF] text-xs font-semibold mb-8">
+      ⚙️ &nbsp;Principio KRONIX
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold mb-6">Su problema es único.<br/><span class="text-[#1FA2FF]">Su solución también debe serlo.</span></h2>
+    <p class="text-[#C7C9D3]/80 text-lg max-w-3xl mx-auto leading-relaxed mb-10">
+      Ninguna empresa opera igual. Por eso en KRONIX <strong class="text-white">no usamos plantillas ni soluciones empaquetadas</strong>. Cada producto que construimos parte de un diagnóstico profundo de su operación — sus procesos, sus datos, sus personas y su tecnología actual.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="cap-card text-left">
+        <div class="text-3xl mb-4">🔍</div>
+        <h3 class="font-bold text-white mb-2">1. Diagnóstico</h3>
+        <p class="text-[#C7C9D3]/65 text-sm leading-relaxed">Entendemos a fondo cómo opera su empresa hoy, dónde está el cuello de botella y qué datos ya tiene disponibles.</p>
+      </div>
+      <div class="cap-card text-left">
+        <div class="text-3xl mb-4">🏗️</div>
+        <h3 class="font-bold text-white mb-2">2. Diseño a medida</h3>
+        <p class="text-[#C7C9D3]/65 text-sm leading-relaxed">Diseñamos la arquitectura del sistema: qué automatizar, qué integrar, qué medir y cómo presentar la información al equipo directivo.</p>
+      </div>
+      <div class="cap-card text-left">
+        <div class="text-3xl mb-4">🚀</div>
+        <h3 class="font-bold text-white mb-2">3. Construcción y entrega</h3>
+        <p class="text-[#C7C9D3]/65 text-sm leading-relaxed">Construimos, probamos e implementamos el sistema con su equipo. Entregamos documentación, capacitación y soporte post-lanzamiento.</p>
+      </div>
+    </div>
+    <a class="btn-glow inline-flex items-center gap-2 bg-[#1FA2FF] text-white px-10 py-5 rounded-xl font-bold text-lg hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20explorar%20una%20soluci%C3%B3n%20de%20automatizaci%C3%B3n%20personalizada%20para%20mi%20empresa." onclick="gtag&&gtag('event','click_cta',{event_category:'CTA',event_label:'Medida_Soluciones_ES'});" rel="noopener noreferrer" target="_blank">
+      Quiero mi solución a la medida →
+    </a>
+    <p class="text-[#C7C9D3]/40 text-sm mt-5">Sesión inicial sin costo · 45 minutos · Confidencial</p>
+  </div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="py-20 px-6" style="background:linear-gradient(180deg,#0B0F2B 0%,#070A1E 100%);">
+<div class="max-w-4xl mx-auto text-center">
+  <h2 class="text-3xl md:text-4xl font-extrabold mb-5 fade-in-on-scroll">¿Listo para transformar<br/>su operación con IA?</h2>
+  <p class="text-[#C7C9D3]/70 text-lg max-w-2xl mx-auto mb-10 fade-in-on-scroll">Cuéntenos su desafío. En menos de 2 horas le respondemos con un plan de acción concreto para su empresa.</p>
+  <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-on-scroll">
+    <a class="btn-glow inline-flex items-center gap-2 bg-[#1FA2FF] text-white px-10 py-5 rounded-xl font-bold text-lg hover:opacity-90 transition" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20agendar%20un%20diagn%C3%B3stico%20estrat%C3%A9gico%20para%20mi%20empresa." rel="noopener noreferrer" target="_blank">
+      Agendar diagnóstico gratuito →
+    </a>
+    <a class="inline-flex items-center gap-2 border border-white/20 text-white/80 px-8 py-5 rounded-xl font-semibold text-base hover:border-[#1FA2FF]/60 hover:text-white transition" href="/es/implementacion-ia/">
+      Ver implementación IA
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12 px-6 border-t border-white/5" style="background:#070A1E;">
+<div class="max-w-7xl mx-auto">
+  <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+    <div>
+      <img alt="KRONIX Labs" class="h-8 mb-3" src="/Kronix-Labs.svg"/>
+      <p class="text-[#C7C9D3]/40 text-xs">Medellín, Colombia · LATAM</p>
+    </div>
+    <div class="flex flex-wrap gap-6 text-sm">
+      <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition" href="/es/">Inicio</a>
+      <a class="text-[#1FA2FF]" href="/es/servicios-ia-empresarial.html">Soluciones</a>
+      <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition" href="/es/implementacion-ia/">Implementación IA</a>
+      <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition" href="/es/industrias/distribucion.html">Industrias</a>
+      <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition" href="/es/sobre-kronix/consultora-estrategica-ia.html">Sobre KRONIX</a>
+      <a class="text-[#C7C9D3]/50 hover:text-[#1FA2FF] transition" href="/en/services-ai-enterprise.html">English</a>
+    </div>
+  </div>
+  <div class="mt-8 pt-6 border-t border-white/5 text-center">
+    <p class="text-[#C7C9D3]/30 text-xs">© 2026 KRONIX Labs. Todos los derechos reservados.</p>
+  </div>
+</div>
+</footer>
+
+<!-- WhatsApp Button -->
+<button class="kx-wa-btn" id="wa-btn" onclick="window.open('https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20conocer%20sus%20soluciones','_blank')" type="button">
+  <svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  Hablar con un experto
+</button>
+
+<!-- Mobile CTA -->
+<div class="sticky-mobile-cta md:hidden">
+  <a class="btn-glow block text-center bg-[#1FA2FF] text-white py-4 rounded-xl font-bold text-base w-full" href="https://wa.me/573107397053?text=Hola%20KRONIX%20%E2%80%94%20Quiero%20conocer%20sus%20soluciones." rel="noopener noreferrer" target="_blank">
+    Hablar con un experto →
+  </a>
+</div>
+
+<script>
+// Scroll indicator
+const si = document.getElementById('scrollIndicator');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  if(si) si.style.width = pct + '%';
+});
+// Mobile menu
+const mb = document.getElementById('menu-btn');
+const mm = document.getElementById('mobile-menu');
+if(mb && mm) mb.addEventListener('click', () => {
+  const open = mm.classList.toggle('open');
+  mb.setAttribute('aria-expanded', open);
+});
+// Fade in on scroll
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.12 });
+document.querySelectorAll('.fade-in-on-scroll').forEach(el => obs.observe(el));
+// WhatsApp button
+const wab = document.getElementById('wa-btn');
+window.addEventListener('scroll', () => { if(wab) wab.classList.toggle('show', window.scrollY > 300); });
+</script>
+</body>
+</html>
